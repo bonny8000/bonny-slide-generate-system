@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bonny Slide System"
+  short_description: "Generate bilingual UX research slides in Bonny editorial style."
+  default_prompt: "Create a bilingual UX research slide deck using Bonny slide system rules."
