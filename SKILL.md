@@ -1,60 +1,67 @@
 ---
 name: bonny-slide-system
-description: Generate, critique, or convert bilingual UX research and product case-study slides in Bonny's editorial slide style. Use when Codex needs to create Chinese/English slide decks, UX portfolio slides, research/problem/insight/solution slides, light-mode or dark-mode variants, HTML/PPTX slide templates, or when asked to apply Bonny slide typography, component choices, colors, layout patterns, or visual storytelling.
+description: Generate, critique, redesign, or systematize bilingual UX/product case-study slides in Bonny's detailed editorial slide style. Use when Codex needs to create Chinese/English slide decks, UX portfolio slides, research reports, product strategy decks, case-study pages, HTML/PPTX slide templates, design-system rules for slides, or agent instructions for choosing slide components, modes, typography, layouts, and storytelling patterns.
 ---
 
-# Bonny Slide System
+# Bonny Slide System V2
 
 ## Purpose
 
-Create polished bilingual UX/product slides that feel like Bonny's portfolio and research decks: quiet editorial structure, strong hierarchy, clean data cards, intentional accent color, and clear light/dark mode control.
+Create clear bilingual UX/product slides with a stricter design system than the previous Bonny slide skill. The system is optimized for agents: each slide is selected by content intent, then built from defined components, variants, tokens, and validation checks.
 
-This is not a model fine-tune. Treat the source material as design references and use these rules to choose layout, component, mode, and color for future slide work.
+Use this skill for 16:9 slide surfaces, usually `1920 x 1080` HTML or widescreen PPTX. Default language is Traditional Chinese as the main voice with English as supporting labels, subtitles, captions, and metrics.
 
-## Default Output
+## Core Workflow
 
-- Use 16:9 slides. For HTML use a fixed `1920 x 1080` canvas; for PPTX use widescreen `13.333 x 7.5 in`.
-- Use Traditional Chinese and English by default. Translate non-English reference content into Chinese/English output unless the user requests another language.
-- Apply typography exactly: Chinese letter spacing `0.05em`, English letter spacing `0`, and line-height `1.5`.
-- Prefer light mode unless the user asks for dark mode or the content is an insight/result/user-test/emphasis section that benefits from stronger contrast.
-- Build the actual slide surface, not a marketing landing page.
+1. Identify the slide job: cover, context, research evidence, interview, pain point, insight, opportunity, solution, workflow, comparison, product feature, result, or appendix.
+2. Read `references/agent-playbook.md` first when the user asks for a deck, redesign, or system-level output.
+3. Read `references/foundations.md` for typography, grid, spacing, color, modes, and writing rules.
+4. Read `references/component-system.md` before composing slides. Choose components by intent, not by decoration.
+5. Read `references/slide-recipes.md` when mapping source material into a multi-slide deck.
+6. Use `assets/bonny-slide-v2-tokens.css` and `assets/templates/slide-template.html` for HTML slides.
+7. Validate with `scripts/check_slide_html.py <html-file>` for HTML output when practical.
 
-## Workflow
+## Default Design Position
 
-1. Identify the slide intent before designing: background, desk research, user research, problem, pain point, insight, solution, workflow, comparison, product feature, MVP, result, or portfolio cover.
-2. Choose the mode. Use light mode for evidence, survey, analysis, and product explanation. Use dark mode for interviews, high-emphasis insights, before/after outcomes, result dashboards, emotional pain, and cinematic product walkthroughs.
-3. Choose components using `references/component-decision-rules.md`.
-4. Apply typography from `references/typography.md` before tuning layout.
-5. Apply color and mode rules from `references/color-and-mode.md`.
-6. Use `references/layout-patterns.md` to structure the slide.
-7. Check the result: no text overflow, no accidental overlap, visible hierarchy, consistent accent semantics, readable charts, and enough whitespace.
+- Prefer clean light-mode editorial slides for context, evidence, comparison, MVP explanation, and normal report pages.
+- Switch to dark mode for emotional interview findings, high-level insights, solution reveal, product walkthroughs, process/status maps, and result dashboards.
+- Use one main message per slide. Supporting components exist to prove or explain that message.
+- Use cards only when grouping evidence, quotes, metrics, steps, or screenshots. Do not make every section a card.
+- Keep CJK and Latin typography separate: CJK gets `letter-spacing: 0.05em`; English, numbers, and product names get `letter-spacing: 0`.
+- Use source notes, method labels, participant counts, or baseline labels whenever claims depend on evidence.
 
-## Reference Loading
+## Reference Loading Guide
 
-Always read:
+Always load:
 
-- `references/typography.md`
-- `references/component-decision-rules.md`
+- `references/foundations.md`
+- `references/component-system.md`
 
-Read when relevant:
+Load when relevant:
 
-- `references/color-and-mode.md` for light/dark mode and accent decisions.
-- `references/layout-patterns.md` for concrete slide structures.
-- `references/source-observations.md` when matching the uploaded Pinterest/Korean/portfolio references or the legacy Bonny v1 source.
+- `references/slide-recipes.md` for deck structure, slide-by-slide recipes, and situation mapping.
+- `references/agent-playbook.md` for how an agent should decide what to build and how to report choices.
+- `references/source-analysis.md` when matching the Pinterest/Korean UX portfolio references or explaining why v2 differs from `bonny8000/bonnyt`.
 
-## Assets
+## Output Contract
 
-- `assets/bonny-slide-tokens.css` contains reusable CSS variables and utility classes for HTML slide work.
-- `assets/templates/slide-template.html` is a minimal 1920 x 1080 HTML slide starting point.
-- `assets/legacy-v1/` stores selected files from the previous `bonny_slide_skill` as source material. Use it as reference, not as the primary rule source.
+For a deck or slide system output, provide:
 
-## Validation
+- A slide outline with intent labels, such as `Research Evidence`, `Pain Point`, `Insight`, or `Feature Walkthrough`.
+- A component map listing the primary component and supporting components for each slide.
+- Mode and accent choices with short reasons.
+- Final slide files or templates when requested.
+- A validation note covering text overflow, hierarchy, source traceability, and component fit.
 
-Before final delivery, verify the slide against these checks:
+## Quality Bar
 
-- Chinese text has `letter-spacing: 0.05em`; English and numbers have `letter-spacing: 0`.
-- Body and caption text use `line-height: 1.5`.
-- Each slide has one dominant message, one primary visual structure, and no more than one strong accent color family.
-- Light slides remain white or pale-gray first; dark slides use deep neutral surfaces with bright accents only for meaning.
-- Components match the content intent. Do not use decorative cards, bubbles, or gradients when a chart, flow, or comparison is the clearer showing way.
-- For HTML output, run `scripts/check_slide_html.py <html-file>` when practical.
+Before final delivery:
+
+- Confirm every slide has one dominant message and one primary visual structure.
+- Confirm component choice matches content intent.
+- Confirm no text sits below 18px on a 1920 x 1080 slide unless it is source metadata.
+- Confirm charts have baseline/context labels, not just numbers.
+- Confirm quote slides emphasize repeated patterns, not isolated decorative quotes.
+- Confirm phone mockup slides include 2-3 annotations explaining what changed.
+- Confirm dark slides still have readable body text and restrained accent usage.
+- Confirm HTML slides link `bonny-slide-v2-tokens.css` or reproduce equivalent tokens.

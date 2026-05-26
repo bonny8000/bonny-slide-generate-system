@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lightweight checks for Bonny HTML slide files."""
+"""Lightweight checks for Bonny Slide System V2 HTML slide files."""
 
 from __future__ import annotations
 
@@ -21,15 +21,23 @@ def main() -> int:
     text = path.read_text(encoding="utf-8")
     has_latin_wrapper = (
         re.search(r'class="[^"]*\blatin\b[^"]*"', text) is not None
-        or "lang=\"en\"" in text
+        or 'lang="en"' in text
     )
+    has_cjk_wrapper = (
+        re.search(r'class="[^"]*\bcjk\b[^"]*"', text) is not None
+        or 'lang="zh' in text
+    )
+    has_slide_mode = 'data-mode="light"' in text or 'data-mode="dark"' in text
 
     checks = {
-        "has 1920 width token or slide class": "1920" in text or 'class="slide"' in text,
-        "declares zh-Hant or CJK language": "zh-Hant" in text or "zh-TW" in text,
-        "uses CJK class or lang wrapper": "class=\"cjk\"" in text or "lang=\"zh" in text,
+        "has slide container": 'class="slide"' in text or "class='slide'" in text,
+        "declares a slide mode": has_slide_mode,
+        "declares zh-TW or CJK language": "zh-TW" in text or "zh-Hant" in text,
+        "uses CJK class or lang wrapper": has_cjk_wrapper,
         "uses Latin wrapper when English appears": not re.search(r"[A-Za-z]{4,}", text) or has_latin_wrapper,
-        "links token stylesheet": "bonny-slide-tokens.css" in text,
+        "links v2 token stylesheet": "bonny-slide-v2-tokens.css" in text,
+        "has one headline class": text.count("headline") >= 1,
+        "has source/method cue or intentionally none": "Source:" in text or "source" in text.lower() or "method" in text.lower(),
     }
 
     failed = [name for name, ok in checks.items() if not ok]
