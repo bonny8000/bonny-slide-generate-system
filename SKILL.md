@@ -17,9 +17,10 @@ Use this skill for 16:9 slide surfaces, usually `1920 x 1080` HTML or widescreen
 2. Read `references/agent-playbook.md` first when the user asks for a deck, redesign, or system-level output.
 3. Read `references/foundations.md` for typography, grid, spacing, color, modes, and writing rules.
 4. Read `references/component-system.md` before composing slides. Choose components by intent, not by decoration.
-5. Read `references/slide-recipes.md` when mapping source material into a multi-slide deck.
-6. Use `assets/bonny-slide-v2-tokens.css` and `assets/templates/slide-template.html` for HTML slides.
-7. Validate with `scripts/check_slide_html.py <html-file>` for HTML output when practical.
+5. Read `references/component-html.md` to get the exact HTML structure for each component before writing any markup. Never invent class names or inline styles — copy from this file and fill in real content.
+6. Read `references/slide-recipes.md` when mapping source material into a multi-slide deck.
+7. Use `assets/bonny-slide-v2-tokens.css` and `assets/templates/slide-template.html` for HTML slides.
+8. Validate with `scripts/check_slide_html.py <html-file>` for HTML output when practical.
 
 ## Default Design Position
 
@@ -36,6 +37,7 @@ Always load:
 
 - `references/foundations.md`
 - `references/component-system.md`
+- `references/component-html.md` — **required for any HTML output.** This file has ready-to-use HTML snippets for every component. Copy and adapt; do not write component HTML from scratch.
 
 Load when relevant:
 
@@ -53,15 +55,28 @@ For a deck or slide system output, provide:
 - Final slide files or templates when requested.
 - A validation note covering text overflow, hierarchy, source traceability, and component fit.
 
+## CSS Discipline Rule
+
+When writing HTML slides, always follow this rule without exception:
+
+- **Copy component HTML from `references/component-html.md`.** Do not write component structure from scratch.
+- **Use only class names that exist in `assets/bonny-slide-v2-tokens.css`.** Do not invent new class names.
+- **Never use `style=""` for colors, font-size, font-weight, or letter-spacing.** Only use inline style for layout overrides that are specific to one slide (such as `gap`, `padding-block-start`, `max-inline-size`, or `min-inline-size`).
+- **Never import external fonts or libraries.** All tokens are already in `bonny-slide-v2-tokens.css`.
+- **Never use `!important`.** If a style isn't applying, the class is either wrong or not in the token file.
+
+Consistency comes from always starting from the same component snippets, not from trying to remember rules.
+
 ## Quality Bar
 
 Before final delivery:
 
 - Confirm every slide has one dominant message and one primary visual structure.
-- Confirm component choice matches content intent.
+- Confirm component choice matches content intent, using `references/slide-recipes.md` as the decision guide.
 - Confirm no text sits below 18px on a 1920 x 1080 slide unless it is source metadata.
 - Confirm charts have baseline/context labels, not just numbers.
-- Confirm quote slides emphasize repeated patterns, not isolated decorative quotes.
-- Confirm phone mockup slides include 2-3 annotations explaining what changed.
-- Confirm dark slides still have readable body text and restrained accent usage.
-- Confirm HTML slides link `bonny-slide-v2-tokens.css` or reproduce equivalent tokens.
+- Confirm quote slides use `.highlight` to mark repeated patterns, not isolated quotes.
+- Confirm phone mockup slides have exactly 2–3 `.annotation-item` entries explaining user value.
+- Confirm dark slides use `data-mode="dark"` on `.slide`, not on `.frame` or inner elements.
+- Confirm HTML slides link `bonny-slide-v2-tokens.css` and use no other stylesheet.
+- Confirm every evidence slide has a `.footer-bar` with source and page marker.
