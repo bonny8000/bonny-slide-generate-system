@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin:0; padding:24px; background:#fff; font-family:var(--font-latin); }
+  .group-title { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--fg4); margin:0 0 14px; }
+  .block { padding:18px 22px; border-radius:14px; background:#f6f8fb; border:1px solid #e3e8f0; margin-bottom:10px; }
+  .label { font-size:10px; font-weight:600; letter-spacing:.06em; color:var(--fg4); margin-bottom:6px; text-transform:uppercase; }
+  .demo { font-size:30px; font-weight:600; line-height:1.4; color:var(--fg1); }
+  .big  { font-size:48px; font-weight:600; line-height:1; color:var(--fg1); }
+  /* Symbol-smaller convention: %, +, $, °, ↑ render at ~0.6–0.7 of the number size,
+     with a slight vertical lift so they optically center against the digit cap height.
+     Symbols inherit color from the number — they should never be a separate hue. */
+  .sym {
+    font-size: 0.6em;
+    font-weight: 500;
+    vertical-align: 0.18em;
+    margin-inline-start: 0.05em;
+    letter-spacing: 0;
+  }
+  .delta-sym {
+    font-size: 0.5em;
+    font-weight: 600;
+    vertical-align: 0.32em;
+    margin-inline-end: 0.05em;
+    letter-spacing: 0;
+  }
+  .num, .latin { letter-spacing: 0; }
+</style>
+</head>
+<body>
+  <p class="group-title">CJK vs Latin tracking · symbols shrink against numbers</p>
+
+  <div class="block">
+    <div class="label">CJK · class="cjk" · letter-spacing 0.05em · 台北黑體</div>
+    <div class="demo cjk">使用者並非不願意，而是沒有足夠的信心</div>
+  </div>
+
+  <div class="block">
+    <div class="label">Latin / numbers · Arial · letter-spacing 0</div>
+    <div class="demo latin">Online survey · N=320 · 2024 Q3</div>
+  </div>
+
+  <div class="block">
+    <div class="label">Symbols smaller than numbers · % $ + ° ↑ render at 0.6× size</div>
+    <div class="big latin">
+      <span class="accent-blue">88<span class="sym">%</span></span>
+      &nbsp;&nbsp;
+      <span class="accent-green"><span class="delta-sym">+</span>34<span class="sym">%</span></span>
+      &nbsp;&nbsp;
+      <span class="accent-red"><span class="delta-sym">−</span>48<span class="sym">%</span></span>
+      &nbsp;&nbsp;
+      <span><span class="delta-sym">$</span>120<span class="sym">K</span></span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="label">Mixed — always split into separate spans</div>
+    <div class="demo"><span class="cjk">任務完成率 </span><span class="latin accent-blue">34<span class="sym">%</span></span></div>
+  </div>
+</body>
+</html>

@@ -1,3 +1,23 @@
+/* Brand font: 台北黑體 (Taipei Sans TC Beta) — local files. */
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../fonts/TaipeiSansTCBeta-Light__1_.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../fonts/TaipeiSansTCBeta-Regular__1_.ttf") format("truetype");
+  font-weight: 400 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../fonts/TaipeiSansTCBeta-Bold__1_.ttf") format("truetype");
+  font-weight: 600 700;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -7,8 +27,8 @@
   --margin-y: 72px;
   --grid-gap: 32px;
 
-  --font-cjk: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
-  --font-latin: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-cjk: "Taipei Sans TC Beta", "台北黑體", "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+  --font-latin: Arial, "Helvetica Neue", system-ui, sans-serif;
   --ls-cjk: 0.05em;
   --ls-latin: 0;
   --lh-default: 1.5;
@@ -111,7 +131,7 @@ body {
   margin: 0 0 16px;
   color: var(--blue);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .slide[data-mode="dark"] .eyebrow {
@@ -122,7 +142,7 @@ body {
   margin: 0;
   max-inline-size: 1180px;
   font-size: 56px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .subtitle {
@@ -177,7 +197,7 @@ body {
 .card-title {
   margin: 0 0 12px;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .card-body {
@@ -208,12 +228,12 @@ body {
   background: var(--blue);
   color: #ffffff;
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .metric {
   font-size: 88px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.05;
 }
 
@@ -230,7 +250,7 @@ body {
   color: #ffffff;
   text-align: center;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .accent-blue {
@@ -338,7 +358,7 @@ body {
 .metric-value {
   font-family: var(--font-latin);
   font-size: 88px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.05;
   letter-spacing: var(--ls-latin);
 }
@@ -361,7 +381,7 @@ body {
   gap: 6px;
   font-family: var(--font-latin);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: var(--ls-latin);
 }
 
@@ -428,7 +448,7 @@ body {
 
 .quote-text .highlight {
   color: var(--blue);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .slide[data-mode="dark"] .quote-text .highlight {
@@ -500,7 +520,7 @@ body {
   gap: 8px;
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--pink);
@@ -509,7 +529,7 @@ body {
 .pain-title {
   font-family: var(--font-cjk);
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-light);
   letter-spacing: var(--ls-cjk);
   margin: 0;
@@ -556,7 +576,7 @@ body {
   padding: 5px 14px;
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   background: var(--pain-soft);
   color: var(--red);
   align-self: flex-start;
@@ -584,7 +604,7 @@ body {
 .insight-label {
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--green);
@@ -597,7 +617,7 @@ body {
 .insight-statement {
   font-family: var(--font-cjk);
   font-size: 38px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.45;
   letter-spacing: var(--ls-cjk);
   margin: 0;
@@ -691,7 +711,7 @@ body {
   color: #ffffff;
   font-family: var(--font-latin);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   flex-shrink: 0;
   position: relative;
   z-index: 1;
@@ -729,7 +749,7 @@ body {
 .stage-title {
   font-family: var(--font-cjk);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: var(--ls-cjk);
   margin: 0 0 8px;
 }
@@ -784,7 +804,7 @@ body {
   padding: 20px 28px;
   font-family: var(--font-latin);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
@@ -894,7 +914,7 @@ body {
 .feature-title {
   font-family: var(--font-cjk);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: var(--ls-cjk);
   margin: 0;
 }
@@ -943,7 +963,7 @@ body {
   background: var(--blue-soft);
   font-family: var(--font-latin);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--blue);
 }
 
@@ -958,7 +978,7 @@ body {
   padding: 6px 16px;
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   background: var(--gray-soft);
@@ -1072,7 +1092,7 @@ body {
   color: #ffffff;
   font-family: var(--font-cjk);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: var(--ls-cjk);
   display: flex;
   align-items: center;
@@ -1099,7 +1119,7 @@ body {
   color: #ffffff;
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1130,7 +1150,7 @@ body {
   color: #ffffff;
   font-family: var(--font-latin);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   flex-shrink: 0;
 }
 

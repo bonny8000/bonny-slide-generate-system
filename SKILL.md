@@ -1,82 +1,125 @@
 ---
-name: bonny-slide-system
-description: Generate, critique, redesign, or systematize bilingual UX/product case-study slides in Bonny's detailed editorial slide style. Use when Codex needs to create Chinese/English slide decks, UX portfolio slides, research reports, product strategy decks, case-study pages, HTML/PPTX slide templates, design-system rules for slides, or agent instructions for choosing slide components, modes, typography, layouts, and storytelling patterns.
+name: bonny-slide-design
+description: Use this skill to generate well-branded interfaces and assets for Bonny Slide System V2 — bilingual UX/product case-study slides with Traditional Chinese as the primary voice and English as supporting labels. Contains essential design guidelines, color and typography tokens, fonts, slide-template assets, ready-to-copy component HTML, and a JSX UI kit for prototyping. Use whenever Claude needs to create a 16:9 slide deck, redesign or critique an existing deck, build a design-system doc, or output agent instructions for choosing slide components, modes, typography, and layouts.
 ---
 
-# Bonny Slide System V2
+# Bonny Slide Design System — Skill
 
-## Purpose
+Read `README.md` in this skill first to understand the design direction (voice, visual foundations, iconography). Then explore the other files based on what you're being asked to make.
 
-Create clear bilingual UX/product slides with a stricter design system than the previous Bonny slide skill. The system is optimized for agents: each slide is selected by content intent, then built from defined components, variants, tokens, and validation checks.
+## Content → Component Decision Matrix
 
-Use this skill for 16:9 slide surfaces, usually `1920 x 1080` HTML or widescreen PPTX. Default language is Traditional Chinese as the main voice with English as supporting labels, subtitles, captions, and metrics.
+This is the **most important table in the skill**. Read the situation, find the row that matches, use those components. Never pick a layout for decoration; pick it for the content's job.
 
-## Core Workflow
+| If the content is… | Situation example | Primary component | Support components | Mode | Accent |
+|---|---|---|---|---|---|
+| **A project intro** | First slide of a deck — project name, role, year | Title block (centered or editorial-left) | Hero visual or product mockup, metadata chips | Light for research, dark for product/tech reveal | Blue (default) |
+| **A section change** | "Now we move from research to solution" | Centered title block on full-bleed panel | Phase chip, progress line | Dark for climax, light for normal | Match next section's accent |
+| **Background / context** | Why does this problem matter? Market size, trend | 3 evidence cards | Eyebrow + headline, source footer, small key band | Light | Blue |
+| **Desk research** | External reports, market data | 3 evidence cards (one may be `card-accent-blue`) | Chart card, source labels | Light | Blue |
+| **Survey numbers** | "52% find X confusing" | Chart card (left) + interpretation card (right) | Metric card, count chip | Light | Blue |
+| **Interview voices** | What users said — patterns across people | 3 quote cards (`quote-card`) | Participant tags, `.highlight` on repeated phrase | Light for report, dark for emotional climax | Blue (light) / Green (dark) |
+| **Pain points** | What blocks the user, with cause | 3 pain cards (`pain-card`) | Severity chip, avatar marker, quote snippet | Light with pink accent, or dark for emotional | Pink / red |
+| **Synthesized finding** | "Users aren't unwilling — they lack confidence" | Insight panel (`insight-panel`) | Evidence note, implication line | **Dark** (preferred) | Green on dark, blue on light |
+| **Problem → opportunity** | Bridge from research to solution direction | Problem-to-opportunity bridge | Key band, connector arrows, HMW chip | Light or mixed | Pink (pain) → Blue (opp) |
+| **Current vs improved** | Before/after process, As-Is / To-Be | Comparison grid (`comparison-grid`) | State header, takeaway band | Light | Gray (as-is) + Green (to-be) |
+| **Sequence / journey** | 3–5 steps in order | Workflow timeline (`timeline`) | Actor chips, stage cards | Light for ops, dark for product process | Blue or Green |
+| **A product screen** | App feature walkthrough | Phone mockup + 2–3 annotations (`annotation-list`) | Feature stack, before/after mini-screen | Light for function, dark for walkthrough | Purple / Blue |
+| **Feature set / MVP** | What gets built first — 3 pillars | Feature stack (`feature-stack`) | Priority chips, scope note | Light | Blue (one row highlighted) |
+| **Outcome data** | What improved after launch | Metric card grid (result dashboard) | Before/after bars, quote proof, next-step band | **Dark** for executive, light for client report | Green (improvement) |
+| **Market / segment map** | Positioning, who you're targeting | Positioning map (2×2 / scatter / venn) | Highlighted target segment, interpretation list | Light | Blue + Gray |
+| **One memorable line** | Final takeaway, design principle, HMW | Key band (`key-band`) | Source/method tag | Light or dark | Blue (default) |
+| **An appendix detail** | Raw table, source list, reference grid | Dense table or screenshot grid | Small title block, page marker | Light | Gray |
 
-1. Identify the slide job: cover, context, research evidence, interview, pain point, insight, opportunity, solution, workflow, comparison, product feature, result, or appendix.
-2. Read `references/agent-playbook.md` first when the user asks for a deck, redesign, or system-level output.
-3. Read `references/foundations.md` for typography, grid, spacing, color, modes, and writing rules.
-4. Read `references/component-system.md` before composing slides. Choose components by intent, not by decoration.
-5. Read `references/component-html.md` to get the exact HTML structure for each component before writing any markup. Never invent class names or inline styles — copy from this file and fill in real content.
-6. Read `references/slide-recipes.md` when mapping source material into a multi-slide deck.
-7. Use `assets/bonny-slide-v2-tokens.css` and `assets/templates/slide-template.html` for HTML slides.
-8. Validate with `scripts/check_slide_html.py <html-file>` for HTML output when practical.
+### Quick decider (when the matrix is overkill)
 
-## Default Design Position
+Apply this one-line test:
 
-- Prefer clean light-mode editorial slides for context, evidence, comparison, MVP explanation, and normal report pages.
-- Switch to dark mode for emotional interview findings, high-level insights, solution reveal, product walkthroughs, process/status maps, and result dashboards.
-- Use one main message per slide. Supporting components exist to prove or explain that message.
-- Use cards only when grouping evidence, quotes, metrics, steps, or screenshots. Do not make every section a card.
-- Keep CJK and Latin typography separate: CJK gets `letter-spacing: 0.05em`; English, numbers, and product names get `letter-spacing: 0`.
-- Use source notes, method labels, participant counts, or baseline labels whenever claims depend on evidence.
+- Main evidence is a **number** → `metric-card`
+- Main evidence is a user's **words** → `quote-card`
+- Content is **wrong / blocked / painful** → `pain-card`
+- Content is a **synthesized finding** → `insight-panel`
+- Content shows **how something changes** → `comparison-grid`
+- Content shows **steps in order** → `timeline`
+- Content shows a **product screen** → `phone` + `annotation-list`
+- Content lists **what will be built** → `feature-stack`
+- Content shows **what improved** → `metric-card` grid (result dashboard)
+- None of the above → `card card-pad` inside `grid grid-3` with `card-title` + `card-body`
 
-## Reference Loading Guide
+Default to **3 cards in light mode** when uncertain. Always safer than inventing a new layout.
+
+### Mode rule (light vs dark)
+
+- **Light** = evidence, context, comparison, normal explanation, appendix. *Anything that needs to be calmly examined.*
+- **Dark** = insight, emotional interview, solution reveal, product walkthrough, status map, executive result dashboard. *Anything that should feel like the climax of the story.*
+- **Mixed** = one dark insight panel inside an otherwise light evidence slide, or one bright product UI card on an otherwise dark walkthrough slide. Use sparingly.
+
+### Accent rule (one family per slide)
+
+One semantic accent per slide unless you are explicitly comparing categories or actors. **Highlight only one phrase per headline.**
+
+| Accent | Meaning | Example use |
+|---|---|---|
+| Blue (`--blue`) | Research, data, product clarity | Default for desk research, survey, feature explanation |
+| Green (`--green`) | Improvement, success, service simplification | Result dashboards, to-be state, dark-mode eyebrow |
+| Purple (`--purple`) | Social, motivation, friendly AI | Community features, AI agents |
+| Orange / Yellow | Attention, study, warm service | Education, onboarding, attention slides |
+| Pink / Red | Pain, friction, warning | Pain cards, current state in as-is |
+| Gray | Baseline, inactive, current state | As-is in a comparison; inactive bars in a chart |
+
+## When to load what
 
 Always load:
 
-- `references/foundations.md`
-- `references/component-system.md`
-- `references/component-html.md` — **required for any HTML output.** This file has ready-to-use HTML snippets for every component. Copy and adapt; do not write component HTML from scratch.
+- `README.md` — high-level direction, sources, caveats.
+- `references/foundations.md` — canvas, grid, type, spacing, color, mode rules.
+- `references/component-system.md` — every component's anatomy + when to use it.
+- `references/component-html.md` — **required for any HTML output.** Copy-paste HTML snippets for every component. Never invent class names.
 
 Load when relevant:
 
-- `references/slide-recipes.md` for deck structure, slide-by-slide recipes, and situation mapping.
-- `references/agent-playbook.md` for how an agent should decide what to build and how to report choices.
-- `references/source-analysis.md` when matching the Pinterest/Korean UX portfolio references or explaining why v2 differs from `bonny8000/bonnyt`.
+- `references/slide-recipes.md` — when building a multi-slide deck or mapping source material into slides.
+- `references/agent-playbook.md` — when deciding how to classify content and report design choices.
+- `references/source-analysis.md` — when explaining why the system looks the way it does.
 
-## Output Contract
+## Workflow
 
-For a deck or slide system output, provide:
+1. **Classify** the request: single slide, full deck, redesign, template, or critique. Identify story type (UX research, product redesign, strategy report, portfolio case study, result report).
+2. **Outline** each slide with intent label, one-sentence message, primary component, support components, mode (light/dark), accent color, required evidence.
+3. **Choose components by intent** using `references/agent-playbook.md` Step 3 decision tree — evidence → evidence card; user voice → quote card; blocker → pain card; synthesis → insight panel; sequence → timeline; before/after → comparison grid; product behavior → phone + annotations; outcome → result dashboard.
+4. **Compose** by copying the matching snippet from `references/component-html.md` into the `assets/templates/slide-template.html` shell. Link `assets/bonny-slide-v2-tokens.css`. Set `data-mode="light"` or `"dark"` on `.slide`.
+5. **Mark languages.** Add `class="cjk"` to Traditional Chinese spans (思源黑體 / Noto Sans TC) and `class="latin"` to English / numbers / product names (Arial). CJK gets `letter-spacing: 0.10em`; Latin gets `0`. Do not mix in one span.
+6. **Validate.** One dominant message per slide. Every claim has source/method/baseline. Highlight only ONE phrase per headline. No inline styles for color/font-size/font-weight/letter-spacing.
 
-- A slide outline with intent labels, such as `Research Evidence`, `Pain Point`, `Insight`, or `Feature Walkthrough`.
-- A component map listing the primary component and supporting components for each slide.
-- Mode and accent choices with short reasons.
-- Final slide files or templates when requested.
-- A validation note covering text overflow, hierarchy, source traceability, and component fit.
+## When asked for visual artifacts (slides, mocks, prototypes)
 
-## CSS Discipline Rule
+- Copy assets out of this skill into the output directory; do not reference them with relative paths that escape the project.
+- Default output: a single HTML file per slide, linked to `bonny-slide-v2-tokens.css`. Multiple slides → use `<deck-stage>` starter component to host them.
+- Use real product screenshots for feature slides. If unavailable, leave a labeled placeholder rectangle — never hand-draw UI with SVG.
+- Use Lucide icons via CDN when an icon is genuinely informational.
 
-When writing HTML slides, always follow this rule without exception:
+## When asked for production code
 
-- **Copy component HTML from `references/component-html.md`.** Do not write component structure from scratch.
-- **Use only class names that exist in `assets/bonny-slide-v2-tokens.css`.** Do not invent new class names.
-- **Never use `style=""` for colors, font-size, font-weight, or letter-spacing.** Only use inline style for layout overrides that are specific to one slide (such as `gap`, `padding-block-start`, `max-inline-size`, or `min-inline-size`).
-- **Never import external fonts or libraries.** All tokens are already in `bonny-slide-v2-tokens.css`.
-- **Never use `!important`.** If a style isn't applying, the class is either wrong or not in the token file.
+Copy `colors_and_type.css` for base tokens. The full slide-component classes in `assets/bonny-slide-v2-tokens.css` are slide-specific — adapt them, don't blindly ship them into a product app.
 
-Consistency comes from always starting from the same component snippets, not from trying to remember rules.
+## If invoked without guidance
 
-## Quality Bar
+Ask the user:
 
-Before final delivery:
+1. Single slide, full deck, or design-system update?
+2. Source material — research notes, transcript, PRD, screenshots, or existing deck?
+3. Story type (research, redesign, strategy, portfolio, result)?
+4. Primary language: Traditional Chinese is the default — confirm.
+5. Output: HTML, PPTX, or Markdown spec?
 
-- Confirm every slide has one dominant message and one primary visual structure.
-- Confirm component choice matches content intent, using `references/slide-recipes.md` as the decision guide.
-- Confirm no text sits below 18px on a 1920 x 1080 slide unless it is source metadata.
-- Confirm charts have baseline/context labels, not just numbers.
-- Confirm quote slides use `.highlight` to mark repeated patterns, not isolated quotes.
-- Confirm phone mockup slides have exactly 2–3 `.annotation-item` entries explaining user value.
-- Confirm dark slides use `data-mode="dark"` on `.slide`, not on `.frame` or inner elements.
-- Confirm HTML slides link `bonny-slide-v2-tokens.css` and use no other stylesheet.
-- Confirm every evidence slide has a `.footer-bar` with source and page marker.
+Then act as an expert slide designer and produce the artifact following the workflow above.
+
+## Hard rules
+
+- Never use inline `style=""` for colors, font-size, font-weight, or letter-spacing. Only for per-slide layout overrides (`gap`, `padding-block-start`, `max-inline-size`).
+- Never invent CSS class names. If a class is not in `assets/bonny-slide-v2-tokens.css`, do not use it.
+- Never apply `data-mode="dark"` to `.frame` or inner elements — it goes on `.slide` only.
+- Never use more than one accent family per slide unless comparing categories or actors.
+- Never use `.highlight` on random words. Only on phrases repeated across multiple quotes or cards.
+- Never omit `.footer-bar` on evidence, chart, or quote slides.
+- Never write component HTML from scratch. Start from `references/component-html.md`.

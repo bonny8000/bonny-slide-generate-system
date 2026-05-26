@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<title>Comparison · As-Is / To-Be</title>
+<link rel="stylesheet" href="../assets/bonny-slide-v2-tokens.css" />
+<style>
+  /* Slide-local overrides committing to a single green accent.
+     As-Is: fully muted grey, low contrast. To-Be: clear, bold, accent green. */
+
+  .slide[data-mode="light"] .eyebrow { color:#1f7050; }
+
+  /* Headline stays on a single line — no wrap. */
+  .slide .headline {
+    white-space: nowrap;
+    max-inline-size: none;
+  }
+
+  .compare {
+    display:grid;
+    grid-template-columns: 1fr 80px 1.15fr;
+    gap:0;
+    align-items:stretch;
+  }
+
+  /* ── AS-IS column — all-grey, single tone, washed out ── */
+  .col-asis {
+    display:flex; flex-direction:column;
+    background:#eef1f5;
+    border-radius:20px;
+    padding:32px 36px;
+    color:#8a93a3;
+  }
+  .col-asis .head {
+    font-family:Arial, sans-serif;
+    font-size:18px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:#a0aec0; margin-bottom:32px;
+  }
+  .col-asis .row {
+    display:flex; align-items:flex-start; gap:14px;
+    font-size:24px; font-weight:400;
+    letter-spacing:0.05em; line-height:1.5;
+    color:#8a93a3; padding:14px 0;
+    border-block-start:1px solid #d8dee8;
+  }
+  .col-asis .row:first-of-type { border-block-start:0; }
+  .col-asis .x {
+    width:24px; height:24px; flex-shrink:0;
+    border-radius:50%; background:#cdd4de; color:#fff;
+    font-family:Arial, sans-serif; font-size:14px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:4px; line-height:1;
+  }
+
+  /* ── ARROW ── */
+  .arrow {
+    display:flex; align-items:center; justify-content:center;
+    font-size:48px; color:#1f7050; font-weight:300;
+  }
+
+  /* ── TO-BE column — prominent, bold, green ── */
+  .col-tobe {
+    display:flex; flex-direction:column;
+    background:#fff;
+    border:1.5px solid #20c781;
+    border-radius:20px;
+    padding:32px 36px;
+    color:#1a202c;
+    box-shadow: 0 24px 60px rgba(31,112,80,.14), 0 4px 16px rgba(31,112,80,.06);
+    position:relative;
+  }
+  .col-tobe .badge {
+    position:absolute; top:-14px; left:32px;
+    background:#1f7050; color:#fff;
+    font-family:Arial, sans-serif; font-size:13px;
+    font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+    padding:6px 14px; border-radius:999px;
+  }
+  .col-tobe .head {
+    font-family:Arial, sans-serif;
+    font-size:18px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:#1f7050; margin-bottom:32px;
+  }
+  .col-tobe .row {
+    display:flex; align-items:flex-start; gap:14px;
+    font-size:26px; font-weight:500;
+    letter-spacing:0.05em; line-height:1.5;
+    color:#2d3748; padding:14px 0;
+    border-block-start:1px solid #d8f0e2;
+  }
+  .col-tobe .row:first-of-type { border-block-start:0; }
+  .col-tobe .check {
+    width:24px; height:24px; flex-shrink:0;
+    border-radius:50%; background:#20c781; color:#fff;
+    font-family:Arial, sans-serif; font-size:14px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:4px; line-height:1;
+  }
+  .col-tobe .row .highlight { color:#1f7050; font-weight:500; }
+
+  /* ── Key band — same green family ── */
+  .key-band-green {
+    border-radius:14px;
+    padding:24px 36px;
+    background:#1f7050;
+    color:#fff;
+    text-align:center;
+    font-family:"Taipei Sans TC Beta", sans-serif;
+    font-size:22px; font-weight:500;
+    letter-spacing:0.05em; line-height:1.5;
+  }
+</style>
+</head>
+<body>
+<main class="slide" data-mode="light">
+
+<section class="frame">
+  <p class="eyebrow latin">SOLUTION CONCEPT</p>
+  <h1 class="headline cjk">從不透明到<span class="accent-green">可解釋</span> — 每張卡片都有理由</h1>
+  <p class="subtitle latin">As-Is / To-Be · Same task, same data — different framing</p>
+
+  <div class="content compare">
+    <div class="col-asis">
+      <div class="head">As-Is · 現況</div>
+      <div class="row"><span class="x">×</span><span class="cjk">推薦卡片只顯示名稱與圖片</span></div>
+      <div class="row"><span class="x">×</span><span class="cjk">使用者不知道排序依據</span></div>
+      <div class="row"><span class="x">×</span><span class="cjk">第二步流失率 <span class="latin">52%</span></span></div>
+      <div class="row"><span class="x">×</span><span class="cjk">沒有信任訊號可參考</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="col-tobe">
+      <span class="badge latin">To-Be</span>
+      <div class="head">改版後</div>
+      <div class="row"><span class="check">✓</span><span class="cjk">每張卡片附 <span class="highlight">「為何推薦」</span> 一行</span></div>
+      <div class="row"><span class="check">✓</span><span class="cjk">透明度標籤顯示資料來源</span></div>
+      <div class="row"><span class="check">✓</span><span class="cjk">流失點預估降至 <span class="latin highlight">20%</span> 以下</span></div>
+      <div class="row"><span class="check">✓</span><span class="cjk">使用者可手動調整推薦原因</span></div>
+    </div>
+  </div>
+
+  <div style="position:absolute; inset-inline:var(--margin-x); inset-block-end:160px;">
+    <div class="key-band-green cjk">機制改變的是「資訊密度」，不是演算法 — 成本可控、可灰度上線。</div>
+  </div>
+
+  <div class="footer-bar">
+    <span class="footer-source latin">Design proposal · 2024-10</span>
+    <span class="page-marker latin">06 / 08</span>
+  </div>
+</section>
+</main>
+</body>
+</html>

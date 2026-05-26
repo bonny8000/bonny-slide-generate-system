@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin:0; padding:36px; background:#f6f8fb; font-family:var(--font-latin); }
+  .group-title { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--fg4); margin:0 0 28px; }
+  .row { display:flex; gap:36px; }
+  .card { background:#fff; border:1px solid rgba(152,162,179,.18); border-radius:16px; padding:18px 22px; width:200px; }
+  .card.soft { box-shadow: 0 16px 40px rgba(15,23,42,.08); }
+  .card.dark { background:#1f2732; color:#fff; border-color:rgba(255,255,255,.08); box-shadow:0 18px 50px rgba(0,0,0,.28); }
+  .card-label { font-size:12px; font-weight:700; }
+  .card-meta { font-size:11px; color:var(--fg4); margin-top:4px; font-family:"JetBrains Mono", ui-monospace, monospace; }
+  .card.dark .card-meta { color:#a8b0bd; }
+</style>
+</head>
+<body>
+  <p class="group-title">Shadows · soft (light) / dark (dark mode)</p>
+  <div class="row">
+    <div class="card"><div class="card-label">No shadow</div><div class="card-meta">border only — dense / report</div></div>
+    <div class="card soft"><div class="card-label">Soft shadow</div><div class="card-meta">0 16px 40px rgba(15,23,42,.08)</div></div>
+    <div class="card dark"><div class="card-label">Dark shadow</div><div class="card-meta">0 18px 50px rgba(0,0,0,.28)</div></div>
+  </div>
+</body>
+</html>

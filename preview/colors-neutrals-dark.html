@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin:0; padding:24px; background:#101418; font-family:var(--font-latin); }
+  .row { display:flex; gap:14px; flex-wrap:wrap; }
+  .swatch { width:128px; }
+  .chip { height:96px; border-radius:10px; border:1px solid rgba(255,255,255,.08); display:flex; align-items:flex-end; padding:10px; color:#fff; font-size:11px; font-weight:600;}
+  .label { margin-top:8px; font-size:12px; color:#e5e7eb; }
+  .hex { font-size:11px; color:#a8b0bd; font-family:"JetBrains Mono", ui-monospace, monospace; }
+  .group-title { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#a8b0bd; margin:0 0 12px; }
+</style>
+</head>
+<body>
+  <p class="group-title">Dark canvas neutrals — surfaces & text</p>
+  <div class="row">
+    <div class="swatch"><div class="chip" style="background:#101418">canvas</div><div class="label">bg2 canvas</div><div class="hex">#101418</div></div>
+    <div class="swatch"><div class="chip" style="background:#1f2732">surface</div><div class="label">bg1 surface</div><div class="hex">#1F2732</div></div>
+    <div class="swatch"><div class="chip" style="background:#27313d">alt</div><div class="label">bg3 alt</div><div class="hex">#27313D</div></div>
+    <div class="swatch"><div class="chip" style="background:#3a4553">border</div><div class="label">line1 border</div><div class="hex">#3A4553</div></div>
+    <div class="swatch"><div class="chip" style="background:#ffffff;color:#111827">fg1 primary</div><div class="label">fg1 primary</div><div class="hex">#FFFFFF</div></div>
+    <div class="swatch"><div class="chip" style="background:#e5e7eb;color:#111827">fg2 body</div><div class="label">fg2 body</div><div class="hex">#E5E7EB</div></div>
+    <div class="swatch"><div class="chip" style="background:#a8b0bd;color:#111827">fg3 muted</div><div class="label">fg3 muted</div><div class="hex">#A8B0BD</div></div>
+  </div>
+</body>
+</html>

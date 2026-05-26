@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../assets/bonny-slide-v2-tokens.css" />
+<style>
+  /* Override the design-system body so the preview renders flush in its card */
+  body { display:block; margin:0; padding:18px; background:#d7dce5; }
+
+  /* Scaled-down slide: equal margins on all four sides; header / content / footer
+     flow vertically; content centers itself in the remaining space when sparse. */
+  .slide {
+    inline-size: 560px;
+    block-size: 315px;
+    padding: 22px;          /* equal margin all 4 sides */
+    display: flex;
+    flex-direction: column;
+  }
+  .frame {
+    position: static;
+    inset: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header zone — eyebrow + headline + subtitle */
+  .eyebrow  { font-size: 7px; margin-bottom: 4px; letter-spacing: .06em; }
+  .headline { font-size: 14px; max-inline-size: 380px; line-height: 1.2; }
+  .subtitle { font-size: 8px; margin-top: 5px; max-inline-size: 320px; }
+
+  /* Evidence cards — vertically centered in the middle zone */
+  .content {
+    flex: 1;
+    margin-block-start: 0;
+    display: flex;
+    align-items: center;       /* vertical center when content is sparse */
+    justify-content: center;
+  }
+  .grid-3 { width: 100%; gap: 8px; }
+  .card-pad   { padding: 8px 10px; border-radius: 8px; }
+  .card-title { font-size: 8px; margin: 0 0 2px; }
+  .card-body  { font-size: 7px; line-height: 1.45; }
+  .pill       { font-size: 6px; padding: 1px 5px; margin-bottom: 4px; }
+  .source     { font-size: 6px; margin-top: 4px; display: block; }
+
+  /* Footer zone — pinned to slide bottom */
+  .footer-bar {
+    position: static;
+    inset: auto;
+    margin-block-start: auto;
+    padding-block-start: 6px;
+  }
+  .footer-source, .page-marker { font-size: 6px; }
+</style>
+</head>
+<body>
+  <main class="slide" data-mode="light">
+    <section class="frame">
+      <header>
+        <p class="eyebrow latin">DESK RESEARCH</p>
+        <h1 class="headline cjk">外部數據驗證了<span class="accent-blue">核心問題假設</span></h1>
+        <p class="subtitle latin">3 independent sources · 2023–2024</p>
+      </header>
+
+      <div class="content grid grid-3">
+        <article class="card card-pad">
+          <p class="pill latin">01</p>
+          <h2 class="card-title cjk">日均使用者上升</h2>
+          <p class="card-body cjk">2025 達 24 萬 6 千人 +12%</p>
+          <p class="source latin">KTX 2025</p>
+        </article>
+        <article class="card card-pad">
+          <p class="pill latin">02</p>
+          <h2 class="card-title cjk">線上預訂為主流</h2>
+          <p class="card-body cjk">88.2% 透過線上購票</p>
+          <p class="source latin">Annual Survey</p>
+        </article>
+        <article class="card card-pad card-accent card-accent-blue">
+          <p class="pill latin">KEY</p>
+          <h2 class="card-title cjk">App 下載量第一</h2>
+          <p class="card-body cjk">1,600 萬下載</p>
+          <p class="source latin">MOI Brief</p>
+        </article>
+      </div>
+
+      <div class="footer-bar">
+        <span class="footer-source latin">Source: KTX Annual Report 2024 · MOI Brief · Channel Survey</span>
+        <span class="page-marker latin">04 / 24</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin:0; padding:24px; background:#f6f8fb; font-family:Arial, sans-serif; }
+  .group-title { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#667085; margin:0 0 16px; }
+  .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+
+  .metric-card {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding:20px 22px;
+    background:#fff;
+    border:1px solid #eef2f6;
+    border-radius:14px;
+    box-shadow:0 8px 24px rgba(15,23,42,.04);
+  }
+  /* Coloured top accent line — keeps the card calm; the number stays near-neutral. */
+  .metric-card.is-up    { border-top: 3px solid #6fb591; }
+  .metric-card.is-blue  { border-top: 3px solid #7fa3d9; }
+  .metric-card.is-down  { border-top: 3px solid #d09cae; }
+
+  .metric-value {
+    font-family:Arial, sans-serif;
+    font-size:40px;
+    font-weight:600;
+    line-height:1;
+    letter-spacing:0;
+    color:#1f2732;        /* number stays near-neutral */
+  }
+  .metric-value .sym {
+    font-size:0.6em;
+    font-weight:500;
+    vertical-align:0.18em;
+    margin-inline-start:0.02em;
+  }
+  .metric-value .delta-sym {
+    font-size:0.55em;
+    font-weight:600;
+    vertical-align:0.32em;
+    margin-inline-end:0.02em;
+  }
+  .metric-label {
+    font-size:13px;
+    font-weight:500;
+    color:#344054;
+    margin-top:4px;
+    letter-spacing:0.05em;
+  }
+  .metric-delta {
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0;
+  }
+  .metric-delta.up    { color:#5b9c79; }
+  .metric-delta.down  { color:#a8788a; }
+  .metric-delta.blue  { color:#6f8fc4; }
+  .metric-baseline {
+    font-size:10px;
+    color:#98a2b3;
+    margin-top:auto;
+    padding-top:4px;
+  }
+</style>
+</head>
+<body>
+  <p class="group-title">Metric card · result dashboard · neutral number + soft accent line</p>
+  <div class="grid">
+    <article class="metric-card is-up">
+      <span class="metric-value"><span class="delta-sym">+</span>34<span class="sym">%</span></span>
+      <span class="metric-label cjk">任務完成率</span>
+      <span class="metric-delta up">↑ vs. Round 1</span>
+      <span class="metric-baseline">Usability test · N=8</span>
+    </article>
+    <article class="metric-card is-blue">
+      <span class="metric-value">88.2<span class="sym">%</span></span>
+      <span class="metric-label cjk">使用線上預訂</span>
+      <span class="metric-delta blue">+12.4pp YoY</span>
+      <span class="metric-baseline">Annual survey · 2024 Q3</span>
+    </article>
+    <article class="metric-card is-down">
+      <span class="metric-value"><span class="delta-sym">−</span>48<span class="sym">%</span></span>
+      <span class="metric-label cjk">客服詢問量</span>
+      <span class="metric-delta down">↓ 82 → 55 cases</span>
+      <span class="metric-baseline">2024-12 vs 2024-11</span>
+    </article>
+  </div>
+</body>
+</html>

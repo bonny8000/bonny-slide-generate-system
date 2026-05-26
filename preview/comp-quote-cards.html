@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../assets/bonny-slide-v2-tokens.css" />
+<style>
+  body { display:block; margin:0; padding:24px; background:#f6f8fb; }
+  .group-title { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#667085; margin:0 0 14px; font-family:Arial,sans-serif; }
+
+  /* Compact 2-col layout for the preview card so text has room to breathe.
+     The real slide uses .grid-3 at full 1920×1080 scale. */
+  .demo { display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; }
+  .quote-card {
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:18px 20px;
+    border-radius:14px;
+    border:1px solid rgba(152,162,179,.18);
+    background:#fff;
+    box-shadow: 0 8px 24px rgba(15,23,42,.05);
+  }
+  .quote-text {
+    font-size:14px;
+    line-height:1.55;
+    color:#111827;
+  }
+  .attribution {
+    display:flex;
+    align-items:center;
+    gap:0;
+    padding-block-start:12px;
+    border-block-start:1px solid #eef2f6;
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    color:#667085;
+    letter-spacing:0;
+  }
+  .attribution-dot {
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#2f80ed;
+    flex-shrink:0;
+    margin-inline-end:8px;
+  }
+  .attribution .sep { color:#cbd2dd; margin-inline:6px; }
+</style>
+</head>
+<body>
+  <p class="group-title">Quote card · interview / VOC · highlight repeated phrase · attribution pinned to bottom</p>
+  <div class="demo">
+    <div class="quote-card">
+      <p class="quote-text cjk">「<span class="highlight">不知道為什麼</span>系統推薦這個給我，我就不敢點。」</p>
+      <div class="attribution">
+        <span class="attribution-dot"></span>
+        <span>P03 · F · 28</span>
+        <span class="sep">·</span>
+        <span>Task 2 — Browse recommendations</span>
+      </div>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text cjk">「看到推薦清單第一個反應就是：<span class="highlight">這是廣告嗎</span>？」</p>
+      <div class="attribution">
+        <span class="attribution-dot"></span>
+        <span>P07 · M · 34</span>
+        <span class="sep">·</span>
+        <span>Task 2 — Browse recommendations</span>
+      </div>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text cjk">「如果能告訴我<span class="highlight">為什麼</span>推薦，我會更願意嘗試。」</p>
+      <div class="attribution">
+        <span class="attribution-dot"></span>
+        <span>P11 · F · 41</span>
+        <span class="sep">·</span>
+        <span>Post-task interview</span>
+      </div>
+    </div>
+    <div class="quote-card">
+      <p class="quote-text cjk">「我會等朋友<span class="highlight">先用過</span>，他說好我才考慮。」</p>
+      <div class="attribution">
+        <span class="attribution-dot"></span>
+        <span>P05 · F · 31</span>
+        <span class="sep">·</span>
+        <span>Pre-task interview</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
