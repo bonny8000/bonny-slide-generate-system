@@ -1,30 +1,20 @@
 # Bonny Slide Design System
 
-A design system for building **bilingual UX/product case-study slides** in Bonny's editorial portfolio style. Optimized for **Traditional Chinese as primary voice** with **English as supporting labels, subtitles, captions, and metrics**. Built for 16:9 surfaces (`1920 × 1080` HTML or widescreen PPTX), with stricter component rules than a generic deck template so an agent can pick layouts by content intent, not by decoration.
+A design system for building **bilingual UX/product case-study slides** in Bonny's editorial portfolio style. Optimised for **Traditional Chinese as primary voice** with **English as supporting labels, subtitles, captions, and metrics**. Built for 16:9 surfaces (`1920 × 1080` HTML or widescreen PPTX), with stricter component rules than a generic deck template so an agent can pick layouts by content intent, not by decoration.
 
-> **The core promise:** every slide is a clear, well-laid-out argument made of named components. Use whichever accent color makes sense for the message, but the **structure, type, spacing, and component vocabulary stay consistent** — so a deck mixed from many slide types still reads as one coherent set.
-
-## Sources
-
-This design system is derived from the **bonny8000/bonnyt** Codex skill plus a Pinterest reference board of Korean UX portfolio slides. Explore the originals to do a better job designing with this system:
-
-- GitHub repo: <https://github.com/bonny8000/bonnyt>
-- Pinterest board: <https://www.pinterest.com/30237old/kr/>
-- Files imported from the repo live under `references/` and `assets/` in this project — they are the original Codex source of truth.
-
----
+> **The core promise:** every slide is a clear, well-laid-out argument made of named components. Use whichever accent colour makes sense for the message, but the **structure, type, spacing, and component vocabulary stay consistent** — so a deck mixed from many slide types still reads as one coherent set.
 
 ## Index
 
 ```
 README.md                       ← you are here
 SKILL.md                        ← Agent Skills cross-compat entry
-colors_and_type.css             ← base color + type tokens (root-level vars)
+colors_and_type.css             ← base colour + type tokens (root-level vars)
 assets/
   bonny-slide-v2-tokens.css     ← full slide-component token sheet
   templates/slide-template.html ← minimum-viable slide shell
 references/
-  foundations.md                ← canvas, grid, type, spacing, color, mode
+  foundations.md                ← canvas, grid, type, spacing, colour, mode
   component-system.md           ← every component's anatomy + variants + rules
   component-html.md             ← copy-paste HTML for each component
   slide-recipes.md              ← intent → component map for common slide jobs
