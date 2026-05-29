@@ -1,0 +1,28 @@
+/* ============================================================
+   tokens-light.css · LIGHT MODE (modeled on reference img 1)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-dark.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --surface:#F1F4F9;      /* card fill                       */
+  --chip:#FFFFFF;         /* inner chips / bubble inset      */
+
+  --ink:#2B3040;          /* headline + body                 */
+  --muted:#7C7E92;        /* secondary text                  */
+  --muted-soft:#DCE0EB;   /* inactive data / line            */
+
+  --accent:#7077FB;       /* periwinkle indigo — highlight   */
+  --accent-soft:#E7E8FC;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#2B3040;    /* insight-band fill (= ink family)*/
+  --band-tag:#B7BCD0;
+  --donut-3:#C2C6D4;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) — tone modifiers swap --accent to these;
+     --pos & --neg together are allowed ONLY inside a KPI/result chart. */
+  --pos:#2FB67A;  --pos-soft:#DCF3E8;
+  --neg:#E5556E;  --neg-soft:#FBE2E7;
+  --warn:#E08A1E; --warn-soft:#FBEED7;
+}

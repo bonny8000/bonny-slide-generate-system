@@ -1,4 +1,4 @@
 interface:
-  display_name: "Bonny Slide System V2"
-  short_description: "Detailed bilingual UX slide design system"
-  default_prompt: "Create a Bonny-style UX/product slide deck from my source material."
+  display_name: "Bonny Slide System v7"
+  short_description: "Bilingual UX/product slides with locked light/dark modes"
+  default_prompt: "Create a Bonny Slide System v7 deck from my source material."
