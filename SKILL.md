@@ -3,7 +3,7 @@ name: bonny-slide-system
 description: >-
   Generate bilingual 繁中 + English UX/product slides in two locked visual modes: LIGHT and DARK. Use when Codex needs to create HTML decks, single-scroll HTML, PPTX slides, UX/product case-study slides, progress reports, system or decision presentations, bilingual tag lists, numbered step flows, section covers, KPI/result slides, charts, flows, features, personas, and manager/PM/engineer-readable slide narratives. Traditional Chinese is primary and English is supporting; Korean is never produced.
 metadata:
-  version: "8.0.0"
+  version: "8.0.1"
   strategy: "Two locked modes · shared base + one token file · plain-language + show-the-reasoning · validation-gated"
 ---
 
