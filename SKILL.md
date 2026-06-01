@@ -1,9 +1,13 @@
 ---
 name: bonny-slide-system
-description: Generate bilingual 繁中 + English UX/product slides in two locked visual modes — LIGHT and DARK — under a strict 4-color discipline. Each deck is one mode only, never mixed; mode is a single token-file swap over a shared base.css. Outputs HTML (deck or poster), a single scroll-through HTML, or PPTX (python-pptx bridge sharing the same tokens). Carries a Plain-Language Layer so titles and captions land on first read for mixed manager/PM/engineer audiences. Full component library (charts, flows, features, personas, KPI, #skill-chips), 12-col grid, spacing scale, tone modifiers. Korean is never produced — Traditional Chinese is primary, English supporting.
+description: >-
+  Generate bilingual 繁中 + English UX/product slides in two locked visual modes: LIGHT and DARK. Use when Codex needs to create HTML decks, single-scroll HTML, PPTX slides, UX/product case-study slides, progress reports, system or decision presentations, bilingual tag lists, numbered step flows, section covers, KPI/result slides, charts, flows, features, personas, and manager/PM/engineer-readable slide narratives. Traditional Chinese is primary and English is supporting; Korean is never produced.
+metadata:
+  version: "8.0.0"
+  strategy: "Two locked modes · shared base + one token file · plain-language + show-the-reasoning · validation-gated"
 ---
 
-# Bonny Slide System v7
+# Bonny Slide System v8
 
 Bilingual 繁中 + English slides in **two locked modes**, output as **HTML / single-scroll HTML / PPTX**.
 Korean appears only in source material; it is translated, never quoted.
@@ -17,7 +21,7 @@ flips mode. Mixing light and dark inside a set is impossible by construction.
 bonny-slide-system/
 ├─ SKILL.md
 ├─ assets/  base.css · tokens-light.css · tokens-dark.css
-├─ examples/  flagship layouts in both modes + supporting layouts
+├─ examples/  flagship + supporting layouts in both modes
 └─ pptx/  tokens.py · slidegen.py · build_sample.py · sample-light.pptx · sample-dark.pptx
 ```
 
@@ -33,6 +37,10 @@ A set is all LIGHT or all DARK. Never mixed. If the user hasn't named a mode, as
 | canvas | near-white `#FBFBFE` | near-black `#1B1B20` |
 | accent | `#7077FB` | `#4D77FF` |
 
+**Exception — section covers (扉頁) may invert.** A full-bleed dark page inside a LIGHT deck is a
+*background choice*, not a mode switch (the Iron Rule allows any background). Use it to announce a
+new section; content still obeys 4 colors. See the `.section-cover` component.
+
 ---
 
 ## The Iron Rule (color) — 4 colors absolute max
@@ -40,8 +48,7 @@ A set is all LIGHT or all DARK. Never mixed. If the user hasn't named a mode, as
 > **1 background + 1 text + 1 muted + 1 highlight.** `--accent` is the ONLY chromatic color.
 > Charts: inactive `--muted-soft`, active `--accent` — never two chromatic colors.
 
-Background can be anything (a dark full-bleed page inside a light deck is a background choice, not a
-mode switch). The insight band is the text color used as a fill (`--band-fill`), so it adds no color.
+The insight band / section cover use the text color as a fill (`--band-fill`), so they add no color.
 
 ### Locked tokens
 
@@ -61,54 +68,68 @@ mode switch). The insight band is the text color used as a fill (`--band-fill`),
 - CJK → **Noto Sans TC**, `letter-spacing: 0.05em`. Latin/numbers → **Arial**, `0`. Line-height **1.5**.
 - Wrap CJK in `.cjk`, Latin/numbers in `.latin`.
 - Scale: h1 50 · metric 56 · section 30 · eyebrow 22 · Q 20 · pill 18 · body 17 · caption 14 (px).
-- **Readability floor:** on a 1920-wide deck, never set descriptive text below **16px**. Captions/labels
-  16–17px, not 13–14px, when they carry meaning the room must read.
+- **Readability floor:** on a 1920-wide deck, never set descriptive text below **16px**. A key takeaway
+  line may be *enlarged* to ~32–36px as the slide's punchline (see worked-example pattern).
 
 ---
 
 ## Plain-Language Layer (白話層) — run on every title and caption
 
 Decks are read by **managers, PMs, and engineers, not only UX people**, and are often re-presented by
-someone else. Copy has to land on first read. (Real review failures: 「可彈性配置的模組化技能系統」、
+someone else. Copy has to land on first read. (Real failures: 「可彈性配置的模組化技能系統」、
 「按任務目標串起跨階段的執行路徑」 — read three times, still unclear.)
 
 1. **One-read test.** If a reader can't say what the slide claims after reading the title once, rewrite.
-2. **No stacked modifiers in titles.** Drop chains like 「可彈性配置的／模組化／技能系統」. Say the plain
-   thing. A process sentence is not a title: 「按任務目標串起跨階段的執行路徑」 → short label 「任務模式」
-   + plain sub 「一個任務,從頭到尾會用到哪些 skill」.
-3. **Concrete over abstract — name names.** Replace category labels with real examples as `.skill-chip`
-   clouds: 「我們已經有這些 skill:#洞察整合 #元件庫 #樣式檢查…」 beats 「一套可重複使用的技能模組」.
-   Showing real names also signals volume of work done.
-4. **Who / what / what-they-get.** Frame capability copy as 誰可以用、用在哪、會得到什麼 — not the
-   internal mechanism. 「PM、設計、RD 都能用」 over 「把技能打包發給對應團隊」.
-5. **Codes always carry a plain label.** Never ship a bare code. `L0–L4` → 「L0 法規」「L1 系統與狀態」…
-   and state the ordering in words (由廣到細). `3A/3B` → 「設計線／程式線」.
-6. **Cross-team = collaboration, not replacement.** Touching another team's turf (RD/前端) → frame as
-   help: 「交付可用的程式、讓串接更順」, not 「取代 RD」.
-7. **Cut behind-the-scenes pages for exec rooms, or show ONE worked example.** A "how the metadata maps
-   skills to roles" page is for the builder, not the room. Drop it, or replace the abstract diagram with
-   one concrete walk-through (以一個 skill 為例 → 有人帶需求進來 → 系統配對到它).
+2. **No stacked modifiers in titles.** A process sentence is not a title: 「按任務目標串起跨階段的執行路徑」
+   → short label 「任務模式」 + plain sub 「一個任務,從頭到尾會用到哪些 skill」.
+3. **Concrete over abstract — name names.** Replace category labels with real examples as chips. Showing
+   real artifact names also signals progress: 「我們已經開始做的:#元件庫 #CMS 介面審查 …」.
+4. **Who / what / what-they-get**, not the internal mechanism. 「PM、設計、RD 都能用」 over 「把技能打包發給對應團隊」.
+5. **Codes always carry a plain label.** `L0–L4` → 「L0 法規」「L1 系統與狀態」…, state ordering in words (由廣到細).
+6. **Cross-team = collaboration, not replacement** (RD/前端): 「交付可用的程式、讓串接更順」.
+7. **Cut behind-the-scenes pages for exec rooms, or show ONE worked example.**
+8. **Frame provisional content as a range, not a closed list.** When the set is still evolving, do **not**
+   say 「枚舉 / all / 最終」. Say 「範圍 / 涵蓋的方向 / range」, show representative examples, and add a
+   「先盡量涵蓋,之後再收斂」 note. (Lesson: a stakeholder read "list all skills" as over-committing.)
+9. **Bilingual handles for skimmability.** Listing items for a mixed CJK+English room → give each an
+   English handle + a short Chinese gloss: `#English Handle (中文說明)`, separated by ·. The handle is
+   scannable/quotable; the gloss is understood. (See `.taglist`.)
 
 Title *wording* stays the author's voice — the layer enforces plainness, it doesn't take over naming.
 
 ---
 
-## Narrative continuity
+## Presenting a system or decision — show the reasoning, not just the result
 
-Slides must connect. When a deep-dive follows an overview (e.g. 審查 L0–L5 after the 六階段 overview),
-add a one-line **bridge** that hands off from the previous slide:「六階段裡的『審查』再往下拆,就是這套
-分層檢查」. Never jump from an overview straight into a sub-topic with no transition. (A section-divider
-/ 扉頁 page is one optional way to bridge.)
+The single most common senior feedback: *"you jumped to the conclusion; the thinking isn't shown."*
+Make the reasoning its own slides, in order, **before** the conclusion:
+
+1. **Method slide** — the numbered steps you actually followed, as a left-to-right `.stepflow`
+   (e.g. ① 列出所有 skill → ② 找出關係 → ③ 才決定打包). One line of plain explanation per step.
+2. **Detail slides** for the steps that carry weight:
+   - the **range/enumeration** (what you listed) — framed as range, bilingual handles;
+   - the **relationships** — show 前後(sequence) / 相依(dependency) / 並行(parallel) explicitly.
+3. **Then** the conclusion / packaging. Never put the "three ways / final model" before the reasoning.
+
+For a *mechanism*, show **one concrete worked example** as a left-to-right flow (thing → trigger →
+result), and end on an **enlarged one-line takeaway** (~32–36px). One real example beats an abstract diagram.
 
 ---
 
-## Spacing scale & grid & balance
+## Narrative continuity
+
+Slides must connect. When a deep-dive follows an overview, add a one-line **bridge** that hands off
+from the previous slide. Never jump from an overview straight into a sub-topic with no transition. A
+**section cover (扉頁)** is the cleanest bridge between major parts.
+
+---
+
+## Spacing, grid & balance
 
 - 8px scale: `--s0:4 … --s9:96`. Roles: `--pad-y:80 --pad-x:96 --gutter:32 --gap-section:48 --pad-card:48`.
-- **12-column grid** (`.grid12` + `.col-N`). Splits: 6+6 · 7+5 · 8+4 · 4+4+4. Equal splits → `.cards.two/.three`.
+- **12-column grid** (`.grid12` + `.col-N`). Splits 6+6 · 7+5 · 8+4 · 4+4+4; equal → `.cards.two/.three`.
 - Equal four-side margins; `.slide` is a centered flex column → content sits in the optical middle.
-- **Fill, don't leave dead space.** Give light slides presence (card `min-height`, generous gaps) so a
-  short content block doesn't float in a sea of white. Four-quadrant test: weight in ≥3 quadrants.
+- **Fill, don't leave dead space.** Give light slides presence (card `min-height`, generous gaps).
 - Canvas: `.slide.deck` 1920×1080 · `.slide.poster` 1080×auto.
 
 ---
@@ -117,89 +138,105 @@ add a one-line **bridge** that hands off from the previous slide:「六階段裡
 
 | component | class | notes |
 |---|---|---|
-| vertical bar chart | `.barchart`/`.barcol` | height via `--h`; one `.active`. |
-| horizontal ranked bars | `.hbars`/`.hbar.active` | transparent track; length = value. |
-| donut | `.donut` | conic-gradient, `--p1/--p2`; hole blends with surface. |
-| line chart | `.linechart`+`.ln-*` | geometry = data; styling tokenized. |
-| twin-bar / KPI result | `.kpibars`/`.kpibar.up/.down`+`.delta` | uses `--pos`/`--neg`. |
-| metric | `.metric` | big number + unit + caption. |
-| persona / quote | `.persona`, `.qbubble` | centered persona, or attributed quote. |
-| finding→opportunity | `.insightcol` | L8 column. |
-| flow / node-chain | `.flow`/`.flow-node.active`, `.flow-row` | AS-IS muted, TO-BE accent. |
-| feature rows | `.feature-rows`/`.feature-row.headline` | one row filled = headline. |
-| insight band | `.card.has-band`+`.band` | dark text-color fill; correct in both modes. |
-| bubble cluster | `.bubbles`/`.bubble` | one accent circle, rest muted. |
-| section divider | `.section-divider`+`.pill` | accent pill + headline. |
-| **#skill chips** | **`.chipcloud`/`.skill-chip`** | concrete skill names as #tags; `.on` = highlighted. Plain-language layer's main tool. |
+| vertical / ranked bars | `.barchart`, `.hbars` | inactive muted, one `.active` accent. |
+| donut / line / KPI | `.donut`, `.linechart`, `.kpibars` | geometry = data; `--pos`/`--neg` only inside KPI. |
+| metric · persona · quote | `.metric`, `.persona`, `.qbubble` | |
+| finding→opportunity | `.insightcol` | |
+| flow / node-chain | `.flow`, `.flow-row` | AS-IS muted, TO-BE accent. |
+| feature rows | `.feature-rows` | one row filled = headline. |
+| insight band | `.card.has-band`+`.band` | text-color fill; correct in both modes. |
+| #skill chips | `.chipcloud`/`.skill-chip` | concrete names as #tags; `.on` = highlighted. |
+| **bilingual tag list** | **`.taglist`** | `#Handle (中文)` · `#Handle (中文)`; for mixed rooms / provisional sets. |
+| **numbered step flow** | **`.stepflow`/`.step`** | ①→②→③ method / process / before→after. |
+| **section cover (扉頁)** | **`.slide.section-cover`** | dark announce-page; small nav strip + hero title. |
+| **labeled split rows** | **`.lrow`** (+`.split`/`.track`) | left badge + content; a row may split into 2 labeled tracks (設計線/程式線, 上線前/上線後). |
+| section divider (pill) | `.section-divider`+`.pill` | lighter in-deck divider. |
 
-Useful deck patterns (compose from the above): TOC/目錄 (left title + right numbered outline),
-single-scroll export (stack `.slide`s, auto-scale to viewport width — see "Delivery").
+**Section-cover rule:** the progress **nav strip and "NEXT/接下來" label stay small (~14–18px)**; the
+**section title is the hero (~54px)**. (We oversized these once — the page read as shouting.)
+
+Patterns to compose: TOC/目錄 (left title + right numbered outline); worked-example flow (`.stepflow`
++ enlarged takeaway); relationship triplet (three small cards: 前後 / 相依 / 並行).
 
 ---
 
 ## Tone modifiers (semantic color)
 
-`.slide.tone-pos/neg/warn` swap the single accent per slide intent (still one chromatic color).
-`--pos` + `--neg` may co-occur only inside a KPI/result chart.
+`.slide.tone-pos/neg/warn` swap the single accent per slide intent. `--pos`+`--neg` co-occur only inside a KPI chart.
 
 ---
 
 ## Delivery formats
 
-- **Per-slide HTML** — the native unit (`assets/` + one token file; examples are pre-inlined for portability).
-- **Single-scroll HTML** — stack every `.slide` in one document; a small script scales each 1920 frame to
-  the viewport width so the whole deck scrolls top-to-bottom. Good for review links / GitHub Pages.
+- **Per-slide HTML** — native unit (`assets/` + one token file).
+- **Single-scroll HTML** — stack every `.slide`; a small script scales each 1920 frame to viewport width
+  so the deck scrolls top-to-bottom (right-edge dot nav). Best for review links / GitHub Pages.
 - **PDF** — render each slide to image, combine.
-- **PPTX** — `pptx/` mirrors the tokens (`tokens.py`) and emits real `.pptx` (`slidegen.py`):
-  1920×1080 px → 13.333″×7.5″ (`Inches(px/144)`), `pt = px/2`. Shapes ship with shadow stripped
-  (empty `effectLst` + removed style block) for the flat look. Core templates: title, ranked-bars,
-  feature-rows; extend `slidegen.py` for more.
+- **PPTX** — `pptx/` mirrors tokens (`tokens.py`) → real `.pptx` (`slidegen.py`): px/144 = inches, pt = px/2,
+  shadows stripped for the flat look.
+- **Candidate comparison** — when a layout choice is subjective, render **2–3 full versions stacked** and
+  let the person pick, rather than guessing. (Used this for a stage-table layout; it saved rework.)
 
 ---
 
 ## The 7-Step Parser (doc → slides)
 
-1. **Name the room first**, then the intent. Who watches, who re-presents? Exec/mixed rooms → maximize
-   plain language + concrete examples, minimize internal-mechanism pages.
+1. **Name the room first**, then the intent. Exec/mixed rooms → maximize plain language + examples;
+   show the *reasoning*, not just results; minimize internal-mechanism pages.
 2. Chunk into atomic claims `A1…`.
 3. Classify each → component.
 4. Group into slides (≤3 primary cards; a synthesized finding gets its own slide).
-5. Pick layout.
+5. Pick layout. For a system/decision: method → range → relationships → conclusion → packaging.
 6. Confirm mode (ask if unstated) → load one token file. Tone only for result/pain/warn.
 7. Validate; fix one item at a time.
 
 ## Validation gate
 
-1. One mode, one token file across the set?
-2. One chromatic color per slide (KPI `--pos`+`--neg` the only exception)?
+1. One mode, one token file (section covers may invert dark — allowed)?
+2. One chromatic color per slide (KPI `--pos`+`--neg` excepted)?
 3. Charts: inactive muted, active accent?
-4. CJK `0.05em`, Latin `0`, line-height `1.5`; no meaningful text below 16px on a deck?
+4. CJK `0.05em`, Latin `0`, line-height `1.5`; no meaningful text below 16px?
 5. Spacing on the `--sN` scale; four-side margins similar; content centered, not floating?
-6. **One-read test passed; no stacked-modifier titles; process sentences turned into label + plain sub?**
-7. **Every code/level carries a plain label; abstract capabilities shown as concrete #chips where possible?**
-8. **Each slide bridges from the previous (no unbridged overview→deep-dive jump)?**
-9. **Cross-team content framed as collaboration; behind-the-scenes pages cut or reduced to one example for exec rooms?**
-10. No Korean; numbers/dates/products in `.latin`?
+6. One-read test; no stacked-modifier titles; process sentences → label + plain sub?
+7. **Does the deck show the method/reasoning, or jump straight to conclusions?**
+8. **Provisional lists framed as range (not "all/枚舉"), with examples + a收斂 note?**
+9. Codes/lifecycle items carry plain (and bilingual, for mixed rooms) handles?
+10. Each slide bridges from the previous; section covers used between major parts?
+11. Cross-team framed as collaboration; behind-the-scenes cut or reduced to one example for exec rooms?
+12. Section covers: nav small, title hero? No Korean; numbers/dates/products in `.latin`?
 
 ## Hard Rules
 
-1. One mode per set. Ask when unsure.
+1. One mode per set (section covers may invert). Ask when unsure.
 2. One highlight color per slide (KPI `--pos`+`--neg` excepted).
 3. No Korean in output.
 4. Gradients only as background; never inside a card.
 5. Inactive data muted, active accent.
 6. Each slide claims one sentence; if two, split.
 7. Fonts fixed: Noto Sans TC + Arial. Spacing only from `--sN`.
-8. **Titles and captions pass the Plain-Language Layer before delivery.**
+8. Titles and captions pass the Plain-Language Layer before delivery.
+9. For a system/decision, show the reasoning before the conclusion.
+
+## Iteration heuristics (from live reviews)
+
+| feedback | response |
+|---|---|
+| 看不懂 / 太抽象 | Plain-Language Layer: plain titles, real examples. |
+| 跳太快 / 中間沒講到 | add a method slide + bridges (enumerate → relate → decide). |
+| 這做了嗎 / 太空泛 | name real artifacts as chips. |
+| 太細 / 資訊太多 | consolidate to names + labels; push full descriptions to appendix / Notion. |
+| 講太死 / 像最終版 | frame as range; "先盡量涵蓋,之後再收斂". |
+| 排版見仁見智 | offer 2–3 versions to pick (candidate comparison). |
 
 ## Changelog
 
-- **v7** — Plain-Language Layer (one-read test, no stacked modifiers, concrete #chips, plain labels for
-  codes, collaboration framing, cut behind-the-scenes for exec rooms); narrative-continuity rule;
-  audience-first parser step; `.skill-chip`/`.chipcloud` component; 16px readability floor; single-scroll
-  + TOC documented as delivery/patterns. *(From a live review: titles read as too abstract for a mixed
-  manager/PM/RD room; fix is plainer copy + concrete examples, not more visual polish.)*
-- **v6** — spacing scale + 12-col grid; band fixed in dark; full component library; semantic tone modifiers;
-  real PPTX bridge; both flagships in both modes.
+- **v8** — "Show the reasoning, not just the result" pattern (method slide → range → relationships →
+  conclusion); section cover (扉頁) component with small-nav / hero-title rule + dark-invert exception;
+  bilingual tag list `#Handle (中文)`; "frame as range, not a closed list" copy rule; numbered step flow,
+  labeled split rows, worked-example + enlarged-takeaway, relationship triplet (前後/相依/並行);
+  candidate-comparison delivery; iteration-heuristics table. *(From an end-to-end deck build + three
+  rounds of stakeholder feedback.)*
+- **v7** — Plain-Language Layer; narrative-continuity; audience-first parser; `.skill-chip`; 16px floor.
+- **v6** — spacing scale + 12-col grid; band fixed in dark; full component library; tone modifiers; PPTX bridge.
 - **v5** — two locked modes via shared base + one token file; insight band; bubble cluster.
 - **v4** — 4-color discipline, 7-step parser, layout/card libraries.

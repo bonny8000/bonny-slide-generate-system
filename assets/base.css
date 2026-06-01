@@ -200,6 +200,40 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .skill-chip.on{background:var(--accent);color:var(--on-accent);border-color:transparent}
 .skill-chip.on .h{color:var(--on-accent)}
 
+/* ===== section cover / 扉頁 (announce a new section) ===== */
+/* dark inside a light deck is a background choice, not a mode switch */
+.slide.section-cover{background:var(--band-fill);color:#fff}
+.section-cover .nav{display:flex;align-items:center;gap:18px;justify-content:center;font-size:18px;font-weight:700}
+.section-cover .nav .item{color:rgba(255,255,255,.30)}
+.section-cover .nav .item.on{color:#fff;border-bottom:3px solid var(--accent);padding-bottom:6px}
+.section-cover .nav .sep{color:rgba(255,255,255,.18);font-size:14px}
+.section-cover .lead-kicker{font-size:14px;letter-spacing:.16em;color:rgba(255,255,255,.6);font-weight:700}
+.section-cover h1{font-size:54px;font-weight:700;margin:0}
+.section-cover .sub{font-size:20px;color:rgba(255,255,255,.78);margin:0}
+
+/* ===== numbered step flow (method / process: ①→②→③) ===== */
+.stepflow{display:flex;align-items:stretch;gap:20px}
+.step{flex:1;background:var(--surface);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.step .num{font-size:42px;font-weight:700;color:var(--accent);line-height:1}
+.step h3{margin:0;font-size:21px;font-weight:700;color:var(--ink)}
+.step p{margin:0;font-size:16px;color:var(--muted);line-height:1.7}
+.stepflow .arrow{align-self:center;font-size:30px;color:var(--accent);flex:0 0 auto}
+
+/* ===== bilingual tag list  #Handle (中文)  ===== */
+.taglist{font-size:15px;line-height:1.8}
+.taglist .lbl{font-weight:700;color:var(--ink);margin-right:6px}
+.taglist .h{color:var(--accent);font-weight:700}
+.taglist .zh{color:var(--muted)}
+.taglist .sep{color:var(--muted-soft);margin:0 4px}
+
+/* ===== labeled rows with optional 2-track split (lifecycle/stage tables) ===== */
+.lrow{display:grid;grid-template-columns:188px 1fr;gap:24px;align-items:start;padding:14px 20px;border-radius:12px}
+.lrow.alt{background:var(--surface)}
+.lrow .badge .k{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.lrow .badge h3{font-size:19px;margin:3px 0 0;font-weight:700;color:var(--ink)}
+.lrow .split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.lrow .track{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px}
+
 /* ===== Wordmark (poster header) ===== */
 .wordmark{display:flex;flex-direction:column;align-items:center;gap:var(--s2);text-align:center}
 .wordmark .swoosh{width:54px;height:18px}
