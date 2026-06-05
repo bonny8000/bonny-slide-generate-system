@@ -1,7 +1,7 @@
 ---
 name: bonny-slide-system
 kind: agent-skill
-version: 9.0.0
+version: 9.1.0
 description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ (the LLM-readable design system) each run and BUILDS with assets/ (the real CSS). Color is a separate, deck-wide theme layer; layouts/components are theme-agnostic. Strict 4-color discipline, Noto Sans TC + Arial, 12-col grid, plain-language titles, a disciplined icon/illustration layer, and a content→layout map so naked text becomes a good slide. Korean is never produced.
 ---
 
@@ -15,7 +15,7 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 - **`specs/`** — the LLM-readable design system you READ each run. Source of truth for *rules*:
   `foundations/` (color-discipline, themes-and-modes, typography, spacing-grid, layout-balance,
   iconography, plain-language, storytelling) · `themes/` · `tokens/` · `components/` · `layouts/` ·
-  `content-map.md` · `audit.md` · `spec-template.md` · `_catalog.md`.
+  `content-map.md` · `audit.md` · `spec-template.md` · `_catalog.md` · `source-sync.md`.
 - **`assets/`** — the real CSS you BUILD with. `base.css` (theme-independent: type, spacing, grid,
   components) + ONE theme file (`tokens-light.css` / `tokens-dark.css`). Source of truth for *token values*.
 - **`examples/`** — rendered reference slides; **`examples/deck-demo/`** + `deck-demo-scroll.html` = a full short deck showing how layouts chain (pacing, bridges, dividers). **`pptx/`** — token-mirrored python bridge for .pptx.
@@ -45,6 +45,7 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 - New theme → copy a `specs/themes/*.md`, keep the role names, **one accent**. Run `audit.md`.
 
 ## Changelog
+- **v9.1** — added `foundations/source-sync.md` (closes the spec → audit → enforce → **sync** loop); tier-naming map (components/layouts ↔ atoms/molecules/organisms) in README.
 - **v9** — unified into an agent skill: LLM-readable `specs/` library (color-as-separate-theme-layer,
   first-class iconography, content→layout map, drift audit, spec template, catalog mined from 12 real
   decks) + the real `assets/` implementation + pptx bridge.

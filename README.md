@@ -24,3 +24,6 @@ pptx/             # python-pptx bridge (same tokens)
 canonical **rules**. Components/layouts never hardcode color.
 
 — v9 · 2026.06 · patterns mined from 12 reference decks
+
+## Tier mapping (vs the atomic-design diagram)
+`components/` = **atoms + molecules** · `layouts/` = **organisms** (whole-slide, product-specific). Same tiering and one-way dependency as foundations → tokens → components → layouts; named for slides rather than a UI library.
