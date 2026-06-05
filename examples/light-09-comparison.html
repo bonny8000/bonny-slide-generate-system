@@ -1,3 +1,31 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>/* ============================================================
+   tokens-light.css · LIGHT MODE (modeled on reference img 1)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-dark.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --surface:#F1F4F9;      /* card fill                       */
+  --chip:#FFFFFF;         /* inner chips / bubble inset      */
+
+  --ink:#2B3040;          /* headline + body                 */
+  --muted:#7C7E92;        /* secondary text                  */
+  --muted-soft:#DCE0EB;   /* inactive data / line            */
+
+  --accent:#7077FB;       /* periwinkle indigo — highlight   */
+  --accent-soft:#E7E8FC;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#2B3040;    /* insight-band fill (= ink family)*/
+  --band-tag:#B7BCD0;
+  --donut-3:#C2C6D4;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) — tone modifiers swap --accent to these;
+     --pos & --neg together are allowed ONLY inside a KPI/result chart. */
+  --pos:#2FB67A;  --pos-soft:#DCF3E8;
+  --neg:#E5556E;  --neg-soft:#FBE2E7;
+  --warn:#E08A1E; --warn-soft:#FBEED7;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -308,9 +336,32 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .evcard .stat{font-size:40px;font-weight:700;color:var(--ink);font-family:var(--font-latin)}
 .evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
 
-/* ===== icon helper (inline open-source SVG, theme-colored via currentColor) ===== */
-.icon{width:1.25em;height:1.25em;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;flex:0 0 auto}
-.icon.fill{fill:currentColor;stroke:none}
-/* statement line: keep clauses whole, no orphan wrap, no terminal period */
-.statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
-.nowrap{white-space:nowrap}
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.ranklist{display:flex;flex-direction:column;gap:14px}
+.rankrow{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center;background:var(--surface);border-radius:14px;padding:16px 18px}
+.rankrow .rn{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-weight:700;font-size:13px;font-family:var(--font-latin)}
+.rankrow .rt{font-size:15px;color:var(--ink);line-height:1.5}
+.planpanel{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6)}
+.planpanel h3{font-size:21px;margin:0 0 10px;color:var(--ink);font-weight:700}
+.planpanel p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
+</style></head><body><main class="slide deck" style="gap:var(--s5)">
+  <div class="head" style="gap:6px"><p class="kicker latin">Competitor Analysis</p>
+    <h1 class="headline cjk" style="font-size:32px">持續記錄的人,多半靠「有回饋、有成就感」的服務養成習慣</h1></div>
+  <div class="grid12" style="align-items:start">
+    <div class="col-7" style="grid-column:span 8">
+      <table class="ctable">
+        <thead><tr><th></th><th class="fcol cjk">持續記錄的人</th><th class="cjk">偶爾記錄</th><th class="cjk">已中斷</th></tr></thead>
+        <tbody><tr><th class="cjk">主要記錄工具</th><td class="fcol val">IG・部落格</td><td class="">記事本</td><td class="">日記 App</td></tr><tr><th class="cjk">有回饋</th><td class="fcol val">O</td><td class="no">X</td><td class="no">X</td></tr><tr><th class="cjk">長期成就感</th><td class="fcol val">O</td><td class="no">X</td><td class="no">X</td></tr><tr><th class="cjk">失敗痕跡</th><td class="fcol ">X</td><td class="no">X</td><td class="yes">O</td></tr><tr><th class="cjk">記錄門檻</th><td class="fcol val">低</td><td class="">低</td><td class="">高</td></tr></tbody>
+      </table>
+    </div>
+    <div class="col-4" style="grid-column:span 4">
+      <p class="cjk" style="font-size:16px;font-weight:700;color:var(--ink);margin:0 0 14px">養成習慣需要的功能</p>
+      <div class="ranklist">
+        <div class="rankrow"><span class="rn latin">1</span><span class="rt cjk">記錄後有回饋、長期成就感</span></div>
+        <div class="rankrow"><span class="rn latin">2</span><span class="rt cjk">沒有失敗痕跡,容易重新開始</span></div>
+        <div class="rankrow"><span class="rn latin">3</span><span class="rt cjk">門檻低,隨手就能記</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot cjk">comparison · 範例</div></main></body></html>

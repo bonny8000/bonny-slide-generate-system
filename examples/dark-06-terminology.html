@@ -1,3 +1,30 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>/* ============================================================
+   tokens-dark.css · DARK MODE (modeled on reference img 2)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-light.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#1B1B20;       /* near-black, warm                */
+  --surface:#2C2C33;      /* card fill, slate                */
+  --chip:#34343C;         /* inner chips                     */
+
+  --ink:#FFFFFF;          /* headline + body                 */
+  --muted:#9A9CA8;        /* secondary text                  */
+  --muted-soft:#454652;   /* inactive data / line            */
+
+  --accent:#4D77FF;       /* vivid periwinkle blue — highlight */
+  --accent-soft:#2A3358;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#23242C;    /* insight-band fill (darker than card) */
+  --band-tag:#B7BCD0;
+  --donut-3:#5E6070;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) */
+  --pos:#34D399;  --pos-soft:#173A30;
+  --neg:#F26D82;  --neg-soft:#3A1F26;
+  --warn:#F2B04E; --warn-soft:#3A2E18;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -277,40 +304,19 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .termcard.example .kw{color:var(--accent)}
 .termcard.example .def{color:var(--ink)}
 
-/* ===== comparison-table (criteria x options, 1 focus column) ===== */
-.ctable{width:100%;border-collapse:collapse;font-size:15px}
-.ctable th,.ctable td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--muted-soft)}
-.ctable thead th{color:var(--ink);font-weight:700;font-size:14px;border-bottom:2px solid var(--muted-soft)}
-.ctable tbody th{text-align:left;color:var(--ink);font-weight:600}
-.ctable td{color:var(--muted)}
-.ctable .yes{color:var(--ink);font-weight:700}
-.ctable .no{color:var(--muted-soft)}
-.ctable .fcol{background:var(--surface)}
-.ctable thead .fcol{color:var(--accent);border-bottom:2px solid var(--accent)}
-.ctable td.fcol.val{color:var(--accent);font-weight:700}
-
-/* ===== delta-metric (big ±% + before/after bars) ===== */
-.deltametric{display:flex;flex-direction:column;gap:8px}
-.deltametric .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.deltametric .lab{font-size:16px;color:var(--ink);font-weight:700}
-.deltametric .pct{font-size:40px;font-weight:700;font-family:var(--font-latin);color:var(--accent);line-height:1}
-.deltametric .legend-mini{display:flex;gap:16px;font-size:12px;color:var(--muted)}
-.deltametric .legend-mini .dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
-
-/* ===== logo-row (sources / tools / competitors) ===== */
-.logorow{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;justify-content:center}
-.logo{height:42px;min-width:62px;padding:0 14px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--muted-soft);display:grid;place-items:center;color:var(--muted);font-weight:700;font-family:var(--font-latin);font-size:14px}
-
-/* ===== evidence-card (icon-stat / chart / logo-row) ===== */
-.evcard{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;align-items:center;gap:var(--s3);text-align:center;min-height:300px;justify-content:center}
-.evcard .figic{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
-.evcard .figic svg{width:32px;height:32px;stroke:var(--accent);fill:none;stroke-width:2}
-.evcard .stat{font-size:40px;font-weight:700;color:var(--ink);font-family:var(--font-latin)}
-.evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
-
-/* ===== icon helper (inline open-source SVG, theme-colored via currentColor) ===== */
-.icon{width:1.25em;height:1.25em;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;flex:0 0 auto}
-.icon.fill{fill:currentColor;stroke:none}
-/* statement line: keep clauses whole, no orphan wrap, no terminal period */
-.statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
-.nowrap{white-space:nowrap}
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.connector{display:flex;justify-content:center;color:var(--muted);font-size:22px;margin:2px 0}
+</style></head><body><main class="slide deck" style="gap:var(--s5)">
+  <div class="head center" style="gap:8px"><p class="kicker latin">About Project</p>
+    <h1 class="headline cjk" style="font-size:38px">用語對齊</h1></div>
+  <div class="cards three" style="gap:var(--s4)">
+    <div class="termcard"><div class="illus"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><span class="kw latin">KEYWORD 1</span><div class="term cjk">TO-BE 自我</div><p class="def cjk">使用者想成為的理想自己 —— 態度、性格與生活風格。</p></div>
+    <div class="termcard"><div class="illus"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/></svg></div><span class="kw latin">KEYWORD 2</span><div class="term cjk">平台販售商品</div><p class="def cjk">為實現 TO-BE 自我所需的類型／資產／策展內容。</p></div>
+    <div class="termcard"><div class="illus"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div><span class="kw latin">KEYWORD 3</span><div class="term cjk">購物籃 = TO-BE 載體</div><p class="def cjk">為各個 TO-BE 自我建立的籃子,把物件分開收納。</p></div>
+  </div>
+  <div class="cards three" style="gap:var(--s4)">
+    <div class="termcard example"><span class="kw latin">EXAMPLE</span><p class="def cjk">在他人面前侃侃而談的人 → 有創意的設計師</p></div>
+    <div class="termcard example"><span class="kw latin">EXAMPLE</span><p class="def cjk">提升數學成績的商品:參考書、教具</p></div>
+    <div class="termcard example"><span class="kw latin">EXAMPLE</span><p class="def cjk">籃 A:麥克風／演講 · 籃 B:筆記／教材</p></div>
+  </div></main></body></html>

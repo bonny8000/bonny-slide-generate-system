@@ -1,3 +1,30 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>/* ============================================================
+   tokens-dark.css · DARK MODE (modeled on reference img 2)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-light.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#1B1B20;       /* near-black, warm                */
+  --surface:#2C2C33;      /* card fill, slate                */
+  --chip:#34343C;         /* inner chips                     */
+
+  --ink:#FFFFFF;          /* headline + body                 */
+  --muted:#9A9CA8;        /* secondary text                  */
+  --muted-soft:#454652;   /* inactive data / line            */
+
+  --accent:#4D77FF;       /* vivid periwinkle blue — highlight */
+  --accent-soft:#2A3358;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#23242C;    /* insight-band fill (darker than card) */
+  --band-tag:#B7BCD0;
+  --donut-3:#5E6070;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) */
+  --pos:#34D399;  --pos-soft:#173A30;
+  --neg:#F26D82;  --neg-soft:#3A1F26;
+  --warn:#F2B04E; --warn-soft:#3A2E18;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -277,40 +304,37 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .termcard.example .kw{color:var(--accent)}
 .termcard.example .def{color:var(--ink)}
 
-/* ===== comparison-table (criteria x options, 1 focus column) ===== */
-.ctable{width:100%;border-collapse:collapse;font-size:15px}
-.ctable th,.ctable td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--muted-soft)}
-.ctable thead th{color:var(--ink);font-weight:700;font-size:14px;border-bottom:2px solid var(--muted-soft)}
-.ctable tbody th{text-align:left;color:var(--ink);font-weight:600}
-.ctable td{color:var(--muted)}
-.ctable .yes{color:var(--ink);font-weight:700}
-.ctable .no{color:var(--muted-soft)}
-.ctable .fcol{background:var(--surface)}
-.ctable thead .fcol{color:var(--accent);border-bottom:2px solid var(--accent)}
-.ctable td.fcol.val{color:var(--accent);font-weight:700}
-
-/* ===== delta-metric (big ±% + before/after bars) ===== */
-.deltametric{display:flex;flex-direction:column;gap:8px}
-.deltametric .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.deltametric .lab{font-size:16px;color:var(--ink);font-weight:700}
-.deltametric .pct{font-size:40px;font-weight:700;font-family:var(--font-latin);color:var(--accent);line-height:1}
-.deltametric .legend-mini{display:flex;gap:16px;font-size:12px;color:var(--muted)}
-.deltametric .legend-mini .dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
-
-/* ===== logo-row (sources / tools / competitors) ===== */
-.logorow{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;justify-content:center}
-.logo{height:42px;min-width:62px;padding:0 14px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--muted-soft);display:grid;place-items:center;color:var(--muted);font-weight:700;font-family:var(--font-latin);font-size:14px}
-
-/* ===== evidence-card (icon-stat / chart / logo-row) ===== */
-.evcard{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;align-items:center;gap:var(--s3);text-align:center;min-height:300px;justify-content:center}
-.evcard .figic{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
-.evcard .figic svg{width:32px;height:32px;stroke:var(--accent);fill:none;stroke-width:2}
-.evcard .stat{font-size:40px;font-weight:700;color:var(--ink);font-family:var(--font-latin)}
-.evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
-
-/* ===== icon helper (inline open-source SVG, theme-colored via currentColor) ===== */
-.icon{width:1.25em;height:1.25em;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;flex:0 0 auto}
-.icon.fill{fill:currentColor;stroke:none}
-/* statement line: keep clauses whole, no orphan wrap, no terminal period */
-.statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
-.nowrap{white-space:nowrap}
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.connector{display:flex;justify-content:center;color:var(--muted);font-size:22px;margin:2px 0}
+</style></head><body><main class="slide deck" style="gap:var(--s4)">
+  <div class="head" style="gap:6px"><p class="kicker latin">Background</p>
+    <h1 class="headline cjk" style="font-size:34px">多數人就算心理不舒服,也很少向人傾訴或求助</h1></div>
+  <div class="cards three" style="gap:var(--s4)">
+    <div class="card"><p class="cjk" style="color:var(--muted);font-size:14px;margin:0 0 12px">過去一年心理困擾比例</p>
+      <div class="barchart" style="height:170px">
+        <div class="barcol"><span class="bar" style="--h:55%"><span class="val latin">59.9</span></span><span class="xlab latin">2022</span></div>
+        <div class="barcol"><span class="bar" style="--h:70%"><span class="val latin">65.2</span></span><span class="xlab latin">2023</span></div>
+        <div class="barcol active"><span class="bar" style="--h:88%"><span class="val latin">73.6</span></span><span class="xlab latin">2024</span></div>
+      </div></div>
+    <div class="card"><p class="cjk" style="color:var(--muted);font-size:14px;margin:0 0 8px">主要困擾類型</p>
+      <div class="bubbles" style="height:180px">
+        <div class="bubble accent" style="width:120px;height:120px;left:8px;top:30px"><span class="bl cjk">嚴重壓力<br>46.3</span></div>
+        <div class="bubble muted" style="width:92px;height:92px;left:140px;top:14px"><span class="bl cjk">持續憂鬱<br>40.2</span></div>
+        <div class="bubble muted" style="width:76px;height:76px;left:150px;top:110px"><span class="bl cjk">不安<br>34.1</span></div>
+      </div></div>
+    <div class="card" style="align-items:center;display:flex;flex-direction:column"><p class="cjk" style="color:var(--muted);font-size:14px;margin:0 0 12px">曾諮商／就醫</p>
+      <div class="donut" style="--p1:73%;--p2:100%"><span class="center latin">73.0</span></div>
+      <p class="cjk" style="color:var(--muted);font-size:13px;margin:12px 0 0">沒有諮商或就醫過</p></div>
+  </div>
+  <div class="connector">↓</div>
+  <div class="callout"><p class="q cjk">HMW — 怎麼讓人不壓抑情緒,在<span class="mark">日常裡</span>就能照顧自己的心理?</p></div>
+  <div class="connector">↓</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <p class="kicker latin">Desk Research</p>
+    <div class="cards two" style="gap:var(--s4)">
+      <div class="citecard"><p class="find cjk">回想<span class="mark">正向記憶</span>就能緩和壓力反應、加快情緒恢復。</p><p class="src latin">Speer et al., 2014</p></div>
+      <div class="citecard"><p class="find cjk">多模態的情緒紀錄能提升自我覺察,促進自我調節。</p><p class="src latin">Affective Diary, 2009</p></div>
+    </div>
+  </div>
+  <div class="foot cjk">research-flow · 範例</div></main></body></html>

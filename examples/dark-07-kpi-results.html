@@ -1,3 +1,30 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>/* ============================================================
+   tokens-dark.css · DARK MODE (modeled on reference img 2)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-light.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#1B1B20;       /* near-black, warm                */
+  --surface:#2C2C33;      /* card fill, slate                */
+  --chip:#34343C;         /* inner chips                     */
+
+  --ink:#FFFFFF;          /* headline + body                 */
+  --muted:#9A9CA8;        /* secondary text                  */
+  --muted-soft:#454652;   /* inactive data / line            */
+
+  --accent:#4D77FF;       /* vivid periwinkle blue — highlight */
+  --accent-soft:#2A3358;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#23242C;    /* insight-band fill (darker than card) */
+  --band-tag:#B7BCD0;
+  --donut-3:#5E6070;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) */
+  --pos:#34D399;  --pos-soft:#173A30;
+  --neg:#F26D82;  --neg-soft:#3A1F26;
+  --warn:#F2B04E; --warn-soft:#3A2E18;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -308,9 +335,31 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .evcard .stat{font-size:40px;font-weight:700;color:var(--ink);font-family:var(--font-latin)}
 .evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
 
-/* ===== icon helper (inline open-source SVG, theme-colored via currentColor) ===== */
-.icon{width:1.25em;height:1.25em;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;flex:0 0 auto}
-.icon.fill{fill:currentColor;stroke:none}
-/* statement line: keep clauses whole, no orphan wrap, no terminal period */
-.statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
-.nowrap{white-space:nowrap}
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.ranklist{display:flex;flex-direction:column;gap:14px}
+.rankrow{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center;background:var(--surface);border-radius:14px;padding:16px 18px}
+.rankrow .rn{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-weight:700;font-size:13px;font-family:var(--font-latin)}
+.rankrow .rt{font-size:15px;color:var(--ink);line-height:1.5}
+.planpanel{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6)}
+.planpanel h3{font-size:21px;margin:0 0 10px;color:var(--ink);font-weight:700}
+.planpanel p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
+</style></head><body><main class="slide deck" style="gap:var(--s5)">
+  <div class="head" style="gap:6px"><p class="kicker latin">Improvement</p>
+    <h1 class="headline cjk" style="font-size:32px">簡化申請流程、整合資訊,讓<span style="color:var(--accent)">申請率上升、諮詢下降</span></h1></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s7)">
+    <div><div class="deltametric">
+      <div class="hd"><span class="lab cjk">每月申請件數</span><span class="pct latin">+25%</span></div>
+      <div class="legend-mini cjk"><span><span class="dot" style="background:var(--muted-soft)"></span>改善前</span><span><span class="dot" style="background:var(--accent)"></span>改善後</span></div>
+    </div><div class="barchart" style="height:160px"><div class="barcol"><span class="bar" style="--h:42%"></span><span class="xlab latin">1月</span></div><div class="barcol"><span class="bar" style="--h:48%"></span><span class="xlab latin">2月</span></div><div class="barcol"><span class="bar" style="--h:52%"></span><span class="xlab latin">3月</span></div><div class="barcol active"><span class="bar" style="--h:72%"></span><span class="xlab latin">4月</span></div><div class="barcol active"><span class="bar" style="--h:86%"></span><span class="xlab latin">5月</span></div><div class="barcol active"><span class="bar" style="--h:80%"></span><span class="xlab latin">6月</span></div></div></div>
+    <div><div class="deltametric">
+      <div class="hd"><span class="lab cjk">每月相關諮詢</span><span class="pct latin">-48%</span></div>
+      <div class="legend-mini cjk"><span><span class="dot" style="background:var(--muted-soft)"></span>改善前</span><span><span class="dot" style="background:var(--accent)"></span>改善後</span></div>
+    </div><div class="barchart" style="height:160px"><div class="barcol"><span class="bar" style="--h:80%"></span><span class="xlab latin">1月</span></div><div class="barcol"><span class="bar" style="--h:78%"></span><span class="xlab latin">2月</span></div><div class="barcol"><span class="bar" style="--h:74%"></span><span class="xlab latin">3月</span></div><div class="barcol active"><span class="bar" style="--h:40%"></span><span class="xlab latin">4月</span></div><div class="barcol active"><span class="bar" style="--h:30%"></span><span class="xlab latin">5月</span></div><div class="barcol active"><span class="bar" style="--h:26%"></span><span class="xlab latin">6月</span></div></div></div>
+  </div>
+  <div class="planpanel">
+    <div><h3 class="cjk">月均申請數 600 件目標</h3><p class="cjk">分析漏斗的瓶頸並改善,持續用回饋優化申請體驗。</p></div>
+    <div><h3 class="cjk">整理複雜用語</h3><p class="cjk">統一容易混淆的字詞與表頭,讓申請流程更直覺。</p></div>
+    <div><h3 class="cjk">FAQ 與說明連動</h3><p class="cjk">把常見問題放在旁邊即時解答,讓使用者能自助解決。</p></div>
+  </div>
+  <div class="foot cjk">kpi-results · 範例</div></main></body></html>

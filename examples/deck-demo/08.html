@@ -1,3 +1,31 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>/* ============================================================
+   tokens-light.css · LIGHT MODE (modeled on reference img 1)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-dark.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --surface:#F1F4F9;      /* card fill                       */
+  --chip:#FFFFFF;         /* inner chips / bubble inset      */
+
+  --ink:#2B3040;          /* headline + body                 */
+  --muted:#7C7E92;        /* secondary text                  */
+  --muted-soft:#DCE0EB;   /* inactive data / line            */
+
+  --accent:#7077FB;       /* periwinkle indigo — highlight   */
+  --accent-soft:#E7E8FC;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#2B3040;    /* insight-band fill (= ink family)*/
+  --band-tag:#B7BCD0;
+  --donut-3:#C2C6D4;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) — tone modifiers swap --accent to these;
+     --pos & --neg together are allowed ONLY inside a KPI/result chart. */
+  --pos:#2FB67A;  --pos-soft:#DCF3E8;
+  --neg:#E5556E;  --neg-soft:#FBE2E7;
+  --warn:#E08A1E; --warn-soft:#FBEED7;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -314,3 +342,21 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 /* statement line: keep clauses whole, no orphan wrap, no terminal period */
 .statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
 .nowrap{white-space:nowrap}
+
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.pageno{position:absolute;bottom:42px;right:96px;font-size:14px;color:var(--muted)}
+.solid-band{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:24px 40px;text-align:center;font-size:20px;font-weight:700;line-height:1.6}
+.tcard{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;gap:10px}
+.tcard h3{font-size:20px;margin:0;color:var(--ink);font-weight:700}
+.tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
+.numrow .nchart{display:flex;align-items:center;justify-content:center}
+.bridge{font-size:16px;color:var(--muted);margin:0}
+</style></head><body><main class="slide deck "><div class="head center" style="gap:14px"><p class="kicker latin">結論 · 下一步</p>
+  <h1 class="headline cjk">把「被看見」做進產品,讓記錄能持續</h1></div>
+<div class="cards three" style="gap:var(--s5)">
+  <div class="tcard"><h3 class="cjk">即時回饋</h3><p class="cjk">每次記錄都給看得見的回應,讓人感到值得</p></div>
+  <div class="tcard"><h3 class="cjk">柔性重啟</h3><p class="cjk">中斷不留懲罰式痕跡,讓人能輕鬆回來</p></div>
+  <div class="tcard"><h3 class="cjk">低門檻入口</h3><p class="cjk">把開始記錄的成本降到最低,隨手可記</p></div>
+</div>
+<div class="solid-band cjk">先把「被看見」做對 → 再把重啟做柔 → 最後把門檻做低</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">08</div></main></body></html>

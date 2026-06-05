@@ -1,3 +1,31 @@
+<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>讓人持續記錄的服務 · 範例 deck</title><style>/* ============================================================
+   tokens-light.css · LIGHT MODE (modeled on reference img 1)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-dark.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --surface:#F1F4F9;      /* card fill                       */
+  --chip:#FFFFFF;         /* inner chips / bubble inset      */
+
+  --ink:#2B3040;          /* headline + body                 */
+  --muted:#7C7E92;        /* secondary text                  */
+  --muted-soft:#DCE0EB;   /* inactive data / line            */
+
+  --accent:#7077FB;       /* periwinkle indigo — highlight   */
+  --accent-soft:#E7E8FC;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#2B3040;    /* insight-band fill (= ink family)*/
+  --band-tag:#B7BCD0;
+  --donut-3:#C2C6D4;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) — tone modifiers swap --accent to these;
+     --pos & --neg together are allowed ONLY inside a KPI/result chart. */
+  --pos:#2FB67A;  --pos-soft:#DCF3E8;
+  --neg:#E5556E;  --neg-soft:#FBE2E7;
+  --warn:#E08A1E; --warn-soft:#FBEED7;
+}
 /* ============================================================
    Bonny Slide System v6 · base.css  (SHARED, mode-independent)
    Spacing scale · 12-col grid · full component library · tone modifiers.
@@ -314,3 +342,82 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 /* statement line: keep clauses whole, no orphan wrap, no terminal period */
 .statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
 .nowrap{white-space:nowrap}
+
+.kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+.foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+.pageno{position:absolute;bottom:42px;right:96px;font-size:14px;color:var(--muted)}
+.solid-band{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:24px 40px;text-align:center;font-size:20px;font-weight:700;line-height:1.6}
+.tcard{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;gap:10px}
+.tcard h3{font-size:20px;margin:0;color:var(--ink);font-weight:700}
+.tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
+.numrow .nchart{display:flex;align-items:center;justify-content:center}
+.bridge{font-size:16px;color:var(--muted);margin:0}
+html,body{margin:0;background:#cdd2dc}body{display:block}
+.deck-scroll{display:flex;flex-direction:column;align-items:center;gap:26px;padding:26px 0 56px;scroll-snap-type:y proximity}
+.frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
+.frame .slide{transform-origin:top left}
+.toc{position:fixed;top:50%;right:14px;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:50}
+.toc a{width:10px;height:10px;border-radius:50%;background:#b8bdca;display:block}.toc a:hover{background:#7077FB}
+@media (max-width:700px){.toc{display:none}}</style></head><body><nav class='toc'><a href="#s1"></a><a href="#s2"></a><a href="#s3"></a><a href="#s4"></a><a href="#s5"></a><a href="#s6"></a><a href="#s7"></a><a href="#s8"></a></nav><div class='deck-scroll'><div class="frame" id="s1"><main class="slide deck "><div class="head center" style="gap:24px">
+  <p class="kicker latin">UX Case Study</p>
+  <h1 class="headline cjk" style="font-size:64px">讓人持續記錄的服務</h1>
+  <p class="sub cjk" style="font-size:22px;color:var(--ink)">想記錄的人很多,能持續的卻很少 —— 我們研究了為什麼</p>
+</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">01</div></main></div>
+<div class="frame" id="s2"><main class="slide deck section-cover"><div class="head center" style="gap:34px">
+  <div class="nav"><span class="item on cjk">背景與研究</span><span class="sep">·</span><span class="item cjk">競品與機會</span><span class="sep">·</span><span class="item cjk">結論與下一步</span></div>
+  <div class="head center" style="gap:14px">
+    <p class="lead-kicker latin">PART 01</p>
+    <h1 class="cjk">背景與研究</h1>
+    <p class="sub cjk">市場在長,但服務跟得上嗎?</p>
+  </div></div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">02</div></main></div>
+<div class="frame" id="s3"><main class="slide deck "><div class="head center" style="gap:10px"><p class="kicker latin">Background</p>
+  <h1 class="headline cjk" style="font-size:34px;text-align:center">成長中的記錄市場,給使用者的服務夠嗎?</h1>
+  <p class="sub cjk" style="color:var(--muted);text-align:center;font-size:17px;max-width:760px">記錄能讓人看見成果、得到成就感,但能持續記錄的方法還很少</p></div>
+<div class="cards three" style="gap:var(--s5)">
+  <div class="evcard"><div class="figic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><div class="stat latin">276K</div><p class="cap cjk">某記錄社群會員數</p></div>
+  <div class="evcard"><div class="barchart" style="height:120px"><div class="barcol"><span class="bar" style="--h:90%"></span><span class="xlab latin">走</span></div><div class="barcol"><span class="bar" style="--h:60%"></span><span class="xlab latin">騎</span></div><div class="barcol active"><span class="bar" style="--h:34%"></span><span class="xlab latin">記</span></div></div><p class="cap cjk">記錄是最難持續的習慣之一</p></div>
+  <div class="evcard"><div class="logorow"><span class="logo latin">FitA</span><span class="logo latin">RunB</span><span class="logo latin">LogC</span></div><p class="cap cjk">工具很多,真正幫人持續的少</p></div>
+</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">03</div></main></div>
+<div class="frame" id="s4"><main class="slide deck "><div class="head" style="gap:8px"><p class="kicker latin">Research</p>
+  <h1 class="headline cjk" style="font-size:32px">從這些數字,我們看到三件事</h1>
+  <p class="bridge cjk">承上頁的市場訊號,我們進一步看了行為資料 ——</p></div>
+<div style="display:flex;flex-direction:column;gap:var(--s5)">
+  <div class="numrow"><div class="nbadge latin">1</div><div class="ntext"><h3 class="cjk">想記錄的人逐年變多</h3><p class="zh cjk">搜尋與下載量持續上升</p></div><div class="nchart"><svg class="linechart" viewBox="0 0 320 120" style="height:120px"><polyline class="ln-path" points="20,95 110,70 210,55 300,28"/><circle class="ln-node" cx="20" cy="95" r="5"/><circle class="ln-node" cx="300" cy="28" r="5"/></svg></div></div>
+  <div class="numrow"><div class="nbadge latin">2</div><div class="ntext"><h3 class="cjk">但多數人三週內放棄</h3><p class="zh cjk">第一週後留存快速下滑</p></div><div class="nchart"><div class="barchart" style="height:110px"><div class="barcol active"><span class="bar" style="--h:80%"></span><span class="xlab latin">1週</span></div><div class="barcol"><span class="bar" style="--h:45%"></span><span class="xlab latin">2週</span></div><div class="barcol"><span class="bar" style="--h:20%"></span><span class="xlab latin">3週</span></div></div></div></div>
+  <div class="numrow"><div class="nbadge latin">3</div><div class="ntext"><h3 class="cjk">留下來的,都有回饋機制</h3><p class="zh cjk">78% 的長期使用者重視「被看見」</p></div><div class="nchart"><div class="donut on-canvas" style="--p1:78%;--p2:100%;width:118px;height:118px"><span class="center latin">78%</span></div></div></div>
+</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">04</div></main></div>
+<div class="frame" id="s5"><main class="slide deck section-cover"><div class="head center" style="gap:34px">
+  <div class="nav"><span class="item cjk">背景與研究</span><span class="sep">·</span><span class="item on cjk">競品與機會</span><span class="sep">·</span><span class="item cjk">結論與下一步</span></div>
+  <div class="head center" style="gap:14px">
+    <p class="lead-kicker latin">PART 02</p>
+    <h1 class="cjk">競品與機會</h1>
+    <p class="sub cjk">持續的人,都在用什麼?</p>
+  </div></div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">05</div></main></div>
+<div class="frame" id="s6"><main class="slide deck "><div class="head" style="gap:6px"><p class="kicter kicker latin">Competitor Analysis</p>
+  <h1 class="headline cjk" style="font-size:30px">持續記錄的人,多半靠「有回饋、有成就感」的服務</h1>
+  <p class="bridge cjk">把使用者分成三群來看,差別很清楚 ——</p></div>
+<div class="grid12" style="align-items:start">
+  <div style="grid-column:span 8"><table class="ctable"><thead><tr><th></th><th class="fcol cjk">持續記錄的人</th><th class="cjk">偶爾記錄</th><th class="cjk">已中斷</th></tr></thead><tbody><tr><th class="cjk">主要記錄工具</th><td class="fcol val">IG・部落格</td><td class="">記事本</td><td class="">日記 App</td></tr><tr><th class="cjk">有回饋</th><td class="fcol val">O</td><td class="no">X</td><td class="no">X</td></tr><tr><th class="cjk">長期成就感</th><td class="fcol val">O</td><td class="no">X</td><td class="no">X</td></tr><tr><th class="cjk">記錄門檻</th><td class="fcol val">低</td><td class="">低</td><td class="">高</td></tr></tbody></table></div>
+  <div style="grid-column:span 4">
+    <p class="cjk" style="font-size:16px;font-weight:700;color:var(--ink);margin:0 0 14px">需要的功能</p>
+    <div class="feature-rows">
+      <div class="feature-row"><h3 class="cjk" style="font-size:17px">回饋與成就感</h3></div>
+      <div class="feature-row"><h3 class="cjk" style="font-size:17px">沒有失敗痕跡,好重啟</h3></div>
+      <div class="feature-row"><h3 class="cjk" style="font-size:17px">門檻低,隨手就能記</h3></div>
+    </div>
+  </div>
+</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">06</div></main></div>
+<div class="frame" id="s7"><main class="slide deck "><div class="head center" style="gap:18px">
+  <p class="kicker latin">Insight</p>
+  <h1 class="statement cjk" style="font-size:36px">
+    <span class="nowrap">持續的關鍵在<span style="color:var(--accent)">回饋與成就感</span></span> —— <span class="nowrap">有被看見,才會一直記下去</span>
+  </h1>
+</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">07</div></main></div>
+<div class="frame" id="s8"><main class="slide deck "><div class="head center" style="gap:14px"><p class="kicker latin">結論 · 下一步</p>
+  <h1 class="headline cjk">把「被看見」做進產品,讓記錄能持續</h1></div>
+<div class="cards three" style="gap:var(--s5)">
+  <div class="tcard"><h3 class="cjk">即時回饋</h3><p class="cjk">每次記錄都給看得見的回應,讓人感到值得</p></div>
+  <div class="tcard"><h3 class="cjk">柔性重啟</h3><p class="cjk">中斷不留懲罰式痕跡,讓人能輕鬆回來</p></div>
+  <div class="tcard"><h3 class="cjk">低門檻入口</h3><p class="cjk">把開始記錄的成本降到最低,隨手可記</p></div>
+</div>
+<div class="solid-band cjk">先把「被看見」做對 → 再把重啟做柔 → 最後把門檻做低</div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">08</div></main></div></div><script>function fit(){var f=Math.min((window.innerWidth*0.98)/1920,1);document.querySelectorAll('.frame').forEach(function(fr){var s=fr.querySelector('.slide');s.style.transform='scale('+f+')';fr.style.width=(1920*f)+'px';fr.style.height=(1080*f)+'px';});}window.addEventListener('resize',fit);window.addEventListener('load',fit);fit();</script></body></html>
