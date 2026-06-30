@@ -1,0 +1,32 @@
+/* ============================================================
+   tokens-dark.css · DARK MODE (modeled on reference img 2)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-light.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#1B1B20;       /* near-black, warm                */
+  --surface:#2C2C33;      /* card fill, slate                */
+  --chip:#34343C;         /* inner chips                     */
+
+  --ink:#FFFFFF;          /* headline + body                 */
+  --muted:#9A9CA8;        /* secondary text                  */
+  --muted-soft:#454652;   /* inactive data / line            */
+
+  --accent:#4D77FF;       /* vivid periwinkle blue — highlight */
+  --accent-soft:#2A3358;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#23242C;    /* insight-band fill (darker than card) */
+  --band-tag:#B7BCD0;
+  --donut-3:#5E6070;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) */
+  --pos:#34D399;  --pos-soft:#173A30;
+  --neg:#F26D82;  --neg-soft:#3A1F26;
+  --warn:#F2B04E; --warn-soft:#3A2E18;
+
+  /* elevation — subtle by default (depth, not drama). reserve for things that truly float. */
+  --shadow-card:0 4px 16px rgba(0,0,0,.18);
+  --shadow-pop:0 10px 28px rgba(0,0,0,.26);
+  --shadow-img:0 2px 8px rgba(0,0,0,.3), 0 20px 46px rgba(0,0,0,.5);  /* screenshots/photos/mockups on dark — gentle depth, still soft */
+}

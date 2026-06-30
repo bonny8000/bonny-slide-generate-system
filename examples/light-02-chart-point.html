@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><title>Light · Vertical bars + point</title>
+<style>
+/* ============================================================
+   tokens-light.css · LIGHT MODE (modeled on reference img 1)
+   4-color discipline: bg + text + muted + ONE highlight (--accent).
+   Load this OR tokens-dark.css — never both in one deck.
+   ============================================================ */
+:root{
+  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --surface:#F1F4F9;      /* card fill                       */
+  --chip:#FFFFFF;         /* inner chips / bubble inset      */
+
+  --ink:#2B3040;          /* headline + body                 */
+  --muted:#7C7E92;        /* secondary text                  */
+  --muted-soft:#DCE0EB;   /* inactive data / line            */
+
+  --accent:#7077FB;       /* periwinkle indigo — highlight   */
+  --accent-soft:#E7E8FC;  /* accent tint                     */
+  --on-accent:#FFFFFF;
+
+  --band-fill:#2B3040;    /* insight-band fill (= ink family)*/
+  --band-tag:#B7BCD0;
+  --donut-3:#C2C6D4;      /* 3rd neutral donut segment       */
+
+  /* semantic data colors (FIX 5) — tone modifiers swap --accent to these;
+     --pos & --neg together are allowed ONLY inside a KPI/result chart. */
+  --pos:#2FB67A;  --pos-soft:#DCF3E8;
+  --neg:#E5556E;  --neg-soft:#FBE2E7;
+  --warn:#E08A1E; --warn-soft:#FBEED7;
+}
+
+/* ============================================================
+   Bonny Slide System v6 · base.css  (SHARED, mode-independent)
+   Spacing scale · 12-col grid · full component library · tone modifiers.
+   Color lives ONLY in tokens-light.css / tokens-dark.css.
+   ============================================================ */
+
+:root{
+  /* ---- Fonts (locked) ---- */
+  --font-cjk:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --font-latin:Arial,"Helvetica Neue",sans-serif;
+
+  /* ---- Text rhythm (locked) ---- */
+  --ls-cjk:0.05em; --ls-latin:0; --lh:1.5;
+
+  /* ---- Type scale ---- */
+  --fs-h1:50px; --fs-metric:56px; --fs-section:30px; --fs-eyebrow:22px;
+  --fs-q:20px; --fs-pill:18px; --fs-body:17px; --fs-caption:14px;
+
+  /* ---- Spacing scale (8px base; the ONLY allowed spacing values) ---- */
+  --s0:4px; --s1:8px; --s2:12px; --s3:16px; --s4:24px;
+  --s5:32px; --s6:48px; --s7:64px; --s8:80px; --s9:96px;
+
+  /* ---- Derived spacing roles ---- */
+  --pad-y:var(--s8); --pad-x:var(--s9);
+  --gutter:var(--s5); --gap-section:var(--s6); --pad-card:var(--s6);
+  --r-card:24px; --r-pill:999px; --r-sm:18px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:#cdd2dc}
+body{display:grid;place-items:center;font-family:var(--font-latin)}
+
+/* ===== Canvas ===== */
+.slide{
+  background:var(--canvas);color:var(--ink);position:relative;line-height:var(--lh);
+  padding:var(--pad-y) var(--pad-x);
+  display:flex;flex-direction:column;justify-content:center;gap:var(--gap-section);
+}
+.slide.deck{width:1920px;height:1080px}
+.slide.poster{width:1080px;height:auto;justify-content:flex-start;gap:var(--s7)}
+
+/* ===== 12-column grid (canonical splits: 6+6 · 7+5 · 8+4 · 4+4+4) ===== */
+.grid12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gutter);align-items:start}
+.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
+.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
+.cards{display:grid;gap:var(--gutter)}
+.cards.two{grid-template-columns:1fr 1fr}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+
+/* ===== Type ===== */
+.cjk{font-family:var(--font-cjk);letter-spacing:var(--ls-cjk)}
+.latin{font-family:var(--font-latin);letter-spacing:var(--ls-latin)}
+.eyebrow{font-size:var(--fs-eyebrow);font-weight:600;color:var(--muted);margin:0}
+.headline{font-size:var(--fs-h1);font-weight:700;color:var(--ink);margin:0;line-height:var(--lh)}
+.headline .accent{color:var(--accent)}
+.sub{font-size:var(--fs-body);color:var(--muted);margin:0}
+.sub.en{font-size:15px;color:var(--muted)}
+.meta{font-size:var(--fs-caption);color:var(--muted);margin:0}
+.src{font-size:var(--fs-caption);color:var(--muted);margin:0;text-align:center}
+
+.head{display:flex;flex-direction:column;gap:var(--s3)}
+.head.center{align-items:center;text-align:center}
+
+/* ===== Pills & section dividers ===== */
+.pill{display:inline-block;background:var(--accent);color:var(--on-accent);
+  padding:var(--s1) var(--s4);border-radius:var(--r-pill);
+  font-size:var(--fs-pill);font-weight:700;letter-spacing:0}
+.pill.ghost{background:var(--accent-soft);color:var(--accent)}
+.section-divider{display:flex;flex-direction:column;align-items:center;gap:var(--s4);text-align:center}
+.section-divider .s-head{font-size:var(--fs-section);font-weight:700;color:var(--ink);margin:0;line-height:var(--lh)}
+.section-divider .s-head .accent{color:var(--accent)}
+
+/* ===== Card ===== */
+.card{background:var(--surface);border-radius:var(--r-card);padding:var(--pad-card);
+  position:relative;display:flex;flex-direction:column;gap:var(--s4)}
+.card.has-band{padding-bottom:0;overflow:hidden}
+.q{font-size:var(--fs-q);font-weight:700;color:var(--ink);margin:0;line-height:var(--lh)}
+.q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
+
+/* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+  padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
+.band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
+.band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
+
+/* ===== horizontal ranked bars ===== */
+.hbars{display:flex;flex-direction:column;gap:var(--s3)}
+.hbar{display:grid;grid-template-columns:1fr auto;gap:var(--s3);align-items:end}
+.hbar .lab{font-size:15px;color:var(--ink);margin-bottom:var(--s1)}
+.hbar .track{height:34px;border-radius:var(--r-pill);background:transparent}
+.hbar .fill{height:100%;border-radius:var(--r-pill);background:var(--muted-soft);min-width:34px}
+.hbar.active .fill{background:var(--accent)}
+.hbar .pct{font-size:16px;font-weight:700;color:var(--muted);align-self:end}
+.hbar.active .pct{color:var(--accent)}
+.hbar .cell{display:flex;flex-direction:column}
+
+/* ===== C1 · vertical bar chart (height via --h) ===== */
+.barchart{display:flex;align-items:flex-end;justify-content:space-around;gap:var(--s4);height:300px}
+.barcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:var(--s2);flex:1;height:100%}
+.barcol .bar{width:64px;border-radius:14px 14px 0 0;background:var(--muted-soft);height:var(--h);position:relative}
+.barcol.active .bar{background:var(--accent)}
+.barcol .val{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap}
+.barcol.active .val{color:var(--accent)}
+.barcol .xlab{font-size:13px;color:var(--muted)}
+.barcol.active .xlab{color:var(--ink);font-weight:700}
+
+/* ===== C1 · donut (conic-gradient; segments via --p1/--p2) ===== */
+.donut{--p1:60%;--p2:82%;width:180px;height:180px;border-radius:50%;
+  background:conic-gradient(var(--accent) 0 var(--p1),var(--muted-soft) var(--p1) var(--p2),var(--donut-3) var(--p2) 100%);
+  display:grid;place-items:center;position:relative;flex:0 0 auto}
+.donut::before{content:"";position:absolute;width:108px;height:108px;border-radius:50%;background:var(--surface)}
+.donut.on-canvas::before{background:var(--canvas)}
+.donut .center{position:relative;font-size:26px;font-weight:700;color:var(--ink);font-family:var(--font-latin)}
+.legend{display:flex;flex-direction:column;gap:var(--s3)}
+.legend .row{display:flex;align-items:center;gap:var(--s1);font-size:var(--fs-body)}
+.legend .dot{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+
+/* ===== C1 · line chart (geometry = data; styling tokenized) ===== */
+.linechart{width:100%;height:260px;overflow:visible}
+.linechart .ln-grid{stroke:var(--muted-soft);stroke-dasharray:4 6}
+.linechart .ln-path{fill:none;stroke:var(--accent);stroke-width:3}
+.linechart .ln-node{fill:var(--surface);stroke:var(--accent);stroke-width:3}
+.linechart .ln-val{font-size:14px;font-weight:700;fill:var(--ink);font-family:var(--font-latin)}
+.linechart .ln-axis{font-size:13px;fill:var(--muted);font-family:var(--font-latin)}
+
+/* ===== C1 · twin-bar / KPI result (uses --pos / --neg) ===== */
+.kpibars{display:flex;align-items:flex-end;justify-content:center;gap:var(--s7);height:260px}
+.kpibar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:var(--s2);height:100%}
+.kpibar .bar{width:90px;border-radius:14px 14px 0 0;height:var(--h);background:var(--muted-soft);position:relative}
+.kpibar.up .bar{background:var(--pos)} .kpibar.down .bar{background:var(--neg)}
+.kpibar .val{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:18px;font-weight:700;color:var(--ink)}
+.kpibar.up .val{color:var(--pos)} .kpibar.down .val{color:var(--neg)}
+.kpibar .lab{font-size:14px;color:var(--muted)}
+.delta{align-self:center;padding:var(--s1) var(--s4);border-radius:var(--r-pill);font-weight:700;font-size:18px}
+.delta.up{background:var(--pos-soft);color:var(--pos)} .delta.down{background:var(--neg-soft);color:var(--neg)}
+
+/* ===== C2 · metric ===== */
+.metric{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:var(--s1)}
+.metric .num{font-size:var(--fs-metric);font-weight:700;color:var(--ink);line-height:1.2}
+.metric .num .unit{font-size:24px;color:var(--muted);font-weight:600}
+.metric .cap{font-size:var(--fs-caption);color:var(--muted)}
+
+/* ===== C3 · voice / persona + quote bubble ===== */
+.persona{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s4)}
+.persona .pname{font-size:26px;font-weight:700;color:var(--ink);margin:0}
+.persona .prole{font-size:16px;color:var(--muted);margin:0}
+.persona .pq{font-size:var(--fs-body);color:var(--muted);margin:0;max-width:300px}
+.persona .pq .mark{color:var(--accent);font-weight:700}
+.persona .pquote{font-size:18px;color:var(--ink);line-height:1.6;margin:0;max-width:320px}
+.divider-s{width:44px;height:1px;background:var(--muted-soft)}
+.qbubble{background:var(--chip);border:1px solid var(--muted-soft);border-radius:var(--r-sm);
+  padding:var(--s2) var(--s3);font-size:14px;color:var(--ink);line-height:1.6;text-align:left}
+.qbubble .who{display:block;font-size:11px;color:var(--muted);margin-bottom:var(--s0);letter-spacing:.05em}
+
+/* ===== C4 · finding column + opportunity (L8) ===== */
+.insightcol{display:flex;flex-direction:column;align-items:center;gap:var(--s3)}
+.insightcol .find{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);width:100%;
+  display:flex;flex-direction:column;gap:var(--s3);text-align:center;min-height:360px}
+.insightcol .find h3{font-size:22px;line-height:1.5;margin:0;color:var(--accent);font-weight:700}
+.arrow-down{font-size:22px;color:var(--accent);font-weight:700}
+.opp{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:var(--s4);width:100%;
+  text-align:center;display:flex;flex-direction:column;gap:var(--s1);align-items:center}
+.opp .tag{background:rgba(255,255,255,.18);padding:var(--s0) var(--s3);border-radius:var(--r-pill);font-size:13px;font-weight:600}
+.opp .label{font-size:18px;font-weight:700;line-height:1.5;margin:0}
+
+/* ===== C5 · flow / node-chain ===== */
+.flow{display:flex;align-items:center;gap:var(--s3);background:var(--surface);border-radius:80px;padding:var(--s4) var(--s5);flex-wrap:nowrap}
+.flow-node{display:flex;flex-direction:column;align-items:center;gap:var(--s1);text-align:center;flex:0 0 auto}
+.flow-node .node-pill{padding:var(--s2) var(--s4);border-radius:var(--r-pill);font-weight:700;font-size:17px;background:var(--muted-soft);color:var(--ink);white-space:nowrap}
+.flow-node.active .node-pill{background:var(--accent);color:var(--on-accent)}
+.flow-node .cap{font-size:12px;color:var(--muted);max-width:130px;line-height:1.5}
+.flow-arrow{font-size:18px;color:var(--muted);flex:0 0 auto}
+.flow-row{display:grid;grid-template-columns:170px 1fr;gap:var(--s5);align-items:center}
+.flow-row .rlabel{font-size:24px;font-weight:700}
+.flow-row .rlabel .rsub{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:var(--s1)}
+
+/* ===== C6 · feature rows (stacked + headline) ===== */
+.feature-rows{display:flex;flex-direction:column;gap:var(--s3)}
+.feature-row{display:grid;grid-template-columns:1fr auto;gap:var(--s4);align-items:center;
+  background:var(--surface);border:1px solid var(--muted-soft);border-radius:20px;padding:var(--s5);min-height:118px}
+.feature-row.headline{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.feature-row h3{font-size:22px;margin:0;font-weight:700;line-height:1.4}
+.feature-row p{margin:0;font-size:15px;color:var(--muted);line-height:1.6}
+.feature-row.headline p{color:rgba(255,255,255,.85)}
+.feature-row .ic{width:72px;height:72px;border-radius:var(--r-sm);background:var(--chip);
+  border:1px solid var(--muted-soft);display:grid;place-items:center;font-size:28px;justify-self:end}
+.feature-row.headline .ic{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.18)}
+
+/* ===== Bubble cluster ===== */
+.bubbles{position:relative;width:100%;height:300px}
+.bubble{position:absolute;border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--on-accent);font-weight:700;padding:var(--s1)}
+.bubble.muted{background:var(--muted-soft);color:var(--ink)}
+.bubble.accent{background:var(--accent)}
+.bubble .bl{font-size:16px;line-height:1.4}
+
+/* ===== Wordmark (poster header) ===== */
+.wordmark{display:flex;flex-direction:column;align-items:center;gap:var(--s2);text-align:center}
+.wordmark .swoosh{width:54px;height:18px}
+.wordmark .swoosh path{stroke:var(--accent);stroke-width:4;fill:none;stroke-linecap:round}
+.wordmark h1{font-size:46px;font-weight:700;color:var(--ink);margin:0;letter-spacing:.01em}
+
+/* ===== FIX 5 · tone modifiers (re-skin the single accent per slide intent) =====
+   Still ONE chromatic color per slide — tone REPLACES accent, never adds to it.
+   --pos / --neg appearing TOGETHER is allowed ONLY in a KPI/result chart. */
+.slide.tone-pos{--accent:var(--pos);--accent-soft:var(--pos-soft)}
+.slide.tone-neg{--accent:var(--neg);--accent-soft:var(--neg-soft)}
+.slide.tone-warn{--accent:var(--warn);--accent-soft:var(--warn-soft)}
+
+</style></head><body>
+<main class="slide deck">  <div class="head"><p class="eyebrow latin">Market Background</p>
+    <h1 class="headline cjk">老舊建物更新推動都市再生，<br>同步擴大住宅<span class="accent">安保基礎建設缺口</span></h1></div>
+  <div class="grid12">
+    <article class="card col-8" style="gap:var(--s5)">
+      <p class="q cjk" style="text-align:center">全國新建住宅供給中「都更／重建」比重（年度）</p>
+      <div class="barchart">
+        <div class="barcol"><div class="bar" style="--h:67.3%"><span class="val latin">36.6%</span></div><span class="xlab latin">2019</span></div><div class="barcol"><div class="bar" style="--h:65.5%"><span class="val latin">35.6%</span></div><span class="xlab latin">2020</span></div><div class="barcol"><div class="bar" style="--h:34.0%"><span class="val latin">18.5%</span></div><span class="xlab latin">2021</span></div><div class="barcol"><div class="bar" style="--h:43.4%"><span class="val latin">23.6%</span></div><span class="xlab latin">2022</span></div><div class="barcol active"><div class="bar" style="--h:87.4%"><span class="val latin">47.5%</span></div><span class="xlab latin">2023</span></div>
+      </div>
+      <p class="src cjk">＊資料：REPS Real Estate Power Solution · 2023.02</p>
+    </article>
+    <aside class="col-4" style="display:flex;flex-direction:column;gap:var(--s4);justify-content:center;height:100%">
+      <p class="eyebrow latin" style="color:var(--accent);font-weight:700">Point</p>
+      <div class="card" style="gap:var(--s1);padding:var(--s5)"><p class="q cjk">2023 年全國住宅供給中 <span class="accent latin" style="font-weight:700">47.5%</span> 經由都更／重建供應</p></div>
+      <div class="card" style="gap:var(--s2);padding:var(--s5)"><p class="q cjk">平均專案週期約 <span class="accent latin" style="font-weight:700">15 年</span>，期間安保基礎建設無強制檢查</p>
+        <p class="sub en latin">No mandated post-occupancy security audit during the ~15-year cycle.</p></div>
+    </aside>
+  </div></main>
+</body></html>

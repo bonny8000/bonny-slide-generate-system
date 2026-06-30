@@ -1,0 +1,9 @@
+# Edge headless browser profiles (created during screenshot renders)
+examples/**/.pr*
+examples/**/.rg*
+examples/**/.p-*
+examples/**/GrShaderCache/
+examples/**/ShaderCache/
+
+# Local Claude Code settings
+.claude/settings.local.json
