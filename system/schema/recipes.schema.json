@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "recipes.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "selectionPolicy", "recipes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "selectionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryKey", "migrationStatusAffectsSelection", "source"],
+      "properties": {
+        "primaryKey": { "const": "intent" },
+        "migrationStatusAffectsSelection": { "const": false },
+        "source": { "const": "specs/content-map.md" }
+      }
+    },
+    "recipes": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z][a-z0-9-]*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["migrationStatus", "componentSpec", "slots"],
+          "properties": {
+            "migrationStatus": { "enum": ["pilot", "migrated", "legacy"] },
+            "componentSpec": { "type": "string", "pattern": "^specs/.+\\.md$" },
+            "slots": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

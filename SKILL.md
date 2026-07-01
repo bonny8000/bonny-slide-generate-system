@@ -1,7 +1,7 @@
 ---
 name: bonny-slide-system
 kind: agent-skill
-version: 12.4.0
+version: 12.5.0
 description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ (the LLM-readable design system) each run and BUILDS with assets/ (the real CSS). Color is a separate, deck-wide theme layer; layouts/components are theme-agnostic. Strict 4-color discipline, Noto Sans TC + Arial, 12-col grid, plain-language titles, a disciplined icon/illustration layer, whole-page visual-balance rules (composition, density 不空不擠, proportional sizing), an intention-driven two-stage make-a-slide engine (slide-plan names each page's job → content-map maps intention to layout + components), an imagery layer that asks the user for real assets and keeps all images on-system, a render-and-self-critique gate that fixes the build until it matches or beats the reference, and a learn-from-image loop so the library grows smarter from real slides. Korean is never produced.
 ---
 
@@ -16,8 +16,14 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
   `foundations/` (color-discipline, themes-and-modes, typography, spacing-grid, layout-balance,
   iconography, **imagery**, plain-language, storytelling, **self-critique**, source-sync, **learn-from-image**) · `themes/` · `tokens/` ·
   `components/` · `layouts/` · **`slide-plan.md`** · `content-map.md` · `audit.md` · `spec-template.md` · `_catalog.md` · **`preferences.md`** (taste from A/B rounds).
-- **`assets/`** — the real CSS you BUILD with. `base.css` (theme-independent: type, spacing, grid,
-  components) + ONE theme file (`tokens-light.css` / `tokens-dark.css`). Source of truth for *token values*.
+- **`system/`** — canonical machine-readable tokens, hypertokens, pilot recipes, and JSON schemas.
+  `migrationStatus` is engineering metadata only and never affects component/layout selection.
+- **`scripts/compile_system.py`** — the deterministic compiler. It generates CSS, the PPTX bridge, and a
+  Markdown reference; generated files are never edited by hand.
+- **`assets/`** — the CSS you BUILD with. `base.css` is the compatibility/component layer and imports the
+  generated foundations + five pilot hypertokens; load ONE generated theme file
+  (`tokens-light.css` / `tokens-dark.css`). For self-contained HTML, inline the import-free generated
+  `assets/generated/base-bundle.css` plus one theme.
 - **`examples/`** — rendered reference slides; **`examples/deck-demo/`** + `deck-demo-scroll.html` = a full short deck showing how layouts chain (pacing, bridges, dividers). **`pptx/`** — token-mirrored python bridge for .pptx.
 
 ## Operating procedure (every deck)
@@ -28,8 +34,10 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
    (one claim per slide; order method → range → relationships → conclusion per
    `specs/foundations/storytelling.md`; place covers/section-covers/bridges). **No components yet.**
 4. **Map — visuals second:** for each planned page, find its shape in `specs/content-map.md` → layout + components.
-5. **Build:** write HTML with `assets/base.css` classes + the theme token file. **Token names only —
-   never hardcode color.** Icons per `specs/foundations/iconography.md`; images per
+5. **Build:** write HTML with `assets/base.css` classes + the theme token file. Hypertokens are
+   implementation fragments, **not a component whitelist**: choose through `content-map.md`, then let the
+   component recipe resolve fragments. **Token names only — never hardcode color.** Icons per
+   `specs/foundations/iconography.md`; images per
    `specs/foundations/imagery.md` (recolored on-system; logos/photos the only full-color elements).
 6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
 7. **Audit & self-critique:** **render at deck size and look** — run `specs/audit.md`, then self-critique
@@ -69,6 +77,11 @@ The user keeps sending **reference slide images**. Each one grows the library �
 - New theme → copy a `specs/themes/*.md`, keep the role names, **one accent**. Run `audit.md`.
 
 ## Changelog
+- **v12.5** — Added the hypertoken pilot without narrowing the library: canonical `system/tokens.json`,
+  five reusable style fragments, three pilot recipes, strict schemas, and a deterministic compiler that
+  generates layered low-specificity CSS, the PPTX token bridge, and an LLM-readable reference. Component
+  selection remains intention-first; migration status has zero selection weight; all legacy components
+  stay available. Added `--check` plus governance/audit rules against generated-file drift.
 - **v12.4** — A/B pick confirmed: **annotated-screenshot (callout pins on the UI) is now the DEFAULT for
   how-to / onboarding slides** (beat steps-beside-hero). Added a `content-map.md` intention row "Teach how to
   use / onboard → `annotated-screenshot`" and strengthened the `preferences.md` showcase rule (default +

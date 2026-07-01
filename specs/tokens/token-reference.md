@@ -5,6 +5,9 @@ status: stable
 ---
 # Token reference — the contract components depend on
 
+Canonical values live in `system/tokens.json`. This document describes their roles; generated hypertoken
+and recipe mappings are listed in `generated-hypertoken-reference.md`.
+
 Components/layouts use these **names**; the active theme supplies the values. Never hardcode a color.
 
 | token | role |

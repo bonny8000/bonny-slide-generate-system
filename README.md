@@ -1,4 +1,4 @@
-# Bonny Slide System v9 — agent skill
+# Bonny Slide System v12.5 — agent skill
 
 Bilingual 繁中 + English UX/product slides. The agent **reads `specs/`** (the LLM-readable design
 system) and **builds with `assets/`** (the real CSS), then runs the **drift audit**.
@@ -14,16 +14,29 @@ system) and **builds with `assets/`** (the real CSS), then runs the **drift audi
 ```
 SKILL.md          # agent operating manual (read this first)
 specs/            # foundations · themes · tokens · components · layouts · content-map · audit · spec-template · _catalog
-assets/           # base.css + tokens-light.css / tokens-dark.css   (real implementation)
+system/           # canonical tokens + hypertokens + recipes + JSON schemas
+scripts/          # deterministic compiler for CSS / PPTX / generated reference docs
+assets/           # linked base.css + generated import-free base bundle + theme outputs
 examples/         # rendered reference slides (single layouts) + deck-demo/ & deck-demo-scroll.html = a full short deck (chaining, bridges, dividers)
 pptx/             # python-pptx bridge (same tokens)
 ```
 
 ## Source of truth
-`assets/tokens-*.css` = canonical token **values**; `specs/themes/*.md` document them. `specs/*` =
-canonical **rules**. Components/layouts never hardcode color.
+`system/*.json` = canonical token values, hypertoken fragments, and pilot recipes. Run:
 
-— v9 · 2026.06 · patterns mined from 12 reference decks
+```powershell
+python scripts/compile_system.py
+python scripts/compile_system.py --check
+```
+
+Generated CSS/Python/Markdown must not be edited by hand. `specs/*` remains canonical for design rules,
+intention, and component/layout selection. Migration status never affects selection, so the pilot does not
+restrict the existing catalog.
+
+Use `assets/base.css` for linked HTML. For self-contained HTML, inline
+`assets/generated/base-bundle.css` plus exactly one `assets/tokens-*.css` theme.
+
+— v12.5 · 2026.06 · hypertoken pilot + intention-first component library
 
 ## Tier mapping (vs the atomic-design diagram)
 `components/` = **atoms + molecules** · `layouts/` = **organisms** (whole-slide, product-specific). Same tiering and one-way dependency as foundations → tokens → components → layouts; named for slides rather than a UI library.

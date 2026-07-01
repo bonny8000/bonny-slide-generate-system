@@ -26,6 +26,7 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 ### Reference match & self-critique  (foundations/self-critique.md)
 - [ ] **Screenshotted** and reviewed visually at deck size — not critiqued from source, not "passed" on structural checks alone. — blocker
 - [ ] Built HTML is self-contained (tokens + base.css inlined); no broken/unstyled render from unresolved links. — major
+- [ ] Self-contained HTML uses generated `assets/generated/base-bundle.css`; no unresolved `@import`. — major
 - [ ] If a reference was given: build delivers the intention **≥** the reference (composition, density, hierarchy, craft). — major
 - [ ] Build does NOT copy the reference's off-system choices (extra hues, off-palette art). — major
 
@@ -46,6 +47,13 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 ### Component / layout conformance
 - [ ] Each slide maps to a real layout in `layouts/`; components used per their spec. — major
 - [ ] `depends_on` respected (no upward/hidden deps). — minor
+
+### Hypertoken pipeline
+- [ ] `python scripts/compile_system.py --check` passes. — blocker
+- [ ] Generated CSS/Python/Markdown was not edited by hand. — major
+- [ ] Component/layout choice still follows `content-map.md`; migration status carries zero selection weight. — blocker
+- [ ] Unmigrated catalog components remain available; pilot hypertokens are not a whitelist. — blocker
+- [ ] Managed properties have one canonical owner in `system/*.json`. — major
 
 ## Severity
 - **blocker** — breaks the system identity (mixed theme, 2nd accent, Korean). Must fix.

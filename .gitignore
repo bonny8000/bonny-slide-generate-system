@@ -7,3 +7,7 @@ examples/**/ShaderCache/
 
 # Local Claude Code settings
 .claude/settings.local.json
+
+# Python compiler caches
+__pycache__/
+*.pyc

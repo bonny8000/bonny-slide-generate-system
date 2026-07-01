@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hypertokens.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "selectionPolicy", "hypertokens"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "selectionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["migrationStatusAffectsSelection", "note"],
+      "properties": {
+        "migrationStatusAffectsSelection": { "const": false },
+        "note": { "type": "string" }
+      }
+    },
+    "hypertokens": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "migrationStatus", "selectors", "properties"],
+          "properties": {
+            "description": { "type": "string" },
+            "migrationStatus": { "enum": ["pilot", "migrated", "legacy"] },
+            "selectors": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string", "pattern": "^\\.[a-z][a-z0-9_-]*$" }
+            },
+            "properties": {
+              "type": "object",
+              "minProperties": 1,
+              "patternProperties": {
+                "^[a-z][a-z0-9-]*$": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
