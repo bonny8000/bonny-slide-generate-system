@@ -2,7 +2,7 @@
 name: bonny-slide-system
 description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. The generated editorial route must invoke the built-in image generator with the canonical style references; it never substitutes reused artwork, CSS, SVG, or a hand-built diagram. Korean is never produced.
 metadata:
-  version: 12.6.0
+  version: 12.7.0
 ---
 
 # Bonny Slide System — agent skill
@@ -86,6 +86,12 @@ The user keeps sending **reference slide images**. Each one grows the library �
 - New theme → copy a `specs/themes/*.md`, keep the role names, **one accent**. Run `audit.md`.
 
 ## Changelog
+- **v12.7** — **Deck-level visual pacing** (learned from a real all-text governance deck): new
+  anti-dryness rule in `layout-balance.md` — a deck of 8+ pages needs ≥1–2 genuine visual moments (real
+  screenshot, logo-row, mockup, or generated explainer; icons/chips don't count), and when nothing trips a
+  trigger, the planner elevates the best candidate page instead of shipping a document-like deck. Broadened
+  `workflow-transform` triggers in `content-map.md` to cover tool-pipeline / role-handoff / governance-flow
+  convergence (not just workshop viewpoints), while keeping data-precise pipelines native.
 - **v12.6** — Added a reference-driven **editorial explainer image generator** learned from Img39–Img43.
   It selects among workshop agenda + Q&A, scattered-input workflow transformation, and real-UI + Q&A
   compositions while keeping one visual language. Every route requires a fresh built-in image-generation

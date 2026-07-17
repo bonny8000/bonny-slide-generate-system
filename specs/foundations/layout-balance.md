@@ -76,6 +76,23 @@ don't pin everything to the top either (empty bottom). On a 1920×1080 deck, con
 *(Learned from A/B round 1: a header-heavy slide with an empty lower half was rejected — "nothing is at
 the bottom.")*
 
+## Deck-level visual pacing (the anti-dryness rule)
+Per-slide intention mapping alone can produce a technically-correct deck that is **all text-and-boxes** —
+every page routed to native cards because nothing triggered the imagery layer. Judge visual pacing at the
+**deck level** too, at the outline stage (`slide-plan.md`) and again in self-critique:
+- **In a deck of 8+ pages, at least 1–2 pages should carry a genuine visual moment** — a real
+  screenshot/photo (`.shot`), a `logo-row`, a device mockup, or a generated editorial explainer. Icons and
+  chips alone do not count; they are seasoning, not a visual moment.
+- **If no page trips a trigger, elevate the best candidate** instead of shipping a dry deck: the page whose
+  intention is closest to a visual route (a tool pipeline → logos or `workflow-transform`; a real product
+  or tool being described → ask for its real screenshot per `imagery.md`; a conversation/how-to →
+  `agenda-dialogue`). Name the elevated page in the slide plan.
+- **This never overrides the gates.** Precise data, dense comparisons, and evidence stay native
+  (`content-map.md`); the editorial route still requires a genuine image-generation call — if the generator
+  is unavailable, use real assets (`imagery.md`) or a `logo-row`/mockup, never a CSS/SVG imitation.
+- Symptom to catch in self-critique: flipping through the rendered deck feels like reading a document.
+  That is a **fix**, not a pass, even when every individual page passes.
+
 ## Elevation (shadows)
 Shadows convey **depth, not drama**. Use the subtle `--shadow-card` / `--shadow-pop` tokens — never a
 heavy, dark, far-spread shadow. Most flat cards need **no** shadow at all; reserve elevation for things
