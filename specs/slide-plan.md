@@ -16,9 +16,9 @@ text it hasn't understood.
 - **Input:** the raw content/source (a doc, notes, findings, a transcript).
 - **Output:** an ordered **page plan** — one row per slide, no visuals chosen yet:
 
-| # | The ONE claim (繁中 + EN handle) | Intention (the job) | Narrative slot | Content shape (hint) | Source ref |
-|---|---|---|---|---|---|
-| 1 | … | what this page must DO to the audience (persuade / teach / compare / prove / orient …) | cover / context / method / range / relationships / conclusion / section-cover | (a guess; `content-map` decides) | … |
+| # | The ONE claim (繁中 + EN handle) | Intention (the job) | Narrative slot | Content shape (hint) | Editorial explainer? | Source ref |
+|---|---|---|---|---|---|---|
+| 1 | … | what this page must DO to the audience (persuade / teach / compare / prove / orient …) | cover / context / method / range / relationships / conclusion / section-cover | (a guess; `content-map` decides) | yes/no + one-line reason | … |
 
 ## How to build the plan
 1. **Segment.** Split the file into slides. One slide = **one claim** (golden rule). If a chunk carries
@@ -36,6 +36,13 @@ text it hasn't understood.
 6. **Hint the shape, don't bind it.** Note a likely content shape per row, but leave layout/component
    selection to `content-map.md` — the hint is a guess, not a decision.
 
+## Editorial-explainer suitability gate
+Flag `yes` when a humanized explanation communicates the page better than native cards: workshop timing and
+rules, facilitator/assistant Q&A, scattered viewpoints becoming shared intent, or a **real supplied UI** that
+benefits from conversational interpretation. Flag `no` for precise data, tables, dense comparisons, or
+evidence that must remain directly inspectable. A UI-Q&A candidate also records the required real screenshot.
+Record only `yes/no + why`; stage 2 chooses the variant through `content-map.md`.
+
 ## Ask for assets
 While planning, flag any page whose intention needs a **real asset** — a product screenshot, a logo, a
 photo, a data export — and **ask the user to provide it** before building (`foundations/imagery.md`). Name
@@ -49,5 +56,6 @@ deck its **pacing** (how layouts chain — see `examples/deck-demo/`).
 ## Do / Don't
 - **Do** decide the whole deck's structure before building any single slide.
 - **Do** keep the plan theme-agnostic — color is decided once at the deck level, not here.
-- **Don't** name components, charts, or layouts in this stage.
+- **Don't** name components, charts, or layouts in this stage; the editorial-explainer field is only a
+  treatment candidate.
 - **Don't** let a page hold more than one claim.

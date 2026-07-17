@@ -10,6 +10,12 @@ status: stable
 
 This holds in **every theme**. A theme changes the hues; it never adds a 5th role or a 2nd accent.
 
+### Narrow generated-illustration exception
+`editorial-explainer-stage` may preserve the references' small teal, orange, lavender, and pale-yellow
+signals **inside the generated bitmap only** for avatar identity and one highlighted next step. Native slide
+text, cards, charts, and controls still obey the four roles and one deck accent. The illustration remains
+mostly neutral; supporting hues must stay sparse and must not become category coding across the deck.
+
 ## The four roles
 - **background** — `--canvas` (whole slide) and `--surface` (cards/panels). Background can be light or
   dark; that's a theme/mode choice, not an extra color.

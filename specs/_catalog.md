@@ -1,6 +1,6 @@
 # Catalog — components & layouts (and what each was learned from)
 
-Mined from real reference decks (Img1–Img28). **Every entry is now `stable`** — has a spec *and* a render-validated example (`examples/`). All are **theme-agnostic** (color comes from the deck theme).
+Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** — has a spec *and* a render-validated example (`examples/`). All are **theme-agnostic** (color comes from the deck theme, with the narrow generated-editorial bitmap exception documented in `color-discipline.md`).
 
 > **Growing this catalog:** when the user sends a new reference slide image, follow
 > `foundations/learn-from-image.md`. New images continue the `ImgN` convention (Img13, Img14, …) in
@@ -18,6 +18,7 @@ Mined from real reference decks (Img1–Img28). **Every entry is now `stable`** 
 | survey-stack | repeated Q (question + chart + 1-line insight) + sample rail | Img2 | stable |
 | research-flow | data cards → HMW callout band → citation cards | Img3 | stable |
 | qual-quant-split | speech-bubble quotes + stat bars + hypothesis | Img4 | stable |
+| editorial-explainer-stage | generated agenda-dialogue / workflow-transform / real-UI-Q&A variants in one visual system | Img39–Img43 | stable |
 | idea-evidence | statement + chart \| survey stat + reasoning (two col) | Img5 | stable |
 | hero-radial | center illustration + radial labels + two side list-cards | Img6 | stable |
 | interview-affinity | design rail + persona columns (avatar + reasons) + insight boxes | Img7 | stable |

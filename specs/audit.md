@@ -7,6 +7,8 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 ### Theme & color  (foundations/color-discipline.md, themes-and-modes.md)
 - [ ] **One theme across the whole deck** (same mode + same accent on every slide). — blocker if mixed
 - [ ] **≤ 4 color roles**; accent is the only chromatic color. — blocker on a 2nd accent
+- [ ] Editorial-explainer bitmap exception is confined to sparse avatar/highlight hues inside the image; native
+      components still use one accent. — blocker if supporting hues leak into the slide system
 - [ ] **No raw colors** in markup; token names only. — major
 - [ ] Charts: inactive = muted, active = accent. — major
 
@@ -43,6 +45,16 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 - [ ] Images seated on a surface, not floating on bare canvas. — minor
 - [ ] No fabricated screenshot or fake-precise data presented as real. — blocker
 - [ ] Asked the user for assets (screenshots/logos/photos/data) that would materially improve a page. — minor
+
+### Generated editorial explainer
+- [ ] Stage-1 intention gate is `yes`; the explainer communicates the human process better than a native layout. — major
+- [ ] A built-in image-generator call created a **fresh** output using the matching canonical variant references. — blocker
+- [ ] The result is not a reference image, crop/trace, CSS/SVG recreation, or hand-built diagram. — blocker
+- [ ] Generated dimensions match the target block ratio; image fills the block with no contain-fit gutters. — major
+- [ ] No grayscale/desaturation filter; colour is visibly preserved and supporting hues stay inside the bitmap. — major
+- [ ] Exact copy is native/editable, or every baked word was verified; no Korean, logo, watermark, or random text. — blocker
+- [ ] `ui-qa` uses a real supplied screenshot; no generated/fabricated product UI. — blocker
+- [ ] Generated file is saved inside the deck and visibly placed. — blocker
 
 ### Component / layout conformance
 - [ ] Each slide maps to a real layout in `layouts/`; components used per their spec. — major

@@ -31,12 +31,18 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
    - density: **不空不擠** (~30–45% whitespace — `layout-balance.md`)
    - proportional sizing (title/body/icon/number scaled to their boxes; content fills, doesn't float)
    - 4-color discipline · plain-language title · imagery on-system
+   - for `editorial-explainer-stage`: genuine image-generator call · fresh output rather than reference
+     reuse · exact target ratio · full-block fill · colour preserved · native copy fidelity · local asset
+     persistence · no CSS/SVG substitute
    - **HTML/CSS code quality** — run **`modern-web-guidance`** on the built file (search/retrieve via
      `npx modern-web-guidance@latest`): `text-wrap: balance` on headings + `pretty` on body copy,
      overflow-safe layout (`min-width:0` on flex children), no fragile fixed heights, modern layout idioms.
      This is the code-level complement to the visual screenshot review.
 3. **Compare to the reference** (if any): per dimension, is the build **≥** the reference? Name anything the
    reference does better and close the gap; name anything you can do better and take it.
+   Compare against the matching files under `assets/illustration-style/`: soft neutral depth, restrained
+   avatar/assistant system, compact hierarchy, paper speech surfaces, yellow inline highlights, and one clear
+   reading path. Copy their shared visual grammar, never their literal content or Korean text.
 4. **Fix the worst first, re-render, re-score.** Iterate until every dimension passes and nothing is weaker
    than the reference.
 
