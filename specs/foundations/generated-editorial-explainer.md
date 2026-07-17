@@ -15,9 +15,12 @@ Choose exactly one by intention:
 
 1. **`agenda-dialogue`** — a slim left timing/step rail plus two facilitator/assistant Q&A blocks. Use for
    workshop rules, rounds, breaks, prompts, grouping, voting, and discussion.
-2. **`workflow-transform`** — scattered inputs and avatars on the left, an assistant transition, one organic
+2. **`guided-dialogue`** — a compact progress rail or context card plus one or more human/assistant exchanges.
+   Use for chat-driven worked examples, owner approval loops, agent-assisted operations, and “say these lines”
+   instruction pages outside workshops.
+3. **`workflow-transform`** — scattered inputs and avatars on the left, an assistant transition, one organic
    central workflow capsule, then a shared-direction/output card on the right.
-3. **`ui-qa`** — a **real supplied screenshot** on the left and a participant/assistant interpretation on the
+4. **`ui-qa`** — a **real supplied screenshot** on the left and a participant/assistant interpretation on the
    right. Use for onboarding, locked states, hierarchy, likely actions, or research interpretation. Never
    generate or fabricate the product UI.
 
@@ -26,6 +29,7 @@ Reject all variants for precise data, dense comparisons, or evidence that must r
 ## Canonical references
 - `agenda-dialogue`: `editorial-workshop-grouping.png`, `editorial-workshop-crazy8.png`,
   `editorial-workshop-categorization.png`
+- `guided-dialogue`: `editorial-workshop-grouping.png`, `editorial-workshop-categorization.png`
 - `workflow-transform`: `workflow-intent-reference.png`
 - `ui-qa`: `editorial-ui-qa.png` plus the user's real screenshot as content reference
 
@@ -36,7 +40,12 @@ path. The references are **style/layout only**. Never return, crop, trace, or li
 contain Korean; learn structure only and always output Traditional Chinese + supporting English.
 
 ## Required generator workflow
-1. Record the intention-gate reason, variant, target dimensions, and native-copy zones.
+1. Create `illustration-plan.json` beside the deck and record **every slide**, including `gate: no` pages.
+   Every record must include `trigger`, `hard_candidate`, `gate`, and `reason`. A hard candidate may use
+   `gate: no` only with one explicit precision override: `precise-table`, `data`, `code`, `evidence`, or
+   `real-ui-detail`. For a generated page also record its variant, target dimensions, native-copy zones,
+   local asset path, matching references, and `generator: built-in-imagegen`. Use
+   `../editorial-explainer-plan.example.json` as the canonical contract.
 2. Run `scripts/build_editorial_explainer_prompt.py --variant …` with the topic, intention, ratio, and copy zones.
 3. Load the `imagegen` skill and invoke the built-in image-generation tool. Pass only the matching canonical
    variant references through `referenced_image_paths`; for `ui-qa`, also include the real screenshot.
@@ -46,10 +55,27 @@ contain Korean; learn structure only and always output Traditional Chinese + sup
 7. Run `scripts/validate_generated_illustration.py IMAGE --aspect W:H`; reject wrong-ratio or grayscale output.
 8. Place at `width:100%; height:100%`. No `object-fit:contain`, side gutters, grayscale, or desaturation.
 9. Render at 1920×1080 and compare against the selected reference family.
+10. Run `scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html`. Delivery is blocked
+    if any slide is missing, a `gate: yes` asset is absent, provenance is not built-in imagegen, or the HTML
+    lacks the matching asset and `data-editorial-explainer` variant.
+
+## Mandatory gate triggers
+Default to `yes` for human/assistant dialogue, assistant-operated workflows, workshop facilitation,
+multi-person inputs converging into one decision, and multi-tool handoffs where the audience benefits from
+seeing who does what. Use `no` only when inspectable precision (table, data, code, real screenshot detail)
+is more important than the human explanation. If generation is unavailable after a `yes`, stop; do not
+replace it with HTML cards, an SVG diagram, or a canonical reference image.
+
+Use this tie-breaker when two variants seem plausible:
+- **system-level handoffs across people and tools** → `workflow-transform`
+- **turn-by-turn prompt, action, review, or approval** → `guided-dialogue`
+
+If one source page contains both a hard-candidate workflow and a precise table, split it into two slides:
+generated overview first, native evidence second. Do not use the table as a reason to suppress the overview.
 
 ## Prompt invariants
 - State the intention, audience takeaway, variant, and reference-as-style-only rule.
-- Preserve the shared visual system; vary composition only through the three sanctioned variants.
+- Preserve the shared visual system; vary composition only through the four sanctioned variants.
 - Preserve restrained teal/orange/lavender avatar rings, blue assistant/key phrases, and pale-yellow highlights.
 - Leave planned native-copy zones empty; prohibit random text, pseudo-text, Korean, logos, and watermarks.
 - Require exact ratio, edge-to-edge fill, 6% safe zone, and no gutters.

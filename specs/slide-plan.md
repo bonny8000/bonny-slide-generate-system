@@ -16,9 +16,9 @@ text it hasn't understood.
 - **Input:** the raw content/source (a doc, notes, findings, a transcript).
 - **Output:** an ordered **page plan** — one row per slide, no visuals chosen yet:
 
-| # | The ONE claim (繁中 + EN handle) | Intention (the job) | Narrative slot | Content shape (hint) | Editorial explainer? | Source ref |
+| # | The ONE claim (繁中 + EN handle) | Intention (the job) | Narrative slot | Content shape (hint) | Editorial explainer gate | Source ref |
 |---|---|---|---|---|---|---|
-| 1 | … | what this page must DO to the audience (persuade / teach / compare / prove / orient …) | cover / context / method / range / relationships / conclusion / section-cover | (a guess; `content-map` decides) | yes/no + one-line reason | … |
+| 1 | … | what this page must DO to the audience (persuade / teach / compare / prove / orient …) | cover / context / method / range / relationships / conclusion / section-cover | (a guess; `content-map` decides) | yes/no + trigger + reason | … |
 
 ## How to build the plan
 1. **Segment.** Split the file into slides. One slide = **one claim** (golden rule). If a chunk carries
@@ -37,11 +37,21 @@ text it hasn't understood.
    selection to `content-map.md` — the hint is a guess, not a decision.
 
 ## Editorial-explainer suitability gate
-Flag `yes` when a humanized explanation communicates the page better than native cards: workshop timing and
-rules, facilitator/assistant Q&A, scattered viewpoints becoming shared intent, or a **real supplied UI** that
-benefits from conversational interpretation. Flag `no` for precise data, tables, dense comparisons, or
-evidence that must remain directly inspectable. A UI-Q&A candidate also records the required real screenshot.
-Record only `yes/no + why`; stage 2 chooses the variant through `content-map.md`.
+Flag `yes` when a humanized explanation communicates the page better than native cards. The following are
+**hard candidates** and default to `yes`: workshop timing/rules; facilitator or human/assistant Q&A;
+human-to-agent worked examples; multi-tool workflows where people hand work to an assistant; scattered
+viewpoints becoming shared intent; and a **real supplied UI** that benefits from conversational interpretation.
+Flag `no` only when precise data, tables, dense comparisons, code, or evidence must remain directly
+inspectable, and record that reason. A UI-Q&A candidate also records the required real screenshot.
+
+Write the completed decisions to `illustration-plan.json` beside the deck. Every record includes a concrete
+`trigger`, boolean `hard_candidate`, `gate`, and `reason`. A hard candidate may use `gate: no` only with an
+explicit precision override (`precise-table`, `data`, `code`, `evidence`, or `real-ui-detail`). Every planned
+slide must appear; no decision may be omitted. Stage 2 chooses the variant through `content-map.md`.
+
+For ambiguous cases: use `workflow-transform` for system-level people/tool handoffs and `guided-dialogue`
+for turn-by-turn prompt/action/approval. If a workflow and a precise table share one source page, split them
+into a generated overview slide followed by a native evidence slide.
 
 ## Ask for assets
 While planning, flag any page whose intention needs a **real asset** — a product screenshot, a logo, a

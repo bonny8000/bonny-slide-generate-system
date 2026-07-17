@@ -1,8 +1,8 @@
 ---
 name: bonny-slide-system
-description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. The generated editorial route must invoke the built-in image generator with the canonical style references; it never substitutes reused artwork, CSS, SVG, or a hand-built diagram. Korean is never produced.
+description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. Every deck must record a per-slide illustration decision; human/agent workflows, conversational worked examples, workshop facilitation, and scattered-input transformations require a fresh built-in image-generation call unless precise data must stay native. Never silently substitute reused artwork, CSS, SVG, or a hand-built diagram. Korean is never produced.
 metadata:
-  version: 12.7.0
+  version: 12.8.0
 ---
 
 # Bonny Slide System — agent skill
@@ -34,9 +34,14 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 3. **Outline — structure first:** turn the file into a page-by-page plan with `specs/slide-plan.md`
    (one claim per slide; order method → range → relationships → conclusion per
    `specs/foundations/storytelling.md`; place covers/section-covers/bridges). Run the editorial-explainer
-   suitability gate after naming each intention. **No components or layouts yet.**
+   suitability gate after naming each intention. Save every yes/no decision in the deck's
+   `illustration-plan.json`; each record includes `trigger`, `hard_candidate`, `gate`, and `reason`.
+   A hard candidate may use `gate: no` only with an explicit precision override. An omitted decision is a
+   build error. **No components or layouts yet.**
 4. **Map — visuals second:** for each planned page, find its shape in `specs/content-map.md` → layout + components.
-   When the map selects `editorial-explainer-stage`, read
+   Human/agent workflows, conversational worked examples, workshop instructions, and scattered-input
+   transformations are hard candidates: choose the generated route unless exact data/table/UI evidence must
+   stay inspectable. When the map selects `editorial-explainer-stage`, read
    `specs/foundations/generated-editorial-explainer.md` and choose its composition variant by intention.
 5. **Build:** write HTML with `assets/base.css` classes + the theme token file. Hypertokens are
    implementation fragments, **not a component whitelist**: choose through `content-map.md`, then let the
@@ -45,9 +50,13 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
    `editorial-explainer-stage`, **invoke the `imagegen` skill and built-in image-generation tool** with the
    matching files under `assets/illustration-style/` as style references. Generate a fresh asset at the
    target block's exact aspect ratio. Never reuse a reference as output, trace it with CSS/SVG, or replace
-   generation with a hand-built diagram. Save, validate, then place the generated image full-block.
+   generation with a hand-built diagram. If the generator is unavailable, stop and report the blocker; never
+   downgrade silently. Save the asset locally, record generator provenance in `illustration-plan.json`, validate,
+   then place the generated image full-block with `data-editorial-explainer="<variant>"`.
 6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
-7. **Audit & self-critique:** **render at deck size and look** — run `specs/audit.md`, then self-critique
+7. **Audit & self-critique:** first run
+   `python scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html`; then **render at deck
+   size and look** — run `specs/audit.md`, then self-critique
    per `specs/foundations/self-critique.md`: score whole-page balance, density (不空不擠), proportional
    sizing, and (if a reference was given) whether the build is **≥ the reference**. Fix the worst, re-render,
    repeat until every dimension passes.
@@ -60,6 +69,10 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 - **One claim per slide; plain-language titles; purposeful icons, one style.**
 - **A generated editorial explainer must be genuinely generated.** Canonical images are style
   reference only; CSS/SVG recreation, reference reuse, grayscale filtering, and contain-fit gutters fail.
+- **No silent illustration bypass.** Every slide appears in `illustration-plan.json`; any `gate: yes` page
+  must have a local fresh asset, built-in generator provenance, a valid variant, and matching HTML placement.
+- **Hard candidates are machine-checked.** A hard candidate cannot use `gate: no` without an allowed precision
+  override. Split mixed workflow + table pages into a generated overview and a native evidence slide.
 - For a system/decision, **show the reasoning before the conclusion.**
 
 ## Learning loop (gets smarter from the user's slides)
@@ -92,6 +105,11 @@ The user keeps sending **reference slide images**. Each one grows the library �
   trigger, the planner elevates the best candidate page instead of shipping a document-like deck. Broadened
   `workflow-transform` triggers in `content-map.md` to cover tool-pipeline / role-handoff / governance-flow
   convergence (not just workshop viewpoints), while keeping data-precise pipelines native.
+- **v12.8** — Made editorial illustration selection enforceable. Every deck now carries a per-slide
+  `illustration-plan.json`; human/agent toolchains, conversational worked examples, workshop facilitation,
+  and scattered-input transformations are hard candidates. Added `guided-dialogue`, a plan validator,
+  generator-provenance checks, HTML placement checks, and an explicit fail-closed rule when image generation
+  is unavailable. This prevents a renderer from quietly falling back to native cards after selecting imagery.
 - **v12.6** — Added a reference-driven **editorial explainer image generator** learned from Img39–Img43.
   It selects among workshop agenda + Q&A, scattered-input workflow transformation, and real-UI + Q&A
   compositions while keeping one visual language. Every route requires a fresh built-in image-generation

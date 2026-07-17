@@ -47,6 +47,8 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 - [ ] Asked the user for assets (screenshots/logos/photos/data) that would materially improve a page. — minor
 
 ### Generated editorial explainer
+- [ ] `illustration-plan.json` exists and contains a decision for every slide. — blocker
+- [ ] `python scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html` passes. — blocker
 - [ ] Stage-1 intention gate is `yes`; the explainer communicates the human process better than a native layout. — major
 - [ ] A built-in image-generator call created a **fresh** output using the matching canonical variant references. — blocker
 - [ ] The result is not a reference image, crop/trace, CSS/SVG recreation, or hand-built diagram. — blocker
@@ -55,6 +57,7 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 - [ ] Exact copy is native/editable, or every baked word was verified; no Korean, logo, watermark, or random text. — blocker
 - [ ] `ui-qa` uses a real supplied screenshot; no generated/fabricated product UI. — blocker
 - [ ] Generated file is saved inside the deck and visibly placed. — blocker
+- [ ] A selected generated route was not silently downgraded because the generator was unavailable. — blocker
 
 ### Component / layout conformance
 - [ ] Each slide maps to a real layout in `layouts/`; components used per their spec. — major
