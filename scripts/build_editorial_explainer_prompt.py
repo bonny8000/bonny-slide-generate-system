@@ -11,6 +11,11 @@ COMPOSITIONS = {
         "A slim rounded timing/step rail on the left. On the right, two vertically stacked participant "
         "questions with small circular human avatars and assistant answers in large rounded speech surfaces."
     ),
+    "guided-dialogue": (
+        "Use a compact progress/context rail on the left and one or more human-to-assistant exchanges on "
+        "the right. Reserve clean speech surfaces for native editable prompts, assistant actions, approval "
+        "moments, and the governed outcome. The page should feel like a worked example, not a chat transcript."
+    ),
     "workflow-transform": (
         "Scattered speech notes, constraints, expectations, and small human avatars on the left flow via "
         "dotted connectors and a restrained assistant into one organic white central workflow capsule with "

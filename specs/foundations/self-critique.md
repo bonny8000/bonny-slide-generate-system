@@ -33,7 +33,7 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
    - 4-color discipline · plain-language title · imagery on-system
    - for `editorial-explainer-stage`: genuine image-generator call · fresh output rather than reference
      reuse · exact target ratio · full-block fill · colour preserved · native copy fidelity · local asset
-     persistence · no CSS/SVG substitute
+     persistence · no CSS/SVG substitute · complete `illustration-plan.json` · passing plan validator
    - **HTML/CSS code quality** — run **`modern-web-guidance`** on the built file (search/retrieve via
      `npx modern-web-guidance@latest`): `text-wrap: balance` on headings + `pretty` on body copy,
      overflow-safe layout (`min-width:0` on flex children), no fragile fixed heights, modern layout idioms.

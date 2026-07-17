@@ -23,6 +23,7 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 | Earn the conclusion (problem → insight) | Research story | background → problem → insight | `research-flow` | data cards → callout-band (HMW) → citation-card | none |
 | Make it both felt and proven | Qual + quant together | quotes AND numbers | `qual-quant-split` | quote-bubble (+avatar) \| stat bars | avatar icons |
 | Teach how to run a workshop activity in a human way | Timing rail + facilitator/assistant Q&A + rules/output | agenda, duration, rounds, breaks, prompts, voting, grouping, discussion rules | `editorial-explainer-stage` · `agenda-dialogue` | freshly generated full-block editorial explainer + native copy zones | **required:** image generator with workshop references; never reuse/trace them |
+| Humanize a worked example or assistant-led operating flow | Human prompt(s) → assistant action → governed outcome | “say these lines”, chat-driven workflow, owner asks an assistant, assistant opens PR/updates status, human approval checkpoints | `editorial-explainer-stage` · `guided-dialogue` | freshly generated dialogue stage + native editable prompts/outcomes | **required:** image generator with workshop/dialogue references; never rebuild as speech-card CSS |
 | Turn scattered inputs into one shared outcome (viewpoints→intent, or tools/roles→one pipeline) | Inputs → central transformation workflow → shared direction/output | problems, observations, limits, expectations, multiple voices, alignment, co-creation, explicit next step; **also** several tools/roles/steps converging into one process, a handoff chain, "X does A → Y does B → everyone gets C" governance flows | `editorial-explainer-stage` · `workflow-transform` | freshly generated full-block editorial explainer + native copy zones | **required:** image generator with workflow reference; never reuse/trace it. Data-precise pipelines (exact states, inspectable nodes) stay native `flow` |
 | Explain a real UI through a participant/assistant conversation | Real supplied screenshot + interpretive Q&A | user tries to understand screen, steps, locked states, hierarchy, or likely action | `editorial-explainer-stage` · `ui-qa` | real screenshot on left + generated conversational explainer on right | **required:** real screenshot + image generator with UI-Q&A reference; never fabricate UI |
 | Set expectations over time | Timeline / roadmap | phases over time | `timeline` | numbered-row / phase markers | phase markers |
@@ -50,7 +51,9 @@ Prefer the most specific shape. If two fit, pick the one whose **intention match
 between equals, the one with a concrete visual (chart/table/illustration) usually wins over plain cards,
 because it carries more meaning per slide.
 
-`editorial-explainer-stage` wins only when the stage-1 gate is `yes`. It requires a fresh image-generator
+`editorial-explainer-stage` wins when the stage-1 gate is `yes`. The hard-candidate triggers above must not be
+silently downgraded to `flow`, `numbered-rows`, or native speech cards merely because those are easier to build.
+It requires a fresh image-generator
 call and is not a synonym for drawing with HTML, CSS, SVG, or native cards. `ui-qa` additionally requires a
 real screenshot. Use native layouts when exact nodes/data must remain inspectable; use the generated route
 when the human explanation is the point.

@@ -1,0 +1,33 @@
+{
+  "deck": "example.html",
+  "slides": [
+    {
+      "id": "s1",
+      "trigger": "single editorial claim",
+      "hard_candidate": false,
+      "gate": "no",
+      "reason": "The cover needs a concise native title, not an explanation."
+    },
+    {
+      "id": "s2",
+      "trigger": "multi-tool owner workflow",
+      "hard_candidate": true,
+      "gate": "yes",
+      "reason": "People and tool handoffs are clearer as a humanized transformation.",
+      "variant": "workflow-transform",
+      "generator": "built-in-imagegen",
+      "asset": "assets/generated-illustrations/02-workflow.png",
+      "dimensions": "1672x941",
+      "native_copy_zones": ["headline", "role labels"],
+      "references": ["workflow-intent-reference.png"]
+    },
+    {
+      "id": "s3",
+      "trigger": "precise permission table",
+      "hard_candidate": true,
+      "gate": "no",
+      "override": "precise-table",
+      "reason": "Exact roles and permissions must remain directly inspectable."
+    }
+  ]
+}
