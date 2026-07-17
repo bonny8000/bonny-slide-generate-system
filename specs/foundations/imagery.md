@@ -30,6 +30,13 @@ data presented as real is not.
 | **Annotated screen** | point at what changed / what a feature does | leader-line callouts; problems muted, improvements/active in accent | Img21, Img28 |
 | **Brand / tool logos** | sources, tools, competitors | the one exception — keep real brand colors, small and contained | Img15, Img24 |
 | **Real photo as content** | the photo *is* the content (e.g. UGC, reviews) | keep un-recolored; seat on a `--surface` card; don't tint | Img21 |
+| **Generated editorial explainer** | workshop instructions, workflow transformation, or real-UI interpretation through human/assistant dialogue | invoke the built-in image generator with the matching canonical references; generate a new exact-ratio image and fill the whole block | Img39–Img43 |
+
+### Generated editorial-explainer route
+When `content-map.md` selects `editorial-explainer-stage`, follow
+`generated-editorial-explainer.md`. Reference assets teach style only. Never place one as the
+new slide, crop it into a derivative, or imitate it with CSS/SVG. Generate a fresh image, save it under the
+deck, validate its ratio and colour, and place it edge-to-edge in the intended image block.
 
 ## 3. The discipline that ties them together
 - **Every screenshot / photo / UI-mockup gets ROUNDED CORNERS + a SUBTLE LIGHT shadow.** Use the
@@ -45,6 +52,8 @@ data presented as real is not.
   secondary, stage/anchor for hero; never a hard unshadowed image on bare canvas, never a dark shadow.)
 - Every **non-photo, non-logo** image is **recolored / toned to the theme** — one accent + neutrals — so it
   obeys the 4-color rule (`color-discipline.md`).
+- The narrow editorial-explainer exception may keep sparse reference-style avatar/highlight hues inside the
+  bitmap only; do not propagate those hues into native slide components.
 - **One illustration style per deck**, one icon style; never mix sets (`iconography.md`).
 - Differentiate grouped images by **surface tone**, not new hues.
 - **Photos and logos are the only full-color elements** — keep them small and contained.

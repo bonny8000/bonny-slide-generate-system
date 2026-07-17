@@ -1,8 +1,8 @@
 ---
 name: bonny-slide-system
-kind: agent-skill
-version: 12.5.0
-description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ (the LLM-readable design system) each run and BUILDS with assets/ (the real CSS). Color is a separate, deck-wide theme layer; layouts/components are theme-agnostic. Strict 4-color discipline, Noto Sans TC + Arial, 12-col grid, plain-language titles, a disciplined icon/illustration layer, whole-page visual-balance rules (composition, density 不空不擠, proportional sizing), an intention-driven two-stage make-a-slide engine (slide-plan names each page's job → content-map maps intention to layout + components), an imagery layer that asks the user for real assets and keeps all images on-system, a render-and-self-critique gate that fixes the build until it matches or beats the reference, and a learn-from-image loop so the library grows smarter from real slides. Korean is never produced.
+description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. The generated editorial route must invoke the built-in image generator with the canonical style references; it never substitutes reused artwork, CSS, SVG, or a hand-built diagram. Korean is never produced.
+metadata:
+  version: 12.6.0
 ---
 
 # Bonny Slide System — agent skill
@@ -14,7 +14,8 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 ## How this skill is organized
 - **`specs/`** — the LLM-readable design system you READ each run. Source of truth for *rules*:
   `foundations/` (color-discipline, themes-and-modes, typography, spacing-grid, layout-balance,
-  iconography, **imagery**, plain-language, storytelling, **self-critique**, source-sync, **learn-from-image**) · `themes/` · `tokens/` ·
+  iconography, **imagery**, **generated-editorial-explainer**, plain-language, storytelling,
+  **self-critique**, source-sync, **learn-from-image**) · `themes/` · `tokens/` ·
   `components/` · `layouts/` · **`slide-plan.md`** · `content-map.md` · `audit.md` · `spec-template.md` · `_catalog.md` · **`preferences.md`** (taste from A/B rounds).
 - **`system/`** — canonical machine-readable tokens, hypertokens, pilot recipes, and JSON schemas.
   `migrationStatus` is engineering metadata only and never affects component/layout selection.
@@ -32,13 +33,19 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 2. **Load rules:** read `specs/foundations/*` + the chosen `specs/themes/<theme>.md`. Lock the theme deck-wide.
 3. **Outline — structure first:** turn the file into a page-by-page plan with `specs/slide-plan.md`
    (one claim per slide; order method → range → relationships → conclusion per
-   `specs/foundations/storytelling.md`; place covers/section-covers/bridges). **No components yet.**
+   `specs/foundations/storytelling.md`; place covers/section-covers/bridges). Run the editorial-explainer
+   suitability gate after naming each intention. **No components or layouts yet.**
 4. **Map — visuals second:** for each planned page, find its shape in `specs/content-map.md` → layout + components.
+   When the map selects `editorial-explainer-stage`, read
+   `specs/foundations/generated-editorial-explainer.md` and choose its composition variant by intention.
 5. **Build:** write HTML with `assets/base.css` classes + the theme token file. Hypertokens are
    implementation fragments, **not a component whitelist**: choose through `content-map.md`, then let the
    component recipe resolve fragments. **Token names only — never hardcode color.** Icons per
-   `specs/foundations/iconography.md`; images per
-   `specs/foundations/imagery.md` (recolored on-system; logos/photos the only full-color elements).
+   `specs/foundations/iconography.md`; images per `specs/foundations/imagery.md`. For
+   `editorial-explainer-stage`, **invoke the `imagegen` skill and built-in image-generation tool** with the
+   matching files under `assets/illustration-style/` as style references. Generate a fresh asset at the
+   target block's exact aspect ratio. Never reuse a reference as output, trace it with CSS/SVG, or replace
+   generation with a hand-built diagram. Save, validate, then place the generated image full-block.
 6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
 7. **Audit & self-critique:** **render at deck size and look** — run `specs/audit.md`, then self-critique
    per `specs/foundations/self-critique.md`: score whole-page balance, density (不空不擠), proportional
@@ -51,6 +58,8 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 - **4-color discipline** — accent is the only chromatic color.
 - **繁中 primary + English supporting; no Korean.**
 - **One claim per slide; plain-language titles; purposeful icons, one style.**
+- **A generated editorial explainer must be genuinely generated.** Canonical images are style
+  reference only; CSS/SVG recreation, reference reuse, grayscale filtering, and contain-fit gutters fail.
 - For a system/decision, **show the reasoning before the conclusion.**
 
 ## Learning loop (gets smarter from the user's slides)
@@ -77,6 +86,11 @@ The user keeps sending **reference slide images**. Each one grows the library �
 - New theme → copy a `specs/themes/*.md`, keep the role names, **one accent**. Run `audit.md`.
 
 ## Changelog
+- **v12.6** — Added a reference-driven **editorial explainer image generator** learned from Img39–Img43.
+  It selects among workshop agenda + Q&A, scattered-input workflow transformation, and real-UI + Q&A
+  compositions while keeping one visual language. Every route requires a fresh built-in image-generation
+  call, exact target ratio, full-block placement, preserved colour, native editable copy zones, prompt
+  builder, and validator. References are never reused as outputs; CSS/SVG imitation is prohibited.
 - **v12.5** — Added the hypertoken pilot without narrowing the library: canonical `system/tokens.json`,
   five reusable style fragments, three pilot recipes, strict schemas, and a deterministic compiler that
   generates layered low-specificity CSS, the PPTX token bridge, and an LLM-readable reference. Component

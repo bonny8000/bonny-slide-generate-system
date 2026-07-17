@@ -22,6 +22,9 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 | Summarize what users said, at scale | Survey / Q&A results | repeated questions + answers | `survey-stack` | q-card (question + chart + 1-line insight); left rail = sample stats | Q badges |
 | Earn the conclusion (problem → insight) | Research story | background → problem → insight | `research-flow` | data cards → callout-band (HMW) → citation-card | none |
 | Make it both felt and proven | Qual + quant together | quotes AND numbers | `qual-quant-split` | quote-bubble (+avatar) \| stat bars | avatar icons |
+| Teach how to run a workshop activity in a human way | Timing rail + facilitator/assistant Q&A + rules/output | agenda, duration, rounds, breaks, prompts, voting, grouping, discussion rules | `editorial-explainer-stage` · `agenda-dialogue` | freshly generated full-block editorial explainer + native copy zones | **required:** image generator with workshop references; never reuse/trace them |
+| Turn scattered viewpoints into shared intent and an executable next step | Inputs → central intent-alignment workflow → shared direction/output | problems, observations, limits, expectations, multiple voices, alignment, co-creation, explicit next step | `editorial-explainer-stage` · `workflow-transform` | freshly generated full-block editorial explainer + native copy zones | **required:** image generator with workflow reference; never reuse/trace it |
+| Explain a real UI through a participant/assistant conversation | Real supplied screenshot + interpretive Q&A | user tries to understand screen, steps, locked states, hierarchy, or likely action | `editorial-explainer-stage` · `ui-qa` | real screenshot on left + generated conversational explainer on right | **required:** real screenshot + image generator with UI-Q&A reference; never fabricate UI |
 | Set expectations over time | Timeline / roadmap | phases over time | `timeline` | numbered-row / phase markers | phase markers |
 | Reveal structure / how parts nest | Hierarchy / IA / structure | tree, nesting, sitemap | `hierarchy` | indented nodes / tree | node icons |
 | Add a human voice / credibility | Quote / testimonial | attributed sentence | `quote` | quote-bubble + avatar | avatar |
@@ -46,6 +49,11 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 Prefer the most specific shape. If two fit, pick the one whose **intention matches the page's job** — and
 between equals, the one with a concrete visual (chart/table/illustration) usually wins over plain cards,
 because it carries more meaning per slide.
+
+`editorial-explainer-stage` wins only when the stage-1 gate is `yes`. It requires a fresh image-generator
+call and is not a synonym for drawing with HTML, CSS, SVG, or native cards. `ui-qa` additionally requires a
+real screenshot. Use native layouts when exact nodes/data must remain inspectable; use the generated route
+when the human explanation is the point.
 
 **Reverse use (imagining content for a layout):** every learned layout records the intention it serves
 and the triggers that should summon it (see `foundations/learn-from-image.md`). So when new content shows
