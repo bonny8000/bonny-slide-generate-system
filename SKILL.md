@@ -1,6 +1,6 @@
 ---
 name: bonny-slide-system
-description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. Every deck must record a per-slide illustration decision; human/agent workflows, conversational worked examples, workshop facilitation, and scattered-input transformations require a fresh built-in image-generation call unless precise data must stay native. Never silently substitute reused artwork, CSS, SVG, or a hand-built diagram. Korean is never produced.
+description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. Every deck must record a per-slide illustration decision; human/agent workflows, conversational worked examples, workshop facilitation, and scattered-input transformations require a fresh built-in image-generation call unless precise data must stay native. Never silently substitute reused artwork, CSS, SVG, or a hand-built diagram.
 metadata:
   version: 12.8.0
 ---
