@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">Bonny Slide System illustration gate</title>
+  <desc id="desc">Precise evidence stays native and inspectable, while human explanation routes to a fresh generated editorial explainer; both routes must pass the audit.</desc>
+  <rect width="1200" height="400" rx="24" fill="#FBFBFE"/>
+  <text x="60" y="64" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#7077FB" letter-spacing="2">ILLUSTRATION GATE</text>
+  <text x="60" y="94" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#2B3040">Explanation and evidence take different routes</text>
+  <text x="60" y="118" font-family="Arial, sans-serif" font-size="14" fill="#7C7E92">Every slide records the trigger, decision, reason, asset, and provenance.</text>
+
+  <rect x="60" y="176" width="240" height="98" rx="18" fill="#F1F4F9"/>
+  <text x="180" y="207" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#2B3040" text-anchor="middle">What must the page do?</text>
+  <text x="180" y="234" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92" text-anchor="middle">Name the intention</text>
+  <text x="180" y="254" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92" text-anchor="middle">then test the evidence need</text>
+
+  <path d="M312 225h42" stroke="#DCE0EB" stroke-width="2"/>
+  <path d="M348 219l8 6-8 6" fill="none" stroke="#DCE0EB" stroke-width="2"/>
+  <path d="M356 225h36c18 0 26-12 26-28v-24" fill="none" stroke="#DCE0EB" stroke-width="2"/>
+  <path d="M356 225h36c18 0 26 12 26 28v24" fill="none" stroke="#7077FB" stroke-width="2"/>
+
+  <rect x="430" y="140" width="330" height="100" rx="18" fill="#F1F4F9"/>
+  <circle cx="468" cy="174" r="16" fill="#DCE0EB"/>
+  <text x="468" y="180" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#2B3040" text-anchor="middle">A</text>
+  <text x="496" y="180" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#2B3040">Native evidence</text>
+  <text x="454" y="210" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92">Tables · data · code · precise UI detail</text>
+  <text x="454" y="230" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92">Keep every important value inspectable</text>
+
+  <rect x="430" y="260" width="330" height="100" rx="18" fill="#E7E8FC"/>
+  <circle cx="468" cy="294" r="16" fill="#7077FB"/>
+  <text x="468" y="300" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">B</text>
+  <text x="496" y="300" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#7077FB">Generated explainer</text>
+  <text x="454" y="330" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92">Dialogue · workshop · workflow · real-UI Q&amp;A</text>
+  <text x="454" y="350" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92">Fresh image, exact ratio, native copy zones</text>
+
+  <path d="M772 190h48c20 0 28 12 28 28v8" fill="none" stroke="#DCE0EB" stroke-width="2"/>
+  <path d="M772 310h48c20 0 28-12 28-28v-8" fill="none" stroke="#7077FB" stroke-width="2"/>
+  <path d="M840 220l8 8 8-8" fill="none" stroke="#DCE0EB" stroke-width="2"/>
+  <path d="M840 280l8-8 8 8" fill="none" stroke="#7077FB" stroke-width="2"/>
+  <path d="M860 250h40" stroke="#7077FB" stroke-width="2"/>
+  <path d="M894 244l8 6-8 6" fill="none" stroke="#7077FB" stroke-width="2"/>
+
+  <rect x="914" y="190" width="226" height="120" rx="18" fill="#7077FB"/>
+  <text x="1027" y="225" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">Audit gate</text>
+  <text x="1027" y="252" font-family="Arial, sans-serif" font-size="13" fill="#E7E8FC" text-anchor="middle">Plan · asset · provenance</text>
+  <text x="1027" y="273" font-family="Arial, sans-serif" font-size="13" fill="#E7E8FC" text-anchor="middle">HTML placement · rendered result</text>
+  <text x="1027" y="294" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Pass before delivery</text>
+
+  <text x="60" y="382" font-family="Arial, sans-serif" font-size="13" fill="#7C7E92">A hard candidate cannot be silently downgraded just because a native card is easier to build.</text>
+</svg>
