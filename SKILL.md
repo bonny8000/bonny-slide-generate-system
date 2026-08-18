@@ -70,6 +70,7 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
    python scripts/compile_system.py --check                                  # tokens + routing drift
    python scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html
    python scripts/validate_layout.py DECK.html                               # rendered balance
+   python scripts/validate_layout.py slides/ --deck                          # + deck pacing
    ```
    Then **render at deck size and look** — run `specs/audit.md`, then self-critique
    per `specs/foundations/self-critique.md`: score whole-page balance, density (不空不擠), proportional

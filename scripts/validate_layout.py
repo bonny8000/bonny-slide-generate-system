@@ -373,6 +373,35 @@ HEX_VALUE_RE = re.compile(r"[:,(]\s*(#[0-9a-fA-F]{3,8})\b")
 
 INLINE_STYLE_RE = re.compile(r"""style\s*=\s*["']([^"']*)["']""", re.I)
 
+# A "visual moment" per layout-balance.md: a real image, a logo row, a device mockup, or a
+# generated editorial explainer. Icons and chips are seasoning and deliberately do not count.
+VISUAL_MARKERS = (
+    "data-editorial-explainer",
+    "class=\"shot",
+    "class='shot",
+    " shot\"",
+    " shot'",
+    "logo-row",
+    "logorow",
+    "ui-mockup",
+    "appframe",
+    "phone",
+    "device-stack",
+    "<img",
+)
+HANGUL_RE = re.compile(r"[가-힣ᄀ-ᇿ㄰-㆏]")
+TAG_RE = re.compile(r"<(script|style)\b.*?</\1>|<[^>]+>", re.S | re.I)
+
+
+def visible_text(html: str) -> str:
+    body = html.split("<body", 1)[-1] if "<body" in html else html
+    return TAG_RE.sub(" ", body)
+
+
+def has_visual_moment(html: str) -> bool:
+    body = (html.split("<body", 1)[-1] if "<body" in html else html).lower()
+    return any(marker.lower() in body for marker in VISUAL_MARKERS)
+
 
 def find_hardcoded_hex(html: str, strict: bool) -> list[str]:
     """Hex is legitimate in the token layer only; everything else must use token names.
@@ -412,7 +441,10 @@ def slide_kind(html: str) -> str:
 # ---------------------------------------------------------------- gate
 
 
-def evaluate(path: Path, metrics: dict[str, Any], kind: str, hexes: list[str]) -> list[str]:
+def evaluate(
+    path: Path, metrics: dict[str, Any], kind: str, hexes: list[str], slide_text: str = ""
+) -> list[str]:
+    visible_text_cache = (slide_text,)
     failures: list[str] = []
 
     if metrics["blank"]:
@@ -501,6 +533,13 @@ def evaluate(path: Path, metrics: dict[str, Any], kind: str, hexes: list[str]) -
                 "Anchor, then counterbalance — add a caption row, bottom band, or equal card min-heights."
             )
 
+    korean = sorted(set(HANGUL_RE.findall(visible_text_cache[0])))
+    if korean:
+        failures.append(
+            f"Korean text in the slide copy ({''.join(korean[:8])}…). Golden rule is 繁中 primary + "
+            "English supporting; Korean references teach structure only, never wording."
+        )
+
     if hexes:
         shown = ", ".join(hexes[:6]) + (" …" if len(hexes) > 6 else "")
         failures.append(
@@ -525,6 +564,11 @@ def main() -> int:
     )
     parser.add_argument("--json", type=Path, help="write a machine-readable report here")
     parser.add_argument("--quiet", action="store_true", help="only print failures")
+    parser.add_argument(
+        "--deck",
+        action="store_true",
+        help="treat the given slides as one deck and also check deck-level visual pacing",
+    )
     parser.add_argument(
         "--strict-hex",
         action="store_true",
@@ -575,7 +619,9 @@ def main() -> int:
             report["slides"].append({"slide": str(slide), "error": str(exc)})
             continue
 
-        problems = evaluate(slide, metrics, kind, find_hardcoded_hex(html, args.strict_hex))
+        problems = evaluate(
+            slide, metrics, kind, find_hardcoded_hex(html, args.strict_hex), visible_text(html)
+        )
         report["slides"].append(
             {"slide": str(slide), "kind": kind, "metrics": metrics, "failures": problems}
         )
@@ -592,7 +638,28 @@ def main() -> int:
     if args.json:
         args.json.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
+    # Deck-level visual pacing (layout-balance.md v12.7): per-slide checks all pass and the deck
+    # still reads like a document. Only meaningful once the deck is long enough to feel dry.
+    deck_note = ""
+    if args.deck and len(targets) >= 8:
+        visual = [
+            t
+            for t in targets
+            if t.is_file() and has_visual_moment(t.read_text(encoding="utf-8", errors="replace"))
+        ]
+        if not visual:
+            failed += 1
+            print(
+                f"\nFAIL deck pacing — {len(targets)} slides carry no genuine visual moment "
+                "(real screenshot, logo-row, device mockup, or generated explainer). Icons and chips "
+                "do not count. Elevate the best candidate page rather than shipping a dry deck."
+            )
+        else:
+            deck_note = f"deck pacing: {len(visual)}/{len(targets)} slides carry a visual moment"
+
     total = len(targets)
+    if deck_note:
+        print(deck_note)
     if failed:
         print(f"\nlayout gate FAILED: {failed}/{total} slide(s) need fixing", file=sys.stderr)
         return 1

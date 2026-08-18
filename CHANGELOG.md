@@ -20,6 +20,11 @@ almost none of it, so layout quality degraded first under context pressure.
   and measures what the rules only described: whitespace ratio (不空不擠), quadrant mass balance,
   safe-area overflow, empty top/bottom bands, and hardcoded hex. Wired into `audit.md` and
   `self-critique.md` so it gates delivery the way the illustration validator already does.
+- **Two more prose rules became checks.** `validate_layout.py` now fails on Korean in the slide copy
+  (a golden rule that had no enforcement) and, with `--deck`, on the v12.7 anti-dryness rule: a deck of
+  8+ slides carrying no genuine visual moment. It also fails on a band of surface holding no text —
+  the relocated-emptiness failure, which matters because without it a slide can be "fixed" into
+  passing the gate while getting visibly worse.
 - **`SKILL.md` slimmed.** The changelog moved here, reclaiming ~63% of the entry-point file for the
   operating procedure the agent actually needs.
 - **The illustration gate can actually run.** `validate_generated_illustration.py` imported Pillow at

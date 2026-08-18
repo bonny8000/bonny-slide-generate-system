@@ -10,14 +10,19 @@ report. They exist because these rules used to be prose only, and prose degrades
 ```bash
 python scripts/compile_system.py --check          # tokens + routing drift
 python scripts/validate_layout.py DECK.html       # rendered balance + density
+python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pacing
 ```
 
 - `compile_system.py --check` fails on routing drift: a stable layout with no `content-map.md` row,
   an orphan component, an unresolvable `depends_on`, a duplicate trigger, or **any Korean in a
   routing trigger**. — blocker
 - `validate_layout.py` renders each slide and fails on a blank/unstyled render, a dead band inside
-  the content, an empty top or bottom band, a dead quadrant, or extreme density. Add `--strict-hex`
-  to also scan `<style>` blocks for hardcoded colour. — blocker on a failure it reports
+  the content, a band of surface carrying no text (relocated emptiness), an empty top or bottom band,
+  a dead quadrant, extreme density, or **Korean in the slide copy**. Add `--strict-hex` to also scan
+  `<style>` blocks for hardcoded colour. — blocker on a failure it reports
+- `--deck` additionally enforces the v12.7 anti-dryness rule across a deck of 8+ slides: at least one
+  page must carry a genuine visual moment (real screenshot, logo-row, device mockup, or generated
+  explainer). Icons and chips do not count. — major
 - Neither gate replaces looking at the screenshot. They catch what is measurable; you still judge
   intention, hierarchy, and craft.
 
