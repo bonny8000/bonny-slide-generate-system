@@ -3,6 +3,8 @@ id: centered-question-evidence
 kind: layout
 tier: organism
 status: stable
+intent: open a section with a framing question, then back it with parallel proofs
+triggers: [framing question, "is there a gap?", background thesis + proof, a question to anchor a section, stat + chart + logos together, evidence trio]
 depends_on: [evidence-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

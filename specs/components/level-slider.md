@@ -4,7 +4,7 @@ kind: component
 tier: atom
 status: stable        # example built + render-validated
 intent: show a trait/level at a glance (low ↔ high)
-triggers: [persona behavior traits, ratings, "민감도/능력/연결성", a 0–100 level, comparable attributes]
+triggers: [persona behavior traits, ratings, "敏感度/能力/連結性", a 0–100 level, comparable attributes]
 depends_on: [tokens]
 tokens_used: [muted-soft, accent, ink, muted]
 icon_use: none

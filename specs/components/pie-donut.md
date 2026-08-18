@@ -3,6 +3,8 @@ id: pie-donut
 kind: component
 tier: atom
 status: stable
+intent: show one proportion that matters
+triggers: [single share, "one key %", yes/no split, proportion of a whole, 佔比]
 depends_on: [tokens]
 tokens_used: [muted, muted-soft, accent, ink]
 icon_use: none

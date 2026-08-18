@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: orient the audience to how the service works — the end-to-end flow and decision paths, grouped by user segment
-triggers: [flowchart, 플로우/flow, decision diamonds, branches, swimlanes by user type, start → ends, an end-to-end process shown whole]
+triggers: [flowchart, 流程圖, decision diamonds, branches, swimlanes by user type, start → ends, an end-to-end process shown whole]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

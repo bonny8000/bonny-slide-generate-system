@@ -32,6 +32,8 @@ The core rule is simple: **decide what the slide must do before deciding what it
 | Hypertokens | 5 | Reusable surface, type, layout, and image implementation fragments |
 | Pilot recipes | 3 | Slot mappings for metric cards, evidence cards, and feature showcases |
 | Editorial variants | 4 | Workshop, guided dialogue, workflow transformation, and real-UI Q&A |
+| Routable patterns | 44 | Compiled from spec frontmatter into `system/router.json` + `specs/generated-router.md` |
+| Enforcement gates | 3 | Token/routing drift, illustration provenance, and rendered layout balance |
 
 ## System Structure
 
@@ -167,5 +169,5 @@ Use `assets/base.css` for linked HTML. For self-contained HTML, inline
 
 ---
 
-**v12.8 · July 2026** — intention-first selection, enforced illustration routing, hypertoken-backed
-implementation, and deck-level visual pacing.
+**v12.9 · August 2026** — intention routing compiled into a drift-checked index, layout balance
+enforced by a rendered gate rather than described in prose, and a slimmed operating manual.

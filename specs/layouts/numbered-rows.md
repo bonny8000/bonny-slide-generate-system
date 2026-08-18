@@ -3,6 +3,8 @@ id: numbered-rows
 kind: layout
 tier: organism
 status: stable
+intent: explain 2-4 sequenced points, each backed by its own chart
+triggers: [1/2/3 points each with data, multi-point findings, numbered explainer rows, background points with charts]
 depends_on: [numbered-row, line-chart, barchart, pie-donut, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

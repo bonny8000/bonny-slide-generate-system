@@ -3,6 +3,8 @@ id: delta-metric
 kind: component
 tier: molecule
 status: stable
+intent: prove a change by pairing a big +/-% with its before/after bars
+triggers: [before to after, "improvement %", 改善前/改善後, result over a period, impact metric]
 depends_on: [barchart, tokens]
 tokens_used: [ink, muted, muted-soft, accent]
 icon_use: none

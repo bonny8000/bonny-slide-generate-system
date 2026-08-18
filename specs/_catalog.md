@@ -58,6 +58,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 | quote-bubble | speech bubble + avatar (qual quote) | Img4, Img7, Img23 | stable |
 | cta-buttons | primary (filled) + secondary (outline) action pair | Img19 | stable |
 | ui-mockup | product UI / device-screen mockup (browser · phone · skeleton) | Img19, Img21 | stable |
+| shot | rounded + soft-shadowed wrapper for any raw screenshot/photo | Img21, Img26 | stable |
 | level-slider | labeled trait track with a level dot | Img22 | stable |
 | geo-map | region map with leader-line annotations + counts | Img23 | stable |
 | stat-bar | labeled before/after % bars | Img4 | stable |

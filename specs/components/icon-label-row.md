@@ -3,6 +3,8 @@ id: icon-label-row
 kind: component
 tier: atom
 status: stable
+intent: list items with a quick visual anchor per row
+triggers: [categories, audiences, capabilities, benefit list, short labelled items, 6 one-liners]
 depends_on: [tokens]
 tokens_used: [ink, muted, accent, surface]
 icon_use: required

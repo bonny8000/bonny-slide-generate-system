@@ -3,6 +3,7 @@
 @layer tokens {
   :root {
     --canvas: #FBFBFE;
+    --backdrop: #CDD2DC;
     --surface: #F1F4F9;
     --chip: #FFFFFF;
     --ink: #2B3040;

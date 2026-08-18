@@ -3,6 +3,8 @@ id: comparison-table
 kind: component
 tier: molecule
 status: stable
+intent: help the audience choose by comparing options across criteria with one highlighted
+triggers: [competitive analysis, vs alternatives, feature matrix, N options x criteria, better than, 3+ criteria]
 depends_on: [tokens, logo-row]
 tokens_used: [surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

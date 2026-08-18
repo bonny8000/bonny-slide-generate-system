@@ -3,6 +3,8 @@ id: logo-row
 kind: component
 tier: atom
 status: stable
+intent: evidence what exists by showing the actual marks
+triggers: [tools, competitors, sources, brands, "what's out there", comparison column headers, tech stack]
 depends_on: [tokens]
 tokens_used: [surface, muted, muted-soft]
 icon_use: required

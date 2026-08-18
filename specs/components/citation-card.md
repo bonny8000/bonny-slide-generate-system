@@ -3,6 +3,8 @@ id: citation-card
 kind: component
 tier: molecule
 status: stable
+intent: back a claim with a traceable source
+triggers: [desk-research citation, literature evidence, finding + source, source line under a claim]
 depends_on: [tokens]
 tokens_used: [surface, ink, muted]
 icon_use: none

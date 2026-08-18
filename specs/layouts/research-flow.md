@@ -3,6 +3,8 @@ id: research-flow
 kind: layout
 tier: organism
 status: stable
+intent: earn the conclusion by walking background data to a reframed question to supporting literature
+triggers: [research story, background to problem to insight, HMW, how might we, desk research, findings + sources]
 depends_on: [barchart, bubble-cluster, pie-donut, callout-band, citation-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent, accent-soft, band-fill]
 icon_use: none

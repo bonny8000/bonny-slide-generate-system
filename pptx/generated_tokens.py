@@ -37,6 +37,7 @@ FOUNDATIONS = {
 THEME_TOKENS = {
     'light': {
         'canvas': 'FBFBFE',
+        'backdrop': 'CDD2DC',
         'surface': 'F1F4F9',
         'chip': 'FFFFFF',
         'ink': '2B3040',
@@ -60,6 +61,7 @@ THEME_TOKENS = {
     },
     'dark': {
         'canvas': '1B1B20',
+        'backdrop': '111116',
         'surface': '2C2C33',
         'chip': '34343C',
         'ink': 'FFFFFF',

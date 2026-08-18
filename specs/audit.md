@@ -3,6 +3,24 @@
 The "mandated audit" step. A sub-agent checks the finished slide/deck against the specs and reports
 issues with a severity. Fix **blocker** + **major** before delivery.
 
+## Run the machine checks first
+Two gates are mechanical — run them before the human-judgement checks below, and fix what they
+report. They exist because these rules used to be prose only, and prose degrades first.
+
+```bash
+python scripts/compile_system.py --check          # tokens + routing drift
+python scripts/validate_layout.py DECK.html       # rendered balance + density
+```
+
+- `compile_system.py --check` fails on routing drift: a stable layout with no `content-map.md` row,
+  an orphan component, an unresolvable `depends_on`, a duplicate trigger, or **any Korean in a
+  routing trigger**. — blocker
+- `validate_layout.py` renders each slide and fails on a blank/unstyled render, a dead band inside
+  the content, an empty top or bottom band, a dead quadrant, or extreme density. Add `--strict-hex`
+  to also scan `<style>` blocks for hardcoded colour. — blocker on a failure it reports
+- Neither gate replaces looking at the screenshot. They catch what is measurable; you still judge
+  intention, hierarchy, and craft.
+
 ## Checks
 ### Theme & color  (foundations/color-discipline.md, themes-and-modes.md)
 - [ ] **One theme across the whole deck** (same mode + same accent on every slide). — blocker if mixed
@@ -22,7 +40,10 @@ issues with a severity. Fix **blocker** + **major** before delivery.
 - [ ] Spacing on the 8px scale; equal four-side margins; content vertically centered, fills the canvas. — major
 - [ ] One claim per slide; visual sits next to the text it supports. — major
 - [ ] Whole-page weight balanced; no heavy quadrant against an empty one. — major
+      *(machine-checked: `validate_layout.py` dead-quadrant check)*
 - [ ] Density comfortable (~30–45% whitespace): not 太擠, not 很空. — major
+- [ ] **No dead band inside the content** — an even top/bottom margin can still hide an empty
+      lower half. — major *(machine-checked: `validate_layout.py` interior-gap check)*
 - [ ] Text/title/icon/number sized to role + container; content fills its box; icon never out-weighs its title. — major
 
 ### Reference match & self-critique  (foundations/self-critique.md)

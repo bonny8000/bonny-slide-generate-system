@@ -4,7 +4,7 @@ kind: component
 tier: atom
 status: stable        # example built + render-validated
 intent: show a single labeled percentage as a horizontal bar
-triggers: [labeled % values, survey results, "N% of users …", a row of comparable proportions]
+triggers: ["labeled % values", "survey % rows", "N% of users …", a row of comparable proportions]
 depends_on: [tokens]
 tokens_used: [muted-soft, accent, on-accent, ink]
 icon_use: none

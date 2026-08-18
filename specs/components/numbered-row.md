@@ -3,6 +3,8 @@ id: numbered-row
 kind: component
 tier: molecule
 status: stable
+intent: state one numbered point with bilingual text and its chart
+triggers: [a point inside a numbered sequence, badge + text + chart row]
 depends_on: [tokens]
 tokens_used: [ink, muted, accent, surface]
 icon_use: optional

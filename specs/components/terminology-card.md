@@ -3,6 +3,8 @@ id: terminology-card
 kind: component
 tier: molecule
 status: stable
+intent: define one term with a supporting illustration
+triggers: [one term + definition, a card inside terminology-cards, keyword illustration]
 depends_on: [tokens]
 tokens_used: [surface, ink, muted, accent]
 icon_use: required

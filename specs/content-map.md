@@ -33,7 +33,7 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 | Show how things connect / constrain | Relationships / dependency | "depends on", "in parallel" | `relations` | relationship triplet (前後 / 相依 / 並行) | small flow icons |
 | Back a claim with sources / build trust | Citations / evidence | findings + sources | `citations` | citation-card (finding + source) | none |
 | Converge multiple proofs on one point | 3 parallel evidence types | a stat + a chart + logos | `evidence-trio` | evidence-card ×3 (icon-stat / chart / logo-row) | stat icon + logos |
-| Open a section / provoke thinking | Centered framing question | a question to anchor a section | `centered-question` | big centered question + 3 evidence cards | optional |
+| Open a section / provoke thinking | Centered framing question | a question to anchor a section | `centered-question-evidence` | big centered question + 3 `evidence-card`s (icon-stat · chart · logo-row) | optional |
 | Explain a few points, each with proof | Numbered explainer rows | 1/2/3 points, each w/ a chart | `numbered-rows` | numbered-row (badge + bilingual text + chart) | number badges |
 | Present the product itself | Product hero / landing | a product to introduce, value prop + CTAs + a UI to show | `product-hero` | cta-buttons + metric ×3 + ui-mockup + tab row | optional landing icons |
 | Present a few parallel values | Value / keyword cards | 3–4 principles/keywords each w/ a short blurb | `keyword-cards` | numbered value cards | optional |
@@ -45,6 +45,12 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 | Contrast current vs improved screens | As-is → To-be (screens) | before/after of a UI + annotations | `as-is-to-be` | ui-mockup ×2 (muted vs accent) + annotation callouts | optional |
 | Re-orient / mark a new part | Section transition | "now part 2 of 3" | `section-cover` (扉頁) | section-cover (small nav + hero title) | none |
 | Set the map up front | Agenda | the outline | `toc` | numbered outline | none |
+| Present a small set of features as equals | Feature set / capability grid | 3–4 features, "what's included", capabilities each w/ an icon + blurb | `feature-grid` | feature-card ×3–4 in a 2×2 / 2×N grid | one icon or illustration per card |
+| Put one concept at the centre with its facets around it | Core concept + radiating facets | a center-out model, "X connects A/B/C/D", a framework hub | `hero-radial` | central accent node + radial facet labels + two side list-cards | optional facet icons |
+| Pair a design idea with the evidence backing it | Idea ↔ proof (two column) | "we think X — here's why", an idea/claim + a supporting chart or stat | `idea-evidence` | idea panel (+ small chart) \| survey stat + reasoning panel | none (let the chart speak) |
+| Converge several interview groups into one insight | Interview / affinity synthesis | interview groups or segments, affinity mapping, "across N groups we heard…" | `interview-affinity` | persona//group columns (avatar + reasons) → shared insight band | participant avatars |
+| Rank what matters most | Prioritized needs / requirements | priority list, ranked needs, top-N requirements, 第一優先/第二優先 | `comparison` or a side panel | `ranked-list` (explicit rank order) | none |
+| List short items each with a visual anchor | Icon + label list | categories, audiences, capabilities, 6 one-liners | `card-grid` or a side rail | `icon-label-row` (icon 20–24px + label) | required — one icon per row |
 
 **Selection rule:** start from the page's **intention** (from `slide-plan.md`), then match the shape.
 Prefer the most specific shape. If two fit, pick the one whose **intention matches the page's job** — and

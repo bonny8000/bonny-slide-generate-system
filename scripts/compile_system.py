@@ -401,6 +401,267 @@ def render_reference(hypertokens: dict[str, Any], recipes: dict[str, Any]) -> st
     return "\n".join(lines)
 
 
+
+# --------------------------------------------------------------------------
+# Intention router: compiles specs/**/*.md frontmatter into a machine-readable
+# routing index so layout/component selection is a lookup, not prose matching.
+# --------------------------------------------------------------------------
+
+SPEC_DIRS = {"layout": ROOT / "specs" / "layouts", "component": ROOT / "specs" / "components"}
+SPEC_ID_RE = re.compile(r"^[a-z][a-z0-9-]*$")
+REQUIRED_SPEC_KEYS = ("id", "kind", "tier", "status", "intent", "triggers", "example")
+QUOTES = "\"'"
+
+
+def _strip_comment(value: str) -> str:
+    """Drop a trailing ` # comment`, respecting quoted spans."""
+    quote = None
+    for i, ch in enumerate(value):
+        if quote:
+            if ch == quote:
+                quote = None
+        elif ch in QUOTES:
+            quote = ch
+        elif ch == "#" and i > 0 and value[i - 1].isspace():
+            return value[:i]
+    return value
+
+
+def _split_flow(body: str) -> list[str]:
+    """Split a YAML flow sequence body on top-level commas, respecting quotes."""
+    items: list[str] = []
+    buf: list[str] = []
+    quote = None
+    for ch in body:
+        if quote:
+            if ch == quote:
+                quote = None
+            else:
+                buf.append(ch)
+            continue
+        if ch in QUOTES:
+            quote = ch
+            continue
+        if ch == ",":
+            items.append("".join(buf).strip())
+            buf = []
+            continue
+        buf.append(ch)
+    if quote:
+        raise BuildError(f"unterminated quote in flow sequence: [{body}]")
+    tail = "".join(buf).strip()
+    if tail:
+        items.append(tail)
+    return [item for item in items if item]
+
+
+def parse_frontmatter(text: str, where: str) -> dict[str, Any]:
+    """Parse the small YAML subset used by spec frontmatter (stdlib only)."""
+    match = re.match(r"^---\r?\n(.*?)\r?\n---", text, re.S)
+    if not match:
+        raise BuildError(f"{where}: missing YAML frontmatter block")
+    data: dict[str, Any] = {}
+    for raw in match.group(1).splitlines():
+        line = raw.rstrip()
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        key_value = re.match(r"^([a-z_][a-z0-9_]*):\s*(.*)$", line, re.I)
+        if not key_value:
+            raise BuildError(f"{where}: cannot parse frontmatter line: {raw!r}")
+        key = key_value.group(1)
+        value = _strip_comment(key_value.group(2)).strip()
+        if key in data:
+            raise BuildError(f"{where}: duplicate frontmatter key {key!r}")
+        if value.startswith("[") and value.endswith("]"):
+            data[key] = _split_flow(value[1:-1])
+        else:
+            data[key] = value.strip(QUOTES)
+    return data
+
+
+def load_specs() -> dict[str, dict[str, Any]]:
+    specs: dict[str, dict[str, Any]] = {}
+    for kind, directory in SPEC_DIRS.items():
+        if not directory.is_dir():
+            raise BuildError(f"missing spec directory: {directory}")
+        for path in sorted(directory.glob("*.md")):
+            where = path.relative_to(ROOT).as_posix()
+            data = parse_frontmatter(path.read_text(encoding="utf-8"), where)
+            missing = [key for key in REQUIRED_SPEC_KEYS if not data.get(key)]
+            if missing:
+                raise BuildError(f"{where}: frontmatter missing required key(s): {', '.join(missing)}")
+            spec_id = data["id"]
+            if not SPEC_ID_RE.match(spec_id):
+                raise BuildError(f"{where}: invalid id {spec_id!r}")
+            if spec_id != path.stem:
+                raise BuildError(f"{where}: id {spec_id!r} does not match filename {path.stem!r}")
+            if data["kind"] != kind:
+                raise BuildError(f"{where}: kind {data['kind']!r} but lives in {directory.name}/")
+            if spec_id in specs:
+                raise BuildError(f"duplicate spec id {spec_id!r}")
+            triggers = data["triggers"]
+            if not isinstance(triggers, list) or not triggers:
+                raise BuildError(f"{where}: 'triggers' must be a non-empty list")
+            example = str(data["example"]).strip()
+            if not (ROOT / example).is_file():
+                raise BuildError(f"{where}: example not found: {example}")
+            learned = str(data.get("learned_from", ""))
+            specs[spec_id] = {
+                "kind": kind,
+                "tier": data["tier"],
+                "status": data["status"],
+                "intent": data["intent"],
+                "triggers": triggers,
+                "spec": where,
+                "example": example,
+                "dependsOn": data.get("depends_on", []) or [],
+                "tokensUsed": data.get("tokens_used", []) or [],
+                "iconUse": data.get("icon_use", "optional"),
+                "learnedFrom": [part.strip() for part in learned.split(",") if part.strip()],
+            }
+    return specs
+
+
+def load_catalog_ids() -> set[str]:
+    """Ids catalogued in specs/_catalog.md, including entries that have no spec file yet."""
+    text = (ROOT / "specs" / "_catalog.md").read_text(encoding="utf-8")
+    ids: set[str] = set()
+    for row in re.findall(r"^\|\s*([a-z][a-z0-9 /-]*?)\s*\|", text, re.M):
+        for part in row.split("/"):
+            part = part.strip()
+            if part and part != "id":
+                ids.add(part)
+    return ids
+
+
+CJK_RANGES = (("㐀", "鿿"), ("豈", "﫿"))
+HANGUL_RANGES = (("ᄀ", "ᇿ"), ("㄰", "㆏"), ("가", "힣"))
+
+
+def _in_ranges(text: str, ranges: tuple[tuple[str, str], ...]) -> bool:
+    return any(low <= ch <= high for ch in text for low, high in ranges)
+
+
+def _is_cjk(text: str) -> bool:
+    return _in_ranges(text, CJK_RANGES)
+
+
+def validate_router(specs: dict[str, dict[str, Any]]) -> None:
+    """Fail the build on routing drift — the check that keeps the library reachable."""
+    errors: list[str] = []
+    catalog_ids = load_catalog_ids()
+    known = set(specs) | catalog_ids | {"tokens"}
+
+    for spec_id, spec in specs.items():
+        for dep in spec["dependsOn"]:
+            if dep not in known:
+                errors.append(
+                    f"{spec['spec']}: depends_on {dep!r}, which is neither a spec nor a catalog entry"
+                )
+
+    content_map = (ROOT / "specs" / "content-map.md").read_text(encoding="utf-8").lower()
+
+    unrouted = sorted(
+        spec_id
+        for spec_id, spec in specs.items()
+        if spec["kind"] == "layout"
+        and spec["status"].startswith("stable")
+        and spec_id not in content_map
+    )
+    if unrouted:
+        errors.append(
+            "layouts have a spec but no row in specs/content-map.md (unreachable by the planner): "
+            + ", ".join(unrouted)
+        )
+
+    for spec_id, spec in specs.items():
+        if spec["kind"] != "component":
+            continue
+        used_by_layout = any(
+            spec_id in other["dependsOn"]
+            for other in specs.values()
+            if other["kind"] == "layout"
+        )
+        if not used_by_layout and spec_id not in content_map:
+            errors.append(
+                f"component {spec_id!r} is used by no layout and named in no content-map row (orphan)"
+            )
+
+    seen: dict[str, str] = {}
+    for spec_id in sorted(specs):
+        for trigger in specs[spec_id]["triggers"]:
+            key = trigger.strip().lower()
+            # a 2-character CJK term is fully distinctive; ASCII needs more signal
+            floor = 2 if _is_cjk(key) else 3
+            if len(key) < floor:
+                errors.append(f"{specs[spec_id]['spec']}: trigger {trigger!r} is too short to route on")
+            if _in_ranges(key, HANGUL_RANGES):
+                errors.append(
+                    f"{specs[spec_id]['spec']}: trigger {trigger!r} contains Korean — "
+                    "golden rule is 繁中 primary + English supporting, no Korean"
+                )
+            if key in seen and seen[key] != spec_id:
+                errors.append(
+                    f"trigger {trigger!r} is claimed by both {seen[key]!r} and {spec_id!r} — make it specific"
+                )
+            seen.setdefault(key, spec_id)
+
+    if errors:
+        raise BuildError("router drift detected:\n  - " + "\n  - ".join(errors))
+
+
+def render_router_json(specs: dict[str, dict[str, Any]]) -> str:
+    trigger_index: dict[str, list[str]] = {}
+    for spec_id, spec in specs.items():
+        for trigger in spec["triggers"]:
+            trigger_index.setdefault(trigger.strip().lower(), []).append(spec_id)
+    payload = {
+        "$comment": "AUTO-GENERATED by scripts/compile_system.py from specs/**/*.md frontmatter. DO NOT EDIT.",
+        "version": "1.0.0",
+        "selectionPolicy": {
+            "primaryKey": "intent",
+            "note": (
+                "Match the page's intention to an entry, then confirm with triggers. "
+                "Layouts are the unit of selection; components resolve via dependsOn."
+            ),
+        },
+        "counts": {
+            "layouts": sum(1 for spec in specs.values() if spec["kind"] == "layout"),
+            "components": sum(1 for spec in specs.values() if spec["kind"] == "component"),
+        },
+        "triggerIndex": {key: sorted(value) for key, value in sorted(trigger_index.items())},
+        "entries": {key: specs[key] for key in sorted(specs)},
+    }
+    return json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+
+
+def render_router_md(specs: dict[str, dict[str, Any]]) -> str:
+    lines = [
+        "<!-- AUTO-GENERATED by scripts/compile_system.py. DO NOT EDIT. -->",
+        "# Intention router — every routable pattern in the library",
+        "",
+        "Compiled from each spec's `intent` + `triggers` frontmatter, so it can never drift from the specs.",
+        "`content-map.md` stays the hand-written narrative router (detection heuristics + component",
+        "pairings); **this file is the complete index** — if a pattern is not here, it does not exist.",
+        "",
+        "Read `intent` first (what the page must DO), then confirm with `triggers` (what the content looks",
+        "like). Machine-readable form: `system/router.json`.",
+        "",
+    ]
+    sections = (
+        ("layout", "Layouts — the unit of selection"),
+        ("component", "Components — resolved via a layout's `depends_on`"),
+    )
+    for kind, heading in sections:
+        lines += ["## " + heading, "", "| id | intent (the job) | triggers | spec |", "|---|---|---|---|"]
+        for spec_id in sorted(key for key, value in specs.items() if value["kind"] == kind):
+            spec = specs[spec_id]
+            triggers = " · ".join(spec["triggers"])
+            lines.append(f"| `{spec_id}` | {spec['intent']} | {triggers} | `{spec['spec']}` |")
+        lines.append("")
+    return "\n".join(lines)
+
+
 def outputs() -> dict[Path, str]:
     token_data = load_json(SYSTEM / "tokens.json")
     hypertoken_data = load_json(SYSTEM / "hypertokens.json")
@@ -408,9 +669,13 @@ def outputs() -> dict[Path, str]:
     foundations, themes = validate_tokens(token_data)
     hypertokens = validate_hypertokens(hypertoken_data, foundations, themes)
     recipes = validate_recipes(recipe_data, hypertokens)
+    specs = load_specs()
+    validate_router(specs)
     foundations_css = render_foundations_css(foundations)
     hypertokens_css = render_hypertokens_css(hypertokens)
     result = {
+        SYSTEM / "router.json": render_router_json(specs),
+        ROOT / "specs" / "generated-router.md": render_router_md(specs),
         ROOT / "assets" / "generated" / "foundations.css": foundations_css,
         ROOT / "assets" / "generated" / "hypertokens.css": hypertokens_css,
         ROOT / "assets" / "generated" / "base-bundle.css": render_base_bundle(

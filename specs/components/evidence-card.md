@@ -3,6 +3,8 @@ id: evidence-card
 kind: component
 tier: molecule
 status: stable
+intent: carry one piece of proof - an icon-stat, a chart, or a logo-row
+triggers: [one proof card in a trio, parallel evidence types, stat + chart + logos]
 depends_on: [tokens, logo-row, barchart]
 tokens_used: [surface, ink, muted, accent, accent-soft]
 icon_use: optional

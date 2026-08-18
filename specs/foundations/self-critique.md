@@ -25,7 +25,13 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
      block (as the repo's existing examples do). **Linked `<link href="../assets/…">` stylesheets can
      silently fail to load** in a preview/`file://` context, leaving an unstyled white page — a failure no
      code check catches, only the screenshot does.
-2. **Score each dimension** (pass / fix):
+2. **Run the layout gate before scoring by eye.**
+   `python scripts/validate_layout.py <slide.html>` measures the things this file used to only
+   describe: whether the render actually painted, whether content distributes top→bottom, whether a
+   quadrant is dead, and whether density is at an extreme. It reports a named defect and the fix.
+   Treat a reported failure as a **fix**, never a pass — then continue to the judgement calls below,
+   which no measurement can make for you.
+3. **Score each dimension** (pass / fix):
    - intention delivered (the page does its job — `content-map.md`)
    - whole-page balance (no lopsided/heavy quadrant — `layout-balance.md`)
    - density: **不空不擠** (~30–45% whitespace — `layout-balance.md`)
@@ -38,12 +44,12 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
      `npx modern-web-guidance@latest`): `text-wrap: balance` on headings + `pretty` on body copy,
      overflow-safe layout (`min-width:0` on flex children), no fragile fixed heights, modern layout idioms.
      This is the code-level complement to the visual screenshot review.
-3. **Compare to the reference** (if any): per dimension, is the build **≥** the reference? Name anything the
+4. **Compare to the reference** (if any): per dimension, is the build **≥** the reference? Name anything the
    reference does better and close the gap; name anything you can do better and take it.
    Compare against the matching files under `assets/illustration-style/`: soft neutral depth, restrained
    avatar/assistant system, compact hierarchy, paper speech surfaces, yellow inline highlights, and one clear
    reading path. Copy their shared visual grammar, never their literal content or Korean text.
-4. **Fix the worst first, re-render, re-score.** Iterate until every dimension passes and nothing is weaker
+5. **Fix the worst first, re-render, re-score.** Iterate until every dimension passes and nothing is weaker
    than the reference.
 
 ## What "better or same as the reference" means
