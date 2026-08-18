@@ -10,7 +10,8 @@
    Load this OR tokens-dark.css — never both in one deck.
    ============================================================ */
 :root{
-  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --canvas:#FBFBFE;
+  --backdrop:#CDD2DC;       /* near-white, faint cool          */
   --surface:#F1F4F9;      /* card fill                       */
   --chip:#FFFFFF;         /* inner chips / bubble inset      */
 
@@ -61,7 +62,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;background:#cdd2dc}
+html,body{margin:0;background:var(--backdrop)}
 body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== Canvas ===== */
@@ -112,7 +113,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
 
 /* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
-.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:var(--on-accent);
   padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
 .band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
 .band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
@@ -236,10 +237,10 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== section cover / 扉頁 (announce a new section) ===== */
 /* dark inside a light deck is a background choice, not a mode switch */
-.slide.section-cover{background:var(--band-fill);color:#fff}
+.slide.section-cover{background:var(--band-fill);color:var(--on-accent)}
 .section-cover .nav{display:flex;align-items:center;gap:18px;justify-content:center;font-size:18px;font-weight:700}
 .section-cover .nav .item{color:rgba(255,255,255,.30)}
-.section-cover .nav .item.on{color:#fff;border-bottom:3px solid var(--accent);padding-bottom:6px}
+.section-cover .nav .item.on{color:var(--on-accent);border-bottom:3px solid var(--accent);padding-bottom:6px}
 .section-cover .nav .sep{color:rgba(255,255,255,.18);font-size:14px}
 .section-cover .lead-kicker{font-size:14px;letter-spacing:.16em;color:rgba(255,255,255,.6);font-weight:700}
 .section-cover h1{font-size:54px;font-weight:700;margin:0}
@@ -353,9 +354,9 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .uc-card{position:relative;background:var(--surface);border:1px solid var(--muted-soft);
   border-radius:var(--r-card);min-height:440px;display:grid;place-items:center;overflow:hidden}
 .uc-badge{position:absolute;top:var(--s4);left:var(--s4);display:inline-flex;align-items:center;
-  gap:var(--s1);background:var(--band-fill);color:#fff;padding:8px 16px;border-radius:var(--r-pill);
+  gap:var(--s1);background:var(--band-fill);color:var(--on-accent);padding:8px 16px;border-radius:var(--r-pill);
   font-size:15px;font-weight:700;z-index:1}
-.uc-badge .icon{width:18px;height:18px;color:#fff;stroke-width:2}
+.uc-badge .icon{width:18px;height:18px;color:var(--on-accent);stroke-width:2}
 /* illustration: currentColor = accent, so the whole unDraw-style SVG is recolored on-system */
 .uc-illus{color:var(--accent);width:100%;display:grid;place-items:center;padding:var(--s6) var(--s5) var(--s5)}
 .uc-illus svg{width:100%;max-width:320px;height:auto;stroke:currentColor;fill:none;stroke-width:3;
@@ -364,6 +365,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .uc-illus .soft{fill:var(--accent-soft);stroke:none}
 .uc-cap{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 </style>
 </head>
 <body>

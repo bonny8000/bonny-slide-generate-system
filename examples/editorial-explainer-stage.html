@@ -7,6 +7,7 @@
   <style>
     :root {
       --canvas: #f7f8fb;
+  --backdrop:#CDD2DC;
       --ink: #293143;
       --muted: #6f788c;
       --line: #dde2eb;
@@ -44,7 +45,12 @@
     .meta p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.45; }
     footer { display: flex; justify-content: space-between; margin-top: 30px; padding: 0 4px; }
     footer strong { color: var(--ink); }
-  </style>
+  
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
+</style>
 </head>
 <body>
   <header>

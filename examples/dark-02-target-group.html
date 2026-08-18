@@ -7,7 +7,8 @@
    Load this OR tokens-light.css — never both in one deck.
    ============================================================ */
 :root{
-  --canvas:#1B1B20;       /* near-black, warm                */
+  --canvas:#1B1B20;
+  --backdrop:#111116;       /* near-black, warm                */
   --surface:#2C2C33;      /* card fill, slate                */
   --chip:#34343C;         /* inner chips                     */
 
@@ -58,7 +59,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;background:#cdd2dc}
+html,body{margin:0;background:var(--backdrop)}
 body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== Canvas ===== */
@@ -109,7 +110,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
 
 /* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
-.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:var(--on-accent);
   padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
 .band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
 .band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
@@ -237,6 +238,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .slide.tone-neg{--accent:var(--neg);--accent-soft:var(--neg-soft)}
 .slide.tone-warn{--accent:var(--warn);--accent-soft:var(--warn-soft)}
 
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 </style></head><body>
 <main class="slide deck">  <div class="head center"><p class="eyebrow latin">Interview · Target Group</p>
     <h1 class="headline cjk">切分 <span class="latin">3</span> 種獨居輪廓進行<span class="accent">深度訪談</span>，<br>確認痛點與期待</h1>

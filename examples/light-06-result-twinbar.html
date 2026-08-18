@@ -7,7 +7,8 @@
    Load this OR tokens-dark.css — never both in one deck.
    ============================================================ */
 :root{
-  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --canvas:#FBFBFE;
+  --backdrop:#CDD2DC;       /* near-white, faint cool          */
   --surface:#F1F4F9;      /* card fill                       */
   --chip:#FFFFFF;         /* inner chips / bubble inset      */
 
@@ -59,7 +60,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;background:#cdd2dc}
+html,body{margin:0;background:var(--backdrop)}
 body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== Canvas ===== */
@@ -110,7 +111,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
 
 /* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
-.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:var(--on-accent);
   padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
 .band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
 .band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
@@ -238,6 +239,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .slide.tone-neg{--accent:var(--neg);--accent-soft:var(--neg-soft)}
 .slide.tone-warn{--accent:var(--warn);--accent-soft:var(--warn-soft)}
 
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 </style></head><body>
 <main class="slide deck tone-pos">  <div class="head center"><p class="eyebrow latin">Result · Concept Validation</p>
     <h1 class="headline cjk">「安心對講方案」較現狀<br>顯著提升<span class="accent">收件安全感</span></h1></div>

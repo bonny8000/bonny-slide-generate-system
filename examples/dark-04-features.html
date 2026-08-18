@@ -7,7 +7,8 @@
    Load this OR tokens-light.css — never both in one deck.
    ============================================================ */
 :root{
-  --canvas:#1B1B20;       /* near-black, warm                */
+  --canvas:#1B1B20;
+  --backdrop:#111116;       /* near-black, warm                */
   --surface:#2C2C33;      /* card fill, slate                */
   --chip:#34343C;         /* inner chips                     */
 
@@ -58,7 +59,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;background:#cdd2dc}
+html,body{margin:0;background:var(--backdrop)}
 body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== Canvas ===== */
@@ -109,7 +110,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
 
 /* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
-.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:var(--on-accent);
   padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
 .band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
 .band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
@@ -237,6 +238,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .slide.tone-neg{--accent:var(--neg);--accent-soft:var(--neg-soft)}
 .slide.tone-warn{--accent:var(--warn);--accent-soft:var(--warn-soft)}
 
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 </style></head><body>
 <main class="slide deck">  <div class="grid12" style="align-items:center">
     <div class="col-5"><span class="pill cjk">產品特色 · MVP</span>
@@ -244,7 +250,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
       <p class="sub cjk" style="margin-top:var(--s4);max-width:340px">將「等待」轉為「主動」，以最少操作覆蓋從通知到收件的完整安全流程。</p></div>
     <div class="col-7"><div class="feature-rows">
       <article class="feature-row"><div><h3 class="cjk">到達通知 · <span class="latin">Notification</span></h3><p class="cjk">配送員抵達門口時即時推播，把「我在不在家」與「誰來了」分離處理。</p></div><div class="ic">🔔</div></article>
-      <article class="feature-row headline"><div><h3 class="cjk">安心對講 · <span class="latin">Smart Intercom</span> <span style="background:#fff;color:var(--accent);font-size:13px;padding:3px 10px;border-radius:6px;margin-left:8px;font-weight:700">HEADLINE</span></h3><p class="cjk">配送員需通過 QR／編號驗證，居住者一鍵 OK／拒絕，免去開門壓力。</p></div><div class="ic">📱</div></article>
+      <article class="feature-row headline"><div><h3 class="cjk">安心對講 · <span class="latin">Smart Intercom</span> <span style="background:var(--on-accent);color:var(--accent);font-size:13px;padding:3px 10px;border-radius:6px;margin-left:8px;font-weight:700">HEADLINE</span></h3><p class="cjk">配送員需通過 QR／編號驗證，居住者一鍵 OK／拒絕，免去開門壓力。</p></div><div class="ic">📱</div></article>
       <article class="feature-row"><div><h3 class="cjk">無人收件保管 · <span class="latin">Pickup Locker</span></h3><p class="cjk">不在時自動進入保管模式，回家後以 app 解鎖取件，門口不堆積包裹。</p></div><div class="ic">📦</div></article>
     </div></div>
   </div></main>
