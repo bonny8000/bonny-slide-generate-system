@@ -337,6 +337,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
 
 .kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
 .ranklist{display:flex;flex-direction:column;gap:14px}
 .rankrow{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center;background:var(--surface);border-radius:14px;padding:16px 18px}
@@ -345,7 +350,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .planpanel{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6)}
 .planpanel h3{font-size:21px;margin:0 0 10px;color:var(--ink);font-weight:700}
 .planpanel p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
-</style></head><body><main class="slide deck" style="gap:var(--s6)">
+</style></head><body><main class="slide deck top" style="gap:var(--s6)">
   <div class="head center" style="gap:10px"><p class="kicker latin">Background</p>
     <h1 class="headline cjk" style="font-size:34px;text-align:center">成長中的游泳市場,給游泳者的服務夠嗎?</h1>
     <p class="sub cjk" style="color:var(--muted);text-align:center;font-size:17px;max-width:760px">運動靠紀錄看見成果、得到成就感,但能記錄游泳的方法還很少。</p></div>

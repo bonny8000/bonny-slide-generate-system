@@ -42,6 +42,7 @@ COVERAGE_MAX = 0.92         # over this the page is wall-to-wall with no breathi
 INTERIOR_GAP_MAX = 0.18     # longest dead band inside the content, as a share of the canvas
 MARGIN_RATIO_MAX = 2.5      # uniform safe-area; measured on the ink box, so allow glyph slack
 BAND_RATIO_MAX = 2.2        # empty top vs empty bottom band
+BAND_SHARE_MIN = 0.12       # ...and the larger gap must be this share of the canvas to count
 DEAD_QUADRANT_SHARE = 0.06  # a quadrant holding <6% of the ink reads as a dead corner
 INK_ROW_FLOOR = 0.004       # a row/col needs this fraction of ink to count as content
 COLOR_DELTA = 5             # per-channel delta that counts as "not background"; theme
@@ -49,6 +50,8 @@ COLOR_DELTA = 5             # per-channel delta that counts as "not background";
 STRONG_INK_DELTA = 40       # text / icons / charts, as opposed to a flat surface fill
 GRID_COLS, GRID_ROWS = 48, 27   # occupancy grid over the 16:9 canvas
 CELL_INK_MIN = 0.02         # a grid cell counts as occupied at this much ink
+CELL_TEXT_MIN = 0.006       # ...and as carrying real content at this much strong ink
+TEXT_GAP_MAX = 0.22         # longest run of rows holding surface but no text
 
 BROWSER_CANDIDATES = (
     r"C:\Program Files\Google\Chrome\Application\chrome.exe",
@@ -239,11 +242,14 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
     cell_w = max(1, width // GRID_COLS)
     cell_h = max(1, height // GRID_ROWS)
     cells = [[0] * GRID_COLS for _ in range(GRID_ROWS)]
+    text_cells = [[0] * GRID_COLS for _ in range(GRID_ROWS)]
 
     for y in range(height):
         base = y * width * step
         row_total = 0
-        cell_row = cells[min(y // cell_h, GRID_ROWS - 1)]
+        row_index = min(y // cell_h, GRID_ROWS - 1)
+        cell_row = cells[row_index]
+        text_row = text_cells[row_index]
         for x in range(width):
             i = base + x * step
             delta = max(
@@ -255,6 +261,7 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
                 cell_row[min(x // cell_w, GRID_COLS - 1)] += 1
                 if delta > STRONG_INK_DELTA:
                     strong_ink += 1
+                    text_row[min(x // cell_w, GRID_COLS - 1)] += 1
         row_ink[y] = row_total
         total_ink += row_total
 
@@ -265,6 +272,14 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
     ]
     occupied_count = sum(sum(row) for row in occupied)
     coverage = occupied_count / (GRID_COLS * GRID_ROWS)
+
+    # A second, stricter grid of cells that hold actual text/icons rather than a flat surface.
+    # A card stretched tall with a tiny label inside is 'occupied' but carries no content, which
+    # is the relocated-emptiness failure layout-balance.md warns about.
+    text_occupied = [
+        [1 if text_cells[r][c] >= cell_area * CELL_TEXT_MIN else 0 for c in range(GRID_COLS)]
+        for r in range(GRID_ROWS)
+    ]
 
     mid_c, mid_r = GRID_COLS // 2, GRID_ROWS // 2
     quadrants = [0, 0, 0, 0]
@@ -304,6 +319,16 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
         longest_gap = max(longest_gap, run)
     interior_gap = longest_gap / GRID_ROWS
 
+    text_rows = [any(text_occupied[r]) for r in range(GRID_ROWS)]
+    t_filled = [r for r, v in enumerate(text_rows) if v]
+    text_gap = 0.0
+    if t_filled:
+        longest_t = run = 0
+        for r in range(t_filled[0], t_filled[-1] + 1):
+            run = 0 if text_rows[r] else run + 1
+            longest_t = max(longest_t, run)
+        text_gap = longest_t / GRID_ROWS
+
     band_cols = [any(occupied[r][c] for r in range(GRID_ROWS)) for c in range(GRID_COLS)]
     filled_c = [c for c, v in enumerate(band_cols) if v]
     longest_cgap = run = 0
@@ -323,7 +348,9 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
         "margins": margins,
         "margin_ratio": max(margins.values()) / max(1, min(margins.values())),
         "band_ratio": max(top, bottom) / max(1, min(top, bottom)),
+        "band_share": max(top, bottom) / height,
         "interior_gap": interior_gap,
+        "text_gap": text_gap,
         "interior_gap_x": interior_gap_x,
         "quadrant_share": quadrant_share,
         "content_box": {
@@ -427,6 +454,16 @@ def evaluate(path: Path, metrics: dict[str, Any], kind: str, hexes: list[str]) -
                 "Growing isn't enough: use .vspread so sub-blocks reach the body's top and bottom, "
                 "or add vertical mass that earns its space."
             )
+        # Catches the opposite mistake to the one above: stretching a card or table row until the
+        # canvas is "covered" while the content inside stays tiny. Passing the gap check by
+        # inflating empty surface is not a fix.
+        if metrics["text_gap"] > TEXT_GAP_MAX:
+            failures.append(
+                f"stretched empty surface — a band {metrics['text_gap']:.0%} of the canvas tall is "
+                f"covered but holds no text or figure (max {TEXT_GAP_MAX:.0%}). "
+                "That is relocated emptiness, not density: grow the content itself (type scale, a "
+                "real chart, more rows), don't inflate the container around it."
+            )
         if metrics["interior_gap_x"] > INTERIOR_GAP_MAX * 1.5:
             failures.append(
                 f"content does not distribute horizontally — a dead column band "
@@ -439,7 +476,9 @@ def evaluate(path: Path, metrics: dict[str, Any], kind: str, hexes: list[str]) -
     # which is legitimate for sanctioned patterns like an editorial-left title slide. The ratio is
     # still reported in the metrics for eyeballing.
     if kind in ("content", "editorial-explainer"):
-        if metrics["band_ratio"] > BAND_RATIO_MAX:
+        # A ratio alone is not a band: 98px vs 44px is 2.2x but neither gap is empty space worth
+        # naming. Require the larger gap to be a meaningful share of the canvas first.
+        if metrics["band_ratio"] > BAND_RATIO_MAX and metrics["band_share"] > BAND_SHARE_MIN:
             m = metrics["margins"]
             heavier = "top" if m["top"] > m["bottom"] else "bottom"
             failures.append(
@@ -514,6 +553,7 @@ def main() -> int:
         "interiorGapMax": INTERIOR_GAP_MAX,
         "marginRatioMax": MARGIN_RATIO_MAX,
         "bandRatioMax": BAND_RATIO_MAX,
+        "bandShareMin": BAND_SHARE_MIN,
         "deadQuadrantShare": DEAD_QUADRANT_SHARE,
     }}
     failed = 0

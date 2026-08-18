@@ -337,6 +337,16 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .evcard .cap{font-size:15px;color:var(--muted);line-height:1.6}
 
 .kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
+/* grow the CONTENT to earn the height (type scale + row rhythm), not the container */
+.ctable{font-size:17px}
+.ctable th,.ctable td{padding:24px 16px}
+.ctable thead th{font-size:16px}
+.ranklist{gap:18px}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
 .ranklist{display:flex;flex-direction:column;gap:14px}
 .rankrow{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center;background:var(--surface);border-radius:14px;padding:16px 18px}
@@ -345,10 +355,10 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .planpanel{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6)}
 .planpanel h3{font-size:21px;margin:0 0 10px;color:var(--ink);font-weight:700}
 .planpanel p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
-</style></head><body><main class="slide deck" style="gap:var(--s5)">
+</style></head><body><main class="slide deck top" style="gap:var(--s5)">
   <div class="head" style="gap:6px"><p class="kicker latin">Competitor Analysis</p>
     <h1 class="headline cjk" style="font-size:32px">持續記錄的人,多半靠「有回饋、有成就感」的服務養成習慣</h1></div>
-  <div class="grid12" style="align-items:start">
+  <div class="grid12 grow" style="align-items:start">
     <div class="col-7" style="grid-column:span 8">
       <table class="ctable">
         <thead><tr><th></th><th class="fcol cjk">持續記錄的人</th><th class="cjk">偶爾記錄</th><th class="cjk">已中斷</th></tr></thead>

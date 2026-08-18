@@ -344,6 +344,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .nowrap{white-space:nowrap}
 
 .kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
 .pageno{position:absolute;bottom:42px;right:96px;font-size:14px;color:var(--muted)}
 .solid-band{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:24px 40px;text-align:center;font-size:20px;font-weight:700;line-height:1.6}
@@ -352,11 +357,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .numrow .nchart{display:flex;align-items:center;justify-content:center}
 .bridge{font-size:16px;color:var(--muted);margin:0}
-</style></head><body><main class="slide deck "><div class="head" style="gap:8px"><p class="kicker latin">Research</p>
+</style></head><body><main class="slide deck top"><div class="head" style="gap:8px"><p class="kicker latin">Research</p>
   <h1 class="headline cjk" style="font-size:32px">從這些數字,我們看到三件事</h1>
   <p class="bridge cjk">承上頁的市場訊號,我們進一步看了行為資料 ——</p></div>
 <div style="display:flex;flex-direction:column;gap:var(--s5)">
-  <div class="numrow"><div class="nbadge latin">1</div><div class="ntext"><h3 class="cjk">想記錄的人逐年變多</h3><p class="zh cjk">搜尋與下載量持續上升</p></div><div class="nchart"><svg class="linechart" viewBox="0 0 320 120" style="height:120px"><polyline class="ln-path" points="20,95 110,70 210,55 300,28"/><circle class="ln-node" cx="20" cy="95" r="5"/><circle class="ln-node" cx="300" cy="28" r="5"/></svg></div></div>
+  <div class="numrow grow"><div class="nbadge latin">1</div><div class="ntext"><h3 class="cjk">想記錄的人逐年變多</h3><p class="zh cjk">搜尋與下載量持續上升</p></div><div class="nchart"><svg class="linechart" viewBox="0 0 320 120" style="height:120px"><polyline class="ln-path" points="20,95 110,70 210,55 300,28"/><circle class="ln-node" cx="20" cy="95" r="5"/><circle class="ln-node" cx="300" cy="28" r="5"/></svg></div></div>
   <div class="numrow"><div class="nbadge latin">2</div><div class="ntext"><h3 class="cjk">但多數人三週內放棄</h3><p class="zh cjk">第一週後留存快速下滑</p></div><div class="nchart"><div class="barchart" style="height:110px"><div class="barcol active"><span class="bar" style="--h:80%"></span><span class="xlab latin">1週</span></div><div class="barcol"><span class="bar" style="--h:45%"></span><span class="xlab latin">2週</span></div><div class="barcol"><span class="bar" style="--h:20%"></span><span class="xlab latin">3週</span></div></div></div></div>
   <div class="numrow"><div class="nbadge latin">3</div><div class="ntext"><h3 class="cjk">留下來的,都有回饋機制</h3><p class="zh cjk">78% 的長期使用者重視「被看見」</p></div><div class="nchart"><div class="donut on-canvas" style="--p1:78%;--p2:100%;width:118px;height:118px"><span class="center latin">78%</span></div></div></div>
 </div><div class="foot cjk">讓人持續記錄的服務 · 範例 deck</div><div class="pageno latin">04</div></main></body></html>

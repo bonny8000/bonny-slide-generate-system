@@ -344,6 +344,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .nowrap{white-space:nowrap}
 
 .kicker{letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:14px}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
 .pageno{position:absolute;bottom:42px;right:96px;font-size:14px;color:var(--muted)}
 .solid-band{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:24px 40px;text-align:center;font-size:20px;font-weight:700;line-height:1.6}
@@ -352,7 +357,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .numrow .nchart{display:flex;align-items:center;justify-content:center}
 .bridge{font-size:16px;color:var(--muted);margin:0}
-</style></head><body><main class="slide deck "><div class="head center" style="gap:10px"><p class="kicker latin">Background</p>
+</style></head><body><main class="slide deck top"><div class="head center" style="gap:10px"><p class="kicker latin">Background</p>
   <h1 class="headline cjk" style="font-size:34px;text-align:center">成長中的記錄市場,給使用者的服務夠嗎?</h1>
   <p class="sub cjk" style="color:var(--muted);text-align:center;font-size:17px;max-width:760px">記錄能讓人看見成果、得到成就感,但能持續記錄的方法還很少</p></div>
 <div class="cards three" style="gap:var(--s5)">
