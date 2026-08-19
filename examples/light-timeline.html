@@ -362,8 +362,8 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 </head>
 <style>
 .tl{display:flex;flex-direction:column;gap:var(--s4)}
-.axis{display:grid;grid-template-columns:repeat(5,1fr);font-size:13px;color:var(--muted);border-bottom:1px solid var(--muted-soft);padding-bottom:var(--s2)}
-.bars{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);align-items:start}
+.tl-axis{display:grid;grid-template-columns:repeat(5,1fr);font-size:13px;color:var(--muted);border-bottom:1px solid var(--muted-soft);padding-bottom:var(--s2)}
+.tl-bars{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);align-items:start}
 .phase{display:flex;flex-direction:column;gap:var(--s3)}
 .phase .bar{background:var(--band-fill);color:var(--on-accent);border-radius:var(--r-pill);padding:var(--s2) var(--s4);font-weight:700;font-size:16px;text-align:center}
 .phase.active .bar{background:var(--accent)}
@@ -376,8 +376,8 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 <main class="slide deck" style="gap:var(--s5);justify-content:flex-start">
   <div class="head"><p class="eyebrow latin">Journey · Timeline</p><h1 class="headline cjk" style="font-size:32px">從研究到上線的<span class="accent">五個階段</span></h1></div>
   <div class="tl grow" style="justify-content:flex-start;padding-top:var(--s5)">
-    <div class="axis latin"><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span></div>
-    <div class="bars">
+    <div class="tl-axis latin"><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span></div>
+    <div class="tl-bars">
       <div class="phase"><div class="bar cjk">研究探索</div><ul class="cjk"><li>使用者訪談</li><li>競品分析</li></ul></div>
       <div class="phase"><div class="bar cjk">定義</div><ul class="cjk"><li>問題定義</li><li>persona</li></ul></div>
       <div class="phase"><div class="bar cjk">發想</div><ul class="cjk"><li>資訊架構</li><li>流程設計</li></ul></div>

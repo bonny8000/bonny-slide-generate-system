@@ -473,3 +473,17 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .shot{overflow:hidden;display:block;max-width:100%;background:var(--chip)}
 .shot>img,.shot>video{display:block;width:100%;height:auto;border-radius:inherit}
 .shot.sm{border-radius:var(--r-sm)}   /* smaller screenshots/thumbnails */
+
+/* ===== timeline (Gantt: phase bars over a dated axis) — promoted from
+   examples/light-timeline.html so the pattern can be rebuilt from base.css ===== */
+.tl{display:flex;flex-direction:column;gap:var(--s4)}
+.tl-axis{display:grid;grid-template-columns:repeat(5,1fr);font-size:13px;color:var(--muted);border-bottom:1px solid var(--muted-soft);padding-bottom:var(--s2)}
+.tl-bars{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);align-items:start}
+.phase{display:flex;flex-direction:column;gap:var(--s3)}
+.phase .bar{background:var(--band-fill);color:var(--on-accent);border-radius:var(--r-pill);padding:var(--s2) var(--s4);font-weight:700;font-size:16px;text-align:center}
+.phase.active .bar{background:var(--accent)}
+.phase ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s1)}
+.phase li{font-size:14px;color:var(--muted);display:flex;gap:8px}
+.phase li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:7px;flex:0 0 auto}
+.phase:nth-child(2){margin-top:var(--s5)} .phase:nth-child(3){margin-top:var(--s7)}
+.phase:nth-child(4){margin-top:var(--s8)} .phase:nth-child(5){margin-top:calc(var(--s8) + var(--s4))}

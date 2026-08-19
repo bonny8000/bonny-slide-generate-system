@@ -7,8 +7,8 @@
   },
   "coverage": {
     "specs": 44,
-    "fullyImplemented": 13,
-    "withGaps": 31
+    "fullyImplemented": 14,
+    "withGaps": 30
   },
   "entries": {
     "as-is-to-be": {
@@ -1160,22 +1160,21 @@
       "example": "examples/light-timeline.html",
       "classes": [
         "active",
-        "axis",
         "bar",
-        "bars",
         "meta",
-        "phase"
+        "phase",
+        "tl-axis",
+        "tl-bars"
       ],
       "implementedInBaseCss": [
         "active",
         "bar",
-        "meta"
+        "meta",
+        "phase",
+        "tl-axis",
+        "tl-bars"
       ],
-      "missingFromBaseCss": [
-        "axis",
-        "bars",
-        "phase"
-      ]
+      "missingFromBaseCss": []
     },
     "ui-mockup": {
       "kind": "component",

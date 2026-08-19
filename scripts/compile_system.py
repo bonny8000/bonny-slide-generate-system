@@ -753,8 +753,14 @@ def render_class_coverage(manifest: dict[str, Any]) -> str:
     for spec_id, entry in manifest["entries"].items():
         if entry["missingFromBaseCss"]:
             gaps[spec_id] = entry["missingFromBaseCss"]
+    # Count by distinct EXAMPLE FILE, not by spec: 44 specs share 30 example files, so counting
+    # specs makes one definition look like three independent inventions of the same class.
+    per_example: dict[str, set[str]] = {}
+    for spec_id, entry in manifest["entries"].items():
+        if entry["missingFromBaseCss"]:
+            per_example.setdefault(entry["example"], set()).update(entry["missingFromBaseCss"])
     shared: Counter[str] = Counter()
-    for classes in gaps.values():
+    for classes in per_example.values():
         shared.update(classes)
 
     lines = [
@@ -781,12 +787,16 @@ def render_class_coverage(manifest: dict[str, Any]) -> str:
         lines.append(f"| `{spec_id}` | {entry['kind']} | {names} |")
     lines += [
         "",
-        "## Missing classes shared by several patterns",
+        "## Missing classes appearing in more than one example",
         "",
-        "A class several examples reach for is genuine shared vocabulary and is the highest-value",
-        "thing to promote into `base.css` first.",
+        "Counted by distinct **example file**, because 44 specs share 30 examples — counting specs",
+        "would make one definition look like several independent inventions. Almost every missing",
+        "class belongs to exactly one pattern, so the fix is to promote each pattern's own CSS into",
+        "`base.css`, not to extract a shared layer that does not exist. A class that does appear in",
+        "several examples needs checking for a **name collision** before promotion: `.anno` currently",
+        "means two different things in two different examples.",
         "",
-        "| class | patterns needing it |",
+        "| class | example files needing it |",
         "|---|---:|",
     ]
     for name, count in shared.most_common():
