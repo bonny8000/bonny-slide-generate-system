@@ -406,7 +406,9 @@ VISUAL_MARKERS = (
 SCRIPTS = {
     "han": r"㐀-䶿一-鿿豈-﫿",
     "hangul": r"ᄀ-ᇿ㄰-㆏가-힣",
-    "kana": r"぀-ヿ",
+    # syllabaries only. U+30FB (・) and friends are CJK punctuation used throughout 繁中 —
+    # including them made every slide with "IG・部落格" look like a Japanese deck.
+    "kana": r"ぁ-ゖァ-ヺー",
     "cyrillic": r"Ѐ-ӿ",
     "arabic": r"؀-ۿ",
     "thai": r"฀-๿",

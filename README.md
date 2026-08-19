@@ -3,10 +3,15 @@
 An intention-first agent skill for building bilingual **Traditional Chinese + English** UX and product decks.
 
 Think of `specs/` as the decision engine, `system/` as the machine-readable design logic, and `assets/`
-as the build layer. The agent plans the argument, maps each slide to the right visual form, builds it from
-the system, and audits the rendered result before delivery.
+as the build layer. The agent names what each page must DO, looks that intention up in a compiled router,
+builds the page from the shared stylesheet, and has to clear four blocking checks before delivery.
 
-![Bonny Slide System intention pipeline](assets/readme/01-intention-pipeline.svg)
+![The skill does two different things](assets/readme/01-modes.svg)
+
+Asking for a deck **reads** the router. Saying **“training / 訓練”** and sending reference slides **writes**
+to it — a learned pattern is not finished until the planner can actually reach it.
+
+![Decide what the page must do before what it looks like](assets/readme/02-build-pipeline.svg)
 
 ## What This Repository Contains
 
@@ -15,7 +20,9 @@ the system, and audits the rendered result before delivery.
 - `system/` contains canonical tokens, hypertokens, recipes, and strict JSON schemas.
 - `assets/` contains the component CSS, generated bundles, theme outputs, and illustration references.
 - `scripts/` contains the deterministic compiler, prompt builder, and validation tools.
-- `examples/` contains render-validated slides and short deck sequences.
+- `examples/` contains render-validated slides and short deck sequences. They are **reference only** —
+  every one carries the shipped stylesheet, never its own copy, so an example can never teach a rule
+  the specs have already superseded.
 - `pptx/` contains the python-pptx bridge built from the same token source.
 
 The core rule is simple: **decide what the slide must do before deciding what it should look like**.
@@ -33,13 +40,53 @@ The core rule is simple: **decide what the slide must do before deciding what it
 | Pilot recipes | 3 | Slot mappings for metric cards, evidence cards, and feature showcases |
 | Editorial variants | 4 | Workshop, guided dialogue, workflow transformation, and real-UI Q&A |
 | Routable patterns | 44 | Compiled from spec frontmatter into `system/router.json` + `specs/generated-router.md` |
-| Enforcement gates | 3 | Token/routing drift, illustration provenance, and rendered layout balance |
+| Enforcement gates | 4 | Token/routing drift, example staleness, illustration provenance, and rendered layout balance |
+
+## Routing
+
+![Routing is a lookup, not a guess](assets/readme/03-router.svg)
+
+Each spec declares what it is FOR (`intent`) and what content should summon it (`triggers`). The compiler
+turns every one of those into a single index, so choosing a layout is a lookup rather than a judgement call
+made afresh each time — and a pattern that falls out of the index fails the build rather than going quietly
+missing.
+
+## What Is Enforced
+
+![Rules that are only prose degrade first](assets/readme/06-gates.svg)
+
+Rules that exist only as prose degrade first, so the ones that can be measured are checked by a
+command rather than by good intentions:
+
+```bash
+python scripts/compile_system.py --check    # token + routing drift; a pattern with no route fails
+python scripts/sync_examples.py --check     # an example carrying its own stale copy of the CSS fails
+python scripts/validate_layout.py DECK.html # renders the slide and measures balance and density
+python scripts/verify_rebuild.py            # can each pattern be rebuilt from base.css alone?
+python scripts/visual_baseline.py diff      # did anything change visually that was not meant to?
+```
+
+**What they catch:** a layout with no route, a trigger the planner can never match, a blank or
+unstyled render, a dead band inside the content, a stretched container, copy in a language the deck
+did not declare, raw colour outside the token layer, and a deck of 8+ slides with no visual moment.
+
+**What they do not catch:** whether the slide is any good. Twice during v12.9 a change passed every
+gate and looked worse; both times only the screenshot caught it. One blind spot is known and
+documented — the emptiness checks scan rows across the whole canvas, so a card inflated in one
+column can hide behind a neighbouring column's text. Treat a pass as a floor, not a verdict, and
+look at the render.
 
 ## System Structure
 
-![Decision logic and implementation layers](assets/readme/02-system-structure.svg)
+![Hand-write one column, compile the rest](assets/readme/04-source-of-truth.svg)
 
-The layers have different responsibilities:
+Only the left column is written by hand; the router, the class manifest and every CSS output are compiled
+from it.
+
+![Examples demonstrate patterns, they never define them](assets/readme/05-examples-are-reference.svg)
+
+`examples/` carries the shipped stylesheet rather than a copy of it, so an example can no longer drift
+behind the specs it is supposed to demonstrate. The layers have different responsibilities:
 
 - **Decision layer:** `slide-plan.md` names one claim and one intention per page; `content-map.md` selects
   the layout and components.
@@ -75,7 +122,7 @@ The same source can produce a different slide when the audience job changes:
 
 ## Illustration Routing
 
-![Native evidence and generated editorial explainer routes](assets/readme/03-illustration-gate.svg)
+![Native evidence and generated editorial explainer routes](assets/readme/07-illustration-routing.svg)
 
 Every page receives an explicit illustration decision. Human/assistant dialogue, workshop facilitation,
 multi-tool hand-offs, and scattered inputs becoming shared intent are hard candidates for a newly generated
@@ -169,5 +216,7 @@ Use `assets/base.css` for linked HTML. For self-contained HTML, inline
 
 ---
 
-**v12.9 · August 2026** — intention routing compiled into a drift-checked index, layout balance
-enforced by a rendered gate rather than described in prose, and a slimmed operating manual.
+**v12.9 · August 2026** — intention routing compiled into a drift-checked index; layout balance,
+declared output language and deck pacing enforced by rendered gates rather than described in prose;
+examples reduced to pure reference so they can no longer drift behind the specs; and a slimmed
+operating manual.

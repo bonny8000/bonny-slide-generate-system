@@ -20,8 +20,8 @@ almost none of it, so layout quality degraded first under context pressure.
   and measures what the rules only described: whitespace ratio (不空不擠), quadrant mass balance,
   safe-area overflow, empty top/bottom bands, and hardcoded hex. Wired into `audit.md` and
   `self-critique.md` so it gates delivery the way the illustration validator already does.
-- **Two more prose rules became checks.** `validate_layout.py` now fails on Korean in the slide copy
-  (a golden rule that had no enforcement) and, with `--deck`, on the v12.7 anti-dryness rule: a deck of
+- **Two more prose rules became checks.** `validate_layout.py` now fails on copy in an undeclared
+  language (see below) and, with `--deck`, on the v12.7 anti-dryness rule: a deck of
   8+ slides carrying no genuine visual moment. It also fails on a band of surface holding no text —
   the relocated-emptiness failure, which matters because without it a slide can be "fixed" into
   passing the gate while getting visibly worse.
@@ -40,20 +40,27 @@ almost none of it, so layout quality degraded first under context pressure.
   catalogued component to earn its height; what it may never add is new design vocabulary — a new
   class, an untokenised colour, a type size off the scale. Layout varies by intention, vocabulary
   never varies.
-- **`scripts/sync_examples.py` — the tool for making examples pure reference (built, NOT yet
-  applied).** Rewrites an example as a regenerated `<style data-shipped>` plus a small
-  `<style data-slide>` for what is genuinely specific to that slide, and `--check` turns staleness
-  into a build error. Verified on the full library: 1360 slide-specific rules across 164 files
-  (~8 per slide), idempotent, and renders unchanged for 131 of 164.
+- **Examples became pure reference; implementation lives only in `base.css`.** Each example had
+  carried its own hand-maintained copy of the stylesheet, and those copies drifted three separate
+  times across versions — which matters more than ordinary drift, because the agent learns layout by
+  imitating examples, so a stale one actively teaches a superseded rule. `scripts/sync_examples.py`
+  now rewrites every example as a regenerated `<style data-shipped>` plus a small `<style data-slide>`
+  for what is genuinely specific to that slide (1360 such rules across 164 files, ~8 each), and
+  `--check` makes staleness a build error.
 
-  Applying it is BLOCKED on a defect the tool exposed, and the defect is ours. Promoting 251 rules
-  into `base.css` earlier in v12.9 pulled generic class names out of many patterns into one
-  stylesheet, where they now collide: 17 bare single-class selectors (`.track`, `.card`, `.panel`,
-  `.sub`, `.nav`, `.foot`, `.q`, …) also exist as scoped children of other components. While each
-  example carried its own CSS the collision was invisible; the moment they share a stylesheet, a
-  bare `.track{display:flex;flex:1}` from the flow pattern collapses the bar chart in
-  `light-01-insight-cards`. Scoping those 17 to their owning pattern is the prerequisite; the sync
-  was reverted rather than ship the regression.
+  Applying it exposed a defect the promotion work had introduced earlier in v12.9, and fixing it
+  properly turned out to be one invariant rather than a rename of 29 colliding class names. Both
+  style blocks are unlayered and the slide block comes second, so a slide rule already wins for every
+  property it SETS; the leak is the properties it does not set. That is how the v12 flow primitive's
+  bare `.track{display:flex;flex:1}` flattened a bar chart, and how feature-showcase's
+  `.fs{align-items:start}` collapsed an unrelated A/B slide to content width. The sync now
+  **auto-neutralises**: any property a colliding shipped rule declares and the slide rule does not is
+  explicitly reverted. `.hbar .track` was also made self-sufficient in `base.css`, which is a real
+  component fix independent of the sync.
+
+  Measured after: 18 of 48 slides fail the layout gate, down from 23 — five fixed, none newly broken.
+  Both regressions were found by rendering the slide and looking, not by any check.
+
 - **Output language is declared, not hardcoded.** The "no Korean" check is replaced by a check that
   the copy uses no script the deck's declared language implies — default 繁中 + English, taken from
   `<html lang>`, overridable with `--lang`. A Japanese or Korean deck now passes when it is asked

@@ -115,6 +115,18 @@ def normalise(body: str) -> str:
     return re.sub(r"\s+", " ", body).strip().rstrip(";")
 
 
+def bare_index(shipped: str) -> dict[str, set[str]]:
+    """bare single-class selectors in the shipped sheet -> their bodies."""
+    out: dict[str, set[str]] = {}
+    for sel, body in flatten_rules(shipped):
+        if body is None:
+            continue
+        for part in (p.strip() for p in sel.split(",")):
+            if re.fullmatch(r"\.[a-z][\w-]*", part):
+                out.setdefault(part, set()).add(normalise(body))
+    return out
+
+
 def slide_specific(existing_css: str, shipped: str) -> list[tuple[str, str]]:
     """Rules this slide genuinely adds: absent from the shipped sheet, or deliberately different.
 
@@ -161,13 +173,60 @@ def slide_specific(existing_css: str, shipped: str) -> list[tuple[str, str]]:
     return keep
 
 
-def render_block(rules: list[tuple[str, str]]) -> str:
+def declared_props(body: str) -> dict[str, str]:
+    out: dict[str, str] = {}
+    depth = 0
+    buf = ""
+    for ch in body:
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        if ch == ";" and depth == 0:
+            if ":" in buf:
+                k, v = buf.split(":", 1)
+                out[k.strip()] = v.strip()
+            buf = ""
+        else:
+            buf += ch
+    if ":" in buf:
+        k, v = buf.split(":", 1)
+        out[k.strip()] = v.strip()
+    return {k: v for k, v in out.items() if k}
+
+
+def neutralise(selector: str, body: str, ship: dict[str, set[str]]) -> str:
+    """Make a slide rule fully override the bare shipped rule it collides with.
+
+    Both blocks are unlayered and the slide block comes second, so the slide rule already wins for
+    every property it SETS. The danger is the properties it does not set: those keep leaking from
+    the shipped rule. That is how feature-showcase's `.fs{align-items:start}` collapsed an unrelated
+    A/B slide whose own `.fs` was a flex column, and how the v12 `.track` flattened a bar chart.
+    So any property the shipped rule declares and this one does not is explicitly reverted.
+    """
+    shipped_bodies = ship.get(selector.strip())
+    if not shipped_bodies:
+        return body
+    mine = declared_props(body)
+    extra: dict[str, None] = {}
+    for shipped in shipped_bodies:
+        for prop in declared_props(shipped):
+            if prop not in mine and not prop.startswith("--"):
+                extra[prop] = None
+    if not extra:
+        return body
+    resets = ";".join(f"{prop}:revert" for prop in extra)
+    return (body.rstrip().rstrip(";") + ";" + resets) if body.strip() else resets
+
+
+def render_block(rules: list[tuple[str, str]], ship: dict[str, set[str]] | None = None) -> str:
+    ship = ship or {}
     out = []
     for sel, body in rules:
         if body is None:
             out.append(f"{sel};")
             continue
-        b = normalise(body)
+        b = normalise(neutralise(sel, body, ship))
         out.append(f"{sel}{{{b}}}" if b else f"{sel}{{}}")
     return "\n".join(out)
 
@@ -190,7 +249,7 @@ def rebuild(path: Path) -> tuple[str, int] | None:
 
     block = SHIPPED_OPEN + "\n" + ship.strip() + "\n</style>"
     if keep:
-        block += "\n" + SLIDE_OPEN + "\n" + render_block(keep) + "\n</style>"
+        block += "\n" + SLIDE_OPEN + "\n" + render_block(keep, bare_index(ship)) + "\n</style>"
     return head + block + tail, len(keep)
 
 
