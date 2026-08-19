@@ -93,6 +93,29 @@ every page routed to native cards because nothing triggered the imagery layer. J
 - Symptom to catch in self-critique: flipping through the rendered deck feels like reading a document.
   That is a **fix**, not a pass, even when every individual page passes.
 
+## One design vocabulary across every layout (the consistency rule)
+Different intentions select different layouts — that is the system working. The risk is that each
+layout drifts into **its own** colour and type treatment, and the deck stops reading as one thing.
+So the constraint is not "never add anything to a slide"; it is **never add new design vocabulary.**
+
+**A slide may add content to earn its height.** When a page is genuinely shorter than the canvas, the
+settling techniques above (bottom band, caption row, equal card min-heights) are the correct fix, and a
+takeaway line usually improves the page — it supplies the "so what" the slide was missing.
+
+**What it may add:** an existing catalogued component (`callout-band`, quote band, caption row,
+`taglist`, `metric`), composed from existing `base.css` classes, coloured only by theme tokens.
+
+**What it may never add:**
+- a new CSS class, or per-layout CSS that exists only on this page
+- a colour that is not a token — no raw hex, no second accent
+- a type size outside the scale in `typography.md`
+- a bespoke spacing rhythm off the 8px scale
+
+Read the two together: **layout varies by intention, vocabulary never varies.** A deck stays consistent
+because every layout draws from the same component and token set, not because every layout is the same
+shape. This is machine-checked — the class-usage manifest rejects a class the spec never declared, and
+the layout gate rejects raw colour.
+
 ## Elevation (shadows)
 Shadows convey **depth, not drama**. Use the subtle `--shadow-card` / `--shadow-pop` tokens — never a
 heavy, dark, far-spread shadow. Most flat cards need **no** shadow at all; reserve elevation for things

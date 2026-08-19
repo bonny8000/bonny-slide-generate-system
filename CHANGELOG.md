@@ -25,6 +25,21 @@ almost none of it, so layout quality degraded first under context pressure.
   8+ slides carrying no genuine visual moment. It also fails on a band of surface holding no text —
   the relocated-emptiness failure, which matters because without it a slide can be "fixed" into
   passing the gate while getting visibly worse.
+- **Training is now an explicit mode.** Saying "training" / 訓練, or sending reference slides to learn
+  from, routes to the learning loop instead of the build loop — the two produce different artifacts and
+  were previously distinguishable only by tone. A training run is unfinished until the pattern is
+  actually routable: `intent` + `triggers` frontmatter, catalog and content-map rows, a validated
+  example, and a passing `--check`.
+- **Recipes became usage contracts, not codegen.** `system/class-manifest.json` +
+  `specs/generated-class-coverage.md` record which CSS classes each pattern is built from. This
+  surfaced the deepest issue found so far: **only 13 of 44 catalogued patterns can be built from
+  `assets/base.css`** — the other 31 need classes that exist only inside their own example, so the
+  agent has to reinvent them on every build. That is a direct cause of visual inconsistency even when
+  intention routing is correct. `base.css` stays hand-written; measuring the gap is the point.
+- **The consistency rule replaced the "no new content" constraint.** A slide may add an existing
+  catalogued component to earn its height; what it may never add is new design vocabulary — a new
+  class, an untokenised colour, a type size off the scale. Layout varies by intention, vocabulary
+  never varies.
 - **`SKILL.md` slimmed.** The changelog moved here, reclaiming ~63% of the entry-point file for the
   operating procedure the agent actually needs.
 - **The illustration gate can actually run.** `validate_generated_illustration.py` imported Pillow at

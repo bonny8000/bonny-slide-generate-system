@@ -1,6 +1,6 @@
 ---
 name: bonny-slide-system
-description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. Every deck must record a per-slide illustration decision; human/agent workflows, conversational worked examples, workshop facilitation, and scattered-input transformations require a fresh built-in image-generation call unless precise data must stay native. Never silently substitute reused artwork, CSS, SVG, or a hand-built diagram.
+description: Build, critique, and iterate bilingual 繁中 + English UX/product slides and decks (HTML per-slide, single-scroll HTML, PDF, or PPTX). The agent READS specs/ and BUILDS with assets/. Use for UX/product storytelling, workshop and workflow slides, design-system decks, reference-image learning, and intention-routed generated editorial explainers. Every deck must record a per-slide illustration decision; human/agent workflows, conversational worked examples, workshop facilitation, and scattered-input transformations require a fresh built-in image-generation call unless precise data must stay native. Never silently substitute reused artwork, CSS, SVG, or a hand-built diagram. Also runs in training mode: when the user says "training"/"訓練" or sends reference slides or images to learn from, do not build a deck - read the references for intention, trigger, layout logic and component craft, and register the pattern into specs/ so the planner can route to it next time.
 metadata:
   version: 12.9.0
 ---
@@ -9,7 +9,8 @@ metadata:
 
 ## When to use
 Any time the user wants to make, fix, or critique slides/decks for UX or product work, bilingual
-繁中 (primary) + English (supporting).
+繁中 (primary) + English (supporting) — **or** wants to *train* the system by sending reference slides
+and images to learn from. Check which mode you are in before doing anything (next section).
 
 ## How this skill is organized
 - **`specs/`** — the LLM-readable design system you READ each run. Source of truth for *rules*:
@@ -26,6 +27,11 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
 - **`scripts/compile_system.py`** — the deterministic compiler. It generates CSS, the PPTX bridge, the
   router, and a Markdown reference; generated files are never edited by hand. `--check` fails on token
   **and routing** drift.
+- **`specs/generated-class-coverage.md`** — which catalogued patterns can actually be built from
+  `assets/base.css`, and which need classes that exist only inside their own example (machine form:
+  `system/class-manifest.json`). A pattern with gaps has to be reinvented on every build, so treat its
+  gaps as the implementation backlog. **`base.css` stays hand-written — this is a usage contract,
+  never codegen.**
 - **`scripts/validate_layout.py`** — the layout gate. Renders a built slide and measures balance,
   distribution, and density against `foundations/layout-balance.md`, so those rules are enforced rather
   than merely described.
@@ -34,6 +40,41 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
   (`tokens-light.css` / `tokens-dark.css`). For self-contained HTML, inline the import-free generated
   `assets/generated/base-bundle.css` plus one theme.
 - **`examples/`** — rendered reference slides; **`examples/deck-demo/`** + `deck-demo-scroll.html` = a full short deck showing how layouts chain (pacing, bridges, dividers). **`pptx/`** — token-mirrored python bridge for .pptx.
+
+## Two modes — read the request before building anything
+This skill runs in one of two modes. Decide which **before** doing any work.
+
+| The user says | Mode | What it means |
+|---|---|---|
+| "make a slide/deck", a topic, a source file | **build** | Produce slides. Follow the operating procedure below. |
+| **"training"** / **"訓練"**, or sends reference images or slides to learn from | **training** | Do **not** build a deck. Grow the library from what they sent. |
+
+**Training mode is not slide-making.** The user is teaching the system, so the output is a change to
+`specs/`, not a deck. Never answer a training request with a slide; never silently fold a sent image
+into a build. If the intent is ambiguous — an image arrives with no instruction — **ask which one**,
+because the two produce completely different artifacts.
+
+### Training mode procedure
+1. **Read each reference for all five things** in `specs/foundations/learn-from-image.md` — intention,
+   trigger, layout logic, component craft, and the intention↔component rationale. Structure only:
+   colours are recorded as **token roles**, never hex. Korean references teach structure; output stays
+   繁中 + English.
+2. **Dedupe against `specs/_catalog.md`** → existing (add to `learned_from`) · variant (extend the
+   spec) · new (create one from `specs/spec-template.md`).
+3. **Register it so it is actually reachable.** A pattern the planner cannot find does not exist:
+   - `intent` + `triggers` frontmatter on the spec — the router is compiled from these
+   - a row in `specs/_catalog.md` and a row in `specs/content-map.md`, keyed on **intention**
+   - a render-validated example, referenced by `example:`
+4. **Close the loop — run the gates.** `python scripts/compile_system.py --check` must pass: it fails
+   on a stable layout with no `content-map.md` row, an unresolvable `depends_on`, a duplicate trigger,
+   or **Korean in a trigger**. Then `python scripts/validate_layout.py <example>` on the new example.
+5. **Report what the system learned** — the new/updated pattern, its intention, its triggers, and what
+   will now route to it. The point of training is that the *next* deck reaches for it automatically.
+
+**Implementation debt is part of training.** If the new pattern needs CSS, add it to `assets/base.css`
+— not only to the example. `specs/generated-class-coverage.md` tracks patterns whose CSS lives only in
+their example; those cannot be rebuilt by the agent and must be reinvented every time, which is how
+consistency drifts.
 
 ## Operating procedure (every deck)
 1. **Inputs:** audience/room; **one theme** (mode + accent) — ask if unstated; the content/source. **Ask
@@ -54,7 +95,10 @@ Any time the user wants to make, fix, or critique slides/decks for UX or product
    transformations are hard candidates: choose the generated route unless exact data/table/UI evidence must
    stay inspectable. When the map selects `editorial-explainer-stage`, read
    `specs/foundations/generated-editorial-explainer.md` and choose its composition variant by intention.
-5. **Build:** write HTML with `assets/base.css` classes + the theme token file. Hypertokens are
+5. **Build:** write HTML with `assets/base.css` classes + the theme token file. Check the pattern in
+   `specs/generated-class-coverage.md` first — if it lists missing classes, that CSS does not exist yet
+   and you must add it to `base.css` rather than inventing a one-off in the page. **Layout varies by
+   intention; vocabulary never varies** (`foundations/layout-balance.md`). Hypertokens are
    implementation fragments, **not a component whitelist**: choose through `content-map.md`, then let the
    component recipe resolve fragments. **Token names only — never hardcode color.** Icons per
    `specs/foundations/iconography.md`; images per `specs/foundations/imagery.md`. For

@@ -12,6 +12,20 @@ from any image and they stay **theme-agnostic and reusable** under every theme. 
 of the same learn loop as `foundations/source-sync.md` (real decks → system), now extended to
 **real slide images → system.**
 
+## Entering this loop — training mode
+The user triggers this deliberately by saying **"training"** (or 訓練), or by sending reference slides
+with the intent to teach rather than to get a deck. `SKILL.md` routes that to here. The output of a
+training run is a **change to `specs/`**, never a slide.
+
+A learned pattern only counts once the planner can reach it, so a training run is not finished until:
+- the spec carries `intent` + `triggers` frontmatter (the router in `system/router.json` is compiled
+  from these — a spec without them is invisible to routing)
+- `specs/_catalog.md` and `specs/content-map.md` both have a row, keyed on **intention**
+- `example:` points at a render-validated file
+- any CSS the pattern needs is in **`assets/base.css`**, not only in the example — otherwise it lands
+  in `specs/generated-class-coverage.md` as a gap and has to be reinvented on every future build
+- `python scripts/compile_system.py --check` passes
+
 ## The one discipline: learn STRUCTURE, not COLOR
 When you read an image, extract the skeleton — slots, nesting, grid, spacing rhythm, type roles,
 emphasis, icon use. **Record colors only as token *roles*** (accent / ink / muted / surface), never as
