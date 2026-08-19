@@ -7,8 +7,8 @@
   },
   "coverage": {
     "specs": 44,
-    "fullyImplemented": 30,
-    "withGaps": 14
+    "fullyImplemented": 44,
+    "withGaps": 0
   },
   "entries": {
     "as-is-to-be": {
@@ -34,26 +34,25 @@
         "tobe"
       ],
       "implementedInBaseCss": [
-        "dot",
-        "popup",
-        "row",
-        "screen"
-      ],
-      "missingFromBaseCss": [
         "ab-badge",
         "ab-col",
         "ab-grid",
         "anno",
         "asis",
         "device",
+        "dot",
         "improve",
         "like",
+        "popup",
         "preview",
         "problems",
+        "row",
+        "screen",
         "thumbgrid",
         "thumbstrip",
         "tobe"
-      ]
+      ],
+      "missingFromBaseCss": []
     },
     "centered-question-evidence": {
       "kind": "layout",
@@ -126,6 +125,7 @@
         "card",
         "cards",
         "citecard",
+        "connector",
         "donut",
         "find",
         "mark",
@@ -136,9 +136,7 @@
         "val",
         "xlab"
       ],
-      "missingFromBaseCss": [
-        "connector"
-      ]
+      "missingFromBaseCss": []
     },
     "comparison-table": {
       "kind": "component",
@@ -154,13 +152,12 @@
       "implementedInBaseCss": [
         "ctable",
         "fcol",
+        "ranklist",
+        "rankrow",
         "val",
         "yes"
       ],
-      "missingFromBaseCss": [
-        "ranklist",
-        "rankrow"
-      ]
+      "missingFromBaseCss": []
     },
     "cta-buttons": {
       "kind": "component",
@@ -225,11 +222,10 @@
         "lab",
         "legend-mini",
         "pct",
+        "planpanel",
         "xlab"
       ],
-      "missingFromBaseCss": [
-        "planpanel"
-      ]
+      "missingFromBaseCss": []
     },
     "editorial-explainer-stage": {
       "kind": "layout",
@@ -243,15 +239,14 @@
         "workflow"
       ],
       "implementedInBaseCss": [
-        "meta",
-        "tag"
-      ],
-      "missingFromBaseCss": [
         "agenda",
         "family",
+        "meta",
+        "tag",
         "uiqa",
         "workflow"
-      ]
+      ],
+      "missingFromBaseCss": []
     },
     "evidence-card": {
       "kind": "component",
@@ -314,23 +309,22 @@
       "kind": "layout",
       "example": "examples/light-feature-showcase.html",
       "classes": [
-        "anno",
         "area",
         "band",
         "big",
+        "fs-anno",
         "phone",
         "scr"
       ],
       "implementedInBaseCss": [
+        "area",
         "band",
         "big",
-        "phone"
-      ],
-      "missingFromBaseCss": [
-        "anno",
-        "area",
+        "fs-anno",
+        "phone",
         "scr"
-      ]
+      ],
+      "missingFromBaseCss": []
     },
     "geo-map": {
       "kind": "component",
@@ -346,17 +340,16 @@
         "who"
       ],
       "implementedInBaseCss": [
-        "badge",
-        "meta",
-        "panel",
-        "who"
-      ],
-      "missingFromBaseCss": [
         "anno",
+        "badge",
         "finding",
         "geo",
-        "qrow"
-      ]
+        "meta",
+        "panel",
+        "qrow",
+        "who"
+      ],
+      "missingFromBaseCss": []
     },
     "hero-radial": {
       "kind": "layout",
@@ -653,17 +646,16 @@
         "who"
       ],
       "implementedInBaseCss": [
-        "badge",
-        "meta",
-        "panel",
-        "who"
-      ],
-      "missingFromBaseCss": [
         "anno",
+        "badge",
         "finding",
         "geo",
-        "qrow"
-      ]
+        "meta",
+        "panel",
+        "qrow",
+        "who"
+      ],
+      "missingFromBaseCss": []
     },
     "persona-cards": {
       "kind": "layout",
@@ -834,13 +826,12 @@
         "fill",
         "lab",
         "mark",
+        "qcol",
+        "sbcol",
         "track",
         "who"
       ],
-      "missingFromBaseCss": [
-        "qcol",
-        "sbcol"
-      ]
+      "missingFromBaseCss": []
     },
     "quote-bubble": {
       "kind": "component",
@@ -856,17 +847,16 @@
         "who"
       ],
       "implementedInBaseCss": [
-        "badge",
-        "meta",
-        "panel",
-        "who"
-      ],
-      "missingFromBaseCss": [
         "anno",
+        "badge",
         "finding",
         "geo",
-        "qrow"
-      ]
+        "meta",
+        "panel",
+        "qrow",
+        "who"
+      ],
+      "missingFromBaseCss": []
     },
     "ranked-list": {
       "kind": "component",
@@ -927,6 +917,7 @@
         "card",
         "cards",
         "citecard",
+        "connector",
         "donut",
         "find",
         "mark",
@@ -937,9 +928,7 @@
         "val",
         "xlab"
       ],
-      "missingFromBaseCss": [
-        "connector"
-      ]
+      "missingFromBaseCss": []
     },
     "results-grid": {
       "kind": "layout",
@@ -980,15 +969,14 @@
       ],
       "implementedInBaseCss": [
         "arrow",
-        "legend"
-      ],
-      "missingFromBaseCss": [
         "box",
         "branch",
         "dia",
+        "legend",
         "node",
         "start"
-      ]
+      ],
+      "missingFromBaseCss": []
     },
     "stat-bar": {
       "kind": "component",
@@ -1008,13 +996,12 @@
         "fill",
         "lab",
         "mark",
+        "qcol",
+        "sbcol",
         "track",
         "who"
       ],
-      "missingFromBaseCss": [
-        "qcol",
-        "sbcol"
-      ]
+      "missingFromBaseCss": []
     },
     "survey-stack": {
       "kind": "layout",
@@ -1217,18 +1204,17 @@
       ],
       "implementedInBaseCss": [
         "cards",
-        "icon",
-        "three"
-      ],
-      "missingFromBaseCss": [
         "faint",
+        "icon",
         "soft",
+        "three",
         "uc-badge",
         "uc-cap",
         "uc-card",
         "uc-illus",
         "uc-item"
-      ]
+      ],
+      "missingFromBaseCss": []
     },
     "value-points": {
       "kind": "layout",
