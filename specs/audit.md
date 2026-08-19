@@ -18,8 +18,13 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
   routing trigger**. — blocker
 - `validate_layout.py` renders each slide and fails on a blank/unstyled render, a dead band inside
   the content, a band of surface carrying no text (relocated emptiness), an empty top or bottom band,
-  a dead quadrant, extreme density, or **Korean in the slide copy**. Add `--strict-hex` to also scan
+  a dead quadrant, extreme density, or **copy in a script the declared output language does not
+  imply** (default 繁中 + English; pass `--lang ja,en` and a Japanese deck passes). Add `--strict-hex` to also scan
   `<style>` blocks for hardcoded colour. — blocker on a failure it reports
+- `sync_examples.py` is the tool that will make examples pure reference — implementation only in
+  `assets/base.css`. It is NOT yet part of the gate: applying it first needs the 17 bare generic
+  selectors in `base.css` (`.track`, `.card`, `.panel`, `.sub`, …) scoped to their owning pattern,
+  or they collide across patterns once examples share one stylesheet.
 - `--deck` additionally enforces the v12.7 anti-dryness rule across a deck of 8+ slides: at least one
   page must carry a genuine visual moment (real screenshot, logo-row, device mockup, or generated
   explainer). Icons and chips do not count. — major

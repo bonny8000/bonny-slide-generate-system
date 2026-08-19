@@ -598,8 +598,10 @@ def validate_router(specs: dict[str, dict[str, Any]]) -> None:
                 errors.append(f"{specs[spec_id]['spec']}: trigger {trigger!r} is too short to route on")
             if _in_ranges(key, HANGUL_RANGES):
                 errors.append(
-                    f"{specs[spec_id]['spec']}: trigger {trigger!r} contains Korean — "
-                    "golden rule is 繁中 primary + English supporting, no Korean"
+                    f"{specs[spec_id]['spec']}: trigger {trigger!r} is not in a language the router "
+                    "matches on. Triggers are matched against the deck plan's intention naming, "
+                    "which is 繁中 + English — a trigger in any other language can never fire, "
+                    "however the deck's OUTPUT language is set (see validate_layout --lang)."
                 )
             if key in seen and seen[key] != spec_id:
                 errors.append(
@@ -698,7 +700,15 @@ def example_classes(example: str) -> set[str]:
     if not path.is_file():
         return set()
     html = path.read_text(encoding="utf-8", errors="replace")
-    body = html.split("<body", 1)[-1] if "<body" in html else html
+    # Markup is whatever follows the LAST </style>. Splitting on "<body" was wrong: 136 of the
+    # 164 examples omit the tag entirely (HTML makes it optional), so that fell back to the whole
+    # file and scanned CSS selector names as if they were classes used in markup.
+    if "</style>" in html:
+        body = html.rsplit("</style>", 1)[-1]
+    elif "<body" in html:
+        body = html.split("<body", 1)[-1]
+    else:
+        body = html
     used: set[str] = set()
     for match in CLASS_ATTR_RE.finditer(body):
         used |= set(match.group(1).split())

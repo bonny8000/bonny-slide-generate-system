@@ -40,6 +40,32 @@ almost none of it, so layout quality degraded first under context pressure.
   catalogued component to earn its height; what it may never add is new design vocabulary — a new
   class, an untokenised colour, a type size off the scale. Layout varies by intention, vocabulary
   never varies.
+- **`scripts/sync_examples.py` — the tool for making examples pure reference (built, NOT yet
+  applied).** Rewrites an example as a regenerated `<style data-shipped>` plus a small
+  `<style data-slide>` for what is genuinely specific to that slide, and `--check` turns staleness
+  into a build error. Verified on the full library: 1360 slide-specific rules across 164 files
+  (~8 per slide), idempotent, and renders unchanged for 131 of 164.
+
+  Applying it is BLOCKED on a defect the tool exposed, and the defect is ours. Promoting 251 rules
+  into `base.css` earlier in v12.9 pulled generic class names out of many patterns into one
+  stylesheet, where they now collide: 17 bare single-class selectors (`.track`, `.card`, `.panel`,
+  `.sub`, `.nav`, `.foot`, `.q`, …) also exist as scoped children of other components. While each
+  example carried its own CSS the collision was invisible; the moment they share a stylesheet, a
+  bare `.track{display:flex;flex:1}` from the flow pattern collapses the bar chart in
+  `light-01-insight-cards`. Scoping those 17 to their owning pattern is the prerequisite; the sync
+  was reverted rather than ship the regression.
+- **Output language is declared, not hardcoded.** The "no Korean" check is replaced by a check that
+  the copy uses no script the deck's declared language implies — default 繁中 + English, taken from
+  `<html lang>`, overridable with `--lang`. A Japanese or Korean deck now passes when it is asked
+  for, and an accidental leak still fails. Routing *triggers* keep the constraint for a different
+  reason, now stated as such: they are matched against the plan's intention naming, so a trigger in
+  a language the router does not read can never fire.
+- **A starved content slide now points at the right two remedies.** Instead of only reporting low
+  density, the gate says to re-open that page's illustration decision — a thin content page is
+  usually an intention that was always visual and got routed to native cards, or a page that should
+  be merged or cut. It deliberately does NOT auto-generate an image: filling a hole with artwork is
+  decoration, and illustration is chosen by intention. `toc`, `agenda`, `context`, `thanks`,
+  `appreciation` and `closing` joined the whitespace exception, alongside cover and statement.
 - **`SKILL.md` slimmed.** The changelog moved here, reclaiming ~63% of the entry-point file for the
   operating procedure the agent actually needs.
 - **The illustration gate can actually run.** `validate_generated_illustration.py` imported Pillow at

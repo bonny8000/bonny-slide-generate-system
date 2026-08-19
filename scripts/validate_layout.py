@@ -400,7 +400,50 @@ VISUAL_MARKERS = (
     "device-stack",
     "<img",
 )
-HANGUL_RE = re.compile(r"[가-힣ᄀ-ᇿ㄰-㆏]")
+# Output language is DECLARED, not hardcoded. The system's default is 繁中 primary + English
+# supporting, but a deck asked for in another language must be able to pass — so the check is
+# "does this slide contain a script its declared languages do not imply", not "is this Korean".
+SCRIPTS = {
+    "han": r"㐀-䶿一-鿿豈-﫿",
+    "hangul": r"ᄀ-ᇿ㄰-㆏가-힣",
+    "kana": r"぀-ヿ",
+    "cyrillic": r"Ѐ-ӿ",
+    "arabic": r"؀-ۿ",
+    "thai": r"฀-๿",
+    "devanagari": r"ऀ-ॿ",
+}
+SCRIPT_RE = {name: re.compile("[" + rng + "]") for name, rng in SCRIPTS.items()}
+# what each declared language legitimately brings with it
+LANG_SCRIPTS = {
+    "zh": {"han"}, "zh-hant": {"han"}, "zh-hans": {"han"},
+    "ja": {"han", "kana"}, "ko": {"hangul", "han"},
+    "en": set(), "fr": set(), "de": set(), "es": set(), "pt": set(), "it": set(), "vi": set(),
+    "ru": {"cyrillic"}, "ar": {"arabic"}, "th": {"thai"}, "hi": {"devanagari"},
+}
+DEFAULT_LANGS = ("zh-hant", "en")
+HTML_LANG_RE = re.compile(r"""<html[^>]*lang\s*=\s*["']([^"']+)["']""", re.I)
+
+
+def declared_langs(html: str, override: str | None) -> list[str]:
+    """Explicit --lang wins; otherwise the document's own <html lang>; otherwise the system default."""
+    if override:
+        return [x.strip().lower() for x in override.split(",") if x.strip()]
+    match = HTML_LANG_RE.search(html)
+    if match:
+        tags = [match.group(1).strip().lower()]
+        if not any(t.startswith("en") for t in tags):
+            tags.append("en")  # English supporting copy is always allowed
+        return tags
+    return list(DEFAULT_LANGS)
+
+
+def allowed_scripts(langs: list[str]) -> set[str]:
+    allowed: set[str] = set()
+    for tag in langs:
+        allowed |= LANG_SCRIPTS.get(tag, LANG_SCRIPTS.get(tag.split("-")[0], set()))
+    return allowed
+
+
 TAG_RE = re.compile(r"<(script|style)\b.*?</\1>|<[^>]+>", re.S | re.I)
 
 
@@ -430,7 +473,12 @@ def find_hardcoded_hex(html: str, strict: bool) -> list[str]:
 
 
 # layout-balance.md grants these a whitespace exception; everything else must fill the canvas
-SPARSE_CLASSES = {"cover", "section-cover", "statement", "hero-quote", "divider"}
+SPARSE_CLASSES = {
+    "cover", "section-cover", "statement", "hero-quote", "divider",
+    # a contents page, a scene-setting page and a closing thank-you are meant to breathe;
+    # holding them to a content slide's density is what produced false "很空" findings
+    "toc", "agenda", "context", "thanks", "appreciation", "closing",
+}
 SLIDE_CLASS_RE = re.compile(r"""class\s*=\s*["']([^"']*\bslide\b[^"']*)["']""", re.I)
 
 
@@ -453,9 +501,16 @@ def slide_kind(html: str) -> str:
 
 
 def evaluate(
-    path: Path, metrics: dict[str, Any], kind: str, hexes: list[str], slide_text: str = ""
+    path: Path,
+    metrics: dict[str, Any],
+    kind: str,
+    hexes: list[str],
+    slide_text: str = "",
+    langs: list[str] | None = None,
 ) -> list[str]:
     visible_text_cache = (slide_text,)
+    langs = langs or list(DEFAULT_LANGS)
+    lang_cache = (langs, allowed_scripts(langs))
     failures: list[str] = []
 
     if metrics["blank"]:
@@ -481,6 +536,13 @@ def evaluate(
             failures.append(
                 f"很空 — content covers only {metrics['coverage']:.0%} of the canvas. "
                 "Grow the content, not the padding: enlarge the hero visual or add supporting mass."
+            )
+            failures.append(
+                "…and re-open this page's illustration decision before adding anything: a content "
+                "page this thin is usually one of two things — an intention that was always visual "
+                "and got routed to native cards (re-run the editorial-explainer suitability gate in "
+                "slide-plan.md for it), or a page that should be merged with its neighbour or cut. "
+                "Generating an image purely to fill the space is decoration, not density."
             )
         elif metrics["coverage"] > COVERAGE_MAX:
             failures.append(
@@ -544,11 +606,19 @@ def evaluate(
                 "Anchor, then counterbalance — add a caption row, bottom band, or equal card min-heights."
             )
 
-    korean = sorted(set(HANGUL_RE.findall(visible_text_cache[0])))
-    if korean:
+    stray = []
+    for name, pattern in SCRIPT_RE.items():
+        if name in lang_cache[1]:
+            continue
+        found = pattern.findall(visible_text_cache[0])
+        if found:
+            stray.append((name, "".join(sorted(set(found))[:8])))
+    if stray:
+        names = ", ".join(f"{name} ({sample}…)" for name, sample in stray)
         failures.append(
-            f"Korean text in the slide copy ({''.join(korean[:8])}…). Golden rule is 繁中 primary + "
-            "English supporting; Korean references teach structure only, never wording."
+            f"copy contains script the declared language does not imply: {names}. "
+            f"This slide declares {', '.join(lang_cache[0])} — set --lang if the deck is "
+            "meant to be in another language."
         )
 
     if hexes:
@@ -575,6 +645,11 @@ def main() -> int:
     )
     parser.add_argument("--json", type=Path, help="write a machine-readable report here")
     parser.add_argument("--quiet", action="store_true", help="only print failures")
+    parser.add_argument(
+        "--lang",
+        help="declared output language(s), comma separated (default: the file's <html lang> "
+        "plus English, else zh-Hant,en)",
+    )
     parser.add_argument(
         "--deck",
         action="store_true",
@@ -631,7 +706,12 @@ def main() -> int:
             continue
 
         problems = evaluate(
-            slide, metrics, kind, find_hardcoded_hex(html, args.strict_hex), visible_text(html)
+            slide,
+            metrics,
+            kind,
+            find_hardcoded_hex(html, args.strict_hex),
+            visible_text(html),
+            declared_langs(html, args.lang),
         )
         report["slides"].append(
             {"slide": str(slide), "kind": kind, "metrics": metrics, "failures": problems}

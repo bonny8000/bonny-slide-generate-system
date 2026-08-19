@@ -32,6 +32,10 @@ and images to learn from. Check which mode you are in before doing anything (nex
   `system/class-manifest.json`). A pattern with gaps has to be reinvented on every build, so treat its
   gaps as the implementation backlog. **`base.css` stays hand-written — this is a usage contract,
   never codegen.**
+- **`scripts/sync_examples.py`** — will make `examples/` pure REFERENCE, with implementation only in
+  `assets/base.css`. Built and verified, but not yet applied: `base.css` first needs its 17 bare
+  generic selectors scoped to their owning pattern (see CHANGELOG), or patterns collide once they
+  share one stylesheet.
 - **`scripts/validate_layout.py`** — the layout gate. Renders a built slide and measures balance,
   distribution, and density against `foundations/layout-balance.md`, so those rules are enforced rather
   than merely described.
@@ -57,8 +61,8 @@ because the two produce completely different artifacts.
 ### Training mode procedure
 1. **Read each reference for all five things** in `specs/foundations/learn-from-image.md` — intention,
    trigger, layout logic, component craft, and the intention↔component rationale. Structure only:
-   colours are recorded as **token roles**, never hex. Korean references teach structure; output stays
-   繁中 + English.
+   colours are recorded as **token roles**, never hex. A reference in any language teaches STRUCTURE
+   only — the deck's output language is a separate, declared decision (default 繁中 + English).
 2. **Dedupe against `specs/_catalog.md`** → existing (add to `learned_from`) · variant (extend the
    spec) · new (create one from `specs/spec-template.md`).
 3. **Register it so it is actually reachable.** A pattern the planner cannot find does not exist:
@@ -67,7 +71,8 @@ because the two produce completely different artifacts.
    - a render-validated example, referenced by `example:`
 4. **Close the loop — run the gates.** `python scripts/compile_system.py --check` must pass: it fails
    on a stable layout with no `content-map.md` row, an unresolvable `depends_on`, a duplicate trigger,
-   or **Korean in a trigger**. Then `python scripts/validate_layout.py <example>` on the new example.
+   or a trigger in a language the router does not match on. Then
+   `python scripts/validate_layout.py <example>`.
 5. **Report what the system learned** — the new/updated pattern, its intention, its triggers, and what
    will now route to it. The point of training is that the *next* deck reaches for it automatically.
 
@@ -125,7 +130,9 @@ consistency drifts.
 ## Golden rules (never break)
 - **One theme per deck** — color is a separate layer; layouts/components stay theme-agnostic.
 - **4-color discipline** — accent is the only chromatic color.
-- **繁中 primary + English supporting; no Korean.**
+- **繁中 primary + English supporting by default** — a deck in another language is fine when the
+  user asks for one; declare it (`validate_layout --lang`). Routing *triggers* stay 繁中 + English,
+  because that is what the planner matches intention naming against.
 - **One claim per slide; plain-language titles; purposeful icons, one style.**
 - **A generated editorial explainer must be genuinely generated.** Canonical images are style
   reference only; CSS/SVG recreation, reference reuse, grayscale filtering, and contain-fit gutters fail.
