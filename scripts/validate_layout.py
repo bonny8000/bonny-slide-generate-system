@@ -13,6 +13,17 @@ Usage:
     python scripts/validate_layout.py examples/*.html --json report.json
 
 Exit codes: 0 = every slide passes · 1 = at least one slide fails · 2 = could not run.
+
+KNOWN LIMIT — column-local emptiness is not detected.
+The emptiness checks scan rows across the whole canvas, so text anywhere on a row hides emptiness
+elsewhere on it. A three-column slide whose middle column carries labels can hide two ballooned
+side cards; that happened during this work and passed at 57% whitespace. A column-wise version was
+built and withdrawn: measuring "surface with no text" per column cannot tell a stretched empty card
+from a chart, a device mockup, or an illustration — six legitimate slides scored the same 74% as the
+real defect. Since the deck-pacing rule actively wants those visuals, a check that flags them is
+worse than the gap. Separating the two needs a measure of internal structure, not just ink.
+
+Until then: this gate cannot tell you a card is inflated around its content. Look at the render.
 """
 
 from __future__ import annotations

@@ -31,6 +31,9 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
    quadrant is dead, and whether density is at an extreme. It reports a named defect and the fix.
    Treat a reported failure as a **fix**, never a pass — then continue to the judgement calls below,
    which no measurement can make for you.
+   **A pass is not proof.** The gate scans rows across the whole canvas, so it cannot see a card
+   inflated around its content when a neighbouring column carries text. That exact case passed at
+   57% whitespace during v12.9 and was caught only by looking. Always look at the screenshot.
 3. **Score each dimension** (pass / fix):
    - intention delivered (the page does its job — `content-map.md`)
    - whole-page balance (no lopsided/heavy quadrant — `layout-balance.md`)
