@@ -10,7 +10,8 @@
    Load this OR tokens-dark.css — never both in one deck.
    ============================================================ */
 :root{
-  --canvas:#FBFBFE;       /* near-white, faint cool          */
+  --canvas:#FBFBFE;
+  --backdrop:#CDD2DC;       /* near-white, faint cool          */
   --surface:#F1F4F9;      /* card fill                       */
   --chip:#FFFFFF;         /* inner chips / bubble inset      */
 
@@ -65,13 +66,13 @@
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;background:#cdd2dc}
+html,body{margin:0;background:var(--backdrop)}
 body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== Canvas ===== */
 .slide{
   background:var(--canvas);color:var(--ink);position:relative;line-height:var(--lh);
-  padding:var(--pad-y) var(--pad-x);
+  padding:var(--pad-y);
   display:flex;flex-direction:column;justify-content:center;gap:var(--gap-section);
 }
 .slide.deck{width:1920px;height:1080px}
@@ -119,7 +120,7 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .q .mark{color:var(--accent);font-weight:700;margin-right:var(--s1)}
 
 /* ===== Insight band (FIX 1: own --band-fill, correct in BOTH modes) ===== */
-.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:#FFFFFF;
+.band{margin:var(--s1) calc(-1 * var(--pad-card)) 0;background:var(--band-fill);color:var(--on-accent);
   padding:var(--s4) var(--s5);text-align:center;display:flex;flex-direction:column;gap:var(--s0);align-items:center}
 .band .tag{font-size:13px;letter-spacing:.06em;color:var(--band-tag);font-weight:600}
 .band .text{font-size:var(--fs-body);font-weight:700;line-height:var(--lh);margin:0}
@@ -243,10 +244,10 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 
 /* ===== section cover / 扉頁 (announce a new section) ===== */
 /* dark inside a light deck is a background choice, not a mode switch */
-.slide.section-cover{background:var(--band-fill);color:#fff}
+.slide.section-cover{background:var(--band-fill);color:var(--on-accent)}
 .section-cover .nav{display:flex;align-items:center;gap:18px;justify-content:center;font-size:18px;font-weight:700}
 .section-cover .nav .item{color:rgba(255,255,255,.30)}
-.section-cover .nav .item.on{color:#fff;border-bottom:3px solid var(--accent);padding-bottom:6px}
+.section-cover .nav .item.on{color:var(--on-accent);border-bottom:3px solid var(--accent);padding-bottom:6px}
 .section-cover .nav .sep{color:rgba(255,255,255,.18);font-size:14px}
 .section-cover .lead-kicker{font-size:14px;letter-spacing:.16em;color:rgba(255,255,255,.6);font-weight:700}
 .section-cover h1{font-size:54px;font-weight:700;margin:0}
@@ -355,6 +356,11 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 /* statement line: keep clauses whole, no orphan wrap, no terminal period */
 .statement{font-weight:700;text-align:center;line-height:1.5;text-wrap:balance;max-width:1500px}
 .nowrap{white-space:nowrap}
+
+/* ===== balance helpers (v9.6+): fill the canvas top->bottom ===== */
+.slide.top{justify-content:flex-start}
+.grow{flex:1;min-height:0}
+.vspread{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
 </style>
 </head>
 <style>

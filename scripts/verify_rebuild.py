@@ -59,9 +59,7 @@ def main() -> int:
         print(f"verify rebuild: {exc}", file=sys.stderr)
         return 2
 
-    examples = sorted((ROOT / "examples").glob("*.html")) + sorted(
-        (ROOT / "examples" / "deck-demo").glob("*.html")
-    )
+    examples = sorted((ROOT / "examples").rglob("*.html"))
     if args.names:
         wanted = set(args.names)
         examples = [e for e in examples if e.stem in wanted]

@@ -596,7 +596,7 @@ def main() -> int:
     targets: list[Path] = []
     for slide in args.slides:
         if slide.is_dir():
-            targets.extend(sorted(slide.glob("*.html")))
+            targets.extend(sorted(slide.rglob("*.html")))
         else:
             targets.append(slide)
     if not targets:

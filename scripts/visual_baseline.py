@@ -73,7 +73,9 @@ def targets(paths: list[Path]) -> list[Path]:
         path = path if path.is_absolute() else (Path.cwd() / path)
         path = path.resolve()
         if path.is_dir():
-            found.extend(sorted(path.glob("*.html")))
+            # rglob, not glob: an earlier version defaulted to the top level only and silently
+            # ignored 115 of the 164 example files, which then drifted for several versions.
+            found.extend(sorted(path.rglob("*.html")))
         elif path.is_file():
             found.append(path)
     return found
@@ -116,8 +118,8 @@ def main() -> int:
         "slides",
         nargs="*",
         type=Path,
-        default=[ROOT / "examples", ROOT / "examples" / "deck-demo"],
-        help="files or directories (default: the example library)",
+        default=[ROOT / "examples"],
+        help="files or directories (default: every .html under examples/, recursively)",
     )
     parser.add_argument("--browser", help="path to chrome.exe / msedge.exe")
     parser.add_argument("--tolerance", type=float, default=DEFAULT_TOLERANCE,
