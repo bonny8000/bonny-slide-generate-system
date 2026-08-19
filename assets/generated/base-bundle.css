@@ -333,9 +333,9 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .termcard.example .def{color:var(--ink)}
 
 /* ===== comparison-table (criteria x options, 1 focus column) ===== */
-.ctable{width:100%;border-collapse:collapse;font-size:15px}
-.ctable th,.ctable td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--muted-soft)}
-.ctable thead th{color:var(--ink);font-weight:700;font-size:14px;border-bottom:2px solid var(--muted-soft)}
+.ctable{width:100%;border-collapse:collapse;font-size:17px}
+.ctable th,.ctable td{padding:24px 16px;text-align:center;border-bottom:1px solid var(--muted-soft)}
+.ctable thead th{color:var(--ink);font-weight:700;font-size:16px;border-bottom:2px solid var(--muted-soft)}
 .ctable tbody th{text-align:left;color:var(--ink);font-weight:600}
 .ctable td{color:var(--muted)}
 .ctable .yes{color:var(--ink);font-weight:700}
@@ -853,3 +853,15 @@ footer strong{color: var(--ink);}
 .uc-illus .soft{fill:var(--accent-soft);stroke:none}
 .uc-cap{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .foot{position:absolute;bottom:42px;left:96px;font-size:14px;color:var(--muted)}
+
+/* ===== deck chrome + remaining pattern rules — promoted from examples/ ===== */
+.sub{font-size:var(--fs-body);color:var(--muted);margin:0}
+.headline{font-size:var(--fs-h1);font-weight:700;color:var(--ink);margin:0;line-height:var(--lh)}
+.pageno{position:absolute;bottom:42px;right:96px;font-size:14px;color:var(--muted)}
+.bridge{font-size:16px;color:var(--muted);margin:0}
+.solid-band{background:var(--accent);color:var(--on-accent);border-radius:var(--r-card);padding:24px 40px;text-align:center;font-size:20px;font-weight:700;line-height:1.6}
+.tcard{background:var(--surface);border-radius:var(--r-card);padding:var(--s5);display:flex;flex-direction:column;gap:10px}
+.tcard h3{font-size:20px;margin:0;color:var(--ink);font-weight:700}
+.tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
+.frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
+.frame .slide{transform-origin:top left}

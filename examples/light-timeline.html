@@ -362,16 +362,16 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 </head>
 <style>
 .tl{display:flex;flex-direction:column;gap:var(--s4)}
-.tl-axis{display:grid;grid-template-columns:repeat(5,1fr);font-size:13px;color:var(--muted);border-bottom:1px solid var(--muted-soft);padding-bottom:var(--s2)}
+.tl-axis{display:grid;grid-template-columns:repeat(5,1fr);font-size:16px;color:var(--muted);border-bottom:1px solid var(--muted-soft);padding-bottom:var(--s2)}
 .tl-bars{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);align-items:start}
 .phase{display:flex;flex-direction:column;gap:var(--s3)}
-.phase .bar{background:var(--band-fill);color:var(--on-accent);border-radius:var(--r-pill);padding:var(--s2) var(--s4);font-weight:700;font-size:16px;text-align:center}
+.phase .bar{background:var(--band-fill);color:var(--on-accent);border-radius:var(--r-pill);padding:var(--s4) var(--s4);font-weight:700;font-size:19px;text-align:center}
 .phase.active .bar{background:var(--accent)}
-.phase ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s1)}
-.phase li{font-size:14px;color:var(--muted);display:flex;gap:8px}
+.phase ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s3)}
+.phase li{font-size:17px;color:var(--muted);display:flex;gap:10px}
 .phase li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:7px;flex:0 0 auto}
-.phase:nth-child(2){margin-top:var(--s5)} .phase:nth-child(3){margin-top:var(--s7)}
-.phase:nth-child(4){margin-top:var(--s8)} .phase:nth-child(5){margin-top:calc(var(--s8) + var(--s4))}
+.phase:nth-child(2){margin-top:var(--s8)} .phase:nth-child(3){margin-top:calc(var(--s8) * 2)}
+.phase:nth-child(4){margin-top:calc(var(--s8) * 3)} .phase:nth-child(5){margin-top:calc(var(--s8) * 4)}
 </style>
 <main class="slide deck" style="gap:var(--s5);justify-content:flex-start">
   <div class="head"><p class="eyebrow latin">Journey · Timeline</p><h1 class="headline cjk" style="font-size:32px">從研究到上線的<span class="accent">五個階段</span></h1></div>
