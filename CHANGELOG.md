@@ -23,10 +23,12 @@ The headline finding did not hold, but chasing it turned up a real defect undern
 - **The raw-hex "violations" in six examples are mostly legitimate**, and `audit.md` now records why,
   since this is the second review to flag them. `.appwin .sb{background:#1b1b20}` paints a mockup of
   a dark application sidebar inside a light slide — a token would repaint it to the slide's own
-  background and destroy the depiction. `#fff` inside `color-mix()` is a blend operand. Three files
-  are a Claude-brand deck whose warm palette genuinely is not in the token set; that one needs a
-  decision (add a brand theme, or exempt), not a mechanical substitution. Exactly one literal was a
-  real violation and is now `var(--accent)`. `base.css` remains at zero.
+  background and destroy the depiction. `#fff` inside `color-mix()` is a blend operand. Exactly one
+  literal was a real violation and is now `var(--accent)`. `base.css` remains at zero.
+- **The three Claude-brand examples are deleted** (`claude-code-ccv1`, `ccv2`,
+  `how-to-use-claude-code`, plus their `.png` siblings). Their warm palette — `#d97757`, `#ece6dd` —
+  was never in the token set, so they were off-system reference that could only teach off-system
+  colour. Removing them beats inventing a brand theme for three files. 164 examples → 161.
 - Also recorded in `audit.md`: a slide value larger than the `base.css` value is often deliberate
   per-slide sizing, not staleness. Do not bulk-revert examples to base values.
 

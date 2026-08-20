@@ -110,12 +110,16 @@ and re-rendering will differ — that is the block doing its job, not a pattern 
 the shared system. `scripts/verify_rebuild.py` reports this as *local reliance*, a magnitude to read,
 not a pass/fail. High reliance is worth investigating; any reliance is not.
 
-**Raw hex inside an example is usually legitimate.** Six examples carry colour literals. Three are a
-Claude-brand deck whose warm palette (`#d97757`, `#ece6dd`) is genuinely not in the token set, and
-`.appwin .sb{background:#1b1b20}` paints a *mockup of a dark application sidebar inside a light
-slide* — substituting `var(--canvas)` would repaint it to the slide's own background and destroy the
-depiction. `#fff` inside `color-mix()` is a blend operand, not a theme colour. The zero-raw-hex rule
-is absolute for `assets/base.css`, which is clean; in examples it applies to *theme* colour only.
+**Not every hex in an example is a violation.** The zero-raw-hex rule is absolute for
+`assets/base.css`, which is clean. In examples it applies to *theme* colour. Three files still carry
+literals, and they are not all the same thing: `#fff` inside `color-mix()` (`r45A`) is a blend
+operand, not a colour choice, and `rgba()` in a shadow or a radial-gradient stop is opacity work.
+What **is** a real finding is `editorial-explainer-stage`'s `.tag{color:#16899b}` — a teal that is a
+second accent, which this document rates a blocker. It is open, not blessed.
+
+(A Claude-brand deck — `claude-code-ccv1`, `ccv2`, `how-to-use-claude-code` — used to sit here with a
+warm off-token palette. It was deleted rather than tokenised: off-system reference can only teach
+off-system colour.)
 
 **A larger value than base.css is often deliberate.** `.mc .t` is 33px in `light-metric-cards` and
 22px in base. That is per-slide sizing tuned to a three-card row, not a stale copy. Do not
