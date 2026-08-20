@@ -3,6 +3,28 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.9.2 — the router was blind to 繁中, and now there is a test that says so
+The first measurement of whether intention routing actually *works*, rather than whether it is
+structurally well-formed.
+- **New `scripts/validate_routing.py`.** `compile --check` proved every layout was *reachable*; it
+  never asked whether a request phrased the way a person phrases it lands on the right entry. This
+  replays a fixture of realistic 繁中/English requests through the router and reports HIT / WRONG /
+  MISS, where MISS means the table gave the agent nothing and it free-picks — the exact mechanism
+  behind "it keeps choosing the same layout".
+- **The cause, measured:** only **10 of 122 triggers contained any 繁中**, while 繁中 is the primary
+  output language. **17 of 25 layouts had zero.** Those 17 were invisible to Chinese input, and the 8
+  that were visible swallowed everything — `as-is-to-be` alone won three requests that belonged to
+  other layouts, purely because 改版 was in its trigger list. First run: 9/30.
+- **繁中 triggers added to all 17**, plus 8 thin ones rounded out. The working fixture now scores
+  30/30 — but that number is over-fitted and is labelled as such.
+- **The honest number is 4/10**, from `specs/routing-cases-heldout.md`, written afterwards without
+  consulting any trigger list and never tuned against. Blind performance went from ~30% to ~40%. Real
+  and worth having; nowhere near solved.
+- **What the held-out failures teach, recorded in that file:** generic words become attractors.
+  `persona-cards` won two unrelated requests because `使用者輪廓` puts 使用者 in the index, and 使用者
+  appears in nearly every request this system will see — the same pathology as 改版. Triggers must be
+  *distinctive*, not merely relevant. More triggers of the same kind will not close the gap.
+
 ## v12.9.1 — dead example CSS removed; a review tool that was reading the architecture wrong
 Prompted by an outside review that reported "adoption is only partially consistent" across patterns.
 The headline finding did not hold, but chasing it turned up a real defect underneath.

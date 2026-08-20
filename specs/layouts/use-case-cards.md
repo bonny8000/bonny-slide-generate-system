@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable         # example built + validated: examples/light-use-case-cards.html
 intent: show who the product serves — audience segments / use cases
-triggers: ["use cases", audience segments, "serving every X", 3 customer types each with an illustration]
+triggers: ["use cases", audience segments, "serving every X", 3 customer types each with an illustration, 服務哪些客群, 應用情境, 目標客群分類, 使用情境]
 depends_on: [ui-mockup, tokens]
 tokens_used: [canvas, surface, muted, muted-soft, ink, accent, band-fill]
 icon_use: optional

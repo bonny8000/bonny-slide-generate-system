@@ -4,7 +4,7 @@ kind: layout
 tier: layout
 status: stable
 intent: humanize workshop instructions, workflow transformation, or real-UI interpretation
-triggers: [workshop timing and rules, facilitator dialogue, human-agent worked example, assistant-led workflow, scattered inputs to shared intent, real UI with Q&A]
+triggers: [workshop timing and rules, facilitator dialogue, human-agent worked example, assistant-led workflow, scattered inputs to shared intent, real UI with Q&A, 工作坊怎麼進行, 有人味的說明, 引導流程說明, 實際畫面加問答]
 depends_on: [shot, stage-backdrop, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft, shadow-img]
 icon_use: generated-only

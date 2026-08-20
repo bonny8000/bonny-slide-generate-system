@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: put one central concept at the middle with its facets radiating around it
-triggers: [a core concept + surrounding facets, a center-out model, "X connects A/B/C/D", a framework hub]
+triggers: [a core concept + surrounding facets, a center-out model, "X connects A/B/C/D", a framework hub, 核心概念放中間, 中心加周邊面向, 一個主軸展開幾個面向, 放射狀架構]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

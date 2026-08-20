@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: converge several interview groups into one shared insight
-triggers: [interview groups/segments, affinity mapping, "across N groups we heard…", persona columns + insight]
+triggers: [interview groups/segments, affinity mapping, "across N groups we heard…", persona columns + insight, 訪談收斂, 幾組訪談的共同洞察, 親和圖, 分組訪談結果彙整]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

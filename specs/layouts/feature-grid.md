@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: present a small set of features as equal, scannable cards
-triggers: [3–4 features, "what's included", a 2×2 of capabilities each with an icon + blurb]
+triggers: [3–4 features, "what's included", a 2×2 of capabilities each with an icon + blurb, 功能一覽, 幾個功能平均排開, 功能卡片並列, 包含哪些功能]
 depends_on: [feature-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent, accent-soft]
 icon_use: optional

@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable
 intent: establish shared vocabulary so a mixed room means the same thing
-triggers: [glossary, what we mean by X, X means..., key terms, definitions, 3 terms, 名詞解釋]
+triggers: [glossary, what we mean by X, X means..., key terms, definitions, 3 terms, 名詞解釋, 統一名詞, 術語定義, 講的是同一件事]
 depends_on: [terminology-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: required

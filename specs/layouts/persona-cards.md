@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: anchor design in real users and surface their pain points
-triggers: [persona(s), user archetype, "two personas", behavior traits + pain points, a quote + profile]
+triggers: [persona(s), user archetype, "two personas", behavior traits + pain points, a quote + profile, 使用者輪廓, 人物誌, 主要使用者與他們的困擾, 使用者樣貌]
 depends_on: [persona, level-slider, chip, quote-bubble, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: required

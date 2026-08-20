@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable
 intent: explain 2-4 sequenced points, each backed by its own chart
-triggers: [1/2/3 points each with data, multi-point findings, numbered explainer rows, background points with charts]
+triggers: [1/2/3 points each with data, multi-point findings, numbered explainer rows, background points with charts, 依序的重點, 編號重點配圖表, 每個重點各一張圖表]
 depends_on: [numbered-row, line-chart, barchart, pie-donut, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

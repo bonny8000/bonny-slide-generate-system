@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: pair a design idea with the evidence that backs it
-triggers: [an idea/claim + a supporting chart or stat, "we think X — here's why", two-column idea vs proof]
+triggers: [an idea/claim + a supporting chart or stat, "we think X — here's why", two-column idea vs proof, 想法配證據, 一個主張加佐證, 設計想法與支持數據, 設計想法, 想法與佐證]
 depends_on: [barchart, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: none

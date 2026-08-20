@@ -589,11 +589,83 @@
     "yes/no split": [
       "pie-donut"
     ],
+    "一個主張加佐證": [
+      "idea-evidence"
+    ],
+    "一個主軸展開幾個面向": [
+      "hero-radial"
+    ],
+    "一個提問配並列證據": [
+      "centered-question-evidence"
+    ],
+    "一個痛點加引述": [
+      "painpoint-evidence"
+    ],
+    "中心加周邊面向": [
+      "hero-radial"
+    ],
+    "主要使用者與他們的困擾": [
+      "persona-cards"
+    ],
+    "人物誌": [
+      "persona-cards"
+    ],
     "佔比": [
       "pie-donut"
     ],
+    "使用情境": [
+      "use-case-cards"
+    ],
+    "使用者困擾與數據": [
+      "painpoint-evidence"
+    ],
+    "使用者樣貌": [
+      "persona-cards"
+    ],
+    "使用者說什麼加多少人": [
+      "qual-quant-split"
+    ],
+    "使用者輪廓": [
+      "persona-cards"
+    ],
+    "依序的重點": [
+      "numbered-rows"
+    ],
+    "價值主張加佐證": [
+      "value-points"
+    ],
+    "兩軸象限": [
+      "positioning-matrix"
+    ],
+    "分組訪談結果彙整": [
+      "interview-affinity"
+    ],
+    "功能一覽": [
+      "feature-grid"
+    ],
+    "功能卡片並列": [
+      "feature-grid"
+    ],
+    "功能如何化解不安": [
+      "feature-showcase"
+    ],
     "功能新增後": [
       "as-is-to-be"
+    ],
+    "功能畫面解說": [
+      "feature-showcase"
+    ],
+    "包含哪些功能": [
+      "feature-grid"
+    ],
+    "原話配數據": [
+      "qual-quant-split"
+    ],
+    "受訪者樣本": [
+      "survey-stack"
+    ],
+    "各階段產出": [
+      "timeline"
     ],
     "名詞解釋": [
       "terminology-cards"
@@ -601,11 +673,83 @@
     "問卷": [
       "survey-stack"
     ],
+    "問卷結果": [
+      "survey-stack"
+    ],
     "問題/解法": [
       "problem-solution"
     ],
+    "問題的證據": [
+      "painpoint-evidence"
+    ],
+    "問題與解法": [
+      "problem-solution"
+    ],
+    "實際畫面加問答": [
+      "editorial-explainer-stage"
+    ],
+    "專案成果": [
+      "results-grid"
+    ],
+    "專案規劃": [
+      "timeline"
+    ],
+    "專案階段": [
+      "timeline"
+    ],
+    "工作坊怎麼進行": [
+      "editorial-explainer-stage"
+    ],
+    "市場定位": [
+      "positioning-matrix"
+    ],
+    "帶來的改變": [
+      "results-grid"
+    ],
+    "幾個功能平均排開": [
+      "feature-grid"
+    ],
+    "幾個關鍵字等重呈現": [
+      "keyword-cards"
+    ],
+    "幾組訪談的共同洞察": [
+      "interview-affinity"
+    ],
+    "引導流程說明": [
+      "editorial-explainer-stage"
+    ],
+    "從背景推導到問題": [
+      "research-flow"
+    ],
+    "從頭到尾": [
+      "service-flow"
+    ],
+    "想法與佐證": [
+      "idea-evidence"
+    ],
+    "想法配證據": [
+      "idea-evidence"
+    ],
+    "應用情境": [
+      "use-case-cards"
+    ],
+    "成效指標": [
+      "results-grid"
+    ],
+    "成效數字": [
+      "results-grid"
+    ],
     "成果": [
       "results-grid"
+    ],
+    "我們的優勢": [
+      "value-points"
+    ],
+    "我們的準則": [
+      "keyword-cards"
+    ],
+    "提問開場": [
+      "centered-question-evidence"
     ],
     "改善前/改善後": [
       "delta-metric"
@@ -613,20 +757,149 @@
     "改版前後": [
       "as-is-to-be"
     ],
+    "放射狀架構": [
+      "hero-radial"
+    ],
     "敏感度/能力/連結性": [
       "level-slider"
+    ],
+    "整體流程": [
+      "service-flow"
+    ],
+    "時程": [
+      "timeline"
+    ],
+    "時間軸": [
+      "timeline"
+    ],
+    "有人味的說明": [
+      "editorial-explainer-stage"
+    ],
+    "服務哪些客群": [
+      "use-case-cards"
+    ],
+    "服務流程": [
+      "service-flow"
+    ],
+    "核心概念放中間": [
+      "hero-radial"
+    ],
+    "核心理念": [
+      "keyword-cards"
+    ],
+    "桌面研究": [
+      "research-flow"
+    ],
+    "概念相連": [
+      "linked-circles"
+    ],
+    "標註過的介面": [
+      "feature-showcase"
+    ],
+    "每個重點各一張圖表": [
+      "numbered-rows"
+    ],
+    "每題一列": [
+      "survey-stack"
     ],
     "流程圖": [
       "service-flow"
     ],
+    "為什麼選我們": [
+      "value-points"
+    ],
+    "理念並列呈現": [
+      "keyword-cards"
+    ],
+    "環環相扣": [
+      "linked-circles"
+    ],
+    "產品主視覺": [
+      "product-hero"
+    ],
+    "產品介紹": [
+      "product-hero"
+    ],
+    "產品首頁式介紹": [
+      "product-hero"
+    ],
+    "用問題破題": [
+      "centered-question-evidence"
+    ],
+    "痛點佐證": [
+      "painpoint-evidence"
+    ],
+    "痛點與對策": [
+      "problem-solution"
+    ],
     "目標定位": [
+      "positioning-matrix"
+    ],
+    "目標客群分類": [
+      "use-case-cards"
+    ],
+    "研究脈絡": [
+      "research-flow"
+    ],
+    "章節開場的大哉問": [
+      "centered-question-evidence"
+    ],
+    "端到端流程": [
+      "service-flow"
+    ],
+    "競品分布": [
+      "positioning-matrix"
+    ],
+    "競品分析": [
       "positioning-matrix"
     ],
     "第一優先/第二優先": [
       "ranked-list"
     ],
+    "統一名詞": [
+      "terminology-cards"
+    ],
+    "編號重點配圖表": [
+      "numbered-rows"
+    ],
+    "術語定義": [
+      "terminology-cards"
+    ],
+    "親和圖": [
+      "interview-affinity"
+    ],
+    "訪談收斂": [
+      "interview-affinity"
+    ],
+    "設計想法": [
+      "idea-evidence"
+    ],
+    "設計想法與支持數據": [
+      "idea-evidence"
+    ],
+    "講的是同一件事": [
+      "terminology-cards"
+    ],
+    "質化量化並排": [
+      "qual-quant-split"
+    ],
+    "這個畫面能做什麼": [
+      "feature-showcase"
+    ],
+    "這是什麼能做什麼": [
+      "product-hero"
+    ],
+    "連成一個整體": [
+      "linked-circles"
+    ],
     "連結": [
       "linked-circles"
+    ],
+    "連續體": [
+      "linked-circles"
+    ],
+    "重新定義問題": [
+      "research-flow"
     ]
   },
   "entries": {
@@ -674,7 +947,11 @@
         "background thesis + proof",
         "a question to anchor a section",
         "stat + chart + logos together",
-        "evidence trio"
+        "evidence trio",
+        "提問開場",
+        "用問題破題",
+        "一個提問配並列證據",
+        "章節開場的大哉問"
       ],
       "spec": "specs/layouts/centered-question-evidence.md",
       "example": "examples/light-08-evidence-trio.html",
@@ -821,7 +1098,11 @@
         "human-agent worked example",
         "assistant-led workflow",
         "scattered inputs to shared intent",
-        "real UI with Q&A"
+        "real UI with Q&A",
+        "工作坊怎麼進行",
+        "有人味的說明",
+        "引導流程說明",
+        "實際畫面加問答"
       ],
       "spec": "specs/layouts/editorial-explainer-stage.md",
       "example": "examples/editorial-explainer-stage.html",
@@ -913,7 +1194,11 @@
       "triggers": [
         "3–4 features",
         "what's included",
-        "a 2×2 of capabilities each with an icon + blurb"
+        "a 2×2 of capabilities each with an icon + blurb",
+        "功能一覽",
+        "幾個功能平均排開",
+        "功能卡片並列",
+        "包含哪些功能"
       ],
       "spec": "specs/layouts/feature-grid.md",
       "example": "examples/light-feature-grid.html",
@@ -944,7 +1229,11 @@
         "app screens to show",
         "this screen does X",
         "annotated UI",
-        "a detail page walkthrough"
+        "a detail page walkthrough",
+        "功能畫面解說",
+        "這個畫面能做什麼",
+        "標註過的介面",
+        "功能如何化解不安"
       ],
       "spec": "specs/layouts/feature-showcase.md",
       "example": "examples/light-feature-showcase.html",
@@ -1004,7 +1293,11 @@
         "a core concept + surrounding facets",
         "a center-out model",
         "X connects A/B/C/D",
-        "a framework hub"
+        "a framework hub",
+        "核心概念放中間",
+        "中心加周邊面向",
+        "一個主軸展開幾個面向",
+        "放射狀架構"
       ],
       "spec": "specs/layouts/hero-radial.md",
       "example": "examples/light-hero-radial.html",
@@ -1062,7 +1355,12 @@
       "triggers": [
         "an idea/claim + a supporting chart or stat",
         "we think X — here's why",
-        "two-column idea vs proof"
+        "two-column idea vs proof",
+        "想法配證據",
+        "一個主張加佐證",
+        "設計想法與支持數據",
+        "設計想法",
+        "想法與佐證"
       ],
       "spec": "specs/layouts/idea-evidence.md",
       "example": "examples/light-idea-evidence.html",
@@ -1092,7 +1390,11 @@
         "interview groups/segments",
         "affinity mapping",
         "across N groups we heard…",
-        "persona columns + insight"
+        "persona columns + insight",
+        "訪談收斂",
+        "幾組訪談的共同洞察",
+        "親和圖",
+        "分組訪談結果彙整"
       ],
       "spec": "specs/layouts/interview-affinity.md",
       "example": "examples/light-interview-affinity.html",
@@ -1121,7 +1423,11 @@
       "triggers": [
         "3–4 values or principles",
         "our keywords",
-        "parallel ideas each with a short explanation"
+        "parallel ideas each with a short explanation",
+        "核心理念",
+        "幾個關鍵字等重呈現",
+        "我們的準則",
+        "理念並列呈現"
       ],
       "spec": "specs/layouts/keyword-cards.md",
       "example": "examples/light-keyword-cards.html",
@@ -1179,7 +1485,11 @@
         "連結",
         "connected",
         "a continuum of 3–5 parts",
-        "TX/total-X framing"
+        "TX/total-X framing",
+        "環環相扣",
+        "連成一個整體",
+        "概念相連",
+        "連續體"
       ],
       "spec": "specs/layouts/linked-circles.md",
       "example": "examples/light-linked-circles.html",
@@ -1288,7 +1598,10 @@
         "1/2/3 points each with data",
         "multi-point findings",
         "numbered explainer rows",
-        "background points with charts"
+        "background points with charts",
+        "依序的重點",
+        "編號重點配圖表",
+        "每個重點各一張圖表"
       ],
       "spec": "specs/layouts/numbered-rows.md",
       "example": "examples/light-07-numbered-rows.html",
@@ -1320,7 +1633,11 @@
         "painpoint N",
         "a problem + participant quotes",
         "geographic concentration",
-        "evidence for a problem"
+        "evidence for a problem",
+        "痛點佐證",
+        "一個痛點加引述",
+        "問題的證據",
+        "使用者困擾與數據"
       ],
       "spec": "specs/layouts/painpoint-evidence.md",
       "example": "examples/light-painpoint-evidence.html",
@@ -1353,7 +1670,11 @@
         "user archetype",
         "two personas",
         "behavior traits + pain points",
-        "a quote + profile"
+        "a quote + profile",
+        "使用者輪廓",
+        "人物誌",
+        "主要使用者與他們的困擾",
+        "使用者樣貌"
       ],
       "spec": "specs/layouts/persona-cards.md",
       "example": "examples/light-persona-cards.html",
@@ -1418,7 +1739,11 @@
         "2 dimensions low↔high",
         "option/brand markers",
         "a target/goal point",
-        "目標定位"
+        "目標定位",
+        "競品分析",
+        "市場定位",
+        "兩軸象限",
+        "競品分布"
       ],
       "spec": "specs/layouts/positioning-matrix.md",
       "example": "examples/light-positioning-matrix.html",
@@ -1449,7 +1774,9 @@
         "問題/解法",
         "as-is vs to-be",
         "two opposing states",
-        "pain → fix"
+        "pain → fix",
+        "問題與解法",
+        "痛點與對策"
       ],
       "spec": "specs/layouts/problem-solution.md",
       "example": "examples/light-problem-solution.html",
@@ -1480,7 +1807,11 @@
         "landing/hero",
         "value proposition + CTAs",
         "a product UI to show off",
-        "proof stats"
+        "proof stats",
+        "產品介紹",
+        "產品首頁式介紹",
+        "這是什麼能做什麼",
+        "產品主視覺"
       ],
       "spec": "specs/layouts/product-hero.md",
       "example": "examples/light-product-hero.html",
@@ -1511,7 +1842,10 @@
       "triggers": [
         "quotes AND stats together",
         "what users said + how many",
-        "a hypothesis backed by both"
+        "a hypothesis backed by both",
+        "原話配數據",
+        "質化量化並排",
+        "使用者說什麼加多少人"
       ],
       "spec": "specs/layouts/qual-quant-split.md",
       "example": "examples/light-qual-quant-split.html",
@@ -1604,7 +1938,11 @@
         "HMW",
         "how might we",
         "desk research",
-        "findings + sources"
+        "findings + sources",
+        "研究脈絡",
+        "從背景推導到問題",
+        "重新定義問題",
+        "桌面研究"
       ],
       "spec": "specs/layouts/research-flow.md",
       "example": "examples/dark-05-research-flow.html",
@@ -1640,7 +1978,11 @@
         "成果",
         "before → after",
         "2–4 outcome metrics each with a one-line reason",
-        "an achievements recap"
+        "an achievements recap",
+        "成效數字",
+        "專案成果",
+        "帶來的改變",
+        "成效指標"
       ],
       "spec": "specs/layouts/results-grid.md",
       "example": "examples/light-results-grid.html",
@@ -1674,7 +2016,11 @@
         "branches",
         "swimlanes by user type",
         "start → ends",
-        "an end-to-end process shown whole"
+        "an end-to-end process shown whole",
+        "服務流程",
+        "整體流程",
+        "端到端流程",
+        "從頭到尾"
       ],
       "spec": "specs/layouts/service-flow.md",
       "example": "examples/light-service-flow.html",
@@ -1733,7 +2079,10 @@
         "3-6 repeated questions",
         "questionnaire",
         "sample size + demographics",
-        "問卷"
+        "問卷",
+        "問卷結果",
+        "每題一列",
+        "受訪者樣本"
       ],
       "spec": "specs/layouts/survey-stack.md",
       "example": "examples/light-03-survey-stack.html",
@@ -1822,7 +2171,10 @@
         "key terms",
         "definitions",
         "3 terms",
-        "名詞解釋"
+        "名詞解釋",
+        "統一名詞",
+        "術語定義",
+        "講的是同一件事"
       ],
       "spec": "specs/layouts/terminology-cards.md",
       "example": "examples/dark-06-terminology.html",
@@ -1853,7 +2205,12 @@
         "Gantt",
         "phases over dates",
         "journey",
-        "project plan"
+        "project plan",
+        "時程",
+        "專案階段",
+        "各階段產出",
+        "時間軸",
+        "專案規劃"
       ],
       "spec": "specs/layouts/timeline.md",
       "example": "examples/light-timeline.html",
@@ -1914,7 +2271,11 @@
         "use cases",
         "audience segments",
         "serving every X",
-        "3 customer types each with an illustration"
+        "3 customer types each with an illustration",
+        "服務哪些客群",
+        "應用情境",
+        "目標客群分類",
+        "使用情境"
       ],
       "spec": "specs/layouts/use-case-cards.md",
       "example": "examples/light-use-case-cards.html",
@@ -1944,7 +2305,10 @@
       "triggers": [
         "why X?",
         "2–3 value points each with a paragraph + a backing visual/tag cluster",
-        "a sell slide"
+        "a sell slide",
+        "為什麼選我們",
+        "價值主張加佐證",
+        "我們的優勢"
       ],
       "spec": "specs/layouts/value-points.md",
       "example": "examples/light-value-points.html",

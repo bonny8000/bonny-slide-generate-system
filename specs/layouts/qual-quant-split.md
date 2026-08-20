@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: make a finding both felt and proven — user voices beside the matching numbers
-triggers: [quotes AND stats together, "what users said + how many", a hypothesis backed by both]
+triggers: [quotes AND stats together, "what users said + how many", a hypothesis backed by both, 原話配數據, 質化量化並排, 使用者說什麼加多少人]
 depends_on: [quote-bubble, stat-bar, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

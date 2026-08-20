@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable         # example built + validated: examples/light-results-grid.html (Round-1 open layout)
 intent: prove impact across several outcomes / show what the work achieved
-triggers: [results, 成果, "before → after", 2–4 outcome metrics each with a one-line reason, an achievements recap]
+triggers: [results, 成果, "before → after", 2–4 outcome metrics each with a one-line reason, an achievements recap, 成效數字, 專案成果, 帶來的改變, 成效指標]
 depends_on: [metric-card, delta-metric, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: contrast the problem with the solution so the solution lands as the answer
-triggers: [problem/solution, 問題/解法, as-is vs to-be, two opposing states, pain → fix]
+triggers: [problem/solution, 問題/解法, as-is vs to-be, two opposing states, pain → fix, 問題與解法, 痛點與對策]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional
