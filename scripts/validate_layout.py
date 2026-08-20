@@ -633,6 +633,11 @@ def evaluate(
     return failures
 
 
+def is_deck_container(html: str) -> bool:
+    """True when the page holds more than one slide, i.e. it is a viewer rather than a slide."""
+    return len(re.findall(r'class="(?:[^"]* )?slide[ "]', html)) > 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("slides", nargs="+", type=Path, help="built slide HTML file(s)")
@@ -696,6 +701,13 @@ def main() -> int:
             failed += 1
             continue
         html = slide.read_text(encoding="utf-8", errors="replace")
+        if is_deck_container(html):
+            # A scroll-through viewer holding many slides is not a slide. Rendering it at 1920x1080
+            # measures a wall of frames and reports 100% coverage - a real number about the wrong
+            # object. The slides inside it are gated individually, where the answer means something.
+            print(f"skip {slide}  [deck container - gate its slides individually]")
+            report["slides"].append({"slide": str(slide), "skipped": "deck-container"})
+            continue
         kind = slide_kind(html)
         try:
             png = render_with_any(slide, browsers, args.width, args.height, args.scale)

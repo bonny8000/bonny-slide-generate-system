@@ -3,6 +3,22 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.12.2 — the gate stops measuring a deck viewer as a slide
+- **`deck-demo-scroll.html` was never a slide.** It holds eight `.frame`/`.slide` elements — a
+  scroll-through viewer. Rendering it at 1920×1080 measured a wall of frames and reported "太擠, 100%
+  coverage": a real number about the wrong object. `validate_layout.py` now detects a page with more
+  than one slide and skips it, saying why. The slides inside are gated individually, where the answer
+  means something. **16 failures → 15.**
+- **Four attempted fixes for the remaining 15, all reverted, all recorded in
+  `foundations/layout-balance.md`.** Growing every figure primitive changed 162 renders and fixed
+  zero slides. Stretching a grown row's cards moved the dead band inside the cards. Distributing a
+  stretched card's content *passed the gate* and looked clearly worse — content flung to the card's
+  extremes. Re-anchoring turned one failure into three.
+- The conclusion is worth more than the fixes would have been: **a slide short on content cannot be
+  fixed by geometry** — every lever only moves where the emptiness sits. The remaining 15 need
+  material that earns the space, a cut, or an explicit sparse classification. That is a content
+  decision, not a CSS one.
+
 ## v12.12.1 — phone mocks measured in iOS points; a sync bug that reverted base.css
 Three fixes from user review, one of which was quietly undoing every stylesheet change.
 

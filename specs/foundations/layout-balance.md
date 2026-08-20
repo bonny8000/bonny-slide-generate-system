@@ -120,3 +120,26 @@ the layout gate rejects raw colour.
 Shadows convey **depth, not drama**. Use the subtle `--shadow-card` / `--shadow-pop` tokens — never a
 heavy, dark, far-spread shadow. Most flat cards need **no** shadow at all; reserve elevation for things
 that genuinely float (popups, device mockups, overlays), and keep even those soft.
+
+## Things that do NOT fix a starved slide
+
+Measured attempts, all reverted. Recorded so they are not retried: each one moved the metric without
+improving the slide, and two made it visibly worse.
+
+- **Growing the figure primitives.** `.barchart` 300→400, `.linechart`/`.kpibars` 260→360,
+  `.bubbles`/`.evcard` 300→380. Changed all 162 renders and fixed **zero** failures — the identical
+  15 slides failed before and after. A taller chart in a slide that is short on content just moves
+  the gap.
+- **Stretching a grown row's cards** (`align-items:stretch` when the row carries `.grow`). The dead
+  band above the cards closed and reappeared *inside* them as stretched empty surface. Emptiness
+  relocated, not removed.
+- **Distributing a stretched card's own content** (`justify-content:space-between`). This one
+  **passed the gate** — `light-keyword-cards` went from FAIL to pass at 34% whitespace — and looked
+  clearly worse: label, title and body flung to the card's extremes with holes between them. It
+  reads as broken rather than designed. A pass bought this way is worth less than the failure.
+- **Re-anchoring the page** (`.slide.top` on and off, centring the body). Turned one failure into
+  three. The footer is pinned near the canvas bottom, so centring the body only opens a gap above it.
+
+The pattern: **a slide short on content cannot be fixed by geometry.** Every lever moves where the
+emptiness sits. The honest fixes are to add material that earns the space, to cut the slide, or to
+accept it as a deliberately airy page and give it one of the `SPARSE_CLASSES`.
