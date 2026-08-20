@@ -90,6 +90,11 @@ consistency drifts.
    `specs/foundations/storytelling.md`; place covers/section-covers/bridges). Run the editorial-explainer
    suitability gate after naming each intention. Save every yes/no decision in the deck's
    `illustration-plan.json`; each record includes `trigger`, `hard_candidate`, `gate`, and `reason`.
+   **A routed layout whose `assetPolicy` is `generate` and whose artwork the user did not supply is
+   itself a `gate: yes` trigger** — record it as `material:illustration` and generate. Do not dodge it
+   by swapping to a text-only layout; that turns a routing decision into a silent visual compromise.
+   Covers, section covers, bridges, agenda and closing pages are always `gate: no`, reason
+   `structural-page` — their job is punctuation, not explanation.
    A hard candidate may use `gate: no` only with an explicit precision override. An omitted decision is a
    build error. **No components or layouts yet.**
 4. **Map — visuals second:** for each planned page, **write one normalised line before you look
@@ -109,7 +114,15 @@ consistency drifts.
    8/10; skipping the normalised line is the single biggest cause of picking the wrong layout.
 
    Then read that row's `content-map.md` entry for the
-   detection heuristic and component pairing. The router is the complete list — if you are about to invent
+   detection heuristic and component pairing.
+
+   **When the router leaves two or more candidates, apply `foundations/layout-choice.md` in order:**
+   availability → fit → variety → intent proximity. Availability is a hard filter, not a preference:
+   a layout whose `assetPolicy` is `must-supply` is **disqualified** when the user has not supplied
+   that screenshot, because a ui-screen may never be generated. Fall back to that layout's
+   `alternates` (same arrangement, different material) — no screenshots turns `as-is-to-be` into
+   `problem-solution`. Fit outranks variety: a repeated layout that fills the page beats a fresh one
+   that starves it. The router is the complete list — if you are about to invent
    a layout, you have missed one. Then find its shape in `specs/content-map.md` → layout + components.
    Human/agent workflows, conversational worked examples, workshop instructions, and scattered-input
    transformations are hard candidates: choose the generated route unless exact data/table/UI evidence must

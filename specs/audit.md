@@ -92,6 +92,13 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 
 ### Component / layout conformance
 - [ ] Each slide maps to a real layout in `layouts/`; components used per their spec. — major
+- [ ] Where two layouts were candidates, `foundations/layout-choice.md` order was applied:
+      availability → fit → variety → intent. — major
+- [ ] No layout with `assetPolicy: must-supply` was used without a real supplied screenshot; no
+      ui-screen was generated, traced, or rebuilt in CSS to stand in for one. — blocker
+- [ ] Every routed layout with `assetPolicy: generate` and no supplied artwork has a `gate: yes`
+      record; none was silently swapped to a text-only layout to dodge generation. — blocker
+- [ ] `itemCount` matches the real item count — no `few` content stretched across a `many` layout. — major
 - [ ] `depends_on` respected (no upward/hidden deps). — minor
 
 ### Hypertoken pipeline

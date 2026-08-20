@@ -3,6 +3,34 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.11 — a standard for choosing between candidates, and illustration as a routed decision
+Two follow-ons from the shape axis. Both were only buildable once `material` existed as data.
+
+- **New `specs/foundations/layout-choice.md`** — the ordered comparison method for when the router
+  narrows to two or more, compiled into `selectionPolicy.tieBreak` in `router.json`:
+  **availability → fit → variety → intent proximity.**
+- **Fit outranks variety, deliberately.** Reaching for a fresh layout at the cost of a well-filled
+  page is the more common mistake and the more visible one: the audience sees a thin slide
+  immediately and never notices the layout also appeared four pages ago. Variety is a preference
+  above a quality floor, not a rule that can override it. Fit is not taste either — a `few` content
+  set stretched across a `many` layout is the same starvation `validate_layout.py` measures after the
+  fact, so choosing for fit is how you stop fighting that gate.
+- **Every layout now carries `assetNeed`, `assetPolicy` and `alternates`,** derived from `material`.
+  18 of 25 need no asset, 3 auto-trigger illustration generation, 4 need a real screenshot.
+- **Missing illustration is now a routed decision, not a judgement call.** A layout with
+  `assetPolicy: generate` and no supplied artwork is itself a `gate: yes` trigger, recorded as
+  `material:illustration`. Silently swapping to a text-only layout to dodge generation is called out
+  as what it is — turning a routing decision into a visual compromise. Covers, section covers,
+  bridges, agenda and closing pages stay `gate: no` with reason `structural-page`.
+- **A ui-screen may never be generated, and that is now enforced by the routing itself.** Material
+  `ui-screen` compiles to `assetPolicy: must-supply`, which the tie-break treats as a hard
+  disqualification rather than a preference — a fabricated screenshot of a real product is a false
+  record of it. `alternates` gives the fallback: no screenshots turns `as-is-to-be` into
+  `problem-solution`, both `opposed`. `product-hero` and `editorial-explainer-stage` have no
+  alternate, so they force a question to the user instead of a substitution.
+- `audit.md` gains four checks, two of them blockers: no generated stand-in for a required
+  screenshot, and no silent swap away from a generate-policy layout.
+
 ## v12.10 — routing gets a second axis, and the Korean ban comes off
 The user's reframe: intention is language-independent, so neither the input language nor the router's
 own language should change which layout a page needs. Both changes follow from that.
