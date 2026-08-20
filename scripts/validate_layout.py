@@ -314,7 +314,16 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
             "whitespace_ratio": 1 - coverage,
         }
 
-    top, bottom = rows[0], height - 1 - rows[-1]
+    # Work out where the CONTENT ends before measuring anything, so a footer pinned 42px off the
+    # canvas bottom does not become the slide's lower edge. It always did, which made the bottom
+    # margin ~20px on every slide and turned any honest top margin into a lopsided band failure.
+    band_rows = [any(occupied[r]) for r in range(GRID_ROWS)]
+    filled = [r for r, v in enumerate(band_rows) if v]
+    content_last = trim_page_chrome(band_rows, filled)
+    content_bound = int((content_last + 1) * height / GRID_ROWS)
+    body_rows = [r for r in rows if r < content_bound] or rows
+
+    top, bottom = rows[0], height - 1 - body_rows[-1]
     left, right = cols[0], width - 1 - cols[-1]
     margins = {"top": top, "bottom": bottom, "left": left, "right": right}
     quadrant_share = [q / occupied_count for q in quadrants]
@@ -322,10 +331,8 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
     # The most common real failure is a void INSIDE the content, not at its edges: a slide whose
     # top/bottom margins look even but whose lower half is dead. Margins cannot see that, so
     # measure the longest empty band between the first and last occupied cell-row.
-    band_rows = [any(occupied[r]) for r in range(GRID_ROWS)]
-    filled = [r for r, v in enumerate(band_rows) if v]
     longest_gap = run = 0
-    for r in range(filled[0], filled[-1] + 1):
+    for r in range(filled[0], content_last + 1):
         run = 0 if band_rows[r] else run + 1
         longest_gap = max(longest_gap, run)
     interior_gap = longest_gap / GRID_ROWS
@@ -482,6 +489,39 @@ SPARSE_CLASSES = {
     "toc", "agenda", "context", "thanks", "appreciation", "closing",
 }
 SLIDE_CLASS_RE = re.compile(r"""class\s*=\s*["']([^"']*\bslide\b[^"']*)["']""", re.I)
+
+
+CHROME_MAX_ROWS = 2      # a footer is one line of small type, never a block
+CHROME_ZONE = 0.88       # ...and it lives in the bottom slice of the canvas
+
+
+def trim_page_chrome(band_rows: list[bool], filled: list[int]) -> int:
+    """Last row of real CONTENT, ignoring a footer or page number pinned to the canvas bottom.
+
+    Page chrome is not content. It is one line of small muted type in the same place on every slide,
+    and a designer does not compose against it. But it is the last ink on the canvas, so measuring
+    the content extent to it charged every slide for the gap above its own footer — a slide whose
+    content ended at 70% height was reported as having a 25% dead band it could only "fix" by
+    stretching something into the footer's lap. That penalised composition rather than measuring it,
+    and it is why a well-made sparse slide could not pass no matter how it was arranged.
+
+    Chrome is recognised structurally, not by class name, since this works from pixels: a run of at
+    most CHROME_MAX_ROWS cell-rows, starting inside the bottom CHROME_ZONE of the canvas, separated
+    from the body by at least one empty row. Anything thicker or higher up is content and still
+    counts, so a slide that genuinely dies before the bottom is still caught.
+    """
+    last = filled[-1]
+    start = last
+    while start - 1 >= 0 and band_rows[start - 1]:
+        start -= 1
+    if start == filled[0]:
+        return last  # one contiguous block: there is no separated chrome
+    if (last - start + 1) > CHROME_MAX_ROWS:
+        return last
+    if start / GRID_ROWS < CHROME_ZONE:
+        return last
+    body = [r for r in filled if r < start]
+    return body[-1] if body else last
 
 
 def slide_kind(html: str) -> str:

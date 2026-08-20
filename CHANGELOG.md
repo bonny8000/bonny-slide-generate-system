@@ -3,6 +3,31 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.13 — compose starved slides as a centred group; 15 balance failures → 7
+The user's read of a failing render turned out to be the fix the previous session had given up on.
+
+- **The footer was being measured as content.** `.foot` is pinned 42px off the canvas bottom on every
+  slide, and the gate measured the content extent down to it. That made the bottom margin ~20px
+  everywhere and charged every slide for the gap above its own page furniture — a slide whose content
+  ended at 70% height was reported as a 25% dead band it could only "fix" by stretching something into
+  the footer's lap. `trim_page_chrome()` now excludes a thin run pinned to the canvas bottom before
+  measuring both the interior gap and the top/bottom balance, recognised structurally (≤2 cell-rows,
+  bottom 12%, separated) because the gate works from pixels and cannot read class names.
+- **The composition rule, and it came from looking at the render.** Pinning the header to the top and
+  letting the body row `.grow` into the leftover space opens *two* holes — one under the header, one
+  above the footer — and the eye reads two fragments instead of one statement. Bringing the header
+  down against its content so they read as a single block, and letting the leftover become even margin,
+  fixes both at once. Applied across the library: **15 failures → 7.** `feature-grid`,
+  `idea-evidence`, `interview-affinity`, `keyword-cards`, `linked-circles`, `metric-cards`,
+  `product-hero` and `service-flow` are now balanced compositions rather than starved ones, each
+  verified by rendering it.
+- `.grow` is for content that genuinely has the mass to fill the body. It is not a way to make a short
+  slide look tall — that is now written into `foundations/layout-balance.md` alongside the four
+  reverted attempts that prove it.
+- **README rewritten** for the two-axis router, multilingual triggers, the tie-break order, the
+  routing gate and its held-out score, and an honest note that three separate changes have now passed
+  every gate while looking worse.
+
 ## v12.12.2 — the gate stops measuring a deck viewer as a slide
 - **`deck-demo-scroll.html` was never a slide.** It holds eight `.frame`/`.slide` elements — a
   scroll-through viewer. Rendering it at 1920×1080 measured a wall of frames and reported "太擠, 100%

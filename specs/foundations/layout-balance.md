@@ -121,6 +121,40 @@ Shadows convey **depth, not drama**. Use the subtle `--shadow-card` / `--shadow-
 heavy, dark, far-spread shadow. Most flat cards need **no** shadow at all; reserve elevation for things
 that genuinely float (popups, device mockups, overlays), and keep even those soft.
 
+## When content does not fill the canvas, compose it as a centred group
+
+This is the fix, and it is a composition decision rather than a geometry one.
+
+The instinct when a slide is short on content is to pin the header to the top and let the body row
+`.grow` into the leftover space. That produces the worst of both: a hole under the header, and a
+second hole between the floating row and the bottom of the page. The row occupies the height without
+using it, and the eye reads two unrelated fragments instead of one statement.
+
+**Bring the header down against its content so the two read as a single block, and let the leftover
+space become even margin above and below it.** Mechanically: drop `.grow` from the body row and stop
+forcing `justify-content:flex-start`, so the slide's default centring takes over.
+
+Applied across the library this took the gate from 15 failures to 7 — `feature-grid`,
+`idea-evidence`, `interview-affinity`, `keyword-cards`, `linked-circles`, `metric-cards`,
+`product-hero` and `service-flow` all became balanced compositions rather than starved ones, and each
+was checked by rendering it, not by trusting the number.
+
+Use `.grow` when the content genuinely has the mass to fill the body. It is not a way to make a short
+slide look tall.
+
+## The footer is chrome, not content
+
+`.foot` is pinned 42px off the canvas bottom on every slide. The gate used to measure the content
+extent down to it, which made the bottom margin ~20px on every slide and charged each one for the gap
+above its own footer. A slide whose content ended at 70% height was reported as having a 25% dead
+band it could only "fix" by stretching something into the footer's lap.
+
+`trim_page_chrome()` now excludes a thin run of rows pinned to the canvas bottom before measuring
+both the interior gap and the top/bottom balance. It is recognised structurally — at most two
+cell-rows, inside the bottom 12%, separated from the body — because the gate works from pixels and
+cannot see class names. Anything thicker or higher up is still content, so a slide that genuinely
+dies before the bottom is still caught.
+
 ## Things that do NOT fix a starved slide
 
 Measured attempts, all reverted. Recorded so they are not retried: each one moved the metric without

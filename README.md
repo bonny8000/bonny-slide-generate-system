@@ -34,22 +34,44 @@ The core rule is simple: **decide what the slide must do before deciding what it
 | Foundation rules | 13 | Story, typography, imagery, colour, balance, audit, learning, and source sync |
 | Stable components | 19 | Reusable evidence, metric, comparison, UI, quote, and support patterns |
 | Stable layouts | 25 | Whole-slide structures selected by communicative intention |
-| HTML examples | 164 | Individual examples, audit builds, and short deck sequences |
+| HTML examples | 162 | Individual examples, audit builds, and short deck sequences |
 | Preference rounds | 50 | Render-tested A/B choices distilled into transferable principles |
 | Hypertokens | 5 | Reusable surface, type, layout, and image implementation fragments |
 | Pilot recipes | 3 | Slot mappings for metric cards, evidence cards, and feature showcases |
 | Editorial variants | 4 | Workshop, guided dialogue, workflow transformation, and real-UI Q&A |
 | Routable patterns | 44 | Compiled from spec frontmatter into `system/router.json` + `specs/generated-router.md` |
-| Enforcement gates | 4 | Token/routing drift, example staleness, illustration provenance, and rendered layout balance |
+| Enforcement gates | 6 | Token/routing drift, example staleness, illustration provenance, rendered layout balance, render fingerprints, and intention routing |
 
 ## Routing
 
 ![Routing is a lookup, not a guess](assets/readme/03-router.svg)
 
-Each spec declares what it is FOR (`intent`) and what content should summon it (`triggers`). The compiler
-turns every one of those into a single index, so choosing a layout is a lookup rather than a judgement call
-made afresh each time — and a pattern that falls out of the index fails the build rather than going quietly
-missing.
+Each spec declares what it is FOR (`intent`), what material the slide holds (`material` /
+`arrangement` / `item_count`) and what phrasing should summon it (`triggers`). The compiler turns all
+of it into a single index, so choosing a layout is a lookup rather than a judgement call made afresh
+each time — and a pattern that falls out of the index fails the build rather than going quietly missing.
+
+**Routing keys on two axes, and the second is the decisive one.** Measured on this library, the
+`intent` lines alone identify **13 of 25** layouts: several pairs share a job and separate only on the
+material they need. `idea-evidence` and `painpoint-evidence` both back a claim with evidence, one with
+a chart and one with participant quotes; `hero-radial` and `linked-circles` both arrange concepts, one
+as a centre with satellites and one as a continuum. The shape triple alone identifies **24 of 25**, so
+shape decides and intent breaks the remaining tie.
+
+Before any lookup the planner writes one normalised line — `意圖: … · 形狀: material / arrangement /
+count` — derived from the content actually in hand rather than the layout being hoped for. On held-out
+requests that took routing from 4/10 to 8/10, with nothing left unresolved.
+
+Triggers are deliberately multilingual (繁中, English, Korean). **Intention does not change with the
+language it is written in**, and much of this library was learned from Korean reference decks, so
+deleting that vocabulary deleted recognition rather than risk. Output language is a separate concern,
+enforced at render time by `validate_layout.py --lang`.
+
+Where the router leaves more than one candidate, `specs/foundations/layout-choice.md` decides in a
+fixed order — **availability → fit → variety → intent proximity**. Availability is a hard filter: a
+layout needing a real screenshot the user has not supplied is disqualified rather than faked, while a
+missing *illustration* is a routed decision to generate one. Fit outranks variety, because a repeated
+layout that fills the page beats a fresh one that starves it.
 
 ## What Is Enforced
 
@@ -64,17 +86,30 @@ python scripts/sync_examples.py --check     # an example carrying its own stale 
 python scripts/validate_layout.py DECK.html # renders the slide and measures balance and density
 python scripts/verify_rebuild.py            # can each pattern be rebuilt from base.css alone?
 python scripts/visual_baseline.py diff      # did anything change visually that was not meant to?
+python scripts/validate_routing.py          # does a real request reach the right layout?
 ```
 
 **What they catch:** a layout with no route, a trigger the planner can never match, a blank or
 unstyled render, a dead band inside the content, a stretched container, copy in a language the deck
 did not declare, raw colour outside the token layer, and a deck of 8+ slides with no visual moment.
 
-**What they do not catch:** whether the slide is any good. Twice during v12.9 a change passed every
-gate and looked worse; both times only the screenshot caught it. One blind spot is known and
-documented — the emptiness checks scan rows across the whole canvas, so a card inflated in one
-column can hide behind a neighbouring column's text. Treat a pass as a floor, not a verdict, and
-look at the render.
+`validate_routing.py` runs two fixtures and the gap between them is the point. The working set scores
+30/30 because triggers were sharpened against it, which makes that number nearly meaningless; the
+held-out set was written afterwards without consulting any trigger list and scores **8/10**. Trust the
+held-out one, and if you ever tune against it, it is spent — write a new one.
+
+**What they do not catch:** whether the slide is any good. Three times now a change has passed every
+gate and looked worse — most recently a card layout that went FAIL to pass at 34% whitespace with its
+label, title and body flung to the card's extremes. A pass bought that way is worth less than the
+failure. Both blind spots are documented: the emptiness checks scan rows across the whole canvas, so a
+card inflated in one column can hide behind a neighbouring column's text; and the routing score is a
+lexical lower bound, since the agent matches semantically and will do better. Treat a pass as a floor,
+not a verdict, and look at the render.
+
+Where content genuinely does not fill the canvas, no gate setting fixes it and neither does geometry —
+growing figures, stretching rows and re-anchoring the page were all measured and all reverted. What
+works is composition: bring the header down against its content so the two read as one block and let
+the leftover become even margin. That took the balance gate from 15 failures to 7.
 
 ## System Structure
 
@@ -177,7 +212,8 @@ A deck is complete only when the rendered pages pass the system:
 - one claim per slide;
 - a complete illustration plan with valid provenance;
 - no silent downgrade of hard candidates;
-- balanced whole-page composition and readable density;
+- balanced whole-page composition and readable density, measured on the rendered pixels;
+- no visual drift against the recorded render fingerprints;
 - at least one or two genuine visual moments in decks of eight or more pages; and
 - re-rendered evidence that the weakest page has been corrected.
 
@@ -216,7 +252,7 @@ Use `assets/base.css` for linked HTML. For self-contained HTML, inline
 
 ---
 
-**v12.9 · August 2026** — intention routing compiled into a drift-checked index; layout balance,
-declared output language and deck pacing enforced by rendered gates rather than described in prose;
-examples reduced to pure reference so they can no longer drift behind the specs; and a slimmed
-operating manual.
+**v12.12 · August 2026** — routing now keys on intention *and* content shape, measured rather than
+assumed; triggers are multilingual because intention is language-independent; layout choice, asset
+policy and illustration triggering are declared data rather than judgement; UI mockups are measured in
+device points; and every claim in this file is backed by a number some check produced.
