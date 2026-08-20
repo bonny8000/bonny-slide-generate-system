@@ -8,6 +8,7 @@ triggers: [framing question, "is there a gap?", background thesis + proof, a que
 material: stat+chart+logo
 arrangement: question-then-proof
 item_count: few
+alternates: []
 depends_on: [evidence-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

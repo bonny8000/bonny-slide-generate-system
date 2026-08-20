@@ -8,6 +8,7 @@ triggers: [1/2/3 points each with data, multi-point findings, numbered explainer
 material: chart
 arrangement: rows
 item_count: few
+alternates: []
 depends_on: [numbered-row, line-chart, barchart, pie-donut, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

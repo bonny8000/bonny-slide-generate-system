@@ -8,6 +8,7 @@ triggers: [overlapping circles, Venn, 環環相連, connected, a continuum of 3�
 material: text-only
 arrangement: continuum
 item_count: few
+alternates: [hero-radial]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

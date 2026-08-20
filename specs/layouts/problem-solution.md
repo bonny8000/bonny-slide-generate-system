@@ -8,6 +8,7 @@ triggers: [problem/solution, 問題/解法, as-is vs to-be, two opposing states,
 material: text-only
 arrangement: opposed
 item_count: pair
+alternates: [as-is-to-be]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional

@@ -8,6 +8,7 @@ triggers: [interview groups/segments, affinity mapping, "across N groups we hear
 material: quote
 arrangement: converge
 item_count: many
+alternates: []
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

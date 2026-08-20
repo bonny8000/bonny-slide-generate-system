@@ -8,6 +8,7 @@ triggers: ["painpoint N", a problem + participant quotes, geographic concentrati
 material: quote
 arrangement: split
 item_count: one
+alternates: [qual-quant-split]
 depends_on: [quote-bubble, geo-map, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional

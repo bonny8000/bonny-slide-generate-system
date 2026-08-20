@@ -8,6 +8,7 @@ triggers: [survey results, "Q&A results", 3-6 repeated questions, questionnaire,
 material: stat
 arrangement: rows
 item_count: many
+alternates: []
 depends_on: [pie-donut, barchart, hbar, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

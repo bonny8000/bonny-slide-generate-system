@@ -8,6 +8,7 @@ triggers: [quotes AND stats together, "what users said + how many", a hypothesis
 material: quote+stat
 arrangement: split
 item_count: few
+alternates: [painpoint-evidence]
 depends_on: [quote-bubble, stat-bar, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

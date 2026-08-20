@@ -8,6 +8,7 @@ triggers: [glossary, what we mean by X, X means..., key terms, definitions, 3 te
 material: text-only
 arrangement: grid
 item_count: few
+alternates: [keyword-cards]
 depends_on: [terminology-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: required

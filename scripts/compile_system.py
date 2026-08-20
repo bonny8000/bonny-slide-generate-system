@@ -515,6 +515,7 @@ def load_specs() -> dict[str, dict[str, Any]]:
                 "material": str(data.get("material", "")).strip(),
                 "arrangement": str(data.get("arrangement", "")).strip(),
                 "itemCount": str(data.get("item_count", "")).strip(),
+                "alternates": data.get("alternates", []) or [],
                 "triggers": triggers,
                 "spec": where,
                 "example": example,
@@ -687,44 +688,59 @@ def render_router_json(specs: dict[str, dict[str, Any]]) -> str:
 def annotate_assets_and_alternates(specs: dict[str, dict[str, Any]]) -> None:
     """Give every layout its asset requirement and its same-shape fallbacks.
 
-    `alternates` is layouts sharing the same `arrangement` — they lay the page out the same way and
-    differ in the material they need. That is precisely the set to fall back to when the material is
-    unavailable: no screenshots turns `as-is-to-be` into `problem-solution`, both `opposed`; no
-    illustrations turns `use-case-cards` into `feature-grid` or `keyword-cards`, all `grid`.
+    `alternates` is hand-declared, and the first attempt shows why it has to be. Deriving it from a
+    shared `arrangement` produced substitutes that were structurally similar and semantically absurd:
+    it offered `keyword-cards` as a stand-in for `use-case-cards` because both are grids of a few
+    cards, when one states design principles and the other shows who the product serves. Laying a
+    page out the same way does not make two layouts interchangeable. A real alternate does the same
+    *job* and differs in the material or emphasis it needs, which is a judgement, not a join.
+
+    Most layouts have none, and an honest empty list beats a plausible-looking wrong one — an empty
+    list sends the agent back to the user, which is the correct outcome when nothing substitutes.
     """
-    by_arrangement: dict[str, list[str]] = {}
-    for spec_id, spec in specs.items():
-        if spec["kind"] == "layout" and spec.get("arrangement"):
-            by_arrangement.setdefault(spec["arrangement"], []).append(spec_id)
     for spec_id, spec in specs.items():
         if spec["kind"] != "layout":
             continue
         need, policy = asset_need(spec.get("material", ""))
         spec["assetNeed"] = need
         spec["assetPolicy"] = policy
-        spec["alternates"] = sorted(
-            other for other in by_arrangement.get(spec.get("arrangement", ""), []) if other != spec_id
-        )
+        for other in spec["alternates"]:
+            if other not in specs:
+                raise BuildError(f"{spec['spec']}: alternate {other!r} is not a spec")
 
 
 def asset_need(material: str) -> tuple[str, str]:
     """What visual asset this layout's material implies, and whether it may be generated.
 
-    The distinction matters more than the detection. An `illustration` the user did not supply can be
-    generated — that is what the illustration route is for. A `ui-screen` never can: fabricating a
-    product UI is exactly the thing `generated-editorial-explainer.md` forbids, because a made-up
-    screenshot of a real product is a false record of that product. So a layout needing a screen the
-    user does not have is not an illustration job; it is a re-route, or a question for the user.
+    Three cases, and collapsing the middle one into the last is a mistake worth naming.
+
+    - `ui-mockup` — a **schematic** screen built in-system from base.css primitives (`.phone`,
+      `.mock`, `.appframe`, `.sk` skeleton bars). No asset needed and none should be asked for: it is
+      drawn from tokens, so it always exists and always matches the theme. This is what makes an
+      as-is/to-be or a feature walkthrough vivid, and it is deliberately abstract — skeleton bars
+      rather than unreadable micro-type, no invented data.
+    - `illustration` — may be **generated** when the user supplied none. That is the illustration
+      route's whole job.
+    - `ui-screen` — a **real supplied screenshot**, and the one case that may never be produced. A
+      fabricated screenshot of a real product is a false record of that product, which
+      `generated-editorial-explainer.md`'s ui-qa route forbids outright. Missing means asking the
+      user, not drawing something convincing.
+
+    The failure to avoid is treating a schematic mockup as if it were the third case. Doing so blocks
+    layouts the system can build perfectly well from CSS it already ships.
     """
     parts = {part.strip() for part in material.split("+") if part.strip()}
     wants_art = "illustration" in parts
     wants_screen = "ui-screen" in parts
+    wants_mockup = "ui-mockup" in parts
     if wants_art and wants_screen:
         return "illustration+ui-screen", "generate-art-supply-screen"
     if wants_screen:
         return "ui-screen", "must-supply"
     if wants_art:
         return "illustration", "generate"
+    if wants_mockup:
+        return "ui-mockup", "build"
     return "none", "none"
 
 

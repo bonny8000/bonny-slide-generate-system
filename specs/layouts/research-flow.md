@@ -8,6 +8,7 @@ triggers: [research story, background to problem to insight, HMW, how might we, 
 material: chart
 arrangement: sequence
 item_count: few
+alternates: []
 depends_on: [barchart, bubble-cluster, pie-donut, callout-band, citation-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent, accent-soft, band-fill]
 icon_use: none

@@ -8,6 +8,7 @@ triggers: ["use cases", audience segments, "serving every X", 3 customer types e
 material: illustration
 arrangement: grid
 item_count: few
+alternates: [persona-cards]
 depends_on: [ui-mockup, tokens]
 tokens_used: [canvas, surface, muted, muted-soft, ink, accent, band-fill]
 icon_use: optional

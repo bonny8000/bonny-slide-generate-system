@@ -8,6 +8,7 @@ triggers: [perceptual map, positioning map, 2 dimensions low↔high, option/bran
 material: text-only
 arrangement: matrix
 item_count: many
+alternates: []
 depends_on: [logo-row, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

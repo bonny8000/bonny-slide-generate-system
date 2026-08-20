@@ -8,6 +8,7 @@ triggers: [3–4 values or principles, "our keywords", parallel ideas each with 
 material: text-only
 arrangement: grid
 item_count: few
+alternates: [terminology-cards]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

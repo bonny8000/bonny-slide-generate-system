@@ -8,6 +8,7 @@ triggers: [workshop timing and rules, facilitator dialogue, human-agent worked e
 material: illustration+ui-screen
 arrangement: narrative-stage
 item_count: one
+alternates: []
 depends_on: [shot, stage-backdrop, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft, shadow-img]
 icon_use: generated-only

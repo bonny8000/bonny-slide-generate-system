@@ -8,6 +8,7 @@ triggers: [persona(s), user archetype, "two personas", behavior traits + pain po
 material: quote+illustration
 arrangement: grid
 item_count: few
+alternates: [use-case-cards]
 depends_on: [persona, level-slider, chip, quote-bubble, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: required

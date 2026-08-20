@@ -8,6 +8,7 @@ triggers: [a core concept + surrounding facets, a center-out model, "X connects 
 material: icon
 arrangement: centre-satellite
 item_count: many
+alternates: [linked-circles]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional

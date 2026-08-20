@@ -8,6 +8,7 @@ triggers: ["why X?", 2–3 value points each with a paragraph + a backing visual
 material: illustration
 arrangement: rows
 item_count: few
+alternates: []
 depends_on: [taglist, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

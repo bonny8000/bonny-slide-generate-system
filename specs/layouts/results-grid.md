@@ -8,6 +8,7 @@ triggers: [results, 成果, "before → after", 2–4 outcome metrics each with 
 material: stat
 arrangement: grid
 item_count: few
+alternates: []
 depends_on: [metric-card, delta-metric, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

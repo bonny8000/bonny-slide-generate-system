@@ -3,6 +3,27 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.11.1 — a schematic mockup is not a screenshot; alternates stop being guessed
+Two corrections to v12.11, both from user review, both cases of a distinction I had collapsed.
+
+- **`ui-mockup` split from `ui-screen`.** v12.11 tagged `as-is-to-be`, `feature-showcase` and
+  `product-hero` as needing a real screenshot and disqualified them when the user had none. That was
+  wrong: the system already ships schematic UI primitives — `.phone`, `.mock`, `.appframe`, `.sk`
+  skeleton bars — and a `components/ui-mockup.md` spec whose rule is *skeleton bars, never invented
+  data*. A schematic screen costs nothing, always matches the theme because it is drawn from tokens,
+  and is exactly what makes an as-is/to-be vivid. New policy `build`: draw it, never ask for it,
+  never drop a layout for lacking one. `must-supply` now applies only to the `ui-qa` route, where the
+  claim really is about the actual product UI. Three layouts moved from blocked to buildable.
+- **`alternates` are hand-declared now.** Deriving them from a shared `arrangement` produced
+  substitutes that were structurally similar and semantically absurd — `keyword-cards` offered as a
+  stand-in for `use-case-cards` because both are grids of a few cards, when one states design
+  principles and the other shows who the product serves. Laying a page out the same way does not make
+  two layouts interchangeable. 12 of 25 now declare a real substitute (`as-is-to-be` ↔
+  `problem-solution`, `qual-quant-split` ↔ `painpoint-evidence`, `use-case-cards` ↔ `persona-cards`);
+  the other 13 are empty on purpose, and an empty list means go back to the user rather than force a
+  layout that does a different job.
+- `--check` now validates that every declared alternate is a real spec.
+
 ## v12.11 — a standard for choosing between candidates, and illustration as a routed decision
 Two follow-ons from the shape axis. Both were only buildable once `material` existed as data.
 

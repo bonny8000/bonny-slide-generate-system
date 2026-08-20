@@ -13,16 +13,28 @@ Every layout declares `material`, and from it an `assetNeed` and an `assetPolicy
 | assetPolicy | meaning |
 |---|---|
 | `none` | text, charts, stats, quotes — build it from content you already have |
+| `build` | needs a **ui-mockup**: draw it in-system, no asset required and none to ask for |
 | `generate` | needs an **illustration**, and one may be generated if the user did not supply it |
-| `must-supply` | needs a **ui-screen**, and it may **never** be generated |
+| `must-supply` | needs a real **ui-screen**, and it may **never** be produced |
 
-**A `ui-screen` cannot be invented.** A fabricated screenshot of a real product is a false record of
-that product, which `generated-editorial-explainer.md` forbids outright and which no deadline
-justifies. If the user has not supplied the screen, this candidate is **disqualified** — drop it and
-take the next one. Do not substitute a CSS mockup, a traced redraw, or a generated image.
+**Three cases, and the middle one is the one that gets collapsed by mistake.**
 
-An `illustration` is the opposite case: a missing one is not a blocker, it is a job. See
-*Missing illustrations trigger generation* below.
+A **`ui-mockup` is not a screenshot.** It is a schematic screen drawn from the primitives `base.css`
+already ships — `.phone`, `.mock`, `.appframe`, and `.sk` skeleton bars — following
+`components/ui-mockup.md`: real labels only on headers that matter, skeleton bars everywhere else,
+one `--accent` on the single active element, no invented data. It costs nothing, always matches the
+theme because it is drawn from tokens, and it is what makes an as-is/to-be or a feature walkthrough
+vivid instead of abstract. **Never disqualify a layout for lacking one, and never ask the user to
+supply one.** Build it.
+
+An **`illustration`** the user did not supply is not a blocker either, it is a job — see *Missing
+illustrations trigger generation* below.
+
+A **real `ui-screen`** is the one thing that may never be produced. A fabricated screenshot of a real
+product is a false record of that product, which `generated-editorial-explainer.md`'s `ui-qa` route
+forbids outright. This applies only where the deck's claim is about *the actual product UI*. If the
+user has not supplied it, the candidate is **disqualified** — and note that a schematic `ui-mockup`
+is not a substitute here, because the whole point of that route is that the screen is real.
 
 ### 2. Fit — does the content actually fill this layout?
 Prefer the candidate whose `itemCount` matches how many items you really have.
@@ -70,14 +82,21 @@ them competes with the one thing they exist to say. Record them as `gate: no` wi
 
 ## Falling back
 
-Each layout carries `alternates`: the other layouts that share its `arrangement`. They lay the page
-out the same way and differ in the material they need, which makes them the right fallback when
-rule 1 disqualifies your first choice.
+Each layout declares `alternates`: layouts that do the **same job** and differ in the material or
+emphasis they need. 12 of 25 have one; the rest are empty on purpose.
 
-- No screenshots? `as-is-to-be` → `problem-solution` (both `opposed`).
-- No illustrations and generating is not wanted? `use-case-cards` → `feature-grid` or
-  `keyword-cards` (all `grid`).
+- `as-is-to-be` ↔ `problem-solution` — both contrast two states; one shows it in screens, the other
+  in words.
+- `qual-quant-split` ↔ `painpoint-evidence` — both prove a finding; one needs numbers beside the
+  quotes, the other runs on quotes alone.
+- `use-case-cards` ↔ `persona-cards` — both answer "who is this for", at different resolution.
 
-Some layouts have no alternates — `product-hero` is the only `hero` arrangement in the library. When
-its material is unavailable there is nothing to fall back to, so **ask the user for the screenshot**
-rather than inventing one or forcing an unrelated layout.
+**Alternates are hand-declared, and the reason is worth keeping.** They were first derived
+automatically from a shared `arrangement`, which produced substitutes that were structurally similar
+and semantically absurd: `keyword-cards` was offered as a stand-in for `use-case-cards` because both
+are grids of a few cards — one states design principles, the other shows who the product serves.
+Laying a page out the same way does not make two layouts interchangeable.
+
+**An empty list is an answer, not a gap.** Where nothing genuinely substitutes, the correct move is
+to go back to the user — ask for the missing screenshot, or ask whether to cut the page — rather than
+force a layout that does a different job and hope the content bends to fit.

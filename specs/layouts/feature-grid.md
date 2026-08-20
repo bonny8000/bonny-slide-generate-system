@@ -8,6 +8,7 @@ triggers: [3–4 features, "what's included", a 2×2 of capabilities each with a
 material: icon
 arrangement: grid
 item_count: few
+alternates: [feature-showcase]
 depends_on: [feature-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent, accent-soft]
 icon_use: optional

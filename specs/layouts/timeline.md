@@ -8,6 +8,7 @@ triggers: [timeline, roadmap, Gantt, phases over dates, "journey", project plan,
 material: text-only
 arrangement: sequence-dated
 item_count: few
+alternates: []
 depends_on: [logo-row, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional

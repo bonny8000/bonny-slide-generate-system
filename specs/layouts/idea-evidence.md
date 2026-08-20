@@ -8,6 +8,7 @@ triggers: [an idea/claim + a supporting chart or stat, "we think X — here's wh
 material: chart
 arrangement: split
 item_count: one
+alternates: []
 depends_on: [barchart, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: none

@@ -950,9 +950,12 @@
       "tier": "organism",
       "status": "stable",
       "intent": "contrast the current experience with the improved one using real screens",
-      "material": "ui-screen",
+      "material": "ui-mockup",
       "arrangement": "opposed",
       "itemCount": "pair",
+      "alternates": [
+        "problem-solution"
+      ],
       "triggers": [
         "as-is / to-be",
         "before/after of a UI",
@@ -982,11 +985,8 @@
       "learnedFrom": [
         "Img28"
       ],
-      "assetNeed": "ui-screen",
-      "assetPolicy": "must-supply",
-      "alternates": [
-        "problem-solution"
-      ]
+      "assetNeed": "ui-mockup",
+      "assetPolicy": "build"
     },
     "centered-question-evidence": {
       "kind": "layout",
@@ -996,6 +996,7 @@
       "material": "stat+chart+logo",
       "arrangement": "question-then-proof",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "framing question",
         "is there a gap?",
@@ -1026,8 +1027,7 @@
         "Img8"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "citation-card": {
       "kind": "component",
@@ -1037,6 +1037,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "desk-research citation",
         "literature evidence",
@@ -1066,6 +1067,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "competitive analysis",
         "vs alternatives",
@@ -1102,6 +1104,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "CTAs",
         "landing actions",
@@ -1133,6 +1136,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "before to after",
         "improvement %",
@@ -1165,6 +1169,7 @@
       "material": "illustration+ui-screen",
       "arrangement": "narrative-stage",
       "itemCount": "one",
+      "alternates": [],
       "triggers": [
         "workshop timing and rules",
         "facilitator dialogue",
@@ -1203,8 +1208,7 @@
         "Img43"
       ],
       "assetNeed": "illustration+ui-screen",
-      "assetPolicy": "generate-art-supply-screen",
-      "alternates": []
+      "assetPolicy": "generate-art-supply-screen"
     },
     "evidence-card": {
       "kind": "component",
@@ -1214,6 +1218,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "one proof card in a trio",
         "parallel evidence types",
@@ -1246,6 +1251,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "a single feature/capability",
         "an icon + title + blurb card",
@@ -1276,6 +1282,9 @@
       "material": "icon",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [
+        "feature-showcase"
+      ],
       "triggers": [
         "3–4 features",
         "what's included",
@@ -1304,23 +1313,19 @@
         "Img11"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "keyword-cards",
-        "persona-cards",
-        "results-grid",
-        "terminology-cards",
-        "use-case-cards"
-      ]
+      "assetPolicy": "none"
     },
     "feature-showcase": {
       "kind": "layout",
       "tier": "organism",
       "status": "stable",
       "intent": "show how specific UI features deliver value / resolve user anxieties",
-      "material": "ui-screen",
+      "material": "ui-mockup",
       "arrangement": "split",
       "itemCount": "pair",
+      "alternates": [
+        "feature-grid"
+      ],
       "triggers": [
         "feature areas",
         "app screens to show",
@@ -1352,13 +1357,8 @@
       "learnedFrom": [
         "Img21"
       ],
-      "assetNeed": "ui-screen",
-      "assetPolicy": "must-supply",
-      "alternates": [
-        "idea-evidence",
-        "painpoint-evidence",
-        "qual-quant-split"
-      ]
+      "assetNeed": "ui-mockup",
+      "assetPolicy": "build"
     },
     "geo-map": {
       "kind": "component",
@@ -1368,6 +1368,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "region/country map",
         "X of Y in the capital area",
@@ -1399,6 +1400,9 @@
       "material": "icon",
       "arrangement": "centre-satellite",
       "itemCount": "many",
+      "alternates": [
+        "linked-circles"
+      ],
       "triggers": [
         "a core concept + surrounding facets",
         "a center-out model",
@@ -1428,8 +1432,7 @@
         "Img6"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "icon-label-row": {
       "kind": "component",
@@ -1439,6 +1442,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "categories",
         "audiences",
@@ -1471,6 +1475,7 @@
       "material": "chart",
       "arrangement": "split",
       "itemCount": "one",
+      "alternates": [],
       "triggers": [
         "an idea/claim + a supporting chart or stat",
         "we think X — here's why",
@@ -1500,12 +1505,7 @@
         "Img5"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-showcase",
-        "painpoint-evidence",
-        "qual-quant-split"
-      ]
+      "assetPolicy": "none"
     },
     "interview-affinity": {
       "kind": "layout",
@@ -1515,6 +1515,7 @@
       "material": "quote",
       "arrangement": "converge",
       "itemCount": "many",
+      "alternates": [],
       "triggers": [
         "interview groups/segments",
         "affinity mapping",
@@ -1544,8 +1545,7 @@
         "Img7"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "keyword-cards": {
       "kind": "layout",
@@ -1555,6 +1555,9 @@
       "material": "text-only",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [
+        "terminology-cards"
+      ],
       "triggers": [
         "3–4 values or principles",
         "our keywords",
@@ -1581,14 +1584,7 @@
         "Img20"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-grid",
-        "persona-cards",
-        "results-grid",
-        "terminology-cards",
-        "use-case-cards"
-      ]
+      "assetPolicy": "none"
     },
     "level-slider": {
       "kind": "component",
@@ -1598,6 +1594,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "persona behavior traits",
         "ratings",
@@ -1632,6 +1629,9 @@
       "material": "text-only",
       "arrangement": "continuum",
       "itemCount": "few",
+      "alternates": [
+        "hero-radial"
+      ],
       "triggers": [
         "overlapping circles",
         "Venn",
@@ -1662,8 +1662,7 @@
         "Img18"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "logo-row": {
       "kind": "component",
@@ -1673,6 +1672,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "tools",
         "competitors",
@@ -1706,6 +1706,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "one result + a one-line reason",
         "an outcome with a topic",
@@ -1735,6 +1736,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "a point inside a numbered sequence",
         "badge + text + chart row"
@@ -1763,6 +1765,7 @@
       "material": "chart",
       "arrangement": "rows",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "1/2/3 points each with data",
         "multi-point findings",
@@ -1793,11 +1796,7 @@
         "Img10"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "survey-stack",
-        "value-points"
-      ]
+      "assetPolicy": "none"
     },
     "painpoint-evidence": {
       "kind": "layout",
@@ -1807,6 +1806,9 @@
       "material": "quote",
       "arrangement": "split",
       "itemCount": "one",
+      "alternates": [
+        "qual-quant-split"
+      ],
       "triggers": [
         "painpoint N",
         "a problem + participant quotes",
@@ -1838,12 +1840,7 @@
         "Img23"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-showcase",
-        "idea-evidence",
-        "qual-quant-split"
-      ]
+      "assetPolicy": "none"
     },
     "persona-cards": {
       "kind": "layout",
@@ -1853,6 +1850,9 @@
       "material": "quote+illustration",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [
+        "use-case-cards"
+      ],
       "triggers": [
         "persona(s)",
         "user archetype",
@@ -1886,14 +1886,7 @@
         "Img22"
       ],
       "assetNeed": "illustration",
-      "assetPolicy": "generate",
-      "alternates": [
-        "feature-grid",
-        "keyword-cards",
-        "results-grid",
-        "terminology-cards",
-        "use-case-cards"
-      ]
+      "assetPolicy": "generate"
     },
     "pie-donut": {
       "kind": "component",
@@ -1903,6 +1896,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "single share",
         "one key %",
@@ -1936,6 +1930,7 @@
       "material": "text-only",
       "arrangement": "matrix",
       "itemCount": "many",
+      "alternates": [],
       "triggers": [
         "perceptual map",
         "positioning map",
@@ -1969,8 +1964,7 @@
         "Img15"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "problem-solution": {
       "kind": "layout",
@@ -1980,6 +1974,9 @@
       "material": "text-only",
       "arrangement": "opposed",
       "itemCount": "pair",
+      "alternates": [
+        "as-is-to-be"
+      ],
       "triggers": [
         "problem/solution",
         "問題/解法",
@@ -2009,19 +2006,17 @@
         "Img17"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "as-is-to-be"
-      ]
+      "assetPolicy": "none"
     },
     "product-hero": {
       "kind": "layout",
       "tier": "organism",
       "status": "stable",
       "intent": "present the product itself — what it is and what it does — like a landing hero",
-      "material": "ui-screen+stat",
+      "material": "ui-mockup+stat",
       "arrangement": "hero",
       "itemCount": "one",
+      "alternates": [],
       "triggers": [
         "product intro",
         "landing/hero",
@@ -2053,9 +2048,8 @@
       "learnedFrom": [
         "Img19"
       ],
-      "assetNeed": "ui-screen",
-      "assetPolicy": "must-supply",
-      "alternates": []
+      "assetNeed": "ui-mockup",
+      "assetPolicy": "build"
     },
     "qual-quant-split": {
       "kind": "layout",
@@ -2065,6 +2059,9 @@
       "material": "quote+stat",
       "arrangement": "split",
       "itemCount": "few",
+      "alternates": [
+        "painpoint-evidence"
+      ],
       "triggers": [
         "quotes AND stats together",
         "what users said + how many",
@@ -2093,12 +2090,7 @@
         "Img4"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-showcase",
-        "idea-evidence",
-        "painpoint-evidence"
-      ]
+      "assetPolicy": "none"
     },
     "quote-bubble": {
       "kind": "component",
@@ -2108,6 +2100,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "a user quote",
         "testimonial",
@@ -2141,6 +2134,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "第一優先/第二優先",
         "priority list",
@@ -2176,6 +2170,7 @@
       "material": "chart",
       "arrangement": "sequence",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "research story",
         "background to problem to insight",
@@ -2212,10 +2207,7 @@
         "Img3"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "service-flow"
-      ]
+      "assetPolicy": "none"
     },
     "results-grid": {
       "kind": "layout",
@@ -2225,6 +2217,7 @@
       "material": "stat",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "results",
         "成果",
@@ -2256,14 +2249,7 @@
         "Img13"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-grid",
-        "keyword-cards",
-        "persona-cards",
-        "terminology-cards",
-        "use-case-cards"
-      ]
+      "assetPolicy": "none"
     },
     "service-flow": {
       "kind": "layout",
@@ -2273,6 +2259,7 @@
       "material": "text-only",
       "arrangement": "sequence",
       "itemCount": "many",
+      "alternates": [],
       "triggers": [
         "flowchart",
         "流程圖",
@@ -2306,10 +2293,7 @@
         "Img14"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "research-flow"
-      ]
+      "assetPolicy": "none"
     },
     "stat-bar": {
       "kind": "component",
@@ -2319,6 +2303,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "labeled % values",
         "survey % rows",
@@ -2349,6 +2334,7 @@
       "material": "stat",
       "arrangement": "rows",
       "itemCount": "many",
+      "alternates": [],
       "triggers": [
         "survey results",
         "Q&A results",
@@ -2380,11 +2366,7 @@
         "Img2"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "numbered-rows",
-        "value-points"
-      ]
+      "assetPolicy": "none"
     },
     "taglist": {
       "kind": "component",
@@ -2394,6 +2376,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "many categories/tags",
         "#handles",
@@ -2426,6 +2409,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "one term + definition",
         "a card inside terminology-cards",
@@ -2455,6 +2439,9 @@
       "material": "text-only",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [
+        "keyword-cards"
+      ],
       "triggers": [
         "glossary",
         "what we mean by X",
@@ -2485,14 +2472,7 @@
         "Img12"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": [
-        "feature-grid",
-        "keyword-cards",
-        "persona-cards",
-        "results-grid",
-        "use-case-cards"
-      ]
+      "assetPolicy": "none"
     },
     "timeline": {
       "kind": "layout",
@@ -2502,6 +2482,7 @@
       "material": "text-only",
       "arrangement": "sequence-dated",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "timeline",
         "roadmap",
@@ -2535,8 +2516,7 @@
         "Img24"
       ],
       "assetNeed": "none",
-      "assetPolicy": "none",
-      "alternates": []
+      "assetPolicy": "none"
     },
     "ui-mockup": {
       "kind": "component",
@@ -2546,6 +2526,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "alternates": [],
       "triggers": [
         "product shot",
         "app/dashboard screen",
@@ -2579,6 +2560,9 @@
       "material": "illustration",
       "arrangement": "grid",
       "itemCount": "few",
+      "alternates": [
+        "persona-cards"
+      ],
       "triggers": [
         "use cases",
         "audience segments",
@@ -2609,14 +2593,7 @@
         "Img26"
       ],
       "assetNeed": "illustration",
-      "assetPolicy": "generate",
-      "alternates": [
-        "feature-grid",
-        "keyword-cards",
-        "persona-cards",
-        "results-grid",
-        "terminology-cards"
-      ]
+      "assetPolicy": "generate"
     },
     "value-points": {
       "kind": "layout",
@@ -2626,6 +2603,7 @@
       "material": "illustration",
       "arrangement": "rows",
       "itemCount": "few",
+      "alternates": [],
       "triggers": [
         "why X?",
         "2–3 value points each with a paragraph + a backing visual/tag cluster",
@@ -2653,11 +2631,7 @@
         "Img25"
       ],
       "assetNeed": "illustration",
-      "assetPolicy": "generate",
-      "alternates": [
-        "numbered-rows",
-        "survey-stack"
-      ]
+      "assetPolicy": "generate"
     }
   }
 }

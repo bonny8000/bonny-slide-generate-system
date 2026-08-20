@@ -117,12 +117,13 @@ consistency drifts.
    detection heuristic and component pairing.
 
    **When the router leaves two or more candidates, apply `foundations/layout-choice.md` in order:**
-   availability → fit → variety → intent proximity. Availability is a hard filter, not a preference:
-   a layout whose `assetPolicy` is `must-supply` is **disqualified** when the user has not supplied
-   that screenshot, because a ui-screen may never be generated. Fall back to that layout's
-   `alternates` (same arrangement, different material) — no screenshots turns `as-is-to-be` into
-   `problem-solution`. Fit outranks variety: a repeated layout that fills the page beats a fresh one
-   that starves it. The router is the complete list — if you are about to invent
+   availability → fit → variety → intent proximity. Availability is a hard filter, not a preference —
+   but only `must-supply` disqualifies. **`assetPolicy: build` means draw the screen yourself**: a
+   `ui-mockup` is schematic, made from `.phone` / `.mock` / `.appframe` / `.sk` in `base.css` per
+   `components/ui-mockup.md`, so never ask the user for it and never drop a layout for lacking one.
+   Only a real `ui-screen` (the `ui-qa` route) may never be produced; there, fall back to the
+   layout's declared `alternates` or ask the user. Fit outranks variety: a repeated layout that fills
+   the page beats a fresh one that starves it. The router is the complete list — if you are about to invent
    a layout, you have missed one. Then find its shape in `specs/content-map.md` → layout + components.
    Human/agent workflows, conversational worked examples, workshop instructions, and scattered-input
    transformations are hard candidates: choose the generated route unless exact data/table/UI evidence must

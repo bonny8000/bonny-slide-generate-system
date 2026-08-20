@@ -8,6 +8,7 @@ triggers: [flowchart, 流程圖, decision diamonds, branches, swimlanes by user 
 material: text-only
 arrangement: sequence
 item_count: many
+alternates: []
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, accent-soft]
 icon_use: optional
