@@ -4,7 +4,7 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: show that several concepts connect into one continuous whole (a continuum / total experience)
-triggers: [overlapping circles, Venn, 連結, connected, a continuum of 3–5 parts, TX/total-X framing, 環環相扣, 連成一個整體, 概念相連, 連續體]
+triggers: [overlapping circles, Venn, 環環相連, connected, a continuum of 3–5 parts, TX/total-X framing, 環環相扣, 連成一個整體, 概念相連, 連續體]
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

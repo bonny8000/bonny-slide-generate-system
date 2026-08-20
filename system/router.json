@@ -814,6 +814,9 @@
     "環環相扣": [
       "linked-circles"
     ],
+    "環環相連": [
+      "linked-circles"
+    ],
     "產品主視覺": [
       "product-hero"
     ],
@@ -890,9 +893,6 @@
       "product-hero"
     ],
     "連成一個整體": [
-      "linked-circles"
-    ],
-    "連結": [
       "linked-circles"
     ],
     "連續體": [
@@ -1482,7 +1482,7 @@
       "triggers": [
         "overlapping circles",
         "Venn",
-        "連結",
+        "環環相連",
         "connected",
         "a continuum of 3–5 parts",
         "TX/total-X framing",

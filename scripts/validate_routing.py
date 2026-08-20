@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -75,6 +76,36 @@ def tokens(text: str) -> set[str]:
     return out
 
 
+def corpus_idf() -> dict[str, float]:
+    """How common each token is in real deck copy — the weight a match on it deserves.
+
+    The first version of this scorer weighted every token equally, which is how `使用者輪廓` turned
+    the bigram 使用者 into an attractor that won unrelated requests outright. The obvious fix — IDF
+    over the router's own 25 entries — does not work: it scores 改版 (in one layout) as *more*
+    distinctive than 使用者 (in four), yet 改版 was an attractor too. Rarity among layouts is the
+    wrong question. What matters is rarity among the things people actually say, so the corpus is the
+    161 example slides' real copy. Measured against the two attractors found by hand, it ranks them
+    lowest (使用 1.20, 用者 1.37, 改版 2.00) and the distinctive replacements highest (人物誌 5.09,
+    親和 5.09, 象限 4.39).
+    """
+    docs: list[set[str]] = []
+    for path in (ROOT / "examples").rglob("*.html"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        body = text.rsplit("</style>", 1)[-1]
+        body = re.sub(r"<[^>]+>", " ", body)
+        body = re.sub(r"&[a-z]+;", " ", body)
+        docs.append(tokens(body))
+    n = len(docs) or 1
+    df: dict[str, int] = {}
+    for doc in docs:
+        for tok in doc:
+            df[tok] = df.get(tok, 0) + 1
+    return {tok: math.log((n + 1) / (count + 1)) for tok, count in df.items()}
+
+
+UNSEEN_IDF = 5.0  # a token absent from the corpus is maximally distinctive
+
+
 def load_router() -> dict[str, dict]:
     data = json.loads(ROUTER.read_text(encoding="utf-8"))
     return {k: v for k, v in data["entries"].items() if v.get("kind") == "layout"}
@@ -93,27 +124,33 @@ def load_cases(path: Path) -> list[tuple[str, str]]:
     return cases
 
 
-def score(query: str, entry: dict) -> float:
-    """How strongly this entry answers the query.
+def score(query: str, entry: dict, idf: dict[str, float]) -> float:
+    """How strongly this entry answers the query, weighting each match by how distinctive it is.
 
     A trigger appearing verbatim in the request is decisive — that is what triggers are for. Failing
-    that, fall back to token overlap, weighting triggers above the intent line because the intent is
-    written as a designer's rationale and shares generic vocabulary with half the catalogue.
+    that, matched tokens are summed by IDF rather than counted, so overlapping on 使用者 earns almost
+    nothing while overlapping on 人物誌 nearly settles it.
     """
     q = tokens(query)
     if not q:
         return 0.0
+
+    def weight(toks: set[str]) -> float:
+        return sum(idf.get(t, UNSEEN_IDF) for t in toks)
+
     best = 0.0
     for trig in entry.get("triggers", []):
         norm = trig.lower().strip()
         if len(norm) >= 4 and norm in query.lower():
             return 10.0
-        overlap = len(q & tokens(trig))
-        if overlap:
-            best = max(best, 2.0 * overlap / max(len(tokens(trig)), 1))
-    intent_overlap = len(q & tokens(entry.get("intent", "")))
-    if intent_overlap:
-        best = max(best, 1.0 * intent_overlap / len(q))
+        tt = tokens(trig)
+        shared = q & tt
+        if shared:
+            best = max(best, 2.0 * weight(shared) / max(weight(tt), 1e-9))
+    it = tokens(entry.get("intent", ""))
+    shared = q & it
+    if shared:
+        best = max(best, 1.0 * weight(shared) / max(weight(q), 1e-9))
     return best
 
 
@@ -128,6 +165,7 @@ def main() -> int:
         return 2
 
     entries = load_router()
+    idf = corpus_idf()
     cases = load_cases(args.cases)
     if not cases:
         print(f"no cases parsed from {args.cases}", file=sys.stderr)
@@ -137,7 +175,7 @@ def main() -> int:
     rows: list[tuple[str, str, str, str, float]] = []
     for request, expected in cases:
         ranked = sorted(
-            ((score(request, e), k) for k, e in entries.items()), reverse=True
+            ((score(request, e, idf), k) for k, e in entries.items()), reverse=True
         )
         top_score, top = ranked[0]
         runner = ranked[1][1] if len(ranked) > 1 else "-"

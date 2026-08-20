@@ -38,3 +38,15 @@ So: **triggers must be distinctive, not merely relevant.** Prefer 人物誌 over
 
 **Precision beats coverage.** Adding 繁中 triggers to 17 layouts moved blind performance from 30% to
 roughly 40%, not to 100%. The remaining gap is not fixable by adding more triggers of the same kind.
+
+**IDF weighting fixed the attractors and did not move the score.** Matches are now weighted by how
+distinctive the token is in real deck copy, so `persona-cards` fell from 1.0 to 0.5 on the 抱怨原句
+case and stopped winning it by accident. Held-out stayed at 4/10 — because in those cases the
+*correct* layout has no distinctive token in the request either, and no reweighting can score a match
+that does not exist. Precision was the fixable half. What remains is coverage, and lexical matching
+has no answer to it: the request says 留存率, the layout's triggers say 成效指標, and nothing links
+them without understanding what the words mean.
+
+That is the ceiling of a lookup table, and the reason the next step is **query normalisation** — have
+the agent restate the request as a canonical intention line *before* lookup, so the table is matched
+against controlled vocabulary rather than against however the user happened to phrase it.
