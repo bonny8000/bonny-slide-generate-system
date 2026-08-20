@@ -3,6 +3,33 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.12 — two things borrowed from seed-design: app-screen anatomy, and bilingual expansion
+Read `daangn/seed-design` (Apache-2.0) for what is worth taking. Took two things and declined a
+third; nothing is ported, everything is re-implemented from this system's tokens.
+
+- **App-screen furniture for `ui-mockup`.** Their component inventory is a good census of what a real
+  mobile screen actually contains, and this system had only `.phone` / `.appframe` / `.listrow` /
+  `.mock`. `base.css` gains `.appbar`, `.tabbar`, `.segbar`, `.sheet`, `.banner` (+`warn`/`neg`/`pos`),
+  `.fab` and `.badge` — 8 primitives, all token-driven, zero raw hex. A schematic screen reads as a
+  real app when its **chrome** is right, not when its content is detailed, so the rule stays: label
+  the app bar and the tabs, skeleton bars everywhere else, never invent rows of plausible data.
+- **Three new `ui-mockup` variants** — `list-screen`, `tab-screen`, `sheet-screen` — with a
+  render-validated example, `examples/light-app-screen-mockup.html`. Built, screenshotted, looked at,
+  and revised three times: captions were running as one cramped line, and two of the three screens
+  emptied out below the fold, which no check would have caught.
+- **Bilingual pairs expand, and now `typography.md` says by how much.** 繁中 is the most compact
+  writing this system produces and English among the least, so a ≤10-character 繁中 line pairs with
+  English running **150–250%** wider. That is the worst case and it is also the most common one — a
+  four-character headline with an English subtitle. The failure arrives late: the English wraps, the
+  card grows, the row loses alignment, and the layout gate reports an imbalance whose real cause was a
+  translation written three steps earlier. Size the container for the English, not the 繁中.
+- **Declined: semantic spacing tokens.** seed-design names spacing by relationship (`global-gutter`,
+  `nav-to-title`, `component-default`) rather than by size. It is the better idea in the abstract, but
+  this system already has a working scale plus `--gutter`, and renaming it would churn every example
+  and the visual baseline to fix a problem nothing has measured. Recorded here so it is a decision
+  rather than an oversight.
+- Also: `ui-mockup` gains 繁中 and Korean triggers, now that triggers are multilingual.
+
 ## v12.11.1 — a schematic mockup is not a screenshot; alternates stop being guessed
 Two corrections to v12.11, both from user review, both cases of a distinction I had collapsed.
 

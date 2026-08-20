@@ -157,6 +157,9 @@
     "app screens to show": [
       "feature-showcase"
     ],
+    "app 畫面": [
+      "ui-mockup"
+    ],
     "app/dashboard screen": [
       "ui-mockup"
     ],
@@ -619,6 +622,9 @@
     "人物誌": [
       "persona-cards"
     ],
+    "介面示意": [
+      "ui-mockup"
+    ],
     "佔比": [
       "pie-donut"
     ],
@@ -838,6 +844,9 @@
     "用問題破題": [
       "centered-question-evidence"
     ],
+    "畫面示意圖": [
+      "ui-mockup"
+    ],
     "痛點佐證": [
       "painpoint-evidence"
     ],
@@ -942,6 +951,9 @@
     ],
     "플로우": [
       "service-flow"
+    ],
+    "화면 목업": [
+      "ui-mockup"
     ]
   },
   "entries": {
@@ -2532,7 +2544,11 @@
         "app/dashboard screen",
         "phone mockup",
         "skeleton placeholder UI",
-        "a screen to point at"
+        "a screen to point at",
+        "介面示意",
+        "畫面示意圖",
+        "app 畫面",
+        "화면 목업"
       ],
       "spec": "specs/components/ui-mockup.md",
       "example": "examples/light-product-hero.html",

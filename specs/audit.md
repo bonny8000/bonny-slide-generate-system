@@ -101,6 +101,8 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] Every routed layout with `assetPolicy: generate` and no supplied artwork has a `gate: yes`
       record; none was silently swapped to a text-only layout to dodge generation. — blocker
 - [ ] `itemCount` matches the real item count — no `few` content stretched across a `many` layout. — major
+- [ ] Bilingual pairs fit: no English supporting line wrapping unintentionally or shrinking below the
+      type floor because its container was sized for the 繁中 (`foundations/typography.md`). — major
 - [ ] `depends_on` respected (no upward/hidden deps). — minor
 
 ### Hypertoken pipeline

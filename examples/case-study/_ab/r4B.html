@@ -899,6 +899,36 @@ footer strong{color: var(--ink);}
 .tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
 .frame .slide{transform-origin:top left}
+
+/* C14 — app-screen furniture for ui-mockup ----------------------- */
+/* Schematic only. These make a mock screen READ as an app without faking its data: real labels on
+   the chrome that orients the viewer, skeleton bars everywhere content would be. Vocabulary follows
+   daangn/seed-design's component inventory (Apache-2.0) — the anatomy of a mobile screen is app bar,
+   segmented control, list rows, sheet, banner, FAB — re-implemented here from tokens, not ported. */
+.appbar{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--muted-soft);background:var(--chip);flex:0 0 auto}
+.appbar .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.appbar .back{width:10px;height:10px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex:0 0 auto}
+.appbar .act{margin-left:auto;display:flex;gap:var(--s2)}
+.appbar .act i{width:18px;height:18px;border-radius:var(--r-sm);background:var(--muted-soft);display:block}
+
+.segbar{display:flex;gap:2px;padding:3px;border-radius:var(--r-pill);background:var(--muted-soft);flex:0 0 auto}
+.segbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:6px 10px;border-radius:var(--r-pill);line-height:1.2}
+.segbar span.on{background:var(--chip);color:var(--ink)}
+
+.tabbar{display:flex;border-bottom:1px solid var(--muted-soft);flex:0 0 auto}
+.tabbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
+.tabbar span.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--chip);border-radius:20px 20px 0 0;box-shadow:var(--shadow-pop);padding:var(--s3) var(--s4) var(--s4);z-index:3}
+.sheet::before{content:"";display:block;width:36px;height:4px;border-radius:var(--r-pill);background:var(--muted-soft);margin:0 auto var(--s3)}
+
+.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:12px;line-height:1.4}
+.banner.warn{background:var(--warn-soft)} .banner.neg{background:var(--neg-soft)} .banner.pos{background:var(--pos-soft)}
+
+.fab{position:absolute;right:var(--s4);bottom:var(--s4);width:44px;height:44px;border-radius:50%;background:var(--accent);box-shadow:var(--shadow-pop);display:grid;place-items:center;color:var(--on-accent);font-size:22px;line-height:1;z-index:2}
+
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:11px;font-weight:700;line-height:1.5}
+.badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
 @layer tokens, hypertokens, components, overrides;
 
 /* ============================================================
@@ -1692,6 +1722,36 @@ footer strong{color: var(--ink);}
 .tcard p{font-size:15px;color:var(--muted);line-height:1.7;margin:0}
 .frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
 .frame .slide{transform-origin:top left}
+
+/* C14 — app-screen furniture for ui-mockup ----------------------- */
+/* Schematic only. These make a mock screen READ as an app without faking its data: real labels on
+   the chrome that orients the viewer, skeleton bars everywhere content would be. Vocabulary follows
+   daangn/seed-design's component inventory (Apache-2.0) — the anatomy of a mobile screen is app bar,
+   segmented control, list rows, sheet, banner, FAB — re-implemented here from tokens, not ported. */
+.appbar{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--muted-soft);background:var(--chip);flex:0 0 auto}
+.appbar .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.appbar .back{width:10px;height:10px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex:0 0 auto}
+.appbar .act{margin-left:auto;display:flex;gap:var(--s2)}
+.appbar .act i{width:18px;height:18px;border-radius:var(--r-sm);background:var(--muted-soft);display:block}
+
+.segbar{display:flex;gap:2px;padding:3px;border-radius:var(--r-pill);background:var(--muted-soft);flex:0 0 auto}
+.segbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:6px 10px;border-radius:var(--r-pill);line-height:1.2}
+.segbar span.on{background:var(--chip);color:var(--ink)}
+
+.tabbar{display:flex;border-bottom:1px solid var(--muted-soft);flex:0 0 auto}
+.tabbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
+.tabbar span.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--chip);border-radius:20px 20px 0 0;box-shadow:var(--shadow-pop);padding:var(--s3) var(--s4) var(--s4);z-index:3}
+.sheet::before{content:"";display:block;width:36px;height:4px;border-radius:var(--r-pill);background:var(--muted-soft);margin:0 auto var(--s3)}
+
+.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:12px;line-height:1.4}
+.banner.warn{background:var(--warn-soft)} .banner.neg{background:var(--neg-soft)} .banner.pos{background:var(--pos-soft)}
+
+.fab{position:absolute;right:var(--s4);bottom:var(--s4);width:44px;height:44px;border-radius:50%;background:var(--accent);box-shadow:var(--shadow-pop);display:grid;place-items:center;color:var(--on-accent);font-size:22px;line-height:1;z-index:2}
+
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:11px;font-weight:700;line-height:1.5}
+.badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
 </style>
 <style data-slide>
 .vd{display:grid;grid-template-columns:0.95fr 1.05fr;gap:var(--s7);align-items:center}
