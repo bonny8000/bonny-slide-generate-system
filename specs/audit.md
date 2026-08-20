@@ -105,6 +105,12 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
       type floor because its container was sized for the 繁中 (`foundations/typography.md`). — major
 - [ ] `depends_on` respected (no upward/hidden deps). — minor
 
+### Changing the gate itself
+- [ ] `python scripts/check_antipatterns.py` passes — every known-bad slide still FAILS. A change
+      that lets one through has removed a defect the system already learned to see. — blocker
+- [ ] `python scripts/calibrate_gate.py` was run and the agreement number did not get worse. A gate
+      change that does not move it has not improved the gate. — major
+
 ### Hypertoken pipeline
 - [ ] `python scripts/compile_system.py --check` passes. — blocker
 - [ ] Generated CSS/Python/Markdown was not edited by hand. — major

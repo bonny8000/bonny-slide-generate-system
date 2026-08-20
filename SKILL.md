@@ -84,7 +84,28 @@ consistency drifts.
 ## Operating procedure (every deck)
 1. **Inputs:** audience/room; **one theme** (mode + accent) — ask if unstated; the content/source. **Ask
    the user for any real assets** the deck needs — screenshots, logos, photos, data (`specs/foundations/imagery.md`).
-2. **Load rules:** read `specs/foundations/*` + the chosen `specs/themes/<theme>.md`. Lock the theme deck-wide.
+2. **Load rules — the core set only, then more on demand.** Reading everything before building cost
+   ~168 KB and most of it did not apply to the slide in hand. Read these seven every time (~25 KB):
+   `storytelling` · `plain-language` · `spacing-grid` · `typography` · `color-discipline` ·
+   `themes-and-modes` · `layout-balance`, plus the chosen `specs/themes/<theme>.md`. Lock the theme
+   deck-wide. For taste read **`specs/generated-preferences-digest.md`** (3.6 KB), not the 51 KB
+   `preferences.md` — open that only when a specific component decision turns on a worked round.
+
+   Open the rest **only when the trigger fires**:
+
+   | read this | when |
+   |---|---|
+   | `layout-choice.md` | the router leaves two or more candidates |
+   | `imagery.md` | the user supplied real screenshots, photos or logos |
+   | `iconography.md` | the slide uses icons |
+   | `generated-editorial-explainer.md` | a page routed to the illustration/explainer route |
+   | `self-critique.md` | the review pass, after the deck renders |
+   | `audit.md` | the delivery check, at the end |
+   | `learn-from-image.md` | training mode only — never during a build |
+   | `source-sync.md` | the deck restates an external source of truth |
+
+   Nothing in the conditional set changes how a page is laid out; each governs a decision you may
+   never face on a given deck. Reading it anyway is the single largest avoidable cost in a build.
 3. **Outline — structure first:** turn the file into a page-by-page plan with `specs/slide-plan.md`
    (one claim per slide; order method → range → relationships → conclusion per
    `specs/foundations/storytelling.md`; place covers/section-covers/bridges). Run the editorial-explainer

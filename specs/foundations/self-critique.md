@@ -55,6 +55,31 @@ the output-side loop (the mirror of `learn-from-image.md`, which is the input si
 5. **Fix the worst first, re-render, re-score.** Iterate until every dimension passes and nothing is weaker
    than the reference.
 
+## Look at the render — the named checks the gate cannot make
+
+A gate pass is a floor, not a verdict. Three separate changes have now passed every automated check
+while looking visibly worse, and each time only the screenshot caught it. That is not a threshold
+that needs tuning: nine geometric measures were scored against 37 human-labelled A/B pairs and **none
+of them predicted which slide a person preferred**. The differences that decide a slide are not
+geometric, so this step cannot be automated away.
+
+Open the PNG and answer these, in order. They are the failure modes actually observed, not a
+generic checklist:
+
+1. **Is any container mostly empty?** A card drawn taller than its contents reads as a hollow void,
+   not breathing room. Shrink it, fill it, or distribute it.
+2. **Is content flung to a container's edges?** Label at the top, body at the bottom, a hole in the
+   middle. This is the one that passed the gate at 34% whitespace and read as broken.
+3. **Do the header and its content read as one block?** If the header is stranded at the top with a
+   gap under it, bring it down against its content and let the leftover become even margin.
+4. **Does the accent appear more than twice?** One chromatic accent, on the single load-bearing word.
+5. **Is emphasis carried by ink or by fill?** Prefer accented type; paint a surface only when it also
+   supplies mass a sparse slide needs. `python scripts/check_style_rules.py SLIDE.html` gives a
+   second opinion on 4 and 5, and it is advisory — the slide's intent can overrule it.
+6. **Would the English line still fit if it ran 150% longer than the 繁中?** Bilingual pairs expand.
+
+If a change makes a metric better and the render worse, the render wins. Revert it.
+
 ## What "better or same as the reference" means
 - **Same:** same intention, same-or-cleaner hierarchy, same density comfort, same craft — in our theme +
   繁中/English.
