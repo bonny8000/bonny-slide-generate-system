@@ -3,6 +3,22 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.14 — measure whether the gate has taste, using the A/B rounds as labelled data
+Every other check measures the gate against itself: it passes when its own thresholds are satisfied.
+That says nothing about whether a passing slide is good, which is why three changes have now passed
+every gate while looking worse.
+
+- **New `scripts/calibrate_gate.py`.** `preferences.md` records each A/B round's winner and both
+  variants are on disk, so 37 pairs are **human-labelled**. Run the gate on both, see which it
+  prefers, compare with the person who chose.
+- **First measurement: the gate had no opinion on 20 of 37 pairs** — identical scores, so it cannot
+  distinguish a preferred slide from a rejected one at all. Of the 17 it did rank it agreed 7 and
+  disagreed 10, or 41%. The ties are the headline; 17 decided pairs is far too small to claim 41% is
+  meaningfully worse than a coin flip, and the honest reading is that the gate carries **no useful
+  taste signal today** rather than an inverted one.
+- This is now the number to move. Any change to the gate should be scored here before it is believed,
+  and it is the first metric in the system that measures the checker rather than the work.
+
 ## v12.13 — compose starved slides as a centred group; 15 balance failures → 7
 The user's read of a failing render turned out to be the fix the previous session had given up on.
 
