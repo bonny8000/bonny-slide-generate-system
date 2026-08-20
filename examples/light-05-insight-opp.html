@@ -46,6 +46,19 @@
     --fs-pill: 18px;
     --fs-body: 17px;
     --fs-caption: 14px;
+    --fs-ui-1: 11px;
+    --fs-ui-2: 12px;
+    --fs-ui-3: 13px;
+    --fs-ui-4: 14px;
+    --fs-ui-5: 16px;
+    --lh-ui-1: 15px;
+    --lh-ui-2: 16px;
+    --lh-ui-3: 18px;
+    --lh-ui-4: 19px;
+    --lh-ui-5: 22px;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-bold: 700;
     --s0: 4px;
     --s1: 8px;
     --s2: 12px;
@@ -504,8 +517,15 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .card.spread{justify-content:space-between}
 
 /* C8 — device / phone mockups + multi-device stage --------------- */
-.phone{width:var(--pw,300px);aspect-ratio:9/19;border:11px solid var(--ink);border-radius:40px;background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
-.phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:38%;height:22px;background:var(--ink);border-radius:0 0 14px 14px;z-index:2}
+/* A phone mock is a SCALED DEVICE, so its interior is measured in points, not px. --uis is one iOS
+   point at this mock's size: a real iPhone is 390pt wide, so calc(width / 390) converts any Apple
+   spec straight across. Nav bar 44pt, status inset 59pt, island 125x36pt, switch 51x31pt, body 17pt.
+   Absolute px inside a phone is what makes a mockup look wrong at a glance - the frame shrinks and
+   the type does not, so the proportions stop reading as a real screen. */
+.phone{--uis:calc(var(--pw,300px)/390);width:var(--pw,300px);aspect-ratio:390/844;border:calc(var(--uis)*11) solid var(--ink);border-radius:calc(var(--uis)*54);background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
+/* Dynamic island: a floating pill inset from the top edge, not a notch cut into it. Current phones
+   have looked like this for years and the old notch dates a mockup instantly. */
+.phone .notch{position:absolute;top:calc(var(--uis)*11);left:50%;transform:translateX(-50%);width:calc(var(--uis)*125);height:calc(var(--uis)*36);background:var(--ink);border-radius:var(--r-pill);z-index:3}
 .phone .screen,.appframe .screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
 .appframe{border-radius:24px;border:1px solid var(--muted-soft);background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
 .device-stack{position:relative;display:flex;align-items:flex-end;justify-content:center}
@@ -897,34 +917,55 @@ footer strong{color: var(--ink);}
 .frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
 .frame .slide{transform-origin:top left}
 
-/* C14 — app-screen furniture for ui-mockup ----------------------- */
+/* C14 — app-screen furniture + UI text scale --------------------- */
+/* UI text is its own scale, separate from slide typography. Slide type runs 14-150px because it is
+   read across a room; text drawn INSIDE a mock screen is read as an image of an interface, so it
+   uses --fs-ui-1..5 (11/12/13/14/16px) with the line-height token of the same number. Size and
+   line-height are paired; weight stays an independent choice (--fw-regular/medium/bold). Never set a
+   raw px size on mock UI text — that is how a mockup drifts out of the system. */
 /* Schematic only. These make a mock screen READ as an app without faking its data: real labels on
-   the chrome that orients the viewer, skeleton bars everywhere content would be. Vocabulary follows
-   daangn/seed-design's component inventory (Apache-2.0) — the anatomy of a mobile screen is app bar,
-   segmented control, list rows, sheet, banner, FAB — re-implemented here from tokens, not ported. */
+   the chrome that orients the viewer, skeleton bars everywhere content would be. The anatomy of a
+   mobile screen is app bar, segmented control, list rows, sheet, banner, FAB — everything here is
+   built from this system's own tokens, so a mockup always matches the deck's theme. */
+/* The status area belongs to the device, not the app: reserve it so the island never lands on a
+   title. Inside a .phone the bar clears the island; a plain .appframe has no island to clear. */
 .appbar{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--muted-soft);background:var(--chip);flex:0 0 auto}
-.appbar .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.phone .screen{font-size:calc(var(--uis)*17)}
+.phone .appbar{padding:calc(var(--uis)*59) calc(var(--uis)*16) calc(var(--uis)*10);gap:calc(var(--uis)*10)}
+.phone .appbar .title{font-size:1em}
+.phone .appbar .back{width:.6em;height:.6em;border-width:calc(var(--uis)*2)}
+.phone .appbar .act i{width:1.05em;height:1.05em}
+.phone .tabbar span,.phone .segbar span{font-size:.765em}
+.phone .banner{font-size:.765em;padding:calc(var(--uis)*8) calc(var(--uis)*12)}
+.phone .badge{font-size:.65em;padding:calc(var(--uis)*2) calc(var(--uis)*8)}
+.phone .listrow{padding:calc(var(--uis)*11) calc(var(--uis)*16);gap:calc(var(--uis)*10)}
+.phone .toggle{width:calc(var(--uis)*51);height:calc(var(--uis)*31);flex:0 0 auto}
+.phone .toggle::after{top:calc(var(--uis)*2);left:calc(var(--uis)*2);width:calc(var(--uis)*27);height:calc(var(--uis)*27)}
+.phone .toggle.on::after{left:calc(var(--uis)*22)}
+.phone .fab{right:calc(var(--uis)*16);bottom:calc(var(--uis)*16);width:calc(var(--uis)*56);height:calc(var(--uis)*56);font-size:calc(var(--uis)*26)}
+.phone .sheet{border-radius:calc(var(--uis)*14) calc(var(--uis)*14) 0 0;padding:calc(var(--uis)*8) calc(var(--uis)*16) calc(var(--uis)*20)}
+.appbar .title{font-size:var(--fs-ui-5);line-height:var(--lh-ui-5);font-weight:var(--fw-bold);color:var(--ink)}
 .appbar .back{width:10px;height:10px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex:0 0 auto}
 .appbar .act{margin-left:auto;display:flex;gap:var(--s2)}
 .appbar .act i{width:18px;height:18px;border-radius:var(--r-sm);background:var(--muted-soft);display:block}
 
 .segbar{display:flex;gap:2px;padding:3px;border-radius:var(--r-pill);background:var(--muted-soft);flex:0 0 auto}
-.segbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:6px 10px;border-radius:var(--r-pill);line-height:1.2}
+.segbar span{flex:1;text-align:center;font-size:var(--fs-ui-2);line-height:var(--lh-ui-2);font-weight:var(--fw-bold);color:var(--muted);padding:5px 10px;border-radius:var(--r-pill)}
 .segbar span.on{background:var(--chip);color:var(--ink)}
 
 .tabbar{display:flex;border-bottom:1px solid var(--muted-soft);flex:0 0 auto}
-.tabbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
+.tabbar span{flex:1;text-align:center;font-size:var(--fs-ui-3);line-height:var(--lh-ui-3);font-weight:var(--fw-bold);color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
 .tabbar span.on{color:var(--ink);border-bottom-color:var(--accent)}
 
 .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--chip);border-radius:20px 20px 0 0;box-shadow:var(--shadow-pop);padding:var(--s3) var(--s4) var(--s4);z-index:3}
 .sheet::before{content:"";display:block;width:36px;height:4px;border-radius:var(--r-pill);background:var(--muted-soft);margin:0 auto var(--s3)}
 
-.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:12px;line-height:1.4}
+.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-2);line-height:var(--lh-ui-2)}
 .banner.warn{background:var(--warn-soft)} .banner.neg{background:var(--neg-soft)} .banner.pos{background:var(--pos-soft)}
 
 .fab{position:absolute;right:var(--s4);bottom:var(--s4);width:44px;height:44px;border-radius:50%;background:var(--accent);box-shadow:var(--shadow-pop);display:grid;place-items:center;color:var(--on-accent);font-size:22px;line-height:1;z-index:2}
 
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:11px;font-weight:700;line-height:1.5}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
 @layer tokens, hypertokens, components, overrides;
 
@@ -1327,8 +1368,15 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .card.spread{justify-content:space-between}
 
 /* C8 — device / phone mockups + multi-device stage --------------- */
-.phone{width:var(--pw,300px);aspect-ratio:9/19;border:11px solid var(--ink);border-radius:40px;background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
-.phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:38%;height:22px;background:var(--ink);border-radius:0 0 14px 14px;z-index:2}
+/* A phone mock is a SCALED DEVICE, so its interior is measured in points, not px. --uis is one iOS
+   point at this mock's size: a real iPhone is 390pt wide, so calc(width / 390) converts any Apple
+   spec straight across. Nav bar 44pt, status inset 59pt, island 125x36pt, switch 51x31pt, body 17pt.
+   Absolute px inside a phone is what makes a mockup look wrong at a glance - the frame shrinks and
+   the type does not, so the proportions stop reading as a real screen. */
+.phone{--uis:calc(var(--pw,300px)/390);width:var(--pw,300px);aspect-ratio:390/844;border:calc(var(--uis)*11) solid var(--ink);border-radius:calc(var(--uis)*54);background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
+/* Dynamic island: a floating pill inset from the top edge, not a notch cut into it. Current phones
+   have looked like this for years and the old notch dates a mockup instantly. */
+.phone .notch{position:absolute;top:calc(var(--uis)*11);left:50%;transform:translateX(-50%);width:calc(var(--uis)*125);height:calc(var(--uis)*36);background:var(--ink);border-radius:var(--r-pill);z-index:3}
 .phone .screen,.appframe .screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
 .appframe{border-radius:24px;border:1px solid var(--muted-soft);background:var(--chip);position:relative;overflow:hidden;flex:0 0 auto}
 .device-stack{position:relative;display:flex;align-items:flex-end;justify-content:center}
@@ -1720,34 +1768,55 @@ footer strong{color: var(--ink);}
 .frame{overflow:hidden;border-radius:10px;box-shadow:0 10px 34px rgba(20,24,40,.14);scroll-snap-align:center}
 .frame .slide{transform-origin:top left}
 
-/* C14 — app-screen furniture for ui-mockup ----------------------- */
+/* C14 — app-screen furniture + UI text scale --------------------- */
+/* UI text is its own scale, separate from slide typography. Slide type runs 14-150px because it is
+   read across a room; text drawn INSIDE a mock screen is read as an image of an interface, so it
+   uses --fs-ui-1..5 (11/12/13/14/16px) with the line-height token of the same number. Size and
+   line-height are paired; weight stays an independent choice (--fw-regular/medium/bold). Never set a
+   raw px size on mock UI text — that is how a mockup drifts out of the system. */
 /* Schematic only. These make a mock screen READ as an app without faking its data: real labels on
-   the chrome that orients the viewer, skeleton bars everywhere content would be. Vocabulary follows
-   daangn/seed-design's component inventory (Apache-2.0) — the anatomy of a mobile screen is app bar,
-   segmented control, list rows, sheet, banner, FAB — re-implemented here from tokens, not ported. */
+   the chrome that orients the viewer, skeleton bars everywhere content would be. The anatomy of a
+   mobile screen is app bar, segmented control, list rows, sheet, banner, FAB — everything here is
+   built from this system's own tokens, so a mockup always matches the deck's theme. */
+/* The status area belongs to the device, not the app: reserve it so the island never lands on a
+   title. Inside a .phone the bar clears the island; a plain .appframe has no island to clear. */
 .appbar{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--muted-soft);background:var(--chip);flex:0 0 auto}
-.appbar .title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.phone .screen{font-size:calc(var(--uis)*17)}
+.phone .appbar{padding:calc(var(--uis)*59) calc(var(--uis)*16) calc(var(--uis)*10);gap:calc(var(--uis)*10)}
+.phone .appbar .title{font-size:1em}
+.phone .appbar .back{width:.6em;height:.6em;border-width:calc(var(--uis)*2)}
+.phone .appbar .act i{width:1.05em;height:1.05em}
+.phone .tabbar span,.phone .segbar span{font-size:.765em}
+.phone .banner{font-size:.765em;padding:calc(var(--uis)*8) calc(var(--uis)*12)}
+.phone .badge{font-size:.65em;padding:calc(var(--uis)*2) calc(var(--uis)*8)}
+.phone .listrow{padding:calc(var(--uis)*11) calc(var(--uis)*16);gap:calc(var(--uis)*10)}
+.phone .toggle{width:calc(var(--uis)*51);height:calc(var(--uis)*31);flex:0 0 auto}
+.phone .toggle::after{top:calc(var(--uis)*2);left:calc(var(--uis)*2);width:calc(var(--uis)*27);height:calc(var(--uis)*27)}
+.phone .toggle.on::after{left:calc(var(--uis)*22)}
+.phone .fab{right:calc(var(--uis)*16);bottom:calc(var(--uis)*16);width:calc(var(--uis)*56);height:calc(var(--uis)*56);font-size:calc(var(--uis)*26)}
+.phone .sheet{border-radius:calc(var(--uis)*14) calc(var(--uis)*14) 0 0;padding:calc(var(--uis)*8) calc(var(--uis)*16) calc(var(--uis)*20)}
+.appbar .title{font-size:var(--fs-ui-5);line-height:var(--lh-ui-5);font-weight:var(--fw-bold);color:var(--ink)}
 .appbar .back{width:10px;height:10px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex:0 0 auto}
 .appbar .act{margin-left:auto;display:flex;gap:var(--s2)}
 .appbar .act i{width:18px;height:18px;border-radius:var(--r-sm);background:var(--muted-soft);display:block}
 
 .segbar{display:flex;gap:2px;padding:3px;border-radius:var(--r-pill);background:var(--muted-soft);flex:0 0 auto}
-.segbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:6px 10px;border-radius:var(--r-pill);line-height:1.2}
+.segbar span{flex:1;text-align:center;font-size:var(--fs-ui-2);line-height:var(--lh-ui-2);font-weight:var(--fw-bold);color:var(--muted);padding:5px 10px;border-radius:var(--r-pill)}
 .segbar span.on{background:var(--chip);color:var(--ink)}
 
 .tabbar{display:flex;border-bottom:1px solid var(--muted-soft);flex:0 0 auto}
-.tabbar span{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
+.tabbar span{flex:1;text-align:center;font-size:var(--fs-ui-3);line-height:var(--lh-ui-3);font-weight:var(--fw-bold);color:var(--muted);padding:var(--s2) 0;border-bottom:2px solid transparent}
 .tabbar span.on{color:var(--ink);border-bottom-color:var(--accent)}
 
 .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--chip);border-radius:20px 20px 0 0;box-shadow:var(--shadow-pop);padding:var(--s3) var(--s4) var(--s4);z-index:3}
 .sheet::before{content:"";display:block;width:36px;height:4px;border-radius:var(--r-pill);background:var(--muted-soft);margin:0 auto var(--s3)}
 
-.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:12px;line-height:1.4}
+.banner{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-2);line-height:var(--lh-ui-2)}
 .banner.warn{background:var(--warn-soft)} .banner.neg{background:var(--neg-soft)} .banner.pos{background:var(--pos-soft)}
 
 .fab{position:absolute;right:var(--s4);bottom:var(--s4);width:44px;height:44px;border-radius:50%;background:var(--accent);box-shadow:var(--shadow-pop);display:grid;place-items:center;color:var(--on-accent);font-size:22px;line-height:1;z-index:2}
 
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:11px;font-weight:700;line-height:1.5}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
 </style></head><body>
 <main class="slide deck">  <div class="head"><p class="eyebrow latin">User Research · Insight → Opportunity</p>

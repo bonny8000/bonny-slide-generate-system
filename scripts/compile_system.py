@@ -57,7 +57,7 @@ def require_keys(data: dict[str, Any], required: set[str], allowed: set[str], wh
 def validate_token_map(token_map: Any, where: str) -> None:
     if not isinstance(token_map, dict) or not token_map:
         raise BuildError(f"{where}: expected a non-empty token object")
-    allowed_types = {"color", "dimension", "fontFamily", "letterSpacing", "lineHeight", "shadow"}
+    allowed_types = {"color", "dimension", "fontFamily", "fontWeight", "letterSpacing", "lineHeight", "shadow"}
     for name, token in token_map.items():
         if not TOKEN_NAME_RE.fullmatch(name):
             raise BuildError(f"{where}: invalid token name {name!r}")

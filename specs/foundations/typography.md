@@ -29,9 +29,8 @@ and its English partner are **not** the same length. The shorter the 繁中, the
 | 31–50 | 90–110% |
 | 51+ | 80–90% |
 
-(Ratios from [seed-design's international-design guidance](https://github.com/daangn/seed-design),
-which measures the same effect from Korean; 繁中 behaves the same way, and the underlying source is
-[W3C on text size in translation](https://www.w3.org/International/articles/article-text-size.en).)
+(Source: [W3C on text size in translation](https://www.w3.org/International/articles/article-text-size.en).
+The ratios are measured from CJK source text; 繁中 behaves the same way.)
 
 **What this means on a slide.** A four-character 繁中 headline with an English subtitle beneath it is
 the worst case in the table — the English can be two and a half times wider. Fixed-width furniture is

@@ -29,7 +29,7 @@
       "additionalProperties": false,
       "required": ["type", "value"],
       "properties": {
-        "type": { "enum": ["color", "dimension", "fontFamily", "letterSpacing", "lineHeight", "shadow"] },
+        "type": { "enum": ["color", "dimension", "fontFamily", "fontWeight", "letterSpacing", "lineHeight", "shadow"] },
         "value": { "type": "string", "minLength": 1 }
       }
     }

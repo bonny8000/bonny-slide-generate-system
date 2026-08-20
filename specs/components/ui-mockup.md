@@ -49,10 +49,32 @@ numbers is both harder to read and a claim about a product that may not be true.
 - **sheet-screen** — any of the above with `.sheet` raised over it, for a decision or confirmation
   moment.
 
-The vocabulary follows [daangn/seed-design](https://github.com/daangn/seed-design) (Apache-2.0),
-whose component inventory is a good census of what a real mobile screen actually contains. The
-anatomy is borrowed; the CSS is re-implemented from this system's tokens, so a mockup always matches
-the deck's theme and never introduces a colour of its own.
+All of it is built from this system's own tokens, so a mockup always matches the deck's theme and
+never introduces a colour of its own.
+
+**Text inside a mock screen uses the UI scale, not the slide scale.** Slide type runs 14–150px
+because it is read across a room; text drawn inside an interface is read as an *image* of an
+interface, so it uses `--fs-ui-1`…`--fs-ui-5` (11/12/13/14/16px) paired with the `--lh-ui-` token of
+the same number, and a weight from `--fw-regular` / `--fw-medium` / `--fw-bold`. Size and line-height
+travel together; weight stays an independent choice. Never set a raw px size on mock UI text — that
+is how a mockup drifts out of the system.
+
+**A `.phone` is a scaled device, so its interior is measured in points.** `--uis` is one iOS point at
+that mock's size — a real iPhone is 390pt wide, so `calc(width / 390)` converts any Apple spec
+straight across. The frame is 390×844, the nav bar 44pt sitting under a 59pt status inset, the
+dynamic island 125×36pt, a switch 51×31pt, a list row 44pt, body type 17pt.
+
+Setting absolute px inside a phone is what makes a mockup look wrong at a glance, and it is hard to
+name when you see it: shrink the frame to fit a slide and the type does not shrink with it, so the
+proportions stop reading as a real screen even though every individual element looks fine. Size
+everything from `--uis`, or in `em` off the screen's font-size, and a mock is accurate at any width.
+
+**The status area belongs to the device, not the app.** Phones have a floating dynamic island, not a
+notch cut into the top edge, and the app bar reserves the status inset so the island never lands on a
+title. `base.css` handles both; do not override the padding.
+
+`.appframe` and `.mock` are different — they stand in for desktop or card UI shown at 1:1, so they
+use the absolute `--fs-ui-*` scale directly with no device conversion.
 
 ## Tokens used
 surface (frame + cards), muted-soft (skeleton bars, chrome), muted (secondary labels), ink (key labels),

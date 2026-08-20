@@ -3,13 +3,36 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
-## v12.12 — two things borrowed from seed-design: app-screen anatomy, and bilingual expansion
-Read `daangn/seed-design` (Apache-2.0) for what is worth taking. Took two things and declined a
-third; nothing is ported, everything is re-implemented from this system's tokens.
+## v12.12.1 — phone mocks measured in iOS points; a sync bug that reverted base.css
+Three fixes from user review, one of which was quietly undoing every stylesheet change.
 
-- **App-screen furniture for `ui-mockup`.** Their component inventory is a good census of what a real
-  mobile screen actually contains, and this system had only `.phone` / `.appframe` / `.listrow` /
-  `.mock`. `base.css` gains `.appbar`, `.tabbar`, `.segbar`, `.sheet`, `.banner` (+`warn`/`neg`/`pos`),
+- **`sync_examples.py` was promoting stale shipped rules back into the slide block.** It read
+  *every* `<style>` block as "the slide's existing CSS", including the previous `data-shipped` block.
+  So on any `base.css` change, last build's shipped rules differed from this build's, `slide_specific`
+  read them as deliberate differences, and promoted them into the slide block — where, being second
+  and unlayered, they **overrode the very improvement just made**. It resurrected the old
+  `.phone .notch` over the new one, and would have silently reverted every future `base.css` fix
+  across all 162 examples. Now only non-shipped blocks count. 26 already-promoted rules removed.
+- **A phone mock is a scaled device, so its interior is now measured in points.** `--uis` is one iOS
+  point at that mock's size (`width / 390`), so Apple specs convert straight across: frame 390×844,
+  nav bar 44pt over a 59pt status inset, dynamic island 125×36pt, switch 51×31pt, list row 44pt, body
+  17pt. Absolute px inside a phone is what made the old mock look wrong at a glance and hard to name:
+  shrink the frame to fit a slide and the type does not shrink with it, so proportions stop reading as
+  a real screen even though each element looks fine on its own.
+- **Dynamic island, not a notch** — a floating pill inset 11pt from the top, and the app bar reserves
+  the status inset so it can never land on a title. The old notch dated a mockup instantly.
+- **A UI text scale, separate from slide type.** `--fs-ui-1..5` (11/12/13/14/16px) paired with
+  `--lh-ui-1..5`, plus `--fw-regular/medium/bold`; size and line-height travel together and weight
+  stays independent. Slide type runs 14–150px because it is read across a room; text inside a mock
+  screen is read as an *image* of an interface. `fontWeight` is now an allowed token type.
+  `.appframe` / `.mock` use the absolute scale at 1:1; `.phone` scales it by the device ratio.
+
+## v12.12 — app-screen anatomy for ui-mockup, and a bilingual expansion rule
+Surveyed an external mobile design system for ideas worth having. Took two, declined a third; nothing
+is ported, everything is built from this system's own tokens.
+
+- **App-screen furniture for `ui-mockup`.** A census of what a real mobile screen actually contains,
+  against a system that had only `.phone` / `.appframe` / `.listrow` / `.mock`. `base.css` gains `.appbar`, `.tabbar`, `.segbar`, `.sheet`, `.banner` (+`warn`/`neg`/`pos`),
   `.fab` and `.badge` — 8 primitives, all token-driven, zero raw hex. A schematic screen reads as a
   real app when its **chrome** is right, not when its content is detailed, so the rule stays: label
   the app bar and the tabs, skeleton bars everywhere else, never invent rows of plausible data.
@@ -17,13 +40,13 @@ third; nothing is ported, everything is re-implemented from this system's tokens
   render-validated example, `examples/light-app-screen-mockup.html`. Built, screenshotted, looked at,
   and revised three times: captions were running as one cramped line, and two of the three screens
   emptied out below the fold, which no check would have caught.
-- **Bilingual pairs expand, and now `typography.md` says by how much.** 繁中 is the most compact
+- **Bilingual pairs expand, and now `typography.md` says by how much** (source: W3C). 繁中 is the most compact
   writing this system produces and English among the least, so a ≤10-character 繁中 line pairs with
   English running **150–250%** wider. That is the worst case and it is also the most common one — a
   four-character headline with an English subtitle. The failure arrives late: the English wraps, the
   card grows, the row loses alignment, and the layout gate reports an imbalance whose real cause was a
   translation written three steps earlier. Size the container for the English, not the 繁中.
-- **Declined: semantic spacing tokens.** seed-design names spacing by relationship (`global-gutter`,
+- **Declined: semantic spacing tokens** — naming spacing by relationship (`global-gutter`,
   `nav-to-title`, `component-default`) rather than by size. It is the better idea in the abstract, but
   this system already has a working scale plus `--gutter`, and renaming it would churn every example
   and the visual baseline to fix a problem nothing has measured. Recorded here so it is a decision

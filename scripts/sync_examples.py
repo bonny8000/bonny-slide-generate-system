@@ -261,7 +261,14 @@ def rebuild(path: Path) -> tuple[str, int] | None:
     middle = text[first : last + len("</style>")]
     tail = text[last + len("</style>") :]
 
-    existing = "\n".join(re.findall(r"<style[^>]*>(.*?)</style>", middle, re.S))
+    # Only the slide's OWN css counts as existing. Including the previous <style data-shipped>
+    # block here was a silent staleness engine: on any base.css change, last build's shipped
+    # rules differ from this build's, so slide_specific() read them as deliberate differences
+    # and promoted them into the slide block - where, being second and unlayered, they overrode
+    # the very improvement just made. It resurrected the old .phone .notch over the new one, and
+    # would have quietly reverted every future base.css fix across all 162 examples.
+    blocks = re.findall(r"<style([^>]*)>(.*?)</style>", middle, re.S)
+    existing = "\n".join(body for attrs, body in blocks if "data-shipped" not in attrs)
     dark = any(m in existing for m in DARK_MARKERS)
     ship = shipped_css(dark)
     keep = slide_specific(existing, ship, used_classes(tail))
