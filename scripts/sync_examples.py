@@ -127,11 +127,26 @@ def bare_index(shipped: str) -> dict[str, set[str]]:
     return out
 
 
-def slide_specific(existing_css: str, shipped: str) -> list[tuple[str, str]]:
+def used_classes(markup: str) -> set[str]:
+    """Every class name the slide's markup actually puts on an element."""
+    out: set[str] = set()
+    for m in re.finditer(r"""class\s*=\s*["']([^"']*)["']""", markup):
+        out |= set(m.group(1).split())
+    return out
+
+
+def slide_specific(existing_css: str, shipped: str, used: set[str] | None = None) -> list[tuple[str, str]]:
     """Rules this slide genuinely adds: absent from the shipped sheet, or deliberately different.
 
     A :root block is dropped except for custom properties the shipped themes do not define —
     an example that invents its own variable still needs it.
+
+    Rules for classes the markup never uses are dropped outright. Examples were built by inlining a
+    snapshot of base.css, so each one carried the whole sheet; anything base.css has since improved
+    survived here as a "deliberate difference" even when the slide has no such element. That is dead
+    weight in a file whose only job is to be read as reference — 591 of 1523 rules, teaching values
+    base.css no longer uses. A rule is kept when any of its classes is present, so a partial match
+    like `.cmp .ctable th` stays rather than risking a real style.
     """
     ship = {}
     ship_statements = set()
@@ -169,6 +184,10 @@ def slide_specific(existing_css: str, shipped: str) -> list[tuple[str, str]]:
             continue
         if normalise(body) in ship.get(sel, set()):
             continue  # identical to the shipped rule: let the shipped sheet provide it
+        if used is not None:
+            classes = set(re.findall(r"\.([a-zA-Z][\w-]*)", sel))
+            if classes and not (classes & used):
+                continue  # no such element on this slide
         keep.append((sel, body))
     return keep
 
@@ -245,7 +264,7 @@ def rebuild(path: Path) -> tuple[str, int] | None:
     existing = "\n".join(re.findall(r"<style[^>]*>(.*?)</style>", middle, re.S))
     dark = any(m in existing for m in DARK_MARKERS)
     ship = shipped_css(dark)
-    keep = slide_specific(existing, ship)
+    keep = slide_specific(existing, ship, used_classes(tail))
 
     block = SHIPPED_OPEN + "\n" + ship.strip() + "\n</style>"
     if keep:

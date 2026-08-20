@@ -3,6 +3,33 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.9.1 — dead example CSS removed; a review tool that was reading the architecture wrong
+Prompted by an outside review that reported "adoption is only partially consistent" across patterns.
+The headline finding did not hold, but chasing it turned up a real defect underneath.
+- **586 dead rules deleted from the examples** (1523 → 937, 39%). Examples were originally built by
+  inlining a snapshot of `base.css`, so every rule the sheet has since improved survived in the slide
+  block as a "deliberate difference" — including rules for components the slide does not contain.
+  `light-metric-cards` carried `.ctable` and `.hbar .track` while holding neither a table nor a bar
+  chart, at values `base.css` had already superseded. Inert to render, but these files exist to be
+  read as reference, so they were teaching values the system no longer uses. `sync_examples.py` now
+  drops a rule when none of its classes appear in the markup. Proven safe rather than argued safe:
+  all 164 slides match the visual baseline exactly, and the layout gate is unchanged at 16 of 41.
+- **`verify_rebuild.py` was calling a designed feature a failure.** It strips `<style data-slide>`
+  and re-renders, which asked a fair question when examples inlined the whole sheet and had no slide
+  block. After the sync every example carries one deliberately, so any gap now measures "this slide
+  has per-slide CSS" — true by design. It now reports **local reliance** as a magnitude to read
+  rather than a pass/fail verdict, and says so in its own docstring so the old reading is not
+  restored.
+- **The raw-hex "violations" in six examples are mostly legitimate**, and `audit.md` now records why,
+  since this is the second review to flag them. `.appwin .sb{background:#1b1b20}` paints a mockup of
+  a dark application sidebar inside a light slide — a token would repaint it to the slide's own
+  background and destroy the depiction. `#fff` inside `color-mix()` is a blend operand. Three files
+  are a Claude-brand deck whose warm palette genuinely is not in the token set; that one needs a
+  decision (add a brand theme, or exempt), not a mechanical substitution. Exactly one literal was a
+  real violation and is now `var(--accent)`. `base.css` remains at zero.
+- Also recorded in `audit.md`: a slide value larger than the `base.css` value is often deliberate
+  per-slide sizing, not staleness. Do not bulk-revert examples to base values.
+
 ## v12.9 — the router + the balance gate
 Two structural fixes aimed at a long-standing failure: the system knew a great deal but could enforce
 almost none of it, so layout quality degraded first under context pressure.

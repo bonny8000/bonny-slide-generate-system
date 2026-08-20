@@ -1,20 +1,29 @@
 #!/usr/bin/env python3
-"""Check whether each pattern can really be rebuilt from assets/base.css.
+"""Measure how much of each pattern comes from assets/base.css rather than from the example.
 
 `specs/generated-class-coverage.md` answers a *name* question: is every class an example uses
 defined somewhere in the stylesheet. That is necessary but not sufficient — a pattern can have every
 class name present and still not reproduce, because a descendant rule, a pseudo-element, or an
 `nth-child` rule never made it across. Reading the coverage number as "buildable" overstates it.
 
-This is the honest check: re-render each example with **only** the shipped stylesheet — the theme
-tokens, the generated bundle, and base.css — and compare against the example as it actually ships.
-If the two match, the stylesheet genuinely contains the pattern.
+So this renders each example twice: once as it ships, and once with its `<style data-slide>` block
+removed so only the shipped stylesheet applies. The gap between them is **local reliance** — how
+much of what you see is the slide's own CSS doing the work.
+
+Read the number as a measure, not a verdict. Every example carries a small deliberate slide block
+(per-slide sizing, a one-off mockup), so some reliance is correct and expected. What matters is the
+magnitude: a pattern with high reliance is mostly bespoke, which means an agent imitating it learns
+local CSS instead of the shared vocabulary — the exact failure this system exists to prevent.
+
+An earlier version of this script called any gap a rebuild FAILURE. That was written when examples
+inlined the whole stylesheet and had no slide block, and it misreads the current architecture: it
+reports a designed feature as a defect. Do not restore that reading.
 
 Usage:
     python scripts/verify_rebuild.py                 # every example
     python scripts/verify_rebuild.py light-timeline  # one pattern, by example stem
 
-Exit codes: 0 = every checked pattern rebuilds within tolerance · 1 = some do not · 2 = cannot run.
+Exit codes: 0 = no pattern exceeds the reliance ceiling · 1 = some do · 2 = cannot run.
 """
 
 from __future__ import annotations
@@ -74,7 +83,7 @@ def main() -> int:
             if "</style>" not in src:
                 continue
             dark = "--canvas:#1B1B20" in src or "--canvas: #1B1B20" in src
-            markup = src.split("</style>")[-1]
+            markup = src.split("</style>")[-1]  # everything after the last style block
             rebuilt = Path(tmp) / (example.stem + ".html")
             rebuilt.write_text(
                 "<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>"
@@ -89,17 +98,19 @@ def main() -> int:
             mean, peak = compare(shipped, fresh)
             ok = mean <= args.mean and peak <= args.peak
             failures += not ok
-            print(f"{'ok  ' if ok else 'DIFF'}  mean {mean:5.2f}  peak {peak:5.0f}  {example.stem}")
+            label = "shared" if ok else "LOCAL "
+            print(f"{label}  reliance {mean:5.2f}  peak {peak:5.0f}  {example.stem}")
 
     total = len(examples)
     if failures:
         print(
-            f"\n{total - failures}/{total} patterns rebuild from assets/base.css alone. "
-            f"{failures} still depend on CSS that lives only in their example.",
+            f"\n{total - failures}/{total} patterns draw their look from assets/base.css. "
+            f"{failures} lean on example-local CSS beyond the ceiling — check whether that "
+            f"pattern's vocabulary belongs in base.css instead.",
             file=sys.stderr,
         )
         return 1
-    print(f"\nall {total} patterns rebuild from assets/base.css alone")
+    print(f"\nall {total} patterns draw their look from assets/base.css")
     return 0
 
 

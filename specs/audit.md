@@ -101,6 +101,26 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] Unmigrated catalog components remain available; pilot hypertokens are not a whitelist. — blocker
 - [ ] Managed properties have one canonical owner in `system/*.json`. — major
 
+## Reading the examples: three things that look like defects and are not
+
+Reviewers keep flagging these. Check here before opening one as a finding.
+
+**A slide-specific `<style data-slide>` block is by design.** Every example ships one. Stripping it
+and re-rendering will differ — that is the block doing its job, not a pattern that failed to adopt
+the shared system. `scripts/verify_rebuild.py` reports this as *local reliance*, a magnitude to read,
+not a pass/fail. High reliance is worth investigating; any reliance is not.
+
+**Raw hex inside an example is usually legitimate.** Six examples carry colour literals. Three are a
+Claude-brand deck whose warm palette (`#d97757`, `#ece6dd`) is genuinely not in the token set, and
+`.appwin .sb{background:#1b1b20}` paints a *mockup of a dark application sidebar inside a light
+slide* — substituting `var(--canvas)` would repaint it to the slide's own background and destroy the
+depiction. `#fff` inside `color-mix()` is a blend operand, not a theme colour. The zero-raw-hex rule
+is absolute for `assets/base.css`, which is clean; in examples it applies to *theme* colour only.
+
+**A larger value than base.css is often deliberate.** `.mc .t` is 33px in `light-metric-cards` and
+22px in base. That is per-slide sizing tuned to a three-card row, not a stale copy. Do not
+bulk-revert example values to base values; check what the slide actually needs.
+
 ## Severity
 - **blocker** — breaks the system identity (mixed theme, 2nd accent, Korean). Must fix.
 - **major** — visibly off-system (raw colors, tiny text, unbalanced, mixed icon styles). Fix.
