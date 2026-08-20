@@ -5,6 +5,9 @@ tier: organism
 status: stable
 intent: open a section with a framing question, then back it with parallel proofs
 triggers: [framing question, "is there a gap?", background thesis + proof, a question to anchor a section, stat + chart + logos together, evidence trio, 提問開場, 用問題破題, 一個提問配並列證據, 章節開場的大哉問]
+material: stat+chart+logo
+arrangement: question-then-proof
+item_count: few
 depends_on: [evidence-card, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

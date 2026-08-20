@@ -92,8 +92,23 @@ consistency drifts.
    `illustration-plan.json`; each record includes `trigger`, `hard_candidate`, `gate`, and `reason`.
    A hard candidate may use `gate: no` only with an explicit precision override. An omitted decision is a
    build error. **No components or layouts yet.**
-4. **Map — visuals second:** for each planned page, **look its intention up in `specs/generated-router.md`**
-   (match `intent` first, confirm with `triggers`), then read that row's `content-map.md` entry for the
+4. **Map — visuals second:** for each planned page, **write one normalised line before you look
+   anything up**, in this exact form:
+
+   > `意圖: <what this page must DO>  ·  形狀: <material> / <arrangement> / <count>`
+
+   Material is `chart · quote · stat · ui-screen · illustration · icon · text-only` (or a `+` pair);
+   arrangement and count come from the same controlled vocabulary as the router. Derive the shape
+   from **the content you actually have**, never from the layout you are hoping to use.
+
+   Then look that line up in `specs/generated-router.md`. **Shape is the decisive axis, not
+   intention.** Measured on this library: intention alone identifies 13 of 25 layouts, because pairs
+   like `idea-evidence`/`painpoint-evidence` share a job and differ only in material — a chart versus
+   participant quotes. The shape triple alone identifies 24 of 25. Match the shape, then use
+   intention to break the one remaining tie. On held-out requests this took routing from 4/10 to
+   8/10; skipping the normalised line is the single biggest cause of picking the wrong layout.
+
+   Then read that row's `content-map.md` entry for the
    detection heuristic and component pairing. The router is the complete list — if you are about to invent
    a layout, you have missed one. Then find its shape in `specs/content-map.md` → layout + components.
    Human/agent workflows, conversational worked examples, workshop instructions, and scattered-input
@@ -131,8 +146,10 @@ consistency drifts.
 - **One theme per deck** — color is a separate layer; layouts/components stay theme-agnostic.
 - **4-color discipline** — accent is the only chromatic color.
 - **繁中 primary + English supporting by default** — a deck in another language is fine when the
-  user asks for one; declare it (`validate_layout --lang`). Routing *triggers* stay 繁中 + English,
-  because that is what the planner matches intention naming against.
+  user asks for one; declare it (`validate_layout --lang`). That is an **output** constraint, enforced
+  at render time. Routing *triggers* are deliberately multilingual — 繁中, English and Korean —
+  because intention does not change with the language it is written in, and much of this library was
+  learned from Korean reference decks. Deleting that vocabulary deleted recognition, not risk.
 - **One claim per slide; plain-language titles; purposeful icons, one style.**
 - **A generated editorial explainer must be genuinely generated.** Canonical images are style
   reference only; CSS/SVG recreation, reference reuse, grayscale filtering, and contain-fit gutters fail.

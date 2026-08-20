@@ -111,17 +111,43 @@ def load_router() -> dict[str, dict]:
     return {k: v for k, v in data["entries"].items() if v.get("kind") == "layout"}
 
 
-def load_cases(path: Path) -> list[tuple[str, str]]:
-    cases: list[tuple[str, str]] = []
+def load_cases(path: Path) -> list[tuple[str, str, str]]:
+    """Rows are `request | expect` or `request | shape | expect`.
+
+    The three-column form is the normalised mode: `shape` is what the agent would declare after
+    reading the request — material/arrangement/count — instead of leaving the table to guess it from
+    however the user happened to phrase things.
+    """
+    cases: list[tuple[str, str, str]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line.startswith("|") or line.startswith("| ---"):
             continue
         cells = [c.strip() for c in line.strip("|").split("|")]
-        if len(cells) != 2 or cells[0] == "request":
+        if cells and cells[0] in ("request",):
             continue
-        cases.append((cells[0], cells[1]))
+        if len(cells) == 2:
+            cases.append((cells[0], "", cells[1]))
+        elif len(cells) == 3:
+            cases.append((cells[0], cells[1], cells[2]))
     return cases
+
+
+def by_shape(shape: str, entries: dict[str, dict]) -> list[str]:
+    """Layouts whose declared shape matches, as an exact tag match rather than a text similarity.
+
+    This is the whole point of normalising: `chart / split / one` either matches or it does not.
+    Prose shape was tried first and made things worse — 13/25 down to 11/25 — because every shape
+    sentence shares filler vocabulary ("one X and its Y"), so fuzzy matching drowned in it.
+    """
+    want = tuple(part.strip() for part in shape.split("/"))
+    if len(want) != 3:
+        return []
+    return [
+        k
+        for k, e in entries.items()
+        if (e.get("material"), e.get("arrangement"), e.get("itemCount")) == want
+    ]
 
 
 def score(query: str, entry: dict, idf: dict[str, float]) -> float:
@@ -171,15 +197,26 @@ def main() -> int:
         print(f"no cases parsed from {args.cases}", file=sys.stderr)
         return 2
 
-    hits = wrong = miss = 0
+    hits = wrong = miss = ambig = 0
     rows: list[tuple[str, str, str, str, float]] = []
-    for request, expected in cases:
+    for request, shape, expected in cases:
+        pool = entries
+        if shape:
+            narrowed = by_shape(shape, entries)
+            if narrowed:
+                pool = {k: entries[k] for k in narrowed}
         ranked = sorted(
-            ((score(request, e, idf), k) for k, e in entries.items()), reverse=True
+            ((score(request, e, idf), k) for k, e in pool.items()), reverse=True
         )
         top_score, top = ranked[0]
+        if shape and len(pool) == 1:
+            top_score = max(top_score, 1.0)  # shape alone settled it
         runner = ranked[1][1] if len(ranked) > 1 else "-"
-        if top_score <= 0:
+        if top_score <= 0 and shape and len(pool) < len(entries):
+            # shape did narrow it; intent just failed to break the remaining tie. That is a much
+            # smaller failure than "nothing matched" and must not be reported as a free-pick.
+            verdict, ambig = "AMBIG", ambig + 1
+        elif top_score <= 0:
             verdict, miss = "MISS ", miss + 1
         elif top == expected:
             verdict, hits = "hit  ", hits + 1
@@ -187,7 +224,7 @@ def main() -> int:
             verdict, wrong = "WRONG", wrong + 1
         rows.append((verdict, request, expected, top, top_score))
         if verdict != "hit  " or args.verbose:
-            got = "—" if top_score <= 0 else top
+            got = ("[" + " | ".join(sorted(pool)) + "]") if verdict == "AMBIG" else ("—" if top_score <= 0 else top)
             print(f"{verdict}  {request[:44]:44s}  expect {expected:26s} got {got:26s} {top_score:4.1f}")
             if args.verbose:
                 print(f"{'':53s}runner-up {runner}")

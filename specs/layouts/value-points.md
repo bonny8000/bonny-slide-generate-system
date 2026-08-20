@@ -5,6 +5,9 @@ tier: organism
 status: stable        # example built + render-validated
 intent: justify "why us" with a few value points, each backed by a concrete supporting card
 triggers: ["why X?", 2–3 value points each with a paragraph + a backing visual/tag cluster, a sell slide, 為什麼選我們, 價值主張加佐證, 我們的優勢]
+material: illustration
+arrangement: rows
+item_count: few
 depends_on: [taglist, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

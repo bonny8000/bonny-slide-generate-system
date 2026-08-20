@@ -12,18 +12,18 @@ Run it with:
 
     python scripts/validate_routing.py --cases specs/routing-cases-heldout.md
 
-| request | expect |
-| --- | --- |
-| 這一季要交付什麼，分成幾個階段 | timeline |
-| 我們的客戶大致分成哪幾類 | use-case-cards |
-| 使用者的抱怨原句，旁邊放同意的比例 | qual-quant-split |
-| 上線後留存率跟客訴量的變化 | results-grid |
-| 把三個設計原則列出來，份量一樣 | keyword-cards |
-| 這個功能長什麼樣子，畫面上標重點 | feature-showcase |
-| 我們在市場上的位置跟主要對手 | positioning-matrix |
-| 使用者從註冊到完成訂單會經過哪些步驟 | service-flow |
-| 先問一個問題，再用三個數據回答 | centered-question-evidence |
-| 為什麼要選我們，三個理由各有證據 | value-points |
+| request | shape declared from the request | expect |
+| --- | --- | --- |
+| 這一季要交付什麼，分成幾個階段 | text-only / sequence-dated / few | timeline |
+| 我們的客戶大致分成哪幾類 | text-only / grid / few | use-case-cards |
+| 使用者的抱怨原句，旁邊放同意的比例 | quote+stat / split / few | qual-quant-split |
+| 上線後留存率跟客訴量的變化 | stat / grid / few | results-grid |
+| 把三個設計原則列出來，份量一樣 | text-only / grid / few | keyword-cards |
+| 這個功能長什麼樣子，畫面上標重點 | ui-screen / split / pair | feature-showcase |
+| 我們在市場上的位置跟主要對手 | text-only / matrix / many | positioning-matrix |
+| 使用者從註冊到完成訂單會經過哪些步驟 | text-only / sequence / many | service-flow |
+| 先問一個問題，再用三個數據回答 | stat+chart+logo / question-then-proof / few | centered-question-evidence |
+| 為什麼要選我們，三個理由各有證據 | text-only / rows / few | value-points |
 
 ## What the failures teach
 

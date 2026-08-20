@@ -16,6 +16,9 @@
     "1/2/3 points each with data": [
       "numbered-rows"
     ],
+    "1순위/2순위/3순위": [
+      "ranked-list"
+    ],
     "2 dimensions low↔high": [
       "positioning-matrix"
     ],
@@ -900,6 +903,39 @@
     ],
     "重新定義問題": [
       "research-flow"
+    ],
+    "개선 전후": [
+      "as-is-to-be"
+    ],
+    "기능 추가 후": [
+      "as-is-to-be"
+    ],
+    "능력": [
+      "level-slider"
+    ],
+    "목표 지점": [
+      "positioning-matrix"
+    ],
+    "문제/해결": [
+      "problem-solution"
+    ],
+    "민감도": [
+      "level-slider"
+    ],
+    "연결": [
+      "linked-circles"
+    ],
+    "연결성": [
+      "level-slider"
+    ],
+    "우선순위": [
+      "ranked-list"
+    ],
+    "포지셔닝": [
+      "positioning-matrix"
+    ],
+    "플로우": [
+      "service-flow"
     ]
   },
   "entries": {
@@ -908,13 +944,18 @@
       "tier": "organism",
       "status": "stable",
       "intent": "contrast the current experience with the improved one using real screens",
+      "material": "ui-screen",
+      "arrangement": "opposed",
+      "itemCount": "pair",
       "triggers": [
         "as-is / to-be",
         "before/after of a UI",
         "功能新增後",
         "改版前後",
         "screen 改善",
-        "annotated current vs improved"
+        "annotated current vs improved",
+        "기능 추가 후",
+        "개선 전후"
       ],
       "spec": "specs/layouts/as-is-to-be.md",
       "example": "examples/dark-as-is-to-be.html",
@@ -941,6 +982,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "open a section with a framing question, then back it with parallel proofs",
+      "material": "stat+chart+logo",
+      "arrangement": "question-then-proof",
+      "itemCount": "few",
       "triggers": [
         "framing question",
         "is there a gap?",
@@ -976,6 +1020,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "back a claim with a traceable source",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "desk-research citation",
         "literature evidence",
@@ -1002,6 +1049,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "help the audience choose by comparing options across criteria with one highlighted",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "competitive analysis",
         "vs alternatives",
@@ -1035,6 +1085,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "offer one clear primary action plus a quieter secondary",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "CTAs",
         "landing actions",
@@ -1063,6 +1116,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "prove a change by pairing a big +/-% with its before/after bars",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "before to after",
         "improvement %",
@@ -1092,6 +1148,9 @@
       "tier": "layout",
       "status": "stable",
       "intent": "humanize workshop instructions, workflow transformation, or real-UI interpretation",
+      "material": "illustration+ui-screen",
+      "arrangement": "narrative-stage",
+      "itemCount": "one",
       "triggers": [
         "workshop timing and rules",
         "facilitator dialogue",
@@ -1135,6 +1194,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "carry one piece of proof - an icon-stat, a chart, or a logo-row",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "one proof card in a trio",
         "parallel evidence types",
@@ -1164,6 +1226,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "present one feature with an icon, a title, and a short description",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "a single feature/capability",
         "an icon + title + blurb card",
@@ -1191,6 +1256,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "present a small set of features as equal, scannable cards",
+      "material": "icon",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "3–4 features",
         "what's included",
@@ -1224,6 +1292,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "show how specific UI features deliver value / resolve user anxieties",
+      "material": "ui-screen",
+      "arrangement": "split",
+      "itemCount": "pair",
       "triggers": [
         "feature areas",
         "app screens to show",
@@ -1261,6 +1332,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "show where things cluster geographically",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "region/country map",
         "X of Y in the capital area",
@@ -1289,6 +1363,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "put one central concept at the middle with its facets radiating around it",
+      "material": "icon",
+      "arrangement": "centre-satellite",
+      "itemCount": "many",
       "triggers": [
         "a core concept + surrounding facets",
         "a center-out model",
@@ -1323,6 +1400,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "list items with a quick visual anchor per row",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "categories",
         "audiences",
@@ -1352,6 +1432,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "pair a design idea with the evidence that backs it",
+      "material": "chart",
+      "arrangement": "split",
+      "itemCount": "one",
       "triggers": [
         "an idea/claim + a supporting chart or stat",
         "we think X — here's why",
@@ -1386,6 +1469,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "converge several interview groups into one shared insight",
+      "material": "quote",
+      "arrangement": "converge",
+      "itemCount": "many",
       "triggers": [
         "interview groups/segments",
         "affinity mapping",
@@ -1420,6 +1506,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "present a few parallel values / keywords / principles as equal cards",
+      "material": "text-only",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "3–4 values or principles",
         "our keywords",
@@ -1451,12 +1540,18 @@
       "tier": "atom",
       "status": "stable",
       "intent": "show a trait/level at a glance (low ↔ high)",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "persona behavior traits",
         "ratings",
         "敏感度/能力/連結性",
         "a 0–100 level",
-        "comparable attributes"
+        "comparable attributes",
+        "민감도",
+        "능력",
+        "연결성"
       ],
       "spec": "specs/components/level-slider.md",
       "example": "examples/light-persona-cards.html",
@@ -1479,6 +1574,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "show that several concepts connect into one continuous whole (a continuum / total experience)",
+      "material": "text-only",
+      "arrangement": "continuum",
+      "itemCount": "few",
       "triggers": [
         "overlapping circles",
         "Venn",
@@ -1489,7 +1587,8 @@
         "環環相扣",
         "連成一個整體",
         "概念相連",
-        "連續體"
+        "連續體",
+        "연결"
       ],
       "spec": "specs/layouts/linked-circles.md",
       "example": "examples/light-linked-circles.html",
@@ -1513,6 +1612,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "evidence what exists by showing the actual marks",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "tools",
         "competitors",
@@ -1543,6 +1645,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "state one outcome so the number is the hero and the topic is labeled quietly",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "one result + a one-line reason",
         "an outcome with a topic",
@@ -1569,6 +1674,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "state one numbered point with bilingual text and its chart",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "a point inside a numbered sequence",
         "badge + text + chart row"
@@ -1594,6 +1702,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "explain 2-4 sequenced points, each backed by its own chart",
+      "material": "chart",
+      "arrangement": "rows",
+      "itemCount": "few",
       "triggers": [
         "1/2/3 points each with data",
         "multi-point findings",
@@ -1629,6 +1740,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "present a pain point backed by evidence — qualitative quotes and/or spatial/quant data",
+      "material": "quote",
+      "arrangement": "split",
+      "itemCount": "one",
       "triggers": [
         "painpoint N",
         "a problem + participant quotes",
@@ -1665,6 +1779,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "anchor design in real users and surface their pain points",
+      "material": "quote+illustration",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "persona(s)",
         "user archetype",
@@ -1703,6 +1820,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "show one proportion that matters",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "single share",
         "one key %",
@@ -1733,6 +1853,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "show competitive/strategic standing in a space and the target position to move toward",
+      "material": "text-only",
+      "arrangement": "matrix",
+      "itemCount": "many",
       "triggers": [
         "perceptual map",
         "positioning map",
@@ -1743,7 +1866,9 @@
         "競品分析",
         "市場定位",
         "兩軸象限",
-        "競品分布"
+        "競品分布",
+        "목표 지점",
+        "포지셔닝"
       ],
       "spec": "specs/layouts/positioning-matrix.md",
       "example": "examples/light-positioning-matrix.html",
@@ -1769,6 +1894,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "contrast the problem with the solution so the solution lands as the answer",
+      "material": "text-only",
+      "arrangement": "opposed",
+      "itemCount": "pair",
       "triggers": [
         "problem/solution",
         "問題/解法",
@@ -1776,7 +1904,8 @@
         "two opposing states",
         "pain → fix",
         "問題與解法",
-        "痛點與對策"
+        "痛點與對策",
+        "문제/해결"
       ],
       "spec": "specs/layouts/problem-solution.md",
       "example": "examples/light-problem-solution.html",
@@ -1802,6 +1931,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "present the product itself — what it is and what it does — like a landing hero",
+      "material": "ui-screen+stat",
+      "arrangement": "hero",
+      "itemCount": "one",
       "triggers": [
         "product intro",
         "landing/hero",
@@ -1839,6 +1971,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "make a finding both felt and proven — user voices beside the matching numbers",
+      "material": "quote+stat",
+      "arrangement": "split",
+      "itemCount": "few",
       "triggers": [
         "quotes AND stats together",
         "what users said + how many",
@@ -1872,6 +2007,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "carry a user's voice (a qual quote) with attribution",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "a user quote",
         "testimonial",
@@ -1902,12 +2040,17 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "show prioritized needs/requirements in explicit rank order",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "第一優先/第二優先",
         "priority list",
         "ranked needs",
         "top-N requirements",
-        "what matters most panel"
+        "what matters most panel",
+        "1순위/2순위/3순위",
+        "우선순위"
       ],
       "spec": "specs/components/ranked-list.md",
       "example": "examples/light-positioning-matrix.html",
@@ -1932,6 +2075,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "earn the conclusion by walking background data to a reframed question to supporting literature",
+      "material": "chart",
+      "arrangement": "sequence",
+      "itemCount": "few",
       "triggers": [
         "research story",
         "background to problem to insight",
@@ -1973,6 +2119,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "prove impact across several outcomes / show what the work achieved",
+      "material": "stat",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "results",
         "成果",
@@ -2009,6 +2158,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "orient the audience to how the service works — the end-to-end flow and decision paths, grouped by user segment",
+      "material": "text-only",
+      "arrangement": "sequence",
+      "itemCount": "many",
       "triggers": [
         "flowchart",
         "流程圖",
@@ -2020,7 +2172,8 @@
         "服務流程",
         "整體流程",
         "端到端流程",
-        "從頭到尾"
+        "從頭到尾",
+        "플로우"
       ],
       "spec": "specs/layouts/service-flow.md",
       "example": "examples/light-service-flow.html",
@@ -2046,6 +2199,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "show a single labeled percentage as a horizontal bar",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "labeled % values",
         "survey % rows",
@@ -2073,6 +2229,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "summarize what users said at scale, one row per question",
+      "material": "stat",
+      "arrangement": "rows",
+      "itemCount": "many",
       "triggers": [
         "survey results",
         "Q&A results",
@@ -2109,6 +2268,9 @@
       "tier": "atom",
       "status": "stable",
       "intent": "show breadth/coverage as a cluster of small labels",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "many categories/tags",
         "#handles",
@@ -2138,6 +2300,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "define one term with a supporting illustration",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "one term + definition",
         "a card inside terminology-cards",
@@ -2164,6 +2329,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "establish shared vocabulary so a mixed room means the same thing",
+      "material": "text-only",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "glossary",
         "what we mean by X",
@@ -2199,6 +2367,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "set expectations over time — show the project/roadmap phases and their deliverables",
+      "material": "text-only",
+      "arrangement": "sequence-dated",
+      "itemCount": "few",
       "triggers": [
         "timeline",
         "roadmap",
@@ -2237,6 +2408,9 @@
       "tier": "molecule",
       "status": "stable",
       "intent": "show the real product UI as a visual so claims feel concrete",
+      "material": "",
+      "arrangement": "",
+      "itemCount": "",
       "triggers": [
         "product shot",
         "app/dashboard screen",
@@ -2267,6 +2441,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "show who the product serves — audience segments / use cases",
+      "material": "illustration",
+      "arrangement": "grid",
+      "itemCount": "few",
       "triggers": [
         "use cases",
         "audience segments",
@@ -2302,6 +2479,9 @@
       "tier": "organism",
       "status": "stable",
       "intent": "justify \"why us\" with a few value points, each backed by a concrete supporting card",
+      "material": "illustration",
+      "arrangement": "rows",
+      "itemCount": "few",
       "triggers": [
         "why X?",
         "2–3 value points each with a paragraph + a backing visual/tag cluster",

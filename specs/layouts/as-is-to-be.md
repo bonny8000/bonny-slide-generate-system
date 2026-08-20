@@ -4,7 +4,10 @@ kind: layout
 tier: organism
 status: stable         # example built + validated: examples/dark-as-is-to-be.html
 intent: contrast the current experience with the improved one using real screens
-triggers: ["as-is / to-be", before/after of a UI, 功能新增後, 改版前後, screen 改善, annotated current vs improved]
+triggers: ["as-is / to-be", before/after of a UI, 功能新增後, 改版前後, screen 改善, annotated current vs improved, 기능 추가 후, 개선 전후]
+material: ui-screen
+arrangement: opposed
+item_count: pair
 depends_on: [ui-mockup, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional

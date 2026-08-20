@@ -4,7 +4,10 @@ kind: layout
 tier: organism
 status: stable        # example built + render-validated
 intent: show competitive/strategic standing in a space and the target position to move toward
-triggers: [perceptual map, positioning map, 2 dimensions low↔high, option/brand markers, a "target"/goal point, 目標定位, 競品分析, 市場定位, 兩軸象限, 競品分布]
+triggers: [perceptual map, positioning map, 2 dimensions low↔high, option/brand markers, a "target"/goal point, 目標定位, 競品分析, 市場定位, 兩軸象限, 競品分布, 목표 지점, 포지셔닝]
+material: text-only
+arrangement: matrix
+item_count: many
 depends_on: [logo-row, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

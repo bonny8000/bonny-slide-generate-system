@@ -5,6 +5,9 @@ tier: organism
 status: stable
 intent: summarize what users said at scale, one row per question
 triggers: [survey results, "Q&A results", 3-6 repeated questions, questionnaire, sample size + demographics, 問卷, 問卷結果, 每題一列, 受訪者樣本]
+material: stat
+arrangement: rows
+item_count: many
 depends_on: [pie-donut, barchart, hbar, tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional

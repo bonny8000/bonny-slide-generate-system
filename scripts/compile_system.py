@@ -512,6 +512,9 @@ def load_specs() -> dict[str, dict[str, Any]]:
                 "tier": data["tier"],
                 "status": data["status"],
                 "intent": data["intent"],
+                "material": str(data.get("material", "")).strip(),
+                "arrangement": str(data.get("arrangement", "")).strip(),
+                "itemCount": str(data.get("item_count", "")).strip(),
                 "triggers": triggers,
                 "spec": where,
                 "example": example,
@@ -536,15 +539,28 @@ def load_catalog_ids() -> set[str]:
 
 
 CJK_RANGES = (("㐀", "鿿"), ("豈", "﫿"))
-HANGUL_RANGES = (("ᄀ", "ᇿ"), ("㄰", "㆏"), ("가", "힣"))
+# Triggers used to reject Hangul. That rule was aimed at the right goal from the wrong layer: the
+# constraint is that decks must be GENERATED in 繁中 + English, which validate_layout.py enforces at
+# render time against the declared output language. A trigger is internal routing vocabulary and is
+# never rendered, so banning a language here protected nothing — it only deleted recognition ability
+# learned from the Korean reference decks this system was trained on. Intention does not change with
+# the language it is written in, so triggers are deliberately multilingual now.
 
 
 def _in_ranges(text: str, ranges: tuple[tuple[str, str], ...]) -> bool:
     return any(low <= ch <= high for ch in text for low, high in ranges)
 
 
-def _is_cjk(text: str) -> bool:
-    return _in_ranges(text, CJK_RANGES)
+HANGUL_RANGES = (("ᄀ", "ᇿ"), ("㄰", "㆏"), ("가", "힯"))
+
+
+def _is_dense_script(text: str) -> bool:
+    """Scripts where two characters already form a whole word, so the length floor can be lower.
+
+    Han and Hangul both qualify — 연결 and 連結 carry as much signal as a five-letter English word,
+    whereas a two-letter ASCII trigger is noise.
+    """
+    return _in_ranges(text, CJK_RANGES) or _in_ranges(text, HANGUL_RANGES)
 
 
 def validate_router(specs: dict[str, dict[str, Any]]) -> None:
@@ -588,21 +604,36 @@ def validate_router(specs: dict[str, dict[str, Any]]) -> None:
                 f"component {spec_id!r} is used by no layout and named in no content-map row (orphan)"
             )
 
+    # Shape is the axis that actually decides between conceptual twins, so a layout without it is
+    # only half-routable. Collisions are allowed but named: two layouts may legitimately share a
+    # shape when their intent differs (keyword-cards vs terminology-cards are both 3-4 text cards).
+    shapes: dict[tuple[str, str, str], list[str]] = {}
+    for spec_id in sorted(specs):
+        spec = specs[spec_id]
+        if spec["kind"] != "layout":
+            continue
+        triple = (spec["material"], spec["arrangement"], spec["itemCount"])
+        missing = [
+            name
+            for name, value in zip(("material", "arrangement", "item_count"), triple)
+            if not value
+        ]
+        if missing:
+            errors.append(
+                f"{spec['spec']}: layout is missing {', '.join(missing)} — without a shape it can only "
+                "be reached by intent, which alone identifies 13 of 25 layouts"
+            )
+        else:
+            shapes.setdefault(triple, []).append(spec_id)
+
     seen: dict[str, str] = {}
     for spec_id in sorted(specs):
         for trigger in specs[spec_id]["triggers"]:
             key = trigger.strip().lower()
-            # a 2-character CJK term is fully distinctive; ASCII needs more signal
-            floor = 2 if _is_cjk(key) else 3
+            # a 2-character Han/Hangul term is fully distinctive; ASCII needs more signal
+            floor = 2 if _is_dense_script(key) else 3
             if len(key) < floor:
                 errors.append(f"{specs[spec_id]['spec']}: trigger {trigger!r} is too short to route on")
-            if _in_ranges(key, HANGUL_RANGES):
-                errors.append(
-                    f"{specs[spec_id]['spec']}: trigger {trigger!r} is not in a language the router "
-                    "matches on. Triggers are matched against the deck plan's intention naming, "
-                    "which is 繁中 + English — a trigger in any other language can never fire, "
-                    "however the deck's OUTPUT language is set (see validate_layout --lang)."
-                )
             if key in seen and seen[key] != spec_id:
                 errors.append(
                     f"trigger {trigger!r} is claimed by both {seen[key]!r} and {spec_id!r} — make it specific"
@@ -656,11 +687,21 @@ def render_router_md(specs: dict[str, dict[str, Any]]) -> str:
         ("component", "Components — resolved via a layout's `depends_on`"),
     )
     for kind, heading in sections:
-        lines += ["## " + heading, "", "| id | intent (the job) | triggers | spec |", "|---|---|---|---|"]
+        lines += [
+            "## " + heading,
+            "",
+            "| id | intent (the job) | shape — material / arrangement / count | triggers | spec |",
+            "|---|---|---|---|---|",
+        ]
         for spec_id in sorted(key for key, value in specs.items() if value["kind"] == kind):
             spec = specs[spec_id]
             triggers = " · ".join(spec["triggers"])
-            lines.append(f"| `{spec_id}` | {spec['intent']} | {triggers} | `{spec['spec']}` |")
+            shape = " / ".join(
+                part for part in (spec.get("material"), spec.get("arrangement"), spec.get("itemCount")) if part
+            ) or "—"
+            lines.append(
+                f"| `{spec_id}` | {spec['intent']} | {shape} | {triggers} | `{spec['spec']}` |"
+            )
         lines.append("")
     return "\n".join(lines)
 

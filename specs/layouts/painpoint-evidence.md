@@ -5,6 +5,9 @@ tier: organism
 status: stable        # example built + render-validated
 intent: present a pain point backed by evidence — qualitative quotes and/or spatial/quant data
 triggers: ["painpoint N", a problem + participant quotes, geographic concentration, evidence for a problem, 痛點佐證, 一個痛點加引述, 問題的證據, 使用者困擾與數據]
+material: quote
+arrangement: split
+item_count: one
 depends_on: [quote-bubble, geo-map, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent, band-fill]
 icon_use: optional

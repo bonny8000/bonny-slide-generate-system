@@ -3,6 +3,37 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.10 — routing gets a second axis, and the Korean ban comes off
+The user's reframe: intention is language-independent, so neither the input language nor the router's
+own language should change which layout a page needs. Both changes follow from that.
+
+- **The Hangul trigger ban is lifted, and the deleted Korean vocabulary is restored.** v12.9 rejected
+  Korean in triggers. That aimed at the right goal from the wrong layer — the real constraint is that
+  decks must be *generated* in 繁中 + English, which `validate_layout.py` already enforces at render
+  time against the declared output language. A trigger is internal routing vocabulary and is never
+  rendered, so the ban protected nothing; it only deleted recognition ability learned from the Korean
+  reference decks this library was trained on. Restored from `d036c34`. The length floor also treated
+  Hangul as ASCII and rejected 연결 as "too short" — 2 characters of Han or Hangul is a whole word,
+  and the rule now says so.
+- **Layouts route on two axes.** New `material` / `arrangement` / `item_count` frontmatter on all 25,
+  compiled into `router.json` and the generated index, and required by `--check`. The measurement
+  that forced this: **intent lines alone identify only 13 of 25 layouts.** The collisions are real
+  conceptual twins — `idea-evidence`/`painpoint-evidence` both back a claim with evidence and differ
+  only in whether the material is a chart or participant quotes; `hero-radial`/`linked-circles` both
+  arrange concepts, one as a centre with satellites and one as a continuum. **The shape triple alone
+  identifies 24 of 25**, with `keyword-cards`/`terminology-cards` the single legitimate collision,
+  separated by intent.
+- **Shape had to be structured, not prose.** The first attempt wrote content shape as a sentence and
+  made things *worse* — 13/25 down to 11/25 — because every shape sentence shares filler vocabulary
+  ("one X and its Y") and fuzzy matching drowned in it. Discrete tags either match or they do not.
+- **Held-out routing went 4/10 → 8/10**, with each shape derived from the request's own words rather
+  than from the expected layout. The one remaining misroute is honest: "我們的客戶大致分成哪幾類"
+  names no illustration, so it reads as `text-only` while `use-case-cards` wants `illustration`. The
+  other is now reported as **narrowed but tied** rather than unresolved — shape cut it to exactly the
+  two known twins. Unresolved cases are down to zero.
+- **`SKILL.md` requires the normalised line before any lookup** — `意圖: … · 形狀: material /
+  arrangement / count` — derived from the content actually in hand, never from the hoped-for layout.
+
 ## v12.9.2 — the router was blind to 繁中, and now there is a test that says so
 The first measurement of whether intention routing actually *works*, rather than whether it is
 structurally well-formed.

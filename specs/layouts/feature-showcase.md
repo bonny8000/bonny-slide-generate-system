@@ -5,6 +5,9 @@ tier: organism
 status: stable        # example built + render-validated
 intent: show how specific UI features deliver value / resolve user anxieties
 triggers: [feature areas, app screens to show, "this screen does X", annotated UI, a detail page walkthrough, 功能畫面解說, 這個畫面能做什麼, 標註過的介面, 功能如何化解不安]
+material: ui-screen
+arrangement: split
+item_count: pair
 depends_on: [ui-mockup, quote-bubble, tokens]
 tokens_used: [canvas, surface, muted, muted-soft, ink, accent, band-fill]
 icon_use: optional

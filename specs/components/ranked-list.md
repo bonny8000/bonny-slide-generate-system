@@ -4,7 +4,7 @@ kind: component
 tier: molecule
 status: stable        # example built + render-validated
 intent: show prioritized needs/requirements in explicit rank order
-triggers: ["第一優先/第二優先", priority list, ranked needs, top-N requirements, "what matters most" panel]
+triggers: ["第一優先/第二優先", priority list, ranked needs, top-N requirements, "what matters most" panel, "1순위/2순위/3순위", 우선순위]
 depends_on: [tokens]
 tokens_used: [surface, ink, muted, accent, band-fill]
 icon_use: optional

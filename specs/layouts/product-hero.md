@@ -5,6 +5,9 @@ tier: organism
 status: stable        # example built + render-validated
 intent: present the product itself — what it is and what it does — like a landing hero
 triggers: [product intro, landing/hero, value proposition + CTAs, a product UI to show off, proof stats, 產品介紹, 產品首頁式介紹, 這是什麼能做什麼, 產品主視覺]
+material: ui-screen+stat
+arrangement: hero
+item_count: one
 depends_on: [cta-buttons, ui-mockup, metric, tokens]
 tokens_used: [canvas, surface, ink, muted, muted-soft, accent]
 icon_use: optional

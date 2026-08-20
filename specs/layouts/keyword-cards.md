@@ -5,6 +5,9 @@ tier: organism
 status: stable        # example built + render-validated
 intent: present a few parallel values / keywords / principles as equal cards
 triggers: [3–4 values or principles, "our keywords", parallel ideas each with a short explanation, 核心理念, 幾個關鍵字等重呈現, 我們的準則, 理念並列呈現]
+material: text-only
+arrangement: grid
+item_count: few
 depends_on: [tokens]
 tokens_used: [canvas, surface, ink, muted, accent]
 icon_use: optional
