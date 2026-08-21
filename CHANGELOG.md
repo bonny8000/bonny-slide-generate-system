@@ -3,39 +3,6 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
-## v12.15 — the gate cannot learn taste, so it learns to remember; and builds read 58% less
-Acting on the four-step plan, with one step abandoned on evidence.
-
-- **Abandoned: more pixel metrics.** Nine geometric measures were scored against the 37 labelled A/B
-  pairs — coverage, interior gap, text gap, band ratio, margin ratio, quadrant spread, ink ratio and
-  fill-vs-ink share. **None separated a preferred slide from a rejected one**; the best was 60% on
-  n=20, which is noise. The plan had been to add a per-surface hollowness check. The measurement says
-  the differences a person decides on are not geometric, so that check would have added cost and
-  complexity for nothing.
-- **Static features carry the signal instead.** The same test over markup and CSS found `accent_ink`
-  — accent carried on *type* rather than a filled surface — agreeing with the user on 14 of 19 rounds
-  (74%). That is the empirical form of principle 7, **emphasis-by-ink > emphasis-by-fill**. Round 34
-  is the worked case: the rejected variant striped its table with
-  `tr:nth-child(odd){background:var(--surface)}`, the chosen one used `border-bottom`. Identical
-  geometry, identical gate score, opposite verdicts.
-- **New `scripts/check_style_rules.py`** reads the stylesheet, not the pixels, and flags zebra fill,
-  accent carried by fill rather than ink, and accent spread across too many regions. It separates R34
-  correctly and raises **zero notes across all 41 shipped examples**, so it is precise rather than
-  noisy. **Advisory only** — 74% confidence would be wrong once in four, and the slide's intent can
-  overrule any of it.
-- **New `scripts/check_antipatterns.py` + `specs/gate-antipatterns/`.** Two frozen slides that must
-  keep failing, including the layout that went FAIL → pass at 34% whitespace. A gate can only be made
-  so clever; it can be made to remember. Now a blocker in `audit.md`, alongside a check that
-  `calibrate_gate.py` was run and did not get worse.
-- **`self-critique.md` gains the six named render questions** the gate provably cannot answer, in the
-  order the failures actually occurred.
-- **Builds read 58% less.** The read-before-building set was 170 KB, most of it inapplicable to the
-  slide in hand. The seven core foundations are now named (~25 KB) and the other seven are behind
-  explicit triggers — `layout-choice` only when the router leaves two candidates, `learn-from-image`
-  never during a build. Taste comes from a compiled
-  `specs/generated-preferences-digest.md` (3.6 KB) rather than the 51 KB `preferences.md`, generated
-  so the two cannot drift. **170 KB → 71 KB.**
-
 ## v12.18 — grow the panels, keep the gaps tight
 A correction from the user, with an annotated render: when a column has to match its neighbour's
 height, **grow the components and keep the gaps small** rather than keeping them compact and
@@ -95,6 +62,39 @@ Design review of two A/B bases turned up three real defects, one of them a bug o
   side effect, and R54 was re-posed: its first form was withdrawn because the variants were barely
   different, the CSS having landed on the list while the table itself was broken. A round run on a
   broken base measures the breakage, not the axis.
+
+## v12.15 — the gate cannot learn taste, so it learns to remember; and builds read 58% less
+Acting on the four-step plan, with one step abandoned on evidence.
+
+- **Abandoned: more pixel metrics.** Nine geometric measures were scored against the 37 labelled A/B
+  pairs — coverage, interior gap, text gap, band ratio, margin ratio, quadrant spread, ink ratio and
+  fill-vs-ink share. **None separated a preferred slide from a rejected one**; the best was 60% on
+  n=20, which is noise. The plan had been to add a per-surface hollowness check. The measurement says
+  the differences a person decides on are not geometric, so that check would have added cost and
+  complexity for nothing.
+- **Static features carry the signal instead.** The same test over markup and CSS found `accent_ink`
+  — accent carried on *type* rather than a filled surface — agreeing with the user on 14 of 19 rounds
+  (74%). That is the empirical form of principle 7, **emphasis-by-ink > emphasis-by-fill**. Round 34
+  is the worked case: the rejected variant striped its table with
+  `tr:nth-child(odd){background:var(--surface)}`, the chosen one used `border-bottom`. Identical
+  geometry, identical gate score, opposite verdicts.
+- **New `scripts/check_style_rules.py`** reads the stylesheet, not the pixels, and flags zebra fill,
+  accent carried by fill rather than ink, and accent spread across too many regions. It separates R34
+  correctly and raises **zero notes across all 41 shipped examples**, so it is precise rather than
+  noisy. **Advisory only** — 74% confidence would be wrong once in four, and the slide's intent can
+  overrule any of it.
+- **New `scripts/check_antipatterns.py` + `specs/gate-antipatterns/`.** Two frozen slides that must
+  keep failing, including the layout that went FAIL → pass at 34% whitespace. A gate can only be made
+  so clever; it can be made to remember. Now a blocker in `audit.md`, alongside a check that
+  `calibrate_gate.py` was run and did not get worse.
+- **`self-critique.md` gains the six named render questions** the gate provably cannot answer, in the
+  order the failures actually occurred.
+- **Builds read 58% less.** The read-before-building set was 170 KB, most of it inapplicable to the
+  slide in hand. The seven core foundations are now named (~25 KB) and the other seven are behind
+  explicit triggers — `layout-choice` only when the router leaves two candidates, `learn-from-image`
+  never during a build. Taste comes from a compiled
+  `specs/generated-preferences-digest.md` (3.6 KB) rather than the 51 KB `preferences.md`, generated
+  so the two cannot drift. **170 KB → 71 KB.**
 
 ## v12.14 — measure whether the gate has taste, using the A/B rounds as labelled data
 Every other check measures the gate against itself: it passes when its own thresholds are satisfied.
