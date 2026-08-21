@@ -7,12 +7,6 @@ You give it an audience and a source. It names what each page must **do**, looks
 compiled router instead of inventing a layout, builds from one shared stylesheet, and has to pass a
 set of checks before it may hand anything over.
 
-| Cover | Persona research | Results |
-|---|---|---|
-| ![Cover slide](examples/case-study/_preview/01.png) | ![Persona cards slide](examples/case-study/_preview/04.png) | ![Results slide](examples/case-study/_preview/09.png) |
-
-*Three of the ten pages in [`examples/case-study/`](examples/case-study), from one theme and one accent.*
-
 > **The detail is not here.** [`SKILL.md`](SKILL.md) is the operating manual, `specs/` holds the rules,
 > and [`CHANGELOG.md`](CHANGELOG.md) holds the history. This file is the map.
 
@@ -90,7 +84,7 @@ Every spec declares what it is FOR (`intent`), what the slide holds
 (`material` / `arrangement` / `item_count`), and what phrasing should summon it (`triggers`). The
 compiler turns all of it into one index. A pattern that falls out of the index fails the build.
 
-![Shape decides; intention breaks the tie](assets/readme/08-two-axes.svg)
+![Two questions choose the layout](assets/readme/08-two-axes.svg)
 
 Triggers are multilingual (繁中, English, Korean) because intention does not change with the language
 it is written in. Output language is separate, enforced at render time.
@@ -105,8 +99,6 @@ decides in a fixed order: **availability → fit → variety → intent proximit
 ![Only the top layer gets to choose anything](assets/readme/09-layer-stack.svg)
 
 Intention picks the form. Nothing below it gets a vote.
-
-![Hand-write one column, compile the rest](assets/readme/04-source-of-truth.svg)
 
 `base.css` is the one deliberate exception — hand-written, because it is a usage contract, not
 codegen. Examples carry the shipped stylesheet rather than a copy, so they cannot drift behind the
@@ -135,7 +127,7 @@ Reuse, tracing and CSS recreation all fail. If generation is unavailable, the bu
 
 ## Checks
 
-![Rules that are only prose degrade first](assets/readme/06-gates.svg)
+![Measured by a machine, then looked at by a person](assets/readme/06-gates.svg)
 
 | Command | Catches |
 |---|---|
