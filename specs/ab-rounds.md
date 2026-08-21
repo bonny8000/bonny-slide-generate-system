@@ -1,0 +1,110 @@
+# A/B rounds — the labelled data
+
+Every claim this system makes about taste rests on these. Nine geometric metrics were scored against
+rounds 1–50 and none predicted a winner; one static CSS feature reached 74% on n=19. Both conclusions
+sit on 37 usable pairs, which is too few to be sure of either — so more rounds is the highest-value
+thing that can be added here.
+
+Declare a round below, build it with `python scripts/ab_round.py 51`, judge the one image it renders,
+then write the verdict into the round's `winner:` line and re-run `scripts/calibrate_gate.py`.
+
+**A round is only worth running if both variants are defensible.** A pair where one option is
+obviously broken teaches nothing except that broken is worse. The useful rounds are the ones where a
+reasonable designer could pick either, because that is exactly where the system has no opinion today.
+
+Rounds 1–50 live in `preferences.md` with their verdicts and the principles drawn from them.
+
+---
+
+### R51 — header pinned to the top vs composed as a centred group
+base: light-keyword-cards
+question: Same content both ways. Does the header belong at the top of the canvas, or down against its cards?
+winner:
+
+This tests a change already made to eight slides on a single opinion. If B wins it is confirmed; if A
+wins, that change should be reconsidered rather than defended.
+
+```css
+.kw{align-items:center}
+main.slide{justify-content:flex-start}
+.kw{flex:1;min-height:0}
+```
+
+```css
+.kw{align-items:center}
+main.slide{justify-content:center}
+```
+
+### R52 — accent as filled surface vs accent as type
+base: light-results-grid
+question: Which carries the emphasis better — painting the key figure's surface, or accenting the numeral itself?
+winner:
+
+Fresh test of the strongest static signal found so far (`accent_ink`, 74% on n=19). Rounds 1–50 are
+what produced that number, so they cannot also confirm it.
+
+```css
+.row:first-child{background:var(--accent-soft);border-radius:var(--r-card);padding:var(--s4) var(--s5)}
+.row:first-child .v{color:var(--ink)}
+```
+
+```css
+.row:first-child .v{color:var(--accent)}
+.row:first-child .l{color:var(--ink);font-weight:700}
+```
+
+### R53 — card sized to its content vs card given room to breathe
+base: light-metric-cards
+question: Do the metric cards read better tight to their content, or with generous height around it?
+winner:
+
+Principle 2 says a box drawn bigger than its contents reads as a void. This asks where the line sits,
+since some breathing room is clearly right.
+
+```css
+.mc{min-height:430px;justify-content:center}
+```
+
+```css
+.mc{min-height:0;padding:var(--s5) var(--s6)}
+```
+
+### R54 — a list on a tinted panel vs separated by rules
+base: light-09-comparison
+question: The three supporting points on the right: do they read better on a tinted panel, or as plain rows divided by hairlines?
+winner:
+
+Round 34 answered the fill-versus-rule question once, on a table. This re-tests the same principle on
+a different element to see whether the answer was about the principle or about that one slide.
+
+(The round was first written as a table test; the CSS actually lands on the numbered list, so the
+question is worded to match what changes rather than what was intended.)
+
+```css
+.rankrow:nth-child(odd){background:var(--surface)}
+```
+
+```css
+.rankrow{border-bottom:1px solid var(--muted-soft)}
+.rankrow:last-child{border-bottom:0}
+```
+
+### R55 — one accent vs accent on every value point
+base: light-value-points
+question: Should the accent mark a single load-bearing idea, or every parallel point equally?
+winner:
+
+Principle 6 says the accent is scarce. Parallel peers are the case that most tempts you to break it.
+
+```css
+.pt .lbl{color:var(--accent)}
+.pt .dot{background:var(--accent)}
+.skill-chip{border-color:var(--accent);color:var(--accent)}
+```
+
+```css
+.pt:first-child .lbl{color:var(--accent)}
+.pt:first-child .dot{background:var(--accent)}
+.pt:not(:first-child) .lbl{color:var(--muted)}
+.pt:not(:first-child) .dot{background:var(--muted-soft)}
+```
