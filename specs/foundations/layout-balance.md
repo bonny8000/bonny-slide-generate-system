@@ -142,6 +142,30 @@ was checked by rendering it, not by trusting the number.
 Use `.grow` when the content genuinely has the mass to fill the body. It is not a way to make a short
 slide look tall.
 
+## Paired panels are the same size and share one axis
+
+Two panels side by side are read as a pair, so the eye measures them against each other before it
+reads either. Three rules follow, and all three came from looking at a render rather than a metric.
+
+**Equal size, whatever they contain.** A panel sized to its own contents ends at a different height
+from its neighbour, and the difference reads as an accident rather than a decision — the audience
+sees a mistake, not "this one had fewer items". Give the row `align-items:stretch` and let the panel
+take the leftover height in its column, so the number of chips inside stops deciding the geometry.
+
+**Level top and bottom.** Equal height is not enough if the blocks above them differ: hold the
+description to a fixed number of lines so both panels *start* level, then stretch so they *end*
+level. Paired columns that begin or end on different lines look untidy even when each is fine alone.
+
+**One alignment axis inside.** Every element in a panel sits the same distance from its left edge, so
+the padding is the only inset the eye has to read. A centred heading over left-aligned chips gives
+the two no common axis, and the panel's left and right margins stop looking equal even though the
+padding is perfectly symmetric. Left-aligning also fixes wrapping: a single orphaned chip lines up
+under the first one instead of floating in the middle of the row.
+
+The same applies to columns that are not both panels. A table beside a supporting list should run the
+same length as that list — give the list `height:100%` and let its rows grow, rather than leaving a
+short column next to a long one.
+
 ## The footer is chrome, not content
 
 `.foot` is pinned 42px off the canvas bottom on every slide. The gate used to measure the content

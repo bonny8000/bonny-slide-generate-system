@@ -69,24 +69,26 @@ since some breathing room is clearly right.
 .mc{min-height:0;padding:var(--s5) var(--s6)}
 ```
 
-### R54 — a list on a tinted panel vs separated by rules
+### R54 — table rows separated by fill vs by rule
 base: light-09-comparison
-question: The three supporting points on the right: do they read better on a tinted panel, or as plain rows divided by hairlines?
+question: The comparison table: zebra-striped rows, or plain rows divided by a hairline?
 winner:
 
-Round 34 answered the fill-versus-rule question once, on a table. This re-tests the same principle on
-a different element to see whether the answer was about the principle or about that one slide.
+Round 34 answered fill-versus-rule once, on a different table. This re-tests it to see whether the
+answer was about the principle or about that one slide.
 
-(The round was first written as a table test; the CSS actually lands on the numbered list, so the
-question is worded to match what changes rather than what was intended.)
+First attempt at this round was withdrawn: the two variants were "not really different" because the
+CSS landed on the supporting list, and the table itself had been shrunk to content width by a
+neutralisation revert that stripped `width:100%`. Both were fixed before re-posing the question — a
+round run on a broken base measures the breakage, not the axis.
 
 ```css
-.rankrow:nth-child(odd){background:var(--surface)}
+.ctable tbody tr:nth-child(odd){background:var(--surface)}
+.ctable th,.ctable td{border-bottom:0}
 ```
 
 ```css
-.rankrow{border-bottom:1px solid var(--muted-soft)}
-.rankrow:last-child{border-bottom:0}
+.ctable tbody tr{background:transparent}
 ```
 
 ### R55 — one accent vs accent on every value point

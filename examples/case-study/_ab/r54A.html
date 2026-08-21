@@ -760,15 +760,31 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .qband .who{color:var(--band-tag);font-size:14px;margin-left:var(--s2)}
 
 /* ===== taglist, value-points — promoted from examples/light-value-points.html ===== */
-.vp{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:start}
+/* Paired panels must be the same size and aligned, whatever they happen to contain. Laying each
+   column out independently let the two grey rectangles end at different heights, which reads as an
+   accident rather than a pair. The columns share one grid instead: `.pt` dissolves with
+   display:contents so label, description and card each occupy a shared row, and the card row takes
+   1fr so both cards start on the same line AND stretch to the same height. Content count stops
+   deciding the geometry. */
+.vp{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:stretch}
+.vp>.pt{display:flex;flex-direction:column;gap:var(--s4);min-height:0}
+/* the description is held to two lines so both cards START level, and the card then takes the rest
+   of an equal-height column so they END level too */
+.vp .desc{min-height:calc(1.8em * 2)}
+.vp .card{flex:1;margin-top:0}
 .vp .pt{display:flex;flex-direction:column;gap:var(--s4)}
 .vp .lbl{font-size:24px;font-weight:700;color:var(--ink)}
 .vp .lbl .dot{color:var(--accent)}
 .vp .desc{font-size:16px;color:var(--muted);line-height:1.8}
 .vp .card{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);margin-top:var(--s2)}
-.vp .card .h{text-align:center;font-size:21px;font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
+.vp .card .h{text-align:left;font-size:21px;font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
 .vp .card .h .accent{color:var(--accent)}
-.vp .chipcloud{justify-content:center;gap:14px}
+/* Everything inside a panel shares ONE alignment axis, so every element sits the same distance from
+   the panel's left edge and the padding is the only inset the eye has to read. A centred heading over
+   left-aligned chips gives the two no common axis, and the panel's left and right margins stop
+   looking equal even though the padding is symmetric. Left-aligned also fixes the wrap: a single
+   orphaned chip lines up under the first one instead of floating in the middle. */
+.vp .chipcloud{justify-content:flex-start;gap:14px}
 .eyebrow-rule{display:flex;align-items:center;gap:var(--s4)}
 .eyebrow-rule .ln{flex:1;height:1px;background:var(--muted-soft)}
 
@@ -1611,15 +1627,31 @@ body{display:grid;place-items:center;font-family:var(--font-latin)}
 .qband .who{color:var(--band-tag);font-size:14px;margin-left:var(--s2)}
 
 /* ===== taglist, value-points — promoted from examples/light-value-points.html ===== */
-.vp{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:start}
+/* Paired panels must be the same size and aligned, whatever they happen to contain. Laying each
+   column out independently let the two grey rectangles end at different heights, which reads as an
+   accident rather than a pair. The columns share one grid instead: `.pt` dissolves with
+   display:contents so label, description and card each occupy a shared row, and the card row takes
+   1fr so both cards start on the same line AND stretch to the same height. Content count stops
+   deciding the geometry. */
+.vp{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:stretch}
+.vp>.pt{display:flex;flex-direction:column;gap:var(--s4);min-height:0}
+/* the description is held to two lines so both cards START level, and the card then takes the rest
+   of an equal-height column so they END level too */
+.vp .desc{min-height:calc(1.8em * 2)}
+.vp .card{flex:1;margin-top:0}
 .vp .pt{display:flex;flex-direction:column;gap:var(--s4)}
 .vp .lbl{font-size:24px;font-weight:700;color:var(--ink)}
 .vp .lbl .dot{color:var(--accent)}
 .vp .desc{font-size:16px;color:var(--muted);line-height:1.8}
 .vp .card{background:var(--surface);border-radius:var(--r-card);padding:var(--s6);margin-top:var(--s2)}
-.vp .card .h{text-align:center;font-size:21px;font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
+.vp .card .h{text-align:left;font-size:21px;font-weight:700;color:var(--ink);margin-bottom:var(--s5)}
 .vp .card .h .accent{color:var(--accent)}
-.vp .chipcloud{justify-content:center;gap:14px}
+/* Everything inside a panel shares ONE alignment axis, so every element sits the same distance from
+   the panel's left edge and the padding is the only inset the eye has to read. A centred heading over
+   left-aligned chips gives the two no common axis, and the panel's left and right margins stop
+   looking equal even though the padding is symmetric. Left-aligned also fixes the wrap: a single
+   orphaned chip lines up under the first one instead of floating in the middle. */
+.vp .chipcloud{justify-content:flex-start;gap:14px}
 .eyebrow-rule{display:flex;align-items:center;gap:var(--s4)}
 .eyebrow-rule .ln{flex:1;height:1px;background:var(--muted-soft)}
 
@@ -1818,18 +1850,16 @@ footer strong{color: var(--ink);}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
 </style>
 <style data-slide>
-.ctable{width:100%;border-collapse:collapse;font-size:15px}
-.ctable th,.ctable td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--muted-soft)}
-.ctable thead th{color:var(--ink);font-weight:700;font-size:14px;border-bottom:2px solid var(--muted-soft)}
-.ctable{font-size:17px;width:revert;border-collapse:revert}
 .ctable th,.ctable td{padding:24px 16px}
 .ctable thead th{font-size:16px}
-.ranklist{gap:18px;display:revert;flex-direction:revert}
-.rankrow:nth-child(odd){background:var(--surface)}
-</style></head><body><main class="slide deck top" style="gap:var(--s5)">
+.ranklist{display:flex;flex-direction:column;height:100%;gap:var(--s3)}
+.ranklist>.rankrow{flex:1}
+.ctable tbody tr:nth-child(odd){background:var(--surface)}
+.ctable th,.ctable td{border-bottom:0}
+</style></head><body><main class="slide deck" style="gap:var(--s5)">
   <div class="head" style="gap:6px"><p class="kicker latin">Competitor Analysis</p>
     <h1 class="headline cjk" style="font-size:32px">持續記錄的人,多半靠「有回饋、有成就感」的服務養成習慣</h1></div>
-  <div class="grid12 grow" style="align-items:start">
+  <div class="grid12" style="align-items:stretch">
     <div class="col-7" style="grid-column:span 8">
       <table class="ctable">
         <thead><tr><th></th><th class="fcol cjk">持續記錄的人</th><th class="cjk">偶爾記錄</th><th class="cjk">已中斷</th></tr></thead>

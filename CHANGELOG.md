@@ -36,6 +36,31 @@ Acting on the four-step plan, with one step abandoned on evidence.
   `specs/generated-preferences-digest.md` (3.6 KB) rather than the 51 KB `preferences.md`, generated
   so the two cannot drift. **170 KB → 71 KB.**
 
+## v12.16 — paired panels match; a neutralisation revert had been shrinking a table
+Design review of two A/B bases turned up three real defects, one of them a bug of mine.
+
+- **`neutralise()` had stripped `width:100%` from a comparison table.** The sync reverts every
+  property a shipped rule declares that a slide rule does not, so `.ctable{font-size:17px}` also
+  reverted `width` and `border-collapse` — the table collapsed to content width and read as a huge
+  gap in the middle of the slide. Refinement and collision are indistinguishable from inside the
+  sync, so this is documented with the way around it rather than patched with a heuristic: **to
+  refine a shared component from a slide, use a selector `base.css` does not own** —
+  `.ranklist>.rankrow` rather than `.rankrow`, which has nothing to collide with.
+- **Paired panels are now the same size and aligned**, whatever they contain. `.vp` laid each column
+  out independently, so the two grey rectangles ended at different heights — an accident, not a
+  decision. The row stretches, the description is held to two lines so both panels start level, and
+  the panel takes the leftover height so they end level. Item count stops deciding geometry.
+- **One alignment axis inside a panel.** A centred heading over left-aligned chips gave the two no
+  common axis, so the panel's margins stopped looking equal even though the padding was symmetric.
+  Everything left-aligns now, which also lands a wrapped orphan chip under the first one instead of
+  floating it mid-row.
+- **Paired columns run the same length** — the supporting list beside the comparison table now
+  stretches to match it instead of leaving a short column beside a long one.
+- All three rules recorded in `foundations/layout-balance.md`. Balance gate **7 → 5** as a
+  side effect, and R54 was re-posed: its first form was withdrawn because the variants were barely
+  different, the CSS having landed on the list while the table itself was broken. A round run on a
+  broken base measures the breakage, not the axis.
+
 ## v12.14 — measure whether the gate has taste, using the A/B rounds as labelled data
 Every other check measures the gate against itself: it passes when its own thresholds are satisfied.
 That says nothing about whether a passing slide is good, which is why three changes have now passed

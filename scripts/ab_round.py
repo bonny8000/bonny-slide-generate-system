@@ -35,6 +35,7 @@ AB = ROOT / "examples" / "case-study" / "_ab"
 SPEC = ROOT / "specs" / "ab-rounds.md"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+import sync_examples  # noqa: E402
 from visual_baseline import find_browsers, render_with_any  # noqa: E402
 
 COMPARE = """<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>
@@ -129,6 +130,13 @@ def main() -> int:
         for letter in ("a", "b"):
             out = AB / f"r{n}{letter.upper()}.html"
             out.write_text(build_variant(base_html, r[letter]), encoding="utf-8", newline="\n")
+            # Bring the fresh variant in line with the shipped stylesheet immediately. Building
+            # a round writes a file derived from the base, which leaves it out of sync until
+            # someone remembers to run sync_examples.py - and rebuilding a round would silently
+            # undo that sync again. Doing it here removes the ordering trap entirely.
+            rebuilt = sync_examples.rebuild(out)
+            if rebuilt is not None:
+                out.write_text(rebuilt[0], encoding="utf-8", newline="\n")
 
         compare = AB / f"compare-r{n}.html"
         compare.write_text(

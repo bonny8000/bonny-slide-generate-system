@@ -222,6 +222,16 @@ def neutralise(selector: str, body: str, ship: dict[str, set[str]]) -> str:
     the shipped rule. That is how feature-showcase's `.fs{align-items:start}` collapsed an unrelated
     A/B slide whose own `.fs` was a flex column, and how the v12 `.track` flattened a bar chart.
     So any property the shipped rule declares and this one does not is explicitly reverted.
+
+    **Known cost, and the way around it.** This is all-or-nothing: a slide rule that only means to add
+    one property to a shared component still reverts everything else that component declares. Adding
+    `.rankrow{flex:1}` stripped its background, radius, padding and grid; `.ctable{font-size:17px}`
+    stripped `width:100%` and shrank a comparison table to its content width, which read as a huge gap
+    in the middle of the slide. Refinement and collision are indistinguishable from here - the bare
+    `.track{display:flex}` that flattened a bar chart looks exactly like a refinement too - so the fix
+    is not a smarter heuristic. **To refine a shared component from a slide, use a selector base.css
+    does not own** (`.ranklist>.rankrow` rather than `.rankrow`): there is nothing to collide with, so
+    nothing is reverted.
     """
     shipped_bodies = ship.get(selector.strip())
     if not shipped_bodies:
