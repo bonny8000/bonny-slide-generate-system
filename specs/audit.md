@@ -103,6 +103,10 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] `itemCount` matches the real item count — no `few` content stretched across a `many` layout. — major
 - [ ] Bilingual pairs fit: no English supporting line wrapping unintentionally or shrinking below the
       type floor because its container was sized for the 繁中 (`foundations/typography.md`). — major
+- [ ] Paired panels are the same size and end level; content inside each shares one alignment axis
+      (`foundations/layout-balance.md`). — major
+- [ ] Numbered badges are used only for a sequence, ranking or referenced count. Peers carry icons
+      (`foundations/iconography.md`). — minor
 - [ ] `depends_on` respected (no upward/hidden deps). — minor
 
 ### Changing the gate itself

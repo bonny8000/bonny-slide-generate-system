@@ -36,6 +36,22 @@ Acting on the four-step plan, with one step abandoned on evidence.
   `specs/generated-preferences-digest.md` (3.6 KB) rather than the 51 KB `preferences.md`, generated
   so the two cannot drift. **170 KB → 71 KB.**
 
+## v12.17 — a panel title that reads as one, and numbers that stop implying rank
+- **New `.panel-title` role.** A title above a list sat at 16px against 15px body — bold, but not
+  senior, so the group had no head. This is the role between `.eyebrow` and `.headline`.
+- **A numbered badge is a claim about order.** `1 2 3` says first, second, third. Used on peers —
+  three features, three reasons, three supporting facts — it invents a hierarchy the content does not
+  have, and the reader spends a moment working out why item 1 outranks item 3 before finding there is
+  no answer. `foundations/iconography.md` now draws the line: numbers for a sequence, a ranking, or a
+  count the audience refers back to; **an icon for peers**, since it costs the same space and carries
+  meaning rather than rank. New `.rankrow .ic` marker alongside the existing `.rn`.
+  The icon has to say something about its own item — three copies of one generic dot are a bullet
+  with extra steps.
+- **Distribute, don't inflate.** Making the supporting list span the table's height by stretching each
+  row gave one line of text a 275px container — the hollow-container failure, reintroduced while
+  fixing an alignment one. The rows stay compact and the list distributes them instead.
+- Both rules are in `audit.md`. Verified by rendering at full size, not by the gate.
+
 ## v12.16 — paired panels match; a neutralisation revert had been shrinking a table
 Design review of two A/B bases turned up three real defects, one of them a bug of mine.
 

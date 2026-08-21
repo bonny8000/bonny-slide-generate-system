@@ -33,6 +33,26 @@ land faster (see Img6, Img8, Img11, Img12). The rule is **disciplined, purposefu
 ## Size scale
 inline `1em` · label `20–24px` · card-anchor `40–56px` · hero illustration sized per layout.
 
+## A number is a claim about order — use an icon for peers
+
+`1 2 3` in a badge is not decoration, it is a statement: first, second, third. Use it when the items
+really are a **sequence** (steps that happen in that order), a **ranking** (most to least important),
+or a **count the audience will refer back to** ("point 2 above").
+
+When the items are peers — three features, three reasons, three principles, three supporting facts —
+numbering invents a hierarchy the content does not have. The reader spends a moment working out why
+item 1 outranks item 3, finds no answer, and has learned nothing from the marker. **Use an icon
+instead**: it costs the same space and carries meaning rather than rank.
+
+- ordered → `.rankrow .rn` (numbered accent circle)
+- unordered peers → `.rankrow .ic` (icon in an `--accent-soft` circle, `--accent` stroke)
+
+The icon must say something about its own item — a star for reward, a refresh arrow for starting
+again, a bolt for low effort. Three copies of the same generic dot are just a bullet with extra
+steps, and a bullet would have been honest about it.
+
+This applies wherever a marker sits beside a list item, not only in `rank-list`.
+
 ## Where icons/illustration earn their place (patterns)
 | pattern | use | ref |
 |---|---|---|

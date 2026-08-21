@@ -981,6 +981,18 @@ footer strong{color: var(--ink);}
 
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
+
+/* C16 — panel title + unordered marker ---------------------------- */
+/* A title sitting above a list or panel needs to read as a title. At 16px against 15px body it was
+   only bold, not senior, so the group had no head. This is the role between .eyebrow and .headline. */
+.panel-title{font-size:21px;line-height:1.5;font-weight:700;color:var(--ink);margin:0 0 var(--s3)}
+
+/* A numbered badge is a CLAIM ABOUT ORDER: it says first, second, third. Use it for a sequence, a
+   ranking, or steps that must happen in that order. When the items are peers - three features, three
+   reasons, three principles - numbering invents a hierarchy the content does not have, and the reader
+   spends a moment working out why item 1 outranks item 3. An icon carries meaning instead of rank. */
+.rankrow .ic{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+.rankrow .ic svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @layer tokens, hypertokens, components, overrides;
 
 /* ============================================================
@@ -1848,12 +1860,24 @@ footer strong{color: var(--ink);}
 
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
+
+/* C16 — panel title + unordered marker ---------------------------- */
+/* A title sitting above a list or panel needs to read as a title. At 16px against 15px body it was
+   only bold, not senior, so the group had no head. This is the role between .eyebrow and .headline. */
+.panel-title{font-size:21px;line-height:1.5;font-weight:700;color:var(--ink);margin:0 0 var(--s3)}
+
+/* A numbered badge is a CLAIM ABOUT ORDER: it says first, second, third. Use it for a sequence, a
+   ranking, or steps that must happen in that order. When the items are peers - three features, three
+   reasons, three principles - numbering invents a hierarchy the content does not have, and the reader
+   spends a moment working out why item 1 outranks item 3. An icon carries meaning instead of rank. */
+.rankrow .ic{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+.rankrow .ic svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style>
 <style data-slide>
 .ctable th,.ctable td{padding:24px 16px}
 .ctable thead th{font-size:16px}
-.ranklist{display:flex;flex-direction:column;height:100%;gap:var(--s3)}
-.ranklist>.rankrow{flex:1}
+.ranklist{display:flex;flex-direction:column;height:100%;justify-content:space-between;gap:var(--s3)}
+.ranklist>.rankrow{flex:0 0 auto}
 .ctable tbody tr:nth-child(odd){background:var(--surface)}
 .ctable th,.ctable td{border-bottom:0}
 </style></head><body><main class="slide deck" style="gap:var(--s5)">
@@ -1867,11 +1891,11 @@ footer strong{color: var(--ink);}
       </table>
     </div>
     <div class="col-4" style="grid-column:span 4">
-      <p class="cjk" style="font-size:16px;font-weight:700;color:var(--ink);margin:0 0 14px">養成習慣需要的功能</p>
+      <p class="panel-title cjk">養成習慣需要的功能</p>
       <div class="ranklist">
-        <div class="rankrow"><span class="rn latin">1</span><span class="rt cjk">記錄後有回饋、長期成就感</span></div>
-        <div class="rankrow"><span class="rn latin">2</span><span class="rt cjk">沒有失敗痕跡,容易重新開始</span></div>
-        <div class="rankrow"><span class="rn latin">3</span><span class="rt cjk">門檻低,隨手就能記</span></div>
+        <div class="rankrow"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6.1L12 16.8 6.6 19.7l1.2-6.1L3.3 9.4l6.1-.8z"/></svg></span><span class="rt cjk">記錄後有回饋、長期成就感</span></div>
+        <div class="rankrow"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg></span><span class="rt cjk">沒有失敗痕跡,容易重新開始</span></div>
+        <div class="rankrow"><span class="ic"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></span><span class="rt cjk">門檻低,隨手就能記</span></div>
       </div>
     </div>
   </div>

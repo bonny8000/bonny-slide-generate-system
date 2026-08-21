@@ -986,6 +986,18 @@ footer strong{color: var(--ink);}
 
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
+
+/* C16 — panel title + unordered marker ---------------------------- */
+/* A title sitting above a list or panel needs to read as a title. At 16px against 15px body it was
+   only bold, not senior, so the group had no head. This is the role between .eyebrow and .headline. */
+.panel-title{font-size:21px;line-height:1.5;font-weight:700;color:var(--ink);margin:0 0 var(--s3)}
+
+/* A numbered badge is a CLAIM ABOUT ORDER: it says first, second, third. Use it for a sequence, a
+   ranking, or steps that must happen in that order. When the items are peers - three features, three
+   reasons, three principles - numbering invents a hierarchy the content does not have, and the reader
+   spends a moment working out why item 1 outranks item 3. An icon carries meaning instead of rank. */
+.rankrow .ic{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+.rankrow .ic svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @layer tokens, hypertokens, components, overrides;
 
 /* ============================================================
@@ -1853,6 +1865,18 @@ footer strong{color: var(--ink);}
 
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--ink);font-size:var(--fs-ui-1);line-height:var(--lh-ui-1);font-weight:var(--fw-bold)}
 .badge.dot{width:8px;height:8px;padding:0;background:var(--neg)}
+
+/* C16 — panel title + unordered marker ---------------------------- */
+/* A title sitting above a list or panel needs to read as a title. At 16px against 15px body it was
+   only bold, not senior, so the group had no head. This is the role between .eyebrow and .headline. */
+.panel-title{font-size:21px;line-height:1.5;font-weight:700;color:var(--ink);margin:0 0 var(--s3)}
+
+/* A numbered badge is a CLAIM ABOUT ORDER: it says first, second, third. Use it for a sequence, a
+   ranking, or steps that must happen in that order. When the items are peers - three features, three
+   reasons, three principles - numbering invents a hierarchy the content does not have, and the reader
+   spends a moment working out why item 1 outranks item 3. An icon carries meaning instead of rank. */
+.rankrow .ic{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+.rankrow .ic svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style>
 <style data-slide>
 .popup{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:62%; background:var(--canvas);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px; box-shadow:0 10px 28px rgba(0,0,0,.26);z-index:revert}
