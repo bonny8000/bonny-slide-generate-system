@@ -3,16 +3,130 @@
 An intention-first agent skill for building bilingual **繁體中文 + English** UX and product decks —
 as per-slide HTML, one scrolling HTML file, PDF, or PPTX.
 
-You give it an audience and a source. It names what each page must **do**, looks that job up in a
-compiled router instead of inventing a layout, builds from one shared stylesheet, and has to pass a
-set of checks before it may hand anything over.
-
 > **The detail is not here.** [`SKILL.md`](SKILL.md) is the operating manual, `specs/` holds the rules,
-> and [`CHANGELOG.md`](CHANGELOG.md) holds the history. This file is the map.
+> [`CHANGELOG.md`](CHANGELOG.md) holds the history. This file is the map.
 
 ---
 
-## The pieces
+## Why it exists
+
+Ask two people to lay out the same research finding and you get two slides. Ask the same person twice,
+a month apart, and you still get two slides. The layout gets chosen by whatever felt right that day,
+so a deck drifts away from itself page by page.
+
+This system takes that decision away from the moment. Each page has to state **what it must do** before
+anything is drawn, and that statement is looked up in a compiled index. Same job, same layout — every
+time, in any deck.
+
+---
+
+## How it works
+
+![From an ask to a deck, in five moves](assets/readme/fig-01-architecture.svg)
+
+*You bring the content; the planner names the job; the router — not the agent's taste — returns the
+layout. The gate can send it back. All three middle stages read from one compiled source, so none of
+them can quietly invent something.*
+
+---
+
+## One slide's life
+
+![What actually gets passed around](assets/readme/fig-02-lifecycle.svg)
+
+*The routing moment is the whole design: a page arrives as an intention plus a shape, and leaves as a
+named layout. Everything before it is planning, everything after is construction. The failure at the
+bottom is the normal case, not the exception — the gate measures rendered pixels, so a starved page
+comes back before anyone sees it.*
+
+---
+
+## What it builds
+
+![Every part of this page was chosen, not styled](assets/readme/fig-03-anatomy.png)
+
+*One page of a ten-page case study. The layout, its components and every colour trace back to a
+decision recorded somewhere in `specs/` — which is why the other nine pages look like they belong to
+it. The full deck is in [`examples/case-study/`](examples/case-study).*
+
+---
+
+## How a layout gets chosen
+
+![Two questions choose the layout](assets/readme/08-two-axes.svg)
+
+*Both questions are asked, but the content question does most of the work. Two layouts can share a job
+and differ only in whether the evidence is a chart or a quote — so the job alone cannot separate them.*
+
+When more than one candidate survives both questions,
+[`layout-choice.md`](specs/foundations/layout-choice.md) decides in a fixed order:
+**availability → fit → variety → intent proximity.** A layout needing a screenshot nobody supplied is
+dropped rather than faked; a repeated layout that fills the page beats a fresh one that starves it.
+
+Triggers are multilingual — 繁中, English, Korean — because an intention does not change with the
+language it is written in. What language the deck comes out in is a separate decision, enforced when
+it renders.
+
+---
+
+## Why every deck looks like the same system
+
+![Only the top layer gets to choose anything](assets/readme/09-layer-stack.svg)
+
+*Selection happens once, at the top. Below it, nothing has an opinion — a component cannot decide it
+wants a different colour, because the only colour it knows is the name of a token.*
+
+---
+
+## When a page needs a picture
+
+![Native evidence and generated explainer routes](assets/readme/07-illustration-routing.svg)
+
+*Tables, data and real UI stay native and inspectable. Dialogue, workshops and workflows become a
+freshly generated illustration — never reused artwork, never a diagram traced in CSS.*
+
+| Variant | For |
+|---|---|
+| `agenda-dialogue` | Workshop timing, rules, grouping, voting |
+| `guided-dialogue` | Human/assistant worked examples, approval loops |
+| `workflow-transform` | People, roles or tools converging into one outcome |
+| `ui-qa` | A real supplied interface explained in conversation |
+
+If generation is required but unavailable, the build stops. It does not quietly fall back to text.
+
+---
+
+## What it refuses to ship
+
+![Measured by a machine, then looked at by a person](assets/readme/06-gates.svg)
+
+*The machine catches what it can measure. It cannot tell you a slide is good — three times a change
+passed every check and still looked worse.*
+
+| Checks | Catch |
+|---|---|
+| `validate_layout.py` | an unstyled render, dead bands, a stretched container, the wrong language, a long deck with no visual moment |
+| `validate_editorial_explainer_plan.py` · `validate_generated_illustration.py` | a page that skipped its illustration, missing provenance, the wrong ratio |
+| `compile_system.py --check` · `sync_examples.py --check` | token or routing drift, a pattern with no route, an example carrying stale CSS |
+| `validate_routing.py` · `verify_rebuild.py` · `visual_baseline.py` | a request that stopped reaching the right layout, a pattern that cannot be rebuilt, a visual change nobody intended |
+| `check_antipatterns.py` | a known-bad slide that started passing |
+
+Routing scores **30/30** on the fixture it was tuned against and **8/10** on a held-out one written
+afterwards. The second is the real number.
+
+---
+
+## How it gets better
+
+![A pattern the planner cannot reach does not exist](assets/readme/10-learning-loop.svg)
+
+*Send reference slides with **"training / 訓練"** and the system grows instead of producing a deck. It
+reads a reference for structure, never colour, so a learned pattern works under any theme. Taste is
+learned the same way — two defensible variants, judged by a person, distilled into a principle.*
+
+---
+
+## The repository
 
 ```text
 bonnyt/
@@ -32,121 +146,7 @@ bonnyt/
 ```
 
 `specs/` decides. `system/` is the machine-readable truth. `assets/` builds. Generated files are
-overwritten by the compiler — `--check` fails first if anything drifted.
-
----
-
-## How a deck gets built
-
-![Decide what the page must do before what it looks like](assets/readme/02-build-pipeline.svg)
-
-1. **Frame** — audience, one theme, the source, and any **real** assets. A missing screenshot changes
-   which layouts are eligible.
-2. **Plan** — one claim and one intention per page. No components yet.
-3. **Route** — write the normalised line, then look it up.
-4. **Build** — `assets/base.css` classes and one theme file. Token names only, never a raw colour.
-5. **Gate** — render, measure, look, fix the weakest page, repeat.
-
-### One page, end to end
-
-```text
-意圖: let the room meet the real users and what stops them
-形狀: quote+illustration / grid / few
-```
-
-That line resolves in `system/router.json` to `persona-cards` → components `persona`,
-`level-slider`, `chip`, `quote-bubble` → built with `.pcard` / `.pavatar` / `.qbubble` / `.hbar` →
-rendered and measured. The spec says *why* that anatomy works, so the arrangement is not a guess.
-
-![The rendered persona page](examples/case-study/_preview/04.png)
-
----
-
-## Two modes
-
-![The skill does two different things](assets/readme/01-modes.svg)
-
-Asking for a deck **reads** the router. Saying **"training / 訓練"** with reference slides **writes**
-to it. If an image arrives with no instruction, the agent asks which is meant.
-
-![A pattern the planner cannot reach does not exist](assets/readme/10-learning-loop.svg)
-
-A training run changes `specs/` and never outputs a slide. Taste is learned the same way — two
-defensible variants, judged by a person, distilled into principles.
-
----
-
-## Routing
-
-![Routing is a lookup, not a guess](assets/readme/03-router.svg)
-
-Every spec declares what it is FOR (`intent`), what the slide holds
-(`material` / `arrangement` / `item_count`), and what phrasing should summon it (`triggers`). The
-compiler turns all of it into one index. A pattern that falls out of the index fails the build.
-
-![Two questions choose the layout](assets/readme/08-two-axes.svg)
-
-Triggers are multilingual (繁中, English, Korean) because intention does not change with the language
-it is written in. Output language is separate, enforced at render time.
-
-When more than one candidate survives, [`layout-choice.md`](specs/foundations/layout-choice.md)
-decides in a fixed order: **availability → fit → variety → intent proximity.**
-
----
-
-## The layer stack
-
-![Only the top layer gets to choose anything](assets/readme/09-layer-stack.svg)
-
-Intention picks the form. Nothing below it gets a vote.
-
-`base.css` is the one deliberate exception — hand-written, because it is a usage contract, not
-codegen. Examples carry the shipped stylesheet rather than a copy, so they cannot drift behind the
-specs they demonstrate.
-
----
-
-## Illustration decisions
-
-![Native evidence and generated editorial explainer routes](assets/readme/07-illustration-routing.svg)
-
-Every page records an explicit decision. Tables, data and detailed UI evidence stay native and
-inspectable. Dialogue, workshops, workflows and scattered-input transformations route to a freshly
-generated explainer in one of four compositions:
-
-| Variant | For |
-|---|---|
-| `agenda-dialogue` | Workshop timing, rules, grouping, voting |
-| `guided-dialogue` | Human/assistant worked examples, approval loops |
-| `workflow-transform` | People, roles or tools converging into one outcome |
-| `ui-qa` | A real supplied interface explained in conversation |
-
-Reuse, tracing and CSS recreation all fail. If generation is unavailable, the build stops.
-
----
-
-## Checks
-
-![Measured by a machine, then looked at by a person](assets/readme/06-gates.svg)
-
-| Command | Catches |
-|---|---|
-| `validate_layout.py` | unstyled render, dead bands, stretched container, wrong language, deck with no visual moment |
-| `validate_editorial_explainer_plan.py` | a page that skipped its explainer; missing provenance |
-| `validate_generated_illustration.py` | wrong ratio or grayscale output |
-| `compile_system.py --check` | token and routing drift; a pattern with no route |
-| `sync_examples.py --check` | an example carrying stale CSS |
-| `verify_rebuild.py` | a pattern not rebuildable from `base.css` |
-| `visual_baseline.py diff` | visual change nobody intended |
-| `validate_routing.py` | a request that no longer reaches the right layout |
-| `check_antipatterns.py` | a known-bad slide that started passing |
-| `check_style_rules.py` · `calibrate_gate.py` | taste drift — **advisory** |
-
-Routing scores **30/30** on the fixture it was tuned against and **8/10** on the held-out one. The
-second is the real one.
-
-**A pass is a floor, not a verdict.** Three times a change cleared every gate and looked worse. The
-gates cannot tell you whether a slide is good — look at the render.
+overwritten by the compiler, and `--check` fails first if anything drifted.
 
 ---
 
@@ -158,10 +158,11 @@ The repository root *is* the skill; `SKILL.md` carries the frontmatter.
 git clone https://github.com/bonny8000/bonny-slide-generate-system.git ~/.claude/skills/bonny-slide-system
 ```
 
-Needs **Python 3.9+** (standard library only) and a **Chromium browser** for the render gates.
-`pptx/` additionally needs **python-pptx**; generated explainers need an image-generation tool.
+Needs **Python 3.9+** (standard library only) and a **Chromium browser** for the render checks.
+`pptx/` also needs **python-pptx**; generated illustrations need an image-generation tool.
 
-Then just ask — it will come back for the audience, the theme and any real assets before starting.
+Then just ask for a deck — it will come back for the audience, the theme and any real assets before it
+starts, because those decide which layouts are even eligible.
 
 ```bash
 python scripts/validate_layout.py DECK.html
@@ -178,29 +179,17 @@ For linked HTML use `assets/base.css`. For self-contained HTML inline
 
 ## At a glance
 
-| | |
-|---|---:|
-| Foundation rules · components · layouts | 14 · 19 · 25 |
-| Routable patterns · indexed triggers | 44 · 313 |
-| Themes (one per deck, one accent) | 2 |
-| Example files | 172 |
-| Judged A/B rounds | 50 |
-| Hypertokens · recipes · explainer variants | 5 · 3 · 4 |
-| Scripts | 13 |
+| | | | |
+|---|---:|---|---:|
+| Foundation rules | 14 | Routable patterns | 44 |
+| Components | 19 | Indexed triggers | 313 |
+| Layouts | 25 | Themes | 2 |
+| Example files | 172 | Judged A/B rounds | 50 |
+| Hypertokens · recipes | 5 · 3 | Illustration variants | 4 |
 
----
-
-## Glossary
-
-| Term | Meaning |
-|---|---|
-| **Intention** | What a page must DO to the room. The only thing that selects a form. |
-| **Shape** | `material / arrangement / item_count` — what the slide actually holds. The decisive routing axis. |
-| **Trigger** | A phrase, in any of three languages, that summons a pattern. |
-| **Router** | `system/router.json` — the compiled index. A pattern not in it does not exist. |
-| **Recipe · hypertoken · token** | Slots → implementation fragment → the active theme's value. |
-| **Hard candidate** | A page whose content presumptively needs a generated explainer. |
-| **Gate** | A command that can fail a build. |
+**Intention** — what a page must DO; the only thing that selects a form. **Shape** — material,
+arrangement and count; what the page actually holds. **Router** — the compiled index; a pattern not in
+it does not exist. **Token** — a colour's name, resolved by the one active theme.
 
 ---
 
