@@ -163,8 +163,23 @@ padding is perfectly symmetric. Left-aligning also fixes wrapping: a single orph
 under the first one instead of floating in the middle of the row.
 
 The same applies to columns that are not both panels. A table beside a supporting list should run the
-same length as that list — give the list `height:100%` and let its rows grow, rather than leaving a
-short column next to a long one.
+same length as that list, and **the way to get there is to grow the panels and keep the gaps tight** —
+not to keep the panels compact and spread the space between them. Three small panels distributed over
+a tall column leaves the column looking sparse and the gaps reading as mistakes; three equal panels
+with a small gap read as one block set against the table.
+
+This is not in tension with the hollow-container rule below, and the difference is worth stating
+because it is easy to apply the wrong one:
+
+- **One container drawn far bigger than its contents is hollow.** The growth is not shared, so the
+  content is stranded — pushed to the container's edges or floating in its middle.
+- **Sibling panels grown together to match a neighbour are not.** The growth is shared and the gaps
+  stay small, so the eye reads a continuous column rather than several small things adrift in a
+  large one.
+
+Also: a title above such a column should sit **above** it, not inside it. Left in the flow it pushes
+the whole list down by its own height, and two side-by-side columns that begin on different lines read
+as misaligned even when each is fine on its own.
 
 ## The footer is chrome, not content
 

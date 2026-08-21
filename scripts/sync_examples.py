@@ -232,6 +232,9 @@ def neutralise(selector: str, body: str, ship: dict[str, set[str]]) -> str:
     is not a smarter heuristic. **To refine a shared component from a slide, use a selector base.css
     does not own** (`.ranklist>.rankrow` rather than `.rankrow`): there is nothing to collide with, so
     nothing is reverted.
+
+    Note also that a slide block is rebuilt rule by rule, so **comments written into it do not
+    survive** a sync. Explanatory comments belong in base.css, which is hand-written and kept.
     """
     shipped_bodies = ship.get(selector.strip())
     if not shipped_bodies:

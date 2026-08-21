@@ -1876,8 +1876,10 @@ footer strong{color: var(--ink);}
 <style data-slide>
 .ctable th,.ctable td{padding:24px 16px}
 .ctable thead th{font-size:16px}
-.ranklist{display:flex;flex-direction:column;height:100%;justify-content:space-between;gap:var(--s3)}
-.ranklist>.rankrow{flex:0 0 auto}
+.ranklist{display:flex;flex-direction:column;height:100%;gap:var(--s2)}
+.ranklist>.rankrow{flex:1}
+.col-4{position:relative;grid-column:revert}
+.col-4>.panel-title{position:absolute;bottom:100%;left:0;margin:0 0 var(--s2)}
 .ctable tbody tr{background:transparent}
 </style></head><body><main class="slide deck" style="gap:var(--s5)">
   <div class="head" style="gap:6px"><p class="kicker latin">Competitor Analysis</p>

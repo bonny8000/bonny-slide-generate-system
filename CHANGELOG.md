@@ -36,6 +36,25 @@ Acting on the four-step plan, with one step abandoned on evidence.
   `specs/generated-preferences-digest.md` (3.6 KB) rather than the 51 KB `preferences.md`, generated
   so the two cannot drift. **170 KB → 71 KB.**
 
+## v12.18 — grow the panels, keep the gaps tight
+A correction from the user, with an annotated render: when a column has to match its neighbour's
+height, **grow the components and keep the gaps small** rather than keeping them compact and
+spreading the space between them. Three small panels distributed down a tall column leaves it looking
+sparse and makes the gaps read as mistakes; three equal panels with a small gap read as one block set
+against the table.
+
+- This reverses what v12.16 recorded ("distribute, don't inflate"), and the two rules are now
+  reconciled in `foundations/layout-balance.md` rather than left to contradict each other. **One**
+  container drawn far bigger than its contents is hollow, because the growth is not shared and the
+  content is stranded. **Sibling** panels grown together to match a neighbour are not, because the
+  growth is shared and the gaps stay tight.
+- **A title above such a column sits above it, not inside it.** Left in the flow it pushed the list
+  down by its own height, so the two columns began on different lines — which reads as misaligned
+  even when each column is fine on its own. The panels now span exactly the table's top and bottom
+  edges.
+- Recorded in `sync_examples.py`: a slide block is rebuilt rule by rule, so **comments written into it
+  do not survive a sync**. Explanatory comments belong in `base.css`.
+
 ## v12.17 — a panel title that reads as one, and numbers that stop implying rank
 - **New `.panel-title` role.** A title above a list sat at 16px against 15px body — bold, but not
   senior, so the group had no head. This is the role between `.eyebrow` and `.headline`.
