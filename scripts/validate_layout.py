@@ -65,10 +65,22 @@ CELL_TEXT_MIN = 0.006       # ...and as carrying real content at this much stron
 TEXT_GAP_MAX = 0.22         # longest run of rows holding surface but no text
 
 BROWSER_CANDIDATES = (
+    # Windows
     r"C:\Program Files\Google\Chrome\Application\chrome.exe",
     r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
     r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+    # macOS. The binary lives inside the .app bundle and is never on PATH, so the
+    # shutil.which() scan above cannot see it — without these the gate is simply
+    # unrunnable on a Mac, and "cannot run" is easy to mistake for "nothing to fix".
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+    str(Path.home() / "Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
+    # Linux distributions that ship a versioned binary rather than a PATH alias
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium-browser",
+    "/snap/bin/chromium",
 )
 
 
@@ -180,7 +192,8 @@ def find_browsers(explicit: str | None) -> list[str]:
             found.append(candidate)
     if not found:
         raise LayoutError(
-            "no Chromium browser found — pass --browser with the path to chrome.exe or msedge.exe"
+            "no Chromium browser found — pass --browser with the path to the Chrome/Edge binary "
+            "(macOS: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')"
         )
     return found
 
