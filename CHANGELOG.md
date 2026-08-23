@@ -3,6 +3,25 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## Unreleased — the antipattern gate could never run on a Mac, and said so as "LEAKED"
+
+`check_antipatterns.py` decided whether a fixture still failed by searching the checker's output for
+the string `FAIL`. That collapsed three different outcomes into two:
+
+- `validate_layout.py` unable to start prints no `FAIL`, so the fixture read as **LEAKED** — the gate
+  accused itself of a regression over a slide it had never measured.
+- A render crash or timeout prints `FAIL <slide> — <reason>`, which read as **still caught** — an
+  unrunnable gate reporting all-clear, which is the direction that hides real drift.
+
+Both fixed: the verdict is now the exit code (`1` rejected · `0` accepted · `2` cannot run), a
+per-slide render failure counts as cannot-run, and cannot-run exits 2 with the underlying cause
+rather than a leak report.
+
+The reason it was always unrunnable on macOS: `BROWSER_CANDIDATES` held Windows paths only, and the
+`PATH` scan cannot see Chrome inside `/Applications/Google Chrome.app`. Added macOS bundle paths and
+two Linux ones, so `find_browsers` resolves Chrome without `--browser`.
+
+
 ## v12.18 — grow the panels, keep the gaps tight
 A correction from the user, with an annotated render: when a column has to match its neighbour's
 height, **grow the components and keep the gaps small** rather than keeping them compact and
