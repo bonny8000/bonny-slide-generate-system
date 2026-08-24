@@ -4,11 +4,11 @@ kind: component
 tier: molecule
 status: stable        # example built + render-validated
 intent: show the real product UI as a visual so claims feel concrete
-triggers: [product shot, app/dashboard screen, phone mockup, skeleton placeholder UI, a screen to point at, 介面示意, 畫面示意圖, app 畫面, 화면 목업]
+triggers: [product shot, app/dashboard screen, phone mockup, skeleton placeholder UI, a screen to point at, screen interior, dashboard overview screen, checkout screen, settings screen, empty state screen, component specimen sheet, 介面示意, 畫面示意圖, app 畫面, 畫面內部, 儀表板畫面, 結帳畫面, 設定畫面, 空狀態畫面, 화면 목업, 화면 내부]
 depends_on: [tokens]
 tokens_used: [surface, muted, muted-soft, ink, accent]
 icon_use: optional
-learned_from: Img19, Img21
+learned_from: Img19, Img21, screen-interiors
 example: examples/light-product-hero.html
 ---
 # ui-mockup
@@ -31,7 +31,8 @@ unrelated content.
 A `--surface` frame (browser chrome / phone bezel / floating cards) holding a simplified UI: real header
 labels + **skeleton bars** for content.
 
-Variants: **browser-dashboard · phone · skeleton-cards · list-screen · tab-screen · sheet-screen**.
+Variants — chrome: **browser-dashboard · phone · skeleton-cards · list-screen · tab-screen · sheet-screen**.
+Variants — interior: **overview · form-summary · rail-rows · table · empty · specimen** (below).
 
 ### App-screen furniture
 A schematic screen reads as a real app when its **chrome** is right, not when its content is detailed.
@@ -51,6 +52,35 @@ numbers is both harder to read and a claim about a product that may not be true.
 
 All of it is built from this system's own tokens, so a mockup always matches the deck's theme and
 never introduces a colour of its own.
+
+### Screen interiors
+Chrome says which **product** a mock is. The interior says which **screen**. That is a separate
+decision and it is the one that usually gets skipped — a frame with undifferentiated `.sk` bars
+inside reads as "some app", which is exactly the vagueness a mockup was supposed to remove.
+
+An overview, a checkout and a settings page are each recognisable from across a room by their
+skeleton alone. So the *arrangement* carries the recognition, and no invented data is needed to
+get it — the same reason this component already prefers `.sk` bars to tiny fake text, moved up
+from the content level to the layout level.
+
+`base.css` C17 ships six interiors. Each is a shape, not a screenshot:
+
+| interior | what makes it legible | built from |
+|---|---|---|
+| **overview** | one dominant number above a bar row, exactly one bar accented | `.ui-metric` + `.ui-bars` / `.ui-bar.on` |
+| **form-summary** | stacked inputs in a column against a fixed side panel, single action bottom-right | `.ui-split` + `.ui-field` + `.ui-panel` + `.ui-cta` |
+| **rail-rows** | a side rail with one item lit, rows with end-aligned controls | `.ui-rail` / `.ui-railitem.on` + `.ui-tr` + `.toggle` |
+| **table** | zebra rows on a fixed left gutter, one row marked | `.ui-tr.alt` / `.ui-tr.on` |
+| **empty** | a mark, two short lines, one action, centred | `.ui-empty` |
+| **specimen** | variants down, states across, undefined combinations left blank | `.ui-matrix` + `.ui-cellbox` |
+
+Pick the interior from **what the slide is arguing about**, not from what looks fullest. A slide
+about a drop-off does not want a `specimen`; a slide about component drift does not want an
+`overview`. If none of the six fits, the honest move is a plain `.ui-body` of `.sk` bars — an
+interior that misrepresents the screen is worse than one that stays generic.
+
+One accent per frame, on the single element the slide is about. Two accents inside one mock and
+the audience has to work out which one you meant.
 
 **Text inside a mock screen uses the UI scale, not the slide scale.** Slide type runs 14–150px
 because it is read across a room; text drawn inside an interface is read as an *image* of an
@@ -77,8 +107,9 @@ title. `base.css` handles both; do not override the padding.
 use the absolute `--fs-ui-*` scale directly with no device conversion.
 
 ## Tokens used
-surface (frame + cards), muted-soft (skeleton bars, chrome), muted (secondary labels), ink (key labels),
-accent (active element).
+surface (frame + cards, interior panels + zebra rows), muted-soft (skeleton bars, chrome, fields,
+rail items), muted (secondary labels), ink (key labels, the dominant number), accent (active
+element — one per frame), accent-soft (a lit rail item or marked row).
 
 ## Icon use
 Optional small UI glyphs, one style.
@@ -93,4 +124,5 @@ Chrome + placeholders in muted tints; one accent for the active element; differe
 
 ## Example
 A dashboard with "發注現況 / 庫存管理 / 客戶管理" cards using skeleton rows; a phone showing a profile screen
-(learned from Img19, Img21).
+(learned from Img19, Img21). Interiors: `examples/light-screen-interiors.html` — overview,
+form-summary and rail-rows side by side in `.appframe` chrome.

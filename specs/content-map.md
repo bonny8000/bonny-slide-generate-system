@@ -43,6 +43,7 @@ page is trying to *do*. Shape narrows the choice; intention picks the winner.
 | Justify "why us" with backed points | Value / why-us points | "why X?", 2–3 points each w/ a backing card | `value-points` | accent-dot label + paragraph + taglist | optional |
 | Show who it serves (use cases) | Use-case cards | "use cases", audience segments each w/ an illustration | `use-case-cards` | badge + illustration/mockup + caption | one illustration style |
 | Contrast current vs improved screens | As-is → To-be (screens) | before/after of a UI + annotations | `as-is-to-be` | ui-mockup ×2 (muted vs accent) + annotation callouts | optional |
+| Say which screen the audience is looking at | Screen interior | a mock whose *type* carries the argument — an overview, a checkout, settings, an empty state, a component sheet | any layout taking `ui-mockup` | ui-mockup chrome + one C17 interior (`overview` · `form-summary` · `rail-rows` · `table` · `empty` · `specimen`), one accent per frame | optional |
 | Re-orient / mark a new part | Section transition | "now part 2 of 3" | `section-cover` (扉頁) | section-cover (small nav + hero title) | none |
 | Set the map up front | Agenda | the outline | `toc` | numbered outline | none |
 | Present a small set of features as equals | Feature set / capability grid | 3–4 features, "what's included", capabilities each w/ an icon + blurb | `feature-grid` | feature-card ×3–4 in a 2×2 / 2×N grid | one icon or illustration per card |
