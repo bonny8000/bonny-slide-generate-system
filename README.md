@@ -99,11 +99,17 @@ the **screen interior** has to read as a real screen. [`examples/light-screen-in
 is the reference page for this vocabulary — app bars, list rows, toggles, sheets and popups are built
 from the system tokens and scaled with the mock device, rather than pasted in as arbitrary screenshots.
 
-![Light mobile and website frames using the same token-scaled screen interior](https://raw.githubusercontent.com/bonny8000/bonny-slide-generate-system/4dd9e81/assets/readme/fig-04-screen-interior-light.svg)
+`base.css` C17 ships six interiors — **overview · form-summary · rail-rows · table · empty ·
+specimen** — routed through `ui-mockup`. Each is a shape rather than a screenshot: one dominant
+number over a bar row, a form column against a fixed summary, a side rail with one item lit. The
+arrangement is what makes the screen recognisable, so no invented data is needed to get it.
 
-*The frame tells you what contains the UI; the interior tells you what product screen the audience is
-looking at. The interior is made from the same vocabulary as the deck — app bar, list rows, toggles,
-popups and sheets — so it remains legible and coherent when the mockup changes size.*
+![Three app frames showing the overview, form-summary and rail-rows screen interiors](assets/readme/fig-04-screen-interior-light.svg)
+
+*Not a drawing of the idea — this figure is `examples/light-screen-interiors.html` itself, serialised
+straight from the rendered slide, so every position and colour in it came out of the real layout. The
+frame tells you what contains the UI; the interior tells you what product screen the audience is
+looking at, and it re-skins with the deck theme because it is made of the same tokens.*
 
 ---
 
