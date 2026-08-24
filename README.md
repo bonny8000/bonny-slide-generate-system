@@ -99,7 +99,7 @@ the **screen interior** has to read as a real screen. [`examples/light-screen-in
 is the reference page for this vocabulary — app bars, list rows, toggles, sheets and popups are built
 from the system tokens and scaled with the mock device, rather than pasted in as arbitrary screenshots.
 
-![Light mobile and website frames using the same token-scaled screen interior](assets/readme/fig-04-screen-interior-light.svg?v=20260824)
+![Light mobile and website frames using the same token-scaled screen interior](https://raw.githubusercontent.com/bonny8000/bonny-slide-generate-system/4dd9e81/assets/readme/fig-04-screen-interior-light.svg)
 
 *The frame tells you what contains the UI; the interior tells you what product screen the audience is
 looking at. The interior is made from the same vocabulary as the deck — app bar, list rows, toggles,
