@@ -57,7 +57,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 | line-chart | trend over time | Img10 | stable |
 | quote-bubble | speech bubble + avatar (qual quote) | Img4, Img7, Img23 | stable |
 | cta-buttons | primary (filled) + secondary (outline) action pair | Img19 | stable |
-| ui-mockup | product UI / device-screen mockup (browser · phone · skeleton) | Img19, Img21 | stable |
+| ui-mockup | product UI / device-screen mockup (browser · phone · skeleton) + six screen **interiors** (overview · form-summary · rail-rows · table · empty · specimen) | Img19, Img21, screen-interiors | stable |
 | shot | rounded + soft-shadowed wrapper for any raw screenshot/photo | Img21, Img26 | stable |
 | level-slider | labeled trait track with a level dot | Img22 | stable |
 | geo-map | region map with leader-line annotations + counts | Img23 | stable |
@@ -94,6 +94,7 @@ CSS lives in `assets/base.css` ("v12 — Reference-audit primitives"). Added to 
 | barline + chart-annot + ln-area / ln-path.alt / ln-drop | bars + overlaid trend line in one plot; area fill; 2nd series; drop-line; in-chart floating callout | 1,27,28,33,34,36 | stable |
 | babars (horizontal before/after) + deltametric.overline / axis-mid / slope / bubble-delta | horizontal before→after bars w/ trailing captions; centered delta; midline; proportional-circle delta | 25,29,30,31,34,36 | stable |
 | phone / appframe / notch / screen / device-stack / popup / listrow / toggle | phone & app-frame device mockups, overlapping multi-device stage, in-screen UI kit | 7,11,12,23,24,26,32 | stable |
+| ui-body / ui-split / ui-panel / ui-field / ui-cta / ui-metric / ui-bars / ui-tr / ui-rail / ui-empty / ui-matrix | screen **interiors** — the arrangement inside a frame that says which screen it is, not just which product | screen-interiors | stable |
 | cards.four / col-3 / card.flat / cards.stagger / qstack / qcard | 4-up grid, flat/ghost dense cards, staggered row, nested quote-stack cards | 8,11,16,19,37,38 | stable |
 | dash-link / node--dotted / thread | dashed "broken-path" connector, dotted circle node, decorative bleed thread | 1,5,10,19,24 | stable |
 | splitbar / formula / needsrow | 2-segment 100% split bar; circle×circle=value arithmetic; overlapping mini-circle needs row | 3,4,37 | stable |

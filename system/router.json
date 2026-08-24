@@ -223,6 +223,9 @@
     "categories": [
       "icon-label-row"
     ],
+    "checkout screen": [
+      "ui-mockup"
+    ],
     "chips": [
       "taglist"
     ],
@@ -238,11 +241,17 @@
     "competitors": [
       "logo-row"
     ],
+    "component specimen sheet": [
+      "ui-mockup"
+    ],
     "connected": [
       "linked-circles"
     ],
     "ctas": [
       "cta-buttons"
+    ],
+    "dashboard overview screen": [
+      "ui-mockup"
     ],
     "decision diamonds": [
       "service-flow"
@@ -255,6 +264,9 @@
     ],
     "desk-research citation": [
       "citation-card"
+    ],
+    "empty state screen": [
+      "ui-mockup"
     ],
     "evidence for a problem": [
       "painpoint-evidence"
@@ -469,11 +481,17 @@
     "scattered inputs to shared intent": [
       "editorial-explainer-stage"
     ],
+    "screen interior": [
+      "ui-mockup"
+    ],
     "screen 改善": [
       "as-is-to-be"
     ],
     "serving every x": [
       "use-case-cards"
+    ],
+    "settings screen": [
+      "ui-mockup"
     ],
     "several voices as evidence": [
       "quote-bubble"
@@ -648,6 +666,9 @@
     ],
     "價值主張加佐證": [
       "value-points"
+    ],
+    "儀表板畫面": [
+      "ui-mockup"
     ],
     "兩軸象限": [
       "positioning-matrix"
@@ -844,6 +865,9 @@
     "用問題破題": [
       "centered-question-evidence"
     ],
+    "畫面內部": [
+      "ui-mockup"
+    ],
     "畫面示意圖": [
       "ui-mockup"
     ],
@@ -862,6 +886,9 @@
     "研究脈絡": [
       "research-flow"
     ],
+    "空狀態畫面": [
+      "ui-mockup"
+    ],
     "章節開場的大哉問": [
       "centered-question-evidence"
     ],
@@ -877,6 +904,9 @@
     "第一優先/第二優先": [
       "ranked-list"
     ],
+    "結帳畫面": [
+      "ui-mockup"
+    ],
     "統一名詞": [
       "terminology-cards"
     ],
@@ -891,6 +921,9 @@
     ],
     "訪談收斂": [
       "interview-affinity"
+    ],
+    "設定畫面": [
+      "ui-mockup"
     ],
     "設計想法": [
       "idea-evidence"
@@ -951,6 +984,9 @@
     ],
     "플로우": [
       "service-flow"
+    ],
+    "화면 내부": [
+      "ui-mockup"
     ],
     "화면 목업": [
       "ui-mockup"
@@ -2545,10 +2581,22 @@
         "phone mockup",
         "skeleton placeholder UI",
         "a screen to point at",
+        "screen interior",
+        "dashboard overview screen",
+        "checkout screen",
+        "settings screen",
+        "empty state screen",
+        "component specimen sheet",
         "介面示意",
         "畫面示意圖",
         "app 畫面",
-        "화면 목업"
+        "畫面內部",
+        "儀表板畫面",
+        "結帳畫面",
+        "設定畫面",
+        "空狀態畫面",
+        "화면 목업",
+        "화면 내부"
       ],
       "spec": "specs/components/ui-mockup.md",
       "example": "examples/light-product-hero.html",
@@ -2565,7 +2613,8 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img19",
-        "Img21"
+        "Img21",
+        "screen-interiors"
       ]
     },
     "use-case-cards": {

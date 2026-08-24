@@ -37,6 +37,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import time
 import zlib
 from collections import Counter
 from pathlib import Path
@@ -208,6 +209,23 @@ def render_with_any(html: Path, browsers: list[str], width: int, height: int, sc
     raise LayoutError("no usable browser. " + " | ".join(problems))
 
 
+PNG_EOF = b"IEND\xaeB`\x82"
+
+
+def _complete_png(shot: Path) -> bytes | None:
+    """The screenshot's bytes once it is fully written, else None.
+
+    Chrome writes the PNG and only then tears down, so the file appears before the process is
+    finished with it. Waiting for the IEND chunk is what separates 'still being written' from
+    'done' — a size check alone races a large slide.
+    """
+    try:
+        data = shot.read_bytes()
+    except OSError:
+        return None
+    return data if data.endswith(PNG_EOF) else None
+
+
 def render(html: Path, browser: str, width: int, height: int, scale: float) -> bytes:
     # ignore_cleanup_errors: on Windows the browser still holds its profile lockfile at exit
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
@@ -219,6 +237,13 @@ def render(html: Path, browser: str, width: int, height: int, scale: float) -> b
             "--hide-scrollbars",
             "--no-first-run",
             "--disable-extensions",
+            # Chrome will otherwise reach for its updater and metrics endpoints on a cold
+            # profile, which is both slow and a common place for a headless run to wedge.
+            "--disable-background-networking",
+            "--disable-component-update",
+            "--disable-sync",
+            "--no-default-browser-check",
+            "--metrics-recording-only",
             f"--user-data-dir={tmp}/profile",
             f"--window-size={width},{height}",
             f"--force-device-scale-factor={scale}",
@@ -226,11 +251,39 @@ def render(html: Path, browser: str, width: int, height: int, scale: float) -> b
             f"--screenshot={shot}",
             html.resolve().as_uri(),
         ]
-        proc = subprocess.run(cmd, capture_output=True, timeout=120)
-        if not shot.is_file():
-            detail = (proc.stderr or b"").decode("utf-8", "replace").strip()[-500:]
+        # Wait for the SCREENSHOT, not for the browser to exit. Chrome can render correctly and
+        # then hang on shutdown — sandboxed environments and some macOS setups do this reliably —
+        # and a plain subprocess.run() throws away a perfectly good PNG when its timeout fires.
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        deadline = time.monotonic() + 120
+        data: bytes | None = None
+        try:
+            while time.monotonic() < deadline:
+                data = _complete_png(shot)
+                if data is not None:
+                    break
+                if proc.poll() is not None:      # exited; one last look before giving up
+                    data = _complete_png(shot)
+                    break
+                time.sleep(0.1)
+        finally:
+            if proc.poll() is None:
+                proc.terminate()
+                try:
+                    proc.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=5)
+            stderr = b""
+            try:
+                stderr = proc.communicate(timeout=5)[1] or b""
+            except (subprocess.TimeoutExpired, ValueError):
+                pass
+
+        if data is None:
+            detail = stderr.decode("utf-8", "replace").strip()[-500:]
             raise LayoutError(f"headless render produced no screenshot. {detail}")
-        return shot.read_bytes()
+        return data
 
 
 # ---------------------------------------------------------------- measurement

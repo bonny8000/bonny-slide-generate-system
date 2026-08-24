@@ -964,3 +964,39 @@ footer strong{color: var(--ink);}
    spends a moment working out why item 1 outranks item 3. An icon carries meaning instead of rank. */
 .rankrow .ic{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
 .rankrow .ic svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* C17 — screen interiors: what goes INSIDE a mock frame ------------ */
+/* C14 gives a mock its chrome, which says which PRODUCT it is. The interior says which SCREEN.
+   An overview, a checkout and a settings page are each recognisable from across a room by their
+   skeleton alone — one dominant number over a bar row; a form column against a fixed summary; a
+   side rail with one item lit — so the arrangement carries the recognition and no invented data
+   is needed to get it. That is the same reason C14 prefers .sk bars to tiny fake text, moved up
+   from the content level to the layout level.
+   Prefixed rather than bare (cf. .appbar/.listrow) so these add no new generic selectors.
+   Shapes only: heights come off the UI type scale, fills are --muted-soft, and exactly one
+   element per frame takes --accent as the thing the slide is about. */
+.ui-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:var(--s2);padding:var(--s3);overflow:hidden}
+.ui-split{display:grid;grid-template-columns:1fr var(--aside,36%);gap:var(--s3);flex:1;min-height:0}
+.ui-col{display:flex;flex-direction:column;gap:var(--s2);min-height:0}
+.ui-panel{background:var(--surface);border-radius:var(--r-sm);padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2);min-height:0}
+.ui-field{height:calc(var(--fs-ui-4)*2);border-radius:var(--r-sm);background:var(--muted-soft);flex:0 0 auto}
+.ui-fieldrow{display:flex;gap:var(--s2);flex:0 0 auto}
+.ui-fieldrow .ui-field{flex:1}
+.ui-cta{height:calc(var(--fs-ui-4)*2.2);border-radius:var(--r-pill);background:var(--accent);flex:0 0 auto;margin-top:auto}
+.ui-metric{font-family:var(--font-latin);font-size:calc(var(--fs-ui-5)*1.9);line-height:1.1;font-weight:var(--fw-bold);color:var(--ink)}
+.ui-bars{display:flex;align-items:flex-end;gap:var(--s1);flex:1;min-height:0}
+.ui-bar{flex:1;background:var(--muted-soft);border-radius:var(--r-sm) var(--r-sm) 0 0;height:var(--h,50%)}
+.ui-bar.on{background:var(--accent)}
+.ui-tr{display:flex;align-items:center;gap:var(--s2);padding:var(--s2);border-radius:var(--r-sm);flex:0 0 auto}
+.ui-tr.alt{background:var(--surface)}
+.ui-tr.on{background:var(--accent-soft)}
+.ui-tr .end{margin-left:auto}
+.ui-rail{width:var(--rail,32%);background:var(--surface);border-right:1px solid var(--muted-soft);padding:var(--s2);display:flex;flex-direction:column;gap:var(--s1);flex:0 0 auto}
+.ui-railitem{height:calc(var(--fs-ui-3)*1.9);border-radius:var(--r-sm);background:var(--muted-soft)}
+.ui-railitem.on{background:var(--accent-soft)}
+.ui-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s2);text-align:center;padding:var(--s4)}
+.ui-empty .mark{width:calc(var(--fs-ui-5)*3.2);height:calc(var(--fs-ui-5)*3.2);border-radius:50%;background:var(--muted-soft);flex:0 0 auto}
+.ui-matrix{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:var(--s2);flex:1;min-height:0}
+.ui-cellbox{border:1px solid var(--muted-soft);border-radius:var(--r-sm);display:grid;place-items:center;padding:var(--s2)}
+.ui-cellbox .pill{width:70%;height:calc(var(--fs-ui-3)*1.7);border-radius:var(--r-pill);border:1px solid var(--accent)}
+.ui-cellbox.on .pill{background:var(--accent);border-color:transparent}
