@@ -99,6 +99,12 @@ the **screen interior** has to read as a real screen. [`examples/light-screen-in
 is the reference page for this vocabulary — app bars, list rows, toggles, sheets and popups are built
 from the system tokens and scaled with the mock device, rather than pasted in as arbitrary screenshots.
 
+![A device frame and the token-scaled screen interior inside it](assets/readme/fig-04-screen-interior.svg)
+
+*The frame tells you what contains the UI; the interior tells you what product screen the audience is
+looking at. The interior is made from the same vocabulary as the deck — app bar, list rows, toggles,
+popups and sheets — so it remains legible and coherent when the mockup changes size.*
+
 ---
 
 ## What changed recently
