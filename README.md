@@ -94,6 +94,28 @@ freshly generated illustration — never reused artwork, never a diagram traced 
 
 If generation is required but unavailable, the build stops. It does not quietly fall back to text.
 
+The same rule applies to product UI shown inside a device or app frame: the frame is only the chrome;
+the **screen interior** has to read as a real screen. [`examples/light-screen-interiors.html`](examples/light-screen-interiors.html)
+is the reference page for this vocabulary — app bars, list rows, toggles, sheets and popups are built
+from the system tokens and scaled with the mock device, rather than pasted in as arbitrary screenshots.
+
+---
+
+## What changed recently
+
+The latest work tightened the system in two places that are easy to miss in a static README:
+
+- **Reference UI interiors.** A new self-contained example shows how the inside of a phone or app mockup
+  is constructed, including device-relative type and spacing. It keeps the product surface legible while
+  preserving the slide system's own theme and rounded, lightly lifted image treatment.
+- **A trustworthy antipattern gate.** `check_antipatterns.py` now uses validator exit codes instead of
+  scraping console text: `0` means every known-bad fixture is still rejected, `1` means a fixture leaked,
+  and `2` means the checker could not run. Browser/render crashes and timeouts are therefore reported as
+  **cannot run**, not mistaken for either a passing gate or a leaked layout. Chrome discovery now covers
+  macOS app bundles as well as Linux paths.
+
+  The frozen fixtures and their maintenance rules live in [`specs/gate-antipatterns/README.md`](specs/gate-antipatterns/README.md).
+
 ---
 
 ## What it refuses to ship
@@ -109,7 +131,7 @@ passed every check and still looked worse.*
 | `validate_editorial_explainer_plan.py` · `validate_generated_illustration.py` | a page that skipped its illustration, missing provenance, the wrong ratio |
 | `compile_system.py --check` · `sync_examples.py --check` | token or routing drift, a pattern with no route, an example carrying stale CSS |
 | `validate_routing.py` · `verify_rebuild.py` · `visual_baseline.py` | a request that stopped reaching the right layout, a pattern that cannot be rebuilt, a visual change nobody intended |
-| `check_antipatterns.py` | a known-bad slide that started passing |
+| `check_antipatterns.py` | a known-bad slide that started passing, or a gate that could not run |
 
 Routing scores **30/30** on the fixture it was tuned against and **8/10** on a held-out one written
 afterwards. The second is the real number.
@@ -184,7 +206,7 @@ For linked HTML use `assets/base.css`. For self-contained HTML inline
 | Foundation rules | 14 | Routable patterns | 44 |
 | Components | 19 | Indexed triggers | 313 |
 | Layouts | 25 | Themes | 2 |
-| Example files | 172 | Judged A/B rounds | 50 |
+| Example files | 173 | Judged A/B rounds | 50 |
 | Hypertokens · recipes | 5 · 3 | Illustration variants | 4 |
 
 **Intention** — what a page must DO; the only thing that selects a form. **Shape** — material,
@@ -193,6 +215,7 @@ it does not exist. **Token** — a colour's name, resolved by the one active the
 
 ---
 
-**v12.18 · August 2026** — routing keys on intention *and* content shape; triggers are multilingual
+**v12.18 + unreleased gate portability fix · August 2026** — routing keys on intention *and* content shape; triggers are multilingual
 because intention is language-independent; layout choice, asset policy and illustration triggering are
-declared data rather than judgement.
+declared data rather than judgement. Screen interiors now have a token-scaled reference; antipattern
+checks distinguish rejected, leaked and unrunnable results.
