@@ -113,28 +113,6 @@ looking at, and it re-skins with the deck theme because it is made of the same t
 
 ---
 
-## What changed recently
-
-The reliability pass repairs structural coverage, implicit HTML head closing, visual detection,
-renderer error codes and footer false alarms. Current examples now embed one canonical bundle;
-dark examples explicitly declare their theme, while historical A/B snapshots stay frozen.
-See `specs/maintenance.md` for the check/export workflow and remaining limits.
-
-Earlier additions:
-
-- **Reference UI interiors.** A new self-contained example shows how the inside of a phone or app mockup
-  is constructed, including device-relative type and spacing. It keeps the product surface legible while
-  preserving the slide system's own theme and rounded, lightly lifted image treatment.
-- **A trustworthy antipattern gate.** `check_antipatterns.py` now uses validator exit codes instead of
-  scraping console text: `0` means every known-bad fixture is still rejected, `1` means a fixture leaked,
-  and `2` means the checker could not run. Browser/render crashes and timeouts are therefore reported as
-  **cannot run**, not mistaken for either a passing gate or a leaked layout. Chrome discovery now covers
-  macOS app bundles as well as Linux paths.
-
-  The frozen fixtures and their maintenance rules live in [`specs/gate-antipatterns/README.md`](specs/gate-antipatterns/README.md).
-
----
-
 ## What it refuses to ship
 
 ![Measured by a machine, then looked at by a person](assets/readme/06-gates.svg)
@@ -177,7 +155,7 @@ bonnyt/
 |   |-- layouts/         # 25 whole-slide structures
 |   |-- content-map.md   # intention -> layout + components
 |   |-- generated-*.md   # compiled — never hand-edited
-|   `-- preferences.md   # 50 judged A/B rounds
+|   `-- preferences.md   # 55 judged A/B rounds
 |-- system/       # THE MACHINE LAYER — tokens, hypertokens, recipes, compiled router
 |-- assets/       # THE BUILD LAYER — base.css + generated theme files
 |-- scripts/      # compiler, validation, A/B review, PDF export
@@ -230,11 +208,37 @@ For linked HTML use `assets/base.css`. For self-contained HTML inline
 | Components | 19 | Indexed triggers | 327 |
 | Layouts | 25 | Themes | 2 |
 | Current examples · frozen history | 58 · 115 | Judged rounds · usable pairs | 55 · 42 |
-| Hypertokens · recipes | 5 · 3 | Illustration variants | 4 |
+| Hypertokens · recipes | 1 · 1 | Illustration variants | 4 |
 
 **Intention** — what a page must DO; distinguishes layouts after shape matching. **Shape** — material,
 arrangement and count; what the page actually holds. **Router** — the compiled index; a pattern not in
 it does not exist. **Token** — a colour's name, resolved by the one active theme.
+
+---
+
+## Recent changes
+
+[`CHANGELOG.md`](CHANGELOG.md) is the full history; this is only the current head.
+
+**Consistency pass.** Three changes, each verified to leave every rendered slide pixel-identical:
+
+- **Shared CSS de-duplicated.** Every `/* promoted from examples/… */` block had pasted its own copy
+  of the common card rules — `.card` was defined nine times, `.foot` four, `.kicker` three, all
+  byte-identical. One visual fact now has one definition.
+- **The hypertoken layer shrank to what actually works.** Four of its five fragments restated rules
+  `base.css` already had. They could never take effect: generated fragments are `:where(...)` inside
+  `@layer hypertokens`, and unlayered `base.css` beats every layered rule regardless of specificity.
+  Only `image.floating` adds something real, so only it remains.
+- **Selection wording corrected.** Two specs still called intention the primary key while the router
+  keys on shape.
+
+Making that layer authoritative was attempted and rejected — both routes regressed against a render
+baseline, one of them silently reverting a judged A/B preference. `specs/maintenance.md` records the
+measurements so it is not retried blind.
+
+**Earlier: the reliability pass.** Structural slide coverage, implicit HTML head closing, DOM-based
+visual detection, separated renderer exit codes and footer false alarms. Current examples embed one
+canonical bundle; dark examples declare their theme; historical A/B snapshots stay frozen.
 
 ---
 

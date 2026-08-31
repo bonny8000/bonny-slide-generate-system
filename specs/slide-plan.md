@@ -26,8 +26,9 @@ text it hasn't understood.
 2. **State each claim.** Write the single sentence each page must land, 繁中 primary + a short English
    handle. This becomes the plain-language title later (`foundations/plain-language.md`).
 3. **Name the intention.** For each page, say what it must *do* to the audience — persuade, teach,
-   compare, prove, orient, provoke, re-orient. **Intention is the primary key** `content-map.md` selects
-   on, so naming it here is what lets stage 2 pick the right layout (not just a plausible-looking one).
+   compare, prove, orient, provoke, re-orient. `content-map.md` matches on **shape** first, then uses
+   intention to decide between the candidates that match, so naming it here is what lets stage 2 pick
+   the right layout (not just a plausible-looking one).
 4. **Order the narrative.** For a system/decision, sequence **method → range → relationships →
    conclusion** — reasoning before the result (`foundations/storytelling.md`). Never lead with the
    final model.

@@ -2,8 +2,10 @@
 
 Stage 1 (`slide-plan.md`) already named each page's **intention** (its communicative job) and **one claim**.
 Here in stage 2, for each planned page: match it to a **shape**, then use the mapped layout + components.
-**Intention is the primary key** — the same raw text can become a different slide depending on what the
-page is trying to *do*. Shape narrows the choice; intention picks the winner.
+**Shape is the index key; intention decides between the candidates it returns** — this mirrors
+`selectionPolicy.primaryKey` in `system/router.json`, which is `shape`. Intention still carries the
+design weight: the same raw text can become a different slide depending on what the page is trying to
+*do*. Shape narrows the choice; intention picks the winner.
 
 | Intention (the job) | Content shape | How to detect it | Layout | Key components | Icon/illustration |
 |---|---|---|---|---|---|

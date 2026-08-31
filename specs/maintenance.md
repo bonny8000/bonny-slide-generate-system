@@ -8,6 +8,12 @@
 - `<style data-slide>` is the supported place for authored slide-specific overrides. Sync preserves it;
   reusable component styles belong in scoped shared selectors.
 - Explicit `data-theme="dark"` prevents a dark example from silently receiving the light theme.
+- When promoting styles out of an example, check whether the shared rule already exists before
+  pasting it. Each `/* ===== … promoted from examples/… ===== */` block re-pasted its own copy of the
+  common card rules, which left `.card` defined nine times, `.foot` four and `.kicker` three — all
+  byte-identical. Those 20 redundant lines were removed (keeping the last occurrence of each, so the
+  rule that already won the cascade stays in place); a promotion that re-pastes them puts the drift
+  risk straight back.
 - Default sync excludes any `_ab`/`_audit` example folder. Their 115 existing HTML files are frozen
   historical evidence, not stale files to bulk update. `--include-archives` is an explicit opt-in.
 
@@ -69,8 +75,33 @@ PowerPoint. Expanding native PPTX coverage is separate implementation work, not 
 ## Remaining limits
 - This is an agent skill and tool library, not a hosted app or autonomous generation service.
 - All 40 routing requests are regression fixtures now; there is no fresh independent accuracy score.
-- The three hypertoken recipes remain pilots. Other layouts use the shared CSS implementation and
-  are still available; the recipes are not a whitelist or a claim of full migration.
+- **The hypertoken layer holds one fragment, `image.floating`, and that is deliberate.** It once
+  held five. Four of them (`surface.card`, `text.heading`, `text.supporting`, `layout.stack.card`)
+  restated rules `assets/base.css` already had, and were removed after measurement showed they could
+  never take effect. Deleting the whole layer moved only 2 of 54 rendered slides, both traceable to
+  `image.floating`'s shadow; the other four were inert. `metric-card` and `evidence-card` went with
+  them, since every slot referenced a removed fragment. Adding a fragment that restates a base.css
+  rule re-creates the same dead duplication.
+- **Making the hypertoken layer authoritative was attempted, measured and rejected. Do not retry it
+  without reading this.** Generated fragments are `:where(...)` (zero specificity) inside
+  `@layer hypertokens`; base.css is unlayered, and unlayered CSS beats every layered rule regardless
+  of specificity. The layer is therefore designed to lose, which is correct for a fallback and fatal
+  for a source of truth. Two routes were tried against a render baseline, and both regressed:
+  - *Wrapping base.css in `@layer components`* moved 6 slides. A slide's own `<style data-slide>`
+    stays unlayered, so it went from winning on source order to winning unconditionally — defeating
+    the more specific `.mcrow.roomy .mc{min-height:430px}` (0,3,0) with a plain `.mc` (0,1,0). That
+    430px is recorded preference **R53 A**, so the cascade silently reverted a human A/B decision.
+  - *Deleting the shadowed base.css rules so the fragments drove them* moved 47 of 54 slides. The
+    values were byte-identical; only cascade position changed. `.card` sits at the end of base.css
+    and wins same-specificity contests by source order, so `class="card metric"` took `.card`'s
+    `gap:var(--s4)` over `.metric`'s `gap:var(--s1)` (line 122). Demoted to a zero-specificity
+    layered rule, it lost that contest and the gap collapsed.
+
+  The blocker is not the selector grammar. `SELECTOR_RE` does admit only a single bare class
+  (`^\.[a-z][a-z0-9_-]*$`), which puts 439 of 699 base.css rules (62%) outside it — but widening it
+  would not help, because the demotion is what breaks. base.css currently encodes real design
+  decisions as **implicit source-order dependencies**. Any migration has to make those dependencies
+  explicit first; that audit is the prerequisite, not the schema.
 - The plan validator checks real slide coverage and local per-slide asset placement. Generator names
   and reference lists are declarations; fresh-call provenance still needs external tool-call evidence.
 - The structural reader handles ordinary omitted-head HTML and explicit hidden states. It is not a

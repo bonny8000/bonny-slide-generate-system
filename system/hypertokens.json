@@ -3,56 +3,22 @@
   "version": "1.0.0",
   "selectionPolicy": {
     "migrationStatusAffectsSelection": false,
-    "note": "Hypertokens are implementation fragments. Component and layout selection narrows by shape, then intention, in specs/content-map.md."
+    "note": "Hypertokens are low-specificity implementation fragments in @layer hypertokens; component rules in assets/base.css are unlayered and therefore authoritative. A fragment that restates a base.css rule can never win, so it is duplication rather than a source of truth. Only fragments that add a property base.css does not set belong here. Component and layout selection narrows by shape, then intention, in specs/content-map.md."
   },
   "hypertokens": {
-    "surface.card": {
-      "description": "Theme-aware card surface without component structure or behavior.",
-      "migrationStatus": "pilot",
-      "selectors": [".ht-surface-card", ".card"],
-      "properties": {
-        "background": "{surface}",
-        "border-radius": "{r-card}",
-        "padding": "{pad-card}"
-      }
-    },
-    "text.heading": {
-      "description": "Primary slide heading treatment.",
-      "migrationStatus": "pilot",
-      "selectors": [".ht-text-heading", ".headline"],
-      "properties": {
-        "font-size": "{fs-h1}",
-        "font-weight": "700",
-        "color": "{ink}",
-        "margin": "0",
-        "line-height": "{lh}"
-      }
-    },
-    "text.supporting": {
-      "description": "Supporting copy that intentionally recedes from the primary claim.",
-      "migrationStatus": "pilot",
-      "selectors": [".ht-text-supporting", ".sub"],
-      "properties": {
-        "font-size": "{fs-body}",
-        "color": "{muted}",
-        "margin": "0"
-      }
-    },
-    "layout.stack.card": {
-      "description": "Vertical stack used by card-like slide components.",
-      "migrationStatus": "pilot",
-      "selectors": [".ht-layout-stack-card", ".card"],
-      "properties": {
-        "position": "relative",
-        "display": "flex",
-        "flex-direction": "column",
-        "gap": "{s4}"
-      }
-    },
     "image.floating": {
       "description": "Soft theme-aware lift shared by screenshots, photos, and UI mockups.",
       "migrationStatus": "pilot",
-      "selectors": [".ht-image-floating", ".shot", ".ui-mockup", ".appframe", ".mock", ".mock2", ".mock3", ".phone"],
+      "selectors": [
+        ".ht-image-floating",
+        ".shot",
+        ".ui-mockup",
+        ".appframe",
+        ".mock",
+        ".mock2",
+        ".mock3",
+        ".phone"
+      ],
       "properties": {
         "box-shadow": "{shadow-img}"
       }

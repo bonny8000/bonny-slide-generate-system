@@ -5,7 +5,7 @@ variants. Apply it alongside the foundations and `self-critique.md`. Each entry 
 from so it's traceable (and revisable if a later round contradicts it).
 
 ## ⭐ Principles digest (read this first)
-Fifty A/B rounds distilled to a dozen transferable principles. Reach for these first; the per-component
+Fifty-five judged A/B rounds distilled to a dozen transferable principles. Reach for these first; the per-component
 sections below are the worked detail. When two principles tension, the slide's **intent** breaks the tie.
 
 1. **Compose to the amount of meaningful content.** A substantial header/body page may fill vertically;
