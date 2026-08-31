@@ -1528,7 +1528,7 @@
         "6 one-liners"
       ],
       "spec": "specs/components/icon-label-row.md",
-      "example": "examples/dark-02-target-group.html",
+      "example": "examples/light-09-comparison.html",
       "dependsOn": [
         "tokens"
       ],
@@ -1994,7 +1994,7 @@
         "佔比"
       ],
       "spec": "specs/components/pie-donut.md",
-      "example": "examples/light-02-chart-point.html",
+      "example": "examples/light-03-survey-stack.html",
       "dependsOn": [
         "tokens"
       ],

@@ -1,3 +1,14 @@
+## Unreleased — complete catalog recipe migration (2026-08-31)
+
+- Expand the original pilots (one remained after the consistency pass) to all 25 layouts and 19 components: 165 bound slots, 25 hypertokens.
+- Compile selector-scoped recipe values and a resolved manifest; consume those values at the original
+  CSS declaration positions so existing specificity, geometry and reviewed variants remain intact.
+- Reject missing patterns, incorrect spec/example bindings, conflicting fragments and disconnected
+  CSS consumers. Add eleven recipe integrity tests and a theme-aware recipe inspection command.
+- Expose composed recipe values through the Python token bridge without claiming new PPTX templates.
+- Correct the icon-label-row and pie-donut example pointers to markup that actually demonstrates them.
+- Synchronize current examples; retain all frozen A/B evidence and the existing visual baseline.
+
 ## Unreleased — one definition per visual fact (2026-08-31)
 
 - Remove duplicated shared rules from `assets/base.css`. Each `promoted from examples/…` block had

@@ -2,7 +2,8 @@
 
 ## Source and generation
 - Edit canonical tokens in `system/tokens.json`, implementation fragments in `system/hypertokens.json`,
-  selection metadata in spec frontmatter, and shared layout styles in `assets/base.css`.
+  slot bindings in `system/recipes.json`, selection metadata in spec frontmatter, and shared layout
+  styles in `assets/base.css`. All 44 patterns have connected recipes; see [the contract](tokens/recipes.md).
 - Run `python scripts/compile_system.py`, then `python scripts/sync_examples.py`.
 - The generated bundle already contains base.css. Inline one theme and one bundle, never base twice.
 - `<style data-slide>` is the supported place for authored slide-specific overrides. Sync preserves it;
@@ -75,14 +76,31 @@ PowerPoint. Expanding native PPTX coverage is separate implementation work, not 
 ## Remaining limits
 - This is an agent skill and tool library, not a hosted app or autonomous generation service.
 - All 40 routing requests are regression fixtures now; there is no fresh independent accuracy score.
-- **The hypertoken layer holds one fragment, `image.floating`, and that is deliberate.** It once
+- All 44 patterns have fragment-level recipes, not complete JSON representations of every CSS rule.
+  Structural geometry and contextual overrides remain hand-written; recipes never choose a layout.
+- The plan validator checks real slide coverage and local per-slide asset placement. Generator names
+  and reference lists are declarations; fresh-call provenance still needs external tool-call evidence.
+- The structural reader handles ordinary omitted-head HTML and explicit hidden states. It is not a
+  full browser DOM/CSS implementation, and cannot prove an external CSS rule did not hide an asset.
+- Pixel balance heuristics cannot judge evidence quality, aesthetics, all overflow, or factual accuracy.
+  The existing example data has not been independently verified as product/research results.
+
+Visual baselines target the 54 current 16:9 slides by default. Capture updates only selected entries,
+preserving historical fingerprints. Missing baseline entries fail the diff. Re-capture only after
+reviewing an intentional change, with comparable Chromium/fonts; a new baseline is not independent
+evidence of visual correctness. The committed capture was refreshed after this review on macOS.
+
+## Cascade experiments retained from the consistency pass
+
+**Before the bound-value migration, the hypertoken layer retained only `image.floating`.** It once
   held five. Four of them (`surface.card`, `text.heading`, `text.supporting`, `layout.stack.card`)
   restated rules `assets/base.css` already had, and were removed after measurement showed they could
   never take effect. Deleting the whole layer moved only 2 of 54 rendered slides, both traceable to
   `image.floating`'s shadow; the other four were inert. `metric-card` and `evidence-card` went with
   them, since every slot referenced a removed fragment. Adding a fragment that restates a base.css
   rule re-creates the same dead duplication.
-- **Making the hypertoken layer authoritative was attempted, measured and rejected. Do not retry it
+
+**Making the hypertoken layer authoritative was attempted, measured and rejected. Do not retry it
   without reading this.** Generated fragments are `:where(...)` (zero specificity) inside
   `@layer hypertokens`; base.css is unlayered, and unlayered CSS beats every layered rule regardless
   of specificity. The layer is therefore designed to lose, which is correct for a fallback and fatal
@@ -102,14 +120,9 @@ PowerPoint. Expanding native PPTX coverage is separate implementation work, not 
   would not help, because the demotion is what breaks. base.css currently encodes real design
   decisions as **implicit source-order dependencies**. Any migration has to make those dependencies
   explicit first; that audit is the prerequisite, not the schema.
-- The plan validator checks real slide coverage and local per-slide asset placement. Generator names
-  and reference lists are declarations; fresh-call provenance still needs external tool-call evidence.
-- The structural reader handles ordinary omitted-head HTML and explicit hidden states. It is not a
-  full browser DOM/CSS implementation, and cannot prove an external CSS rule did not hide an asset.
-- Pixel balance heuristics cannot judge evidence quality, aesthetics, all overflow, or factual accuracy.
-  The existing example data has not been independently verified as product/research results.
 
-Visual baselines target the 54 current 16:9 slides by default. Capture updates only selected entries,
-preserving historical fingerprints. Missing baseline entries fail the diff. Re-capture only after
-reviewing an intentional change, with comparable Chromium/fonts; a new baseline is not independent
-evidence of visual correctness. The committed capture was refreshed after this review on macOS.
+The subsequent migration preserves those dependencies: recipes assign custom-property values, while
+the consuming CSS declarations keep their exact selector, source order and layer. The de-duplicated
+base.css remains unlayered; no former base-class aliases are restored. This avoids both rejected
+routes above. The scoped showcase mockup now resolves its actual `shadow-card`, not the overridden
+`image.floating` fallback. Existing `image.floating` aliases and their rendering behavior stay intact.

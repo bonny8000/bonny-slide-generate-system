@@ -119,7 +119,8 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] `python scripts/compile_system.py --check` passes. — blocker
 - [ ] Generated CSS/Python/Markdown was not edited by hand. — major
 - [ ] Component/layout choice still follows `content-map.md`; migration status carries zero selection weight. — blocker
-- [ ] Unmigrated catalog components remain available; pilot hypertokens are not a whitelist. — blocker
+- [ ] Every catalog pattern has a connected recipe; slots match real example elements and the authored
+      CSS consumes generated values. The compiler checks coverage and rejects disconnected bindings. — blocker
 - [ ] Managed properties have one canonical owner in `system/*.json`. — major
 
 ## Reading the examples: three things that look like defects and are not

@@ -1,14 +1,65 @@
 {
   "$schema": "schema/hypertokens.schema.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "selectionPolicy": {
     "migrationStatusAffectsSelection": false,
-    "note": "Hypertokens are low-specificity implementation fragments in @layer hypertokens; component rules in assets/base.css are unlayered and therefore authoritative. A fragment that restates a base.css rule can never win, so it is duplication rather than a source of truth. Only fragments that add a property base.css does not set belong here. Component and layout selection narrows by shape, then intention, in specs/content-map.md."
+    "note": "Fragment utility selectors stay low-specificity. Recipe bindings supply custom-property values consumed by declarations at their original positions in unlayered base.css. Do not restore inert base-class aliases or change cascade layers. image.floating retains its existing fallback aliases. Routing remains shape-first, independent of migration status."
   },
   "hypertokens": {
+    "surface.card": {
+      "description": "Theme-aware card surface without component structure or behavior.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-card"
+      ],
+      "properties": {
+        "background": "{surface}",
+        "border-radius": "{r-card}",
+        "padding": "{pad-card}"
+      }
+    },
+    "text.heading": {
+      "description": "Primary slide heading treatment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-heading"
+      ],
+      "properties": {
+        "font-size": "{fs-h1}",
+        "font-weight": "700",
+        "color": "{ink}",
+        "margin": "0",
+        "line-height": "{lh}"
+      }
+    },
+    "text.supporting": {
+      "description": "Supporting copy that intentionally recedes from the primary claim.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-supporting"
+      ],
+      "properties": {
+        "font-size": "{fs-body}",
+        "color": "{muted}",
+        "margin": "0"
+      }
+    },
+    "layout.stack.card": {
+      "description": "Vertical stack used by card-like slide components.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-stack-card"
+      ],
+      "properties": {
+        "position": "relative",
+        "display": "flex",
+        "flex-direction": "column",
+        "gap": "{s4}"
+      }
+    },
     "image.floating": {
       "description": "Soft theme-aware lift shared by screenshots, photos, and UI mockups.",
-      "migrationStatus": "pilot",
+      "migrationStatus": "migrated",
       "selectors": [
         ".ht-image-floating",
         ".shot",
@@ -21,6 +72,212 @@
       ],
       "properties": {
         "box-shadow": "{shadow-img}"
+      }
+    },
+    "layout.grid": {
+      "description": "Grid participation; column geometry remains in the owning pattern.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-grid"
+      ],
+      "properties": {
+        "display": "grid"
+      }
+    },
+    "layout.column": {
+      "description": "Layout column fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-column"
+      ],
+      "properties": {
+        "display": "flex",
+        "flex-direction": "column"
+      }
+    },
+    "layout.row": {
+      "description": "Layout row fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-row"
+      ],
+      "properties": {
+        "display": "flex"
+      }
+    },
+    "layout.center-items": {
+      "description": "Layout center items fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-center-items"
+      ],
+      "properties": {
+        "align-items": "center"
+      }
+    },
+    "layout.center-content": {
+      "description": "Layout center content fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-layout-center-content"
+      ],
+      "properties": {
+        "justify-content": "center"
+      }
+    },
+    "surface.panel": {
+      "description": "Shared card surface and radius; each pattern owns its padding.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-panel"
+      ],
+      "properties": {
+        "background": "{surface}",
+        "border-radius": "{r-card}"
+      }
+    },
+    "surface.neutral": {
+      "description": "Surface neutral fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-neutral"
+      ],
+      "properties": {
+        "background": "{surface}"
+      }
+    },
+    "surface.soft": {
+      "description": "Surface soft fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-soft"
+      ],
+      "properties": {
+        "background": "{accent-soft}"
+      }
+    },
+    "surface.accent": {
+      "description": "Surface accent fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-accent"
+      ],
+      "properties": {
+        "background": "{accent}"
+      }
+    },
+    "surface.muted": {
+      "description": "Surface muted fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-surface-muted"
+      ],
+      "properties": {
+        "background": "{muted-soft}"
+      }
+    },
+    "text.primary": {
+      "description": "Text primary fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-primary"
+      ],
+      "properties": {
+        "color": "{ink}"
+      }
+    },
+    "text.secondary": {
+      "description": "Text secondary fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-secondary"
+      ],
+      "properties": {
+        "color": "{muted}"
+      }
+    },
+    "text.accent": {
+      "description": "Text accent fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-accent"
+      ],
+      "properties": {
+        "color": "{accent}"
+      }
+    },
+    "text.on-accent": {
+      "description": "Text on accent fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-on-accent"
+      ],
+      "properties": {
+        "color": "{on-accent}"
+      }
+    },
+    "text.bold": {
+      "description": "Text bold fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-text-bold"
+      ],
+      "properties": {
+        "font-weight": "700"
+      }
+    },
+    "type.numeric": {
+      "description": "Type numeric fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-type-numeric"
+      ],
+      "properties": {
+        "font-family": "{font-latin}"
+      }
+    },
+    "geometry.relative": {
+      "description": "Geometry relative fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-geometry-relative"
+      ],
+      "properties": {
+        "position": "relative"
+      }
+    },
+    "image.cover": {
+      "description": "Image cover fragment.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-image-cover"
+      ],
+      "properties": {
+        "display": "block",
+        "width": "100%",
+        "height": "100%",
+        "object-fit": "cover"
+      }
+    },
+    "table.collapse": {
+      "description": "Full-width table with shared adjoining cell borders.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-table-collapse"
+      ],
+      "properties": {
+        "border-collapse": "collapse",
+        "width": "100%"
+      }
+    },
+    "image.card-elevation": {
+      "description": "Card-shadow treatment used by the scoped feature showcase mockup.",
+      "migrationStatus": "migrated",
+      "selectors": [
+        ".ht-image-card-elevation"
+      ],
+      "properties": {
+        "box-shadow": "{shadow-card}"
       }
     }
   }

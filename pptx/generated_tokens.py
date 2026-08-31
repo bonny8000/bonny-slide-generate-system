@@ -99,8 +99,97 @@ THEME_TOKENS = {
 }
 
 HYPERTOKEN_VALUES = {
+    'surface.card': {
+        'background': {'token': 'surface'},
+        'border-radius': {'token': 'r-card'},
+        'padding': {'token': 'pad-card'},
+    },
+    'text.heading': {
+        'font-size': {'token': 'fs-h1'},
+        'font-weight': {'value': '700'},
+        'color': {'token': 'ink'},
+        'margin': {'value': '0'},
+        'line-height': {'token': 'lh'},
+    },
+    'text.supporting': {
+        'font-size': {'token': 'fs-body'},
+        'color': {'token': 'muted'},
+        'margin': {'value': '0'},
+    },
+    'layout.stack.card': {
+        'position': {'value': 'relative'},
+        'display': {'value': 'flex'},
+        'flex-direction': {'value': 'column'},
+        'gap': {'token': 's4'},
+    },
     'image.floating': {
         'box-shadow': {'token': 'shadow-img'},
+    },
+    'layout.grid': {
+        'display': {'value': 'grid'},
+    },
+    'layout.column': {
+        'display': {'value': 'flex'},
+        'flex-direction': {'value': 'column'},
+    },
+    'layout.row': {
+        'display': {'value': 'flex'},
+    },
+    'layout.center-items': {
+        'align-items': {'value': 'center'},
+    },
+    'layout.center-content': {
+        'justify-content': {'value': 'center'},
+    },
+    'surface.panel': {
+        'background': {'token': 'surface'},
+        'border-radius': {'token': 'r-card'},
+    },
+    'surface.neutral': {
+        'background': {'token': 'surface'},
+    },
+    'surface.soft': {
+        'background': {'token': 'accent-soft'},
+    },
+    'surface.accent': {
+        'background': {'token': 'accent'},
+    },
+    'surface.muted': {
+        'background': {'token': 'muted-soft'},
+    },
+    'text.primary': {
+        'color': {'token': 'ink'},
+    },
+    'text.secondary': {
+        'color': {'token': 'muted'},
+    },
+    'text.accent': {
+        'color': {'token': 'accent'},
+    },
+    'text.on-accent': {
+        'color': {'token': 'on-accent'},
+    },
+    'text.bold': {
+        'font-weight': {'value': '700'},
+    },
+    'type.numeric': {
+        'font-family': {'token': 'font-latin'},
+    },
+    'geometry.relative': {
+        'position': {'value': 'relative'},
+    },
+    'image.cover': {
+        'display': {'value': 'block'},
+        'width': {'value': '100%'},
+        'height': {'value': '100%'},
+        'object-fit': {'value': 'cover'},
+    },
+    'table.collapse': {
+        'border-collapse': {'value': 'collapse'},
+        'width': {'value': '100%'},
+    },
+    'image.card-elevation': {
+        'box-shadow': {'token': 'shadow-card'},
     },
 }
 
@@ -134,4 +223,57 @@ def hypertoken(name, mode):
     result = {}
     for prop, record in HYPERTOKEN_VALUES[name].items():
         result[prop] = pool[record['token']] if 'token' in record else record['value']
+    return result
+
+RECIPE_SLOTS = {
+    'as-is-to-be': {'root': ['layout.grid'], 'column': ['layout.column'], 'label': ['text.primary'], 'supporting': ['text.secondary']},
+    'centered-question-evidence': {'root': ['layout.grid'], 'heading': ['text.heading'], 'evidence': ['surface.panel', 'layout.column'], 'supporting': ['text.secondary']},
+    'citation-card': {'root': ['surface.panel', 'layout.column'], 'finding': ['text.primary'], 'source': ['text.secondary']},
+    'comparison-table': {'root': ['table.collapse'], 'value': ['text.secondary'], 'focus': ['text.accent', 'text.bold']},
+    'cta-buttons': {'root': ['layout.row'], 'button': ['text.bold'], 'secondary': ['text.primary']},
+    'delta-metric': {'root': ['layout.column'], 'heading': ['layout.row'], 'value': ['text.accent', 'type.numeric'], 'label': ['text.primary']},
+    'editorial-explainer-stage': {'root': ['layout.grid'], 'stage': ['surface.neutral'], 'artwork': ['image.cover'], 'supporting': ['text.secondary']},
+    'evidence-card': {'root': ['surface.panel', 'layout.column'], 'value': ['text.primary', 'type.numeric'], 'supporting': ['text.secondary']},
+    'feature-card': {'root': ['surface.panel', 'layout.row'], 'icon': ['surface.soft', 'layout.grid'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'feature-grid': {'root': ['layout.grid'], 'item': ['surface.panel', 'layout.row'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'feature-showcase': {'root': ['layout.grid'], 'heading': ['text.heading'], 'area': ['layout.column'], 'supporting': ['text.secondary'], 'mockup': ['image.card-elevation']},
+    'geo-map': {'root': ['layout.row'], 'annotation': ['layout.column'], 'value': ['text.primary', 'type.numeric'], 'label': ['text.secondary']},
+    'hero-radial': {'root': ['layout.grid'], 'side': ['surface.panel', 'layout.column'], 'stage': ['layout.grid', 'geometry.relative'], 'core': ['surface.accent', 'text.on-accent']},
+    'icon-label-row': {'root': ['layout.column'], 'row': ['layout.grid'], 'icon': ['surface.soft', 'layout.grid'], 'label': ['text.primary']},
+    'idea-evidence': {'root': ['layout.grid'], 'panel': ['surface.panel', 'layout.column'], 'value': ['text.accent', 'type.numeric'], 'supporting': ['text.secondary']},
+    'interview-affinity': {'root': ['layout.grid'], 'participant': ['surface.panel', 'layout.column'], 'heading': ['text.primary'], 'insight': ['surface.soft', 'text.primary']},
+    'keyword-cards': {'root': ['layout.grid'], 'item': ['surface.panel', 'layout.column'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'level-slider': {'root': ['layout.column'], 'row': ['layout.grid'], 'fill': ['surface.accent'], 'label': ['text.primary']},
+    'linked-circles': {'root': ['layout.row', 'layout.center-items', 'layout.center-content'], 'circle': ['layout.column', 'surface.soft'], 'label': ['text.accent', 'type.numeric'], 'supporting': ['text.primary']},
+    'logo-row': {'root': ['layout.row', 'layout.center-items'], 'logo': ['layout.grid', 'surface.neutral', 'text.secondary']},
+    'metric-card': {'root': ['surface.panel', 'layout.column'], 'heading': ['text.primary', 'text.bold'], 'supporting': ['text.secondary'], 'icon': ['text.accent']},
+    'numbered-row': {'root': ['layout.grid'], 'badge': ['surface.accent', 'text.on-accent', 'layout.grid'], 'heading': ['text.primary'], 'chart': ['surface.panel']},
+    'numbered-rows': {'root': ['layout.grid'], 'badge': ['surface.accent', 'text.on-accent', 'layout.grid'], 'supporting': ['text.secondary'], 'chart': ['surface.panel']},
+    'painpoint-evidence': {'root': ['layout.grid'], 'panel': ['layout.column'], 'finding': ['text.primary'], 'quote': ['surface.panel', 'text.primary']},
+    'persona-cards': {'root': ['layout.grid'], 'persona': ['layout.column'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'pie-donut': {'root': ['layout.grid', 'geometry.relative'], 'value': ['text.primary', 'type.numeric'], 'legend': ['layout.column']},
+    'positioning-matrix': {'root': ['layout.grid'], 'map': ['surface.panel', 'geometry.relative'], 'label': ['text.secondary'], 'focus': ['text.accent']},
+    'problem-solution': {'root': ['layout.grid'], 'panel': ['layout.column'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'product-hero': {'root': ['layout.grid'], 'heading': ['text.primary'], 'supporting': ['text.secondary'], 'value': ['text.primary', 'type.numeric']},
+    'qual-quant-split': {'root': ['layout.grid'], 'quotes': ['layout.column'], 'stats': ['layout.column'], 'quote': ['surface.panel', 'text.primary']},
+    'quote-bubble': {'root': ['surface.panel', 'text.primary'], 'source': ['text.secondary']},
+    'ranked-list': {'root': ['layout.column'], 'row': ['layout.grid', 'surface.panel'], 'heading': ['text.primary'], 'supporting': ['text.secondary']},
+    'research-flow': {'root': ['layout.grid'], 'evidence': ['surface.card', 'layout.stack.card'], 'finding': ['text.primary'], 'source': ['text.secondary']},
+    'results-grid': {'root': ['layout.grid'], 'hero': ['text.accent', 'type.numeric'], 'supporting': ['layout.column'], 'value': ['text.primary', 'type.numeric']},
+    'service-flow': {'root': ['surface.panel', 'layout.row'], 'node': ['layout.column'], 'label': ['text.primary'], 'branch': ['layout.column']},
+    'stat-bar': {'root': ['layout.column'], 'label': ['text.primary'], 'track': ['surface.muted'], 'fill': ['surface.accent', 'text.on-accent']},
+    'survey-stack': {'root': ['layout.grid'], 'card': ['surface.card', 'layout.stack.card'], 'supporting': ['text.supporting'], 'bars': ['layout.column']},
+    'taglist': {'root': ['layout.row'], 'chip': ['text.primary']},
+    'terminology-card': {'root': ['surface.panel', 'layout.column'], 'artwork': ['surface.soft', 'layout.grid'], 'term': ['text.accent'], 'definition': ['text.secondary']},
+    'terminology-cards': {'root': ['layout.grid'], 'card': ['surface.panel', 'layout.column'], 'term': ['text.accent'], 'definition': ['text.secondary']},
+    'timeline': {'root': ['layout.column'], 'axis': ['layout.grid', 'text.secondary'], 'phases': ['layout.grid'], 'phase': ['layout.column']},
+    'ui-mockup': {'root': ['surface.panel'], 'skeleton': ['surface.muted'], 'highlight': ['surface.soft']},
+    'use-case-cards': {'root': ['layout.grid'], 'item': ['layout.column'], 'card': ['surface.panel', 'layout.grid'], 'supporting': ['text.secondary']},
+    'value-points': {'root': ['layout.grid'], 'point': ['layout.column'], 'card': ['surface.panel'], 'supporting': ['text.secondary']},
+}
+
+def recipe(name, slot, mode):
+    result = {}
+    for ref in RECIPE_SLOTS[name][slot]:
+        result.update(hypertoken(ref, mode))
     return result

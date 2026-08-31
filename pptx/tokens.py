@@ -8,6 +8,7 @@ from generated_tokens import (  # noqa: F401
     THEME_TOKENS,
     apply_tone,
     hypertoken,
+    recipe,
     tokens,
 )
 
@@ -19,5 +20,6 @@ __all__ = [
     "THEME_TOKENS",
     "apply_tone",
     "hypertoken",
+    "recipe",
     "tokens",
 ]

@@ -4,14 +4,87 @@
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
 Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
-## Pilot hypertokens
+**44 catalog recipes** are connected to authored CSS through selector bindings.
+`assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,
+specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.
+Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,
+conflicting fragment, mismatched example, or disconnected CSS consumer fails compilation.
+
+## Hypertokens
 
 | id | status | selectors | properties |
 |---|---|---|---|
-| `image.floating` | pilot | `.ht-image-floating`<br>`.shot`<br>`.ui-mockup`<br>`.appframe`<br>`.mock`<br>`.mock2`<br>`.mock3`<br>`.phone` | `box-shadow: {shadow-img}` |
+| `surface.card` | migrated | `.ht-surface-card` | `background: {surface}`<br>`border-radius: {r-card}`<br>`padding: {pad-card}` |
+| `text.heading` | migrated | `.ht-text-heading` | `font-size: {fs-h1}`<br>`font-weight: 700`<br>`color: {ink}`<br>`margin: 0`<br>`line-height: {lh}` |
+| `text.supporting` | migrated | `.ht-text-supporting` | `font-size: {fs-body}`<br>`color: {muted}`<br>`margin: 0` |
+| `layout.stack.card` | migrated | `.ht-layout-stack-card` | `position: relative`<br>`display: flex`<br>`flex-direction: column`<br>`gap: {s4}` |
+| `image.floating` | migrated | `.ht-image-floating`<br>`.shot`<br>`.ui-mockup`<br>`.appframe`<br>`.mock`<br>`.mock2`<br>`.mock3`<br>`.phone` | `box-shadow: {shadow-img}` |
+| `layout.grid` | migrated | `.ht-layout-grid` | `display: grid` |
+| `layout.column` | migrated | `.ht-layout-column` | `display: flex`<br>`flex-direction: column` |
+| `layout.row` | migrated | `.ht-layout-row` | `display: flex` |
+| `layout.center-items` | migrated | `.ht-layout-center-items` | `align-items: center` |
+| `layout.center-content` | migrated | `.ht-layout-center-content` | `justify-content: center` |
+| `surface.panel` | migrated | `.ht-surface-panel` | `background: {surface}`<br>`border-radius: {r-card}` |
+| `surface.neutral` | migrated | `.ht-surface-neutral` | `background: {surface}` |
+| `surface.soft` | migrated | `.ht-surface-soft` | `background: {accent-soft}` |
+| `surface.accent` | migrated | `.ht-surface-accent` | `background: {accent}` |
+| `surface.muted` | migrated | `.ht-surface-muted` | `background: {muted-soft}` |
+| `text.primary` | migrated | `.ht-text-primary` | `color: {ink}` |
+| `text.secondary` | migrated | `.ht-text-secondary` | `color: {muted}` |
+| `text.accent` | migrated | `.ht-text-accent` | `color: {accent}` |
+| `text.on-accent` | migrated | `.ht-text-on-accent` | `color: {on-accent}` |
+| `text.bold` | migrated | `.ht-text-bold` | `font-weight: 700` |
+| `type.numeric` | migrated | `.ht-type-numeric` | `font-family: {font-latin}` |
+| `geometry.relative` | migrated | `.ht-geometry-relative` | `position: relative` |
+| `image.cover` | migrated | `.ht-image-cover` | `display: block`<br>`width: 100%`<br>`height: 100%`<br>`object-fit: cover` |
+| `table.collapse` | migrated | `.ht-table-collapse` | `border-collapse: collapse`<br>`width: 100%` |
+| `image.card-elevation` | migrated | `.ht-image-card-elevation` | `box-shadow: {shadow-card}` |
 
-## Pilot recipes
+## Catalog recipes
 
 | recipe | status | spec | slot mappings |
 |---|---|---|---|
-| `feature-showcase` | pilot | `specs/layouts/feature-showcase.md` | `mockup` → `image.floating` |
+| `as-is-to-be` | migrated | `specs/layouts/as-is-to-be.md` | `root` (.ab-grid) → `layout.grid`<br>`column` (.ab-col) → `layout.column`<br>`label` (.anno .t) → `text.primary`<br>`supporting` (.anno .d) → `text.secondary` |
+| `centered-question-evidence` | migrated | `specs/layouts/centered-question-evidence.md` | `root` (.cards) → `layout.grid`<br>`heading` (.headline) → `text.heading`<br>`evidence` (.evcard) → `surface.panel`, `layout.column`<br>`supporting` (.evcard .cap) → `text.secondary` |
+| `citation-card` | migrated | `specs/components/citation-card.md` | `root` (.citecard) → `surface.panel`, `layout.column`<br>`finding` (.citecard .find) → `text.primary`<br>`source` (.citecard .src) → `text.secondary` |
+| `comparison-table` | migrated | `specs/components/comparison-table.md` | `root` (.ctable) → `table.collapse`<br>`value` (.ctable td) → `text.secondary`<br>`focus` (.ctable td.fcol.val) → `text.accent`, `text.bold` |
+| `cta-buttons` | migrated | `specs/components/cta-buttons.md` | `root` (.ctas) → `layout.row`<br>`button` (.btn) → `text.bold`<br>`secondary` (.btn.secondary) → `text.primary` |
+| `delta-metric` | migrated | `specs/components/delta-metric.md` | `root` (.deltametric) → `layout.column`<br>`heading` (.deltametric .hd) → `layout.row`<br>`value` (.deltametric .pct) → `text.accent`, `type.numeric`<br>`label` (.deltametric .lab) → `text.primary` |
+| `editorial-explainer-stage` | migrated | `specs/layouts/editorial-explainer-stage.md` | `root` (.family) → `layout.grid`<br>`stage` (article) → `surface.neutral`<br>`artwork` (img) → `image.cover`<br>`supporting` (.meta p) → `text.secondary` |
+| `evidence-card` | migrated | `specs/components/evidence-card.md` | `root` (.evcard) → `surface.panel`, `layout.column`<br>`value` (.evcard .stat) → `text.primary`, `type.numeric`<br>`supporting` (.evcard .cap) → `text.secondary` |
+| `feature-card` | migrated | `specs/components/feature-card.md` | `root` (.fc) → `surface.panel`, `layout.row`<br>`icon` (.fc .illus) → `surface.soft`, `layout.grid`<br>`heading` (.fc h4) → `text.primary`<br>`supporting` (.fc p) → `text.secondary` |
+| `feature-grid` | migrated | `specs/layouts/feature-grid.md` | `root` (.fg) → `layout.grid`<br>`item` (.fc) → `surface.panel`, `layout.row`<br>`heading` (.fc h4) → `text.primary`<br>`supporting` (.fc p) → `text.secondary` |
+| `feature-showcase` | migrated | `specs/layouts/feature-showcase.md` | `root` (.fs) → `layout.grid`<br>`heading` (.headline) → `text.heading`<br>`area` (.area) → `layout.column`<br>`supporting` (.fs-anno) → `text.secondary`<br>`mockup` (.fs .phone) → `image.card-elevation` |
+| `geo-map` | migrated | `specs/components/geo-map.md` | `root` (.geo) → `layout.row`<br>`annotation` (.geo .anno) → `layout.column`<br>`value` (.geo .anno .v) → `text.primary`, `type.numeric`<br>`label` (.geo .anno .l) → `text.secondary` |
+| `hero-radial` | migrated | `specs/layouts/hero-radial.md` | `root` (.hr) → `layout.grid`<br>`side` (.sidecard) → `surface.panel`, `layout.column`<br>`stage` (.radial) → `layout.grid`, `geometry.relative`<br>`core` (.radial .core) → `surface.accent`, `text.on-accent` |
+| `icon-label-row` | migrated | `specs/components/icon-label-row.md` | `root` (.ranklist) → `layout.column`<br>`row` (.rankrow) → `layout.grid`<br>`icon` (.rankrow .ic) → `surface.soft`, `layout.grid`<br>`label` (.rankrow .rt) → `text.primary` |
+| `idea-evidence` | migrated | `specs/layouts/idea-evidence.md` | `root` (.ie) → `layout.grid`<br>`panel` (.ie .panel) → `surface.panel`, `layout.column`<br>`value` (.ie .ev .big) → `text.accent`, `type.numeric`<br>`supporting` (.ie .note) → `text.secondary` |
+| `interview-affinity` | migrated | `specs/layouts/interview-affinity.md` | `root` (.ia) → `layout.grid`<br>`participant` (.pcol) → `surface.panel`, `layout.column`<br>`heading` (.pcol h4) → `text.primary`<br>`insight` (.insight) → `surface.soft`, `text.primary` |
+| `keyword-cards` | migrated | `specs/layouts/keyword-cards.md` | `root` (.kw) → `layout.grid`<br>`item` (.kw .c) → `surface.panel`, `layout.column`<br>`heading` (.kw h3) → `text.primary`<br>`supporting` (.kw p) → `text.secondary` |
+| `level-slider` | migrated | `specs/components/level-slider.md` | `root` (.hbars) → `layout.column`<br>`row` (.hbar) → `layout.grid`<br>`fill` (.hbar.active .fill) → `surface.accent`<br>`label` (.hbar .lab) → `text.primary` |
+| `linked-circles` | migrated | `specs/layouts/linked-circles.md` | `root` (.lc) → `layout.row`, `layout.center-items`, `layout.center-content`<br>`circle` (.circ) → `layout.column`, `surface.soft`<br>`label` (.circ .lab) → `text.accent`, `type.numeric`<br>`supporting` (.circ .d) → `text.primary` |
+| `logo-row` | migrated | `specs/components/logo-row.md` | `root` (.logorow) → `layout.row`, `layout.center-items`<br>`logo` (.logo) → `layout.grid`, `surface.neutral`, `text.secondary` |
+| `metric-card` | migrated | `specs/components/metric-card.md` | `root` (.mc) → `surface.panel`, `layout.column`<br>`heading` (.mc .t) → `text.primary`, `text.bold`<br>`supporting` (.mc .d) → `text.secondary`<br>`icon` (.mc .ic) → `text.accent` |
+| `numbered-row` | migrated | `specs/components/numbered-row.md` | `root` (.numrow) → `layout.grid`<br>`badge` (.numrow .nbadge) → `surface.accent`, `text.on-accent`, `layout.grid`<br>`heading` (.numrow .ntext h3) → `text.primary`<br>`chart` (.numrow .nchart) → `surface.panel` |
+| `numbered-rows` | migrated | `specs/layouts/numbered-rows.md` | `root` (.numrow) → `layout.grid`<br>`badge` (.numrow .nbadge) → `surface.accent`, `text.on-accent`, `layout.grid`<br>`supporting` (.numrow .ntext .zh) → `text.secondary`<br>`chart` (.numrow .nchart) → `surface.panel` |
+| `painpoint-evidence` | migrated | `specs/layouts/painpoint-evidence.md` | `root` (.pe) → `layout.grid`<br>`panel` (.pe .panel) → `layout.column`<br>`finding` (.pe .finding) → `text.primary`<br>`quote` (.qb) → `surface.panel`, `text.primary` |
+| `persona-cards` | migrated | `specs/layouts/persona-cards.md` | `root` (.cards) → `layout.grid`<br>`persona` (.pcard) → `layout.column`<br>`heading` (.pcard .pid h3) → `text.primary`<br>`supporting` (.pcard .pid p) → `text.secondary` |
+| `pie-donut` | migrated | `specs/components/pie-donut.md` | `root` (.donut) → `layout.grid`, `geometry.relative`<br>`value` (.donut .center) → `text.primary`, `type.numeric`<br>`legend` (.legend) → `layout.column` |
+| `positioning-matrix` | migrated | `specs/layouts/positioning-matrix.md` | `root` (.pm) → `layout.grid`<br>`map` (.map) → `surface.panel`, `geometry.relative`<br>`label` (.map .lbl) → `text.secondary`<br>`focus` (.map .mk.me) → `text.accent` |
+| `problem-solution` | migrated | `specs/layouts/problem-solution.md` | `root` (.ps) → `layout.grid`<br>`panel` (.ps .panel) → `layout.column`<br>`heading` (.ps h3) → `text.primary`<br>`supporting` (.ps li) → `text.secondary` |
+| `product-hero` | migrated | `specs/layouts/product-hero.md` | `root` (.hero) → `layout.grid`<br>`heading` (.hero h1) → `text.primary`<br>`supporting` (.hero .sub) → `text.secondary`<br>`value` (.stats .s .v) → `text.primary`, `type.numeric` |
+| `qual-quant-split` | migrated | `specs/layouts/qual-quant-split.md` | `root` (.qq) → `layout.grid`<br>`quotes` (.qcol) → `layout.column`<br>`stats` (.sbcol) → `layout.column`<br>`quote` (.qb) → `surface.panel`, `text.primary` |
+| `quote-bubble` | migrated | `specs/components/quote-bubble.md` | `root` (.qb) → `surface.panel`, `text.primary`<br>`source` (.qb .who) → `text.secondary` |
+| `ranked-list` | migrated | `specs/components/ranked-list.md` | `root` (.ranks) → `layout.column`<br>`row` (.rank) → `layout.grid`, `surface.panel`<br>`heading` (.rank h4) → `text.primary`<br>`supporting` (.rank p) → `text.secondary` |
+| `research-flow` | migrated | `specs/layouts/research-flow.md` | `root` (.cards) → `layout.grid`<br>`evidence` (.card) → `surface.card`, `layout.stack.card`<br>`finding` (.citecard .find) → `text.primary`<br>`source` (.citecard .src) → `text.secondary` |
+| `results-grid` | migrated | `specs/layouts/results-grid.md` | `root` (.aw) → `layout.grid`<br>`hero` (.hero-num) → `text.accent`, `type.numeric`<br>`supporting` (.supp) → `layout.column`<br>`value` (.supp .v) → `text.primary`, `type.numeric` |
+| `service-flow` | migrated | `specs/layouts/service-flow.md` | `root` (.sf) → `surface.panel`, `layout.row`<br>`node` (.node) → `layout.column`<br>`label` (.node .box) → `text.primary`<br>`branch` (.branch) → `layout.column` |
+| `stat-bar` | migrated | `specs/components/stat-bar.md` | `root` (.sb) → `layout.column`<br>`label` (.sb .lab) → `text.primary`<br>`track` (.sb .track) → `surface.muted`<br>`fill` (.sb .fill) → `surface.accent`, `text.on-accent` |
+| `survey-stack` | migrated | `specs/layouts/survey-stack.md` | `root` (.cards) → `layout.grid`<br>`card` (.card) → `surface.card`, `layout.stack.card`<br>`supporting` (.sub) → `text.supporting`<br>`bars` (.hbars) → `layout.column` |
+| `taglist` | migrated | `specs/components/taglist.md` | `root` (.chipcloud) → `layout.row`<br>`chip` (.skill-chip) → `text.primary` |
+| `terminology-card` | migrated | `specs/components/terminology-card.md` | `root` (.termcard) → `surface.panel`, `layout.column`<br>`artwork` (.termcard .illus) → `surface.soft`, `layout.grid`<br>`term` (.termcard .term) → `text.accent`<br>`definition` (.termcard .def) → `text.secondary` |
+| `terminology-cards` | migrated | `specs/layouts/terminology-cards.md` | `root` (.cards) → `layout.grid`<br>`card` (.termcard) → `surface.panel`, `layout.column`<br>`term` (.termcard .term) → `text.accent`<br>`definition` (.termcard .def) → `text.secondary` |
+| `timeline` | migrated | `specs/layouts/timeline.md` | `root` (.tl) → `layout.column`<br>`axis` (.tl-axis) → `layout.grid`, `text.secondary`<br>`phases` (.tl-bars) → `layout.grid`<br>`phase` (.phase) → `layout.column` |
+| `ui-mockup` | migrated | `specs/components/ui-mockup.md` | `root` (.mock) → `surface.panel`<br>`skeleton` (.mock .bar) → `surface.muted`<br>`highlight` (.mock .big) → `surface.soft` |
+| `use-case-cards` | migrated | `specs/layouts/use-case-cards.md` | `root` (.cards) → `layout.grid`<br>`item` (.uc-item) → `layout.column`<br>`card` (.uc-card) → `surface.panel`, `layout.grid`<br>`supporting` (.uc-cap) → `text.secondary` |
+| `value-points` | migrated | `specs/layouts/value-points.md` | `root` (.vp) → `layout.grid`<br>`point` (.vp .pt) → `layout.column`<br>`card` (.vp .card) → `surface.panel`<br>`supporting` (.vp .desc) → `text.secondary` |
