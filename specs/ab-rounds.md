@@ -2,8 +2,9 @@
 
 Every claim this system makes about taste rests on these. Nine geometric metrics were scored against
 rounds 1–50 and none predicted a winner; one static CSS feature reached 74% on n=19. Both conclusions
-sit on 37 usable pairs, which is too few to be sure of either — so more rounds is the highest-value
-thing that can be added here.
+sit on the 37 usable pairs those rounds yielded, which is too few to be sure of either — so more
+rounds is the highest-value thing that can be added here. Calibration now runs over 42 pairs, after
+R51–R55; the two conclusions above have not been recomputed against them.
 
 Declare a round below, build it with `python scripts/ab_round.py 51`, judge the one image it renders,
 then record the human verdict in `winner:` (A or B) and run
