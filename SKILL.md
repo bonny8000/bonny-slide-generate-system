@@ -22,7 +22,9 @@ and images to learn from. Check which mode you are in before doing anything (nex
   `intent` + `triggers` frontmatter (machine form: `system/router.json`). This is the authoritative list of
   what exists; `content-map.md` is the narrative layer that adds detection heuristics and component
   pairings. Both are kept in sync by the compiler's `--check`, which fails on routing drift.
-- **`system/`** — canonical machine-readable tokens, hypertokens, pilot recipes, and JSON schemas.
+- **`system/`** — canonical machine-readable tokens, 25 hypertokens, 44 connected catalog recipes,
+  and JSON schemas. `resolved-recipes.json` records selectors and managed properties for every slot.
+  Inspect one with `python scripts/resolve_recipe.py <pattern> --theme light`; see `specs/tokens/recipes.md`.
   `migrationStatus` is engineering metadata only and never affects component/layout selection.
 - **`scripts/compile_system.py`** — the deterministic compiler. It generates CSS, the PPTX bridge, the
   router, and a Markdown reference; generated files are never edited by hand. `--check` fails on token
@@ -40,7 +42,7 @@ and images to learn from. Check which mode you are in before doing anything (nex
   distribution, and density against `foundations/layout-balance.md`, so those rules are enforced rather
   than merely described.
 - **`assets/`** — the CSS you BUILD with. `base.css` is the compatibility/component layer and imports the
-  generated foundations + five pilot hypertokens; load ONE generated theme file
+  generated foundations + hypertokens + recipe bindings; load ONE generated theme file
   (`tokens-light.css` / `tokens-dark.css`). For self-contained HTML, inline the import-free generated
   `assets/generated/base-bundle.css` plus one theme.
 - **`examples/`** — rendered reference slides; **`examples/deck-demo/`** + `deck-demo-scroll.html` = a full short deck showing how layouts chain (pacing, bridges, dividers). **`pptx/`** — token-mirrored python bridge for .pptx.

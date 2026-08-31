@@ -198,6 +198,11 @@ python scripts/export_pdf.py examples/case-study --out work/case-study.pdf
 For linked HTML use `assets/base.css`. For self-contained HTML inline
 `assets/generated/base-bundle.css` plus **exactly one** `assets/tokens-*.css` theme.
 
+All 44 catalog patterns now have connected hypertoken recipes. Inspect the slots and theme values
+with `python scripts/resolve_recipe.py metric-card --theme dark`.
+See [the recipe contract](specs/tokens/recipes.md) for source ownership and migration boundaries:
+recipes supply reusable values; layout geometry and scoped overrides stay in hand-written CSS.
+
 ---
 
 ## At a glance
@@ -208,7 +213,7 @@ For linked HTML use `assets/base.css`. For self-contained HTML inline
 | Components | 19 | Indexed triggers | 327 |
 | Layouts | 25 | Themes | 2 |
 | Current examples · frozen history | 58 · 115 | Judged rounds · usable pairs | 55 · 42 |
-| Hypertokens · recipes | 1 · 1 | Illustration variants | 4 |
+| Hypertokens · recipes | 25 · 44 | Illustration variants | 4 |
 
 **Intention** — what a page must DO; distinguishes layouts after shape matching. **Shape** — material,
 arrangement and count; what the page actually holds. **Router** — the compiled index; a pattern not in
@@ -220,7 +225,10 @@ it does not exist. **Token** — a colour's name, resolved by the one active the
 
 [`CHANGELOG.md`](CHANGELOG.md) is the full history; this is only the current head.
 
-**Consistency pass.** Three changes, each verified to leave every rendered slide pixel-identical:
+**Catalog recipes.** All 44 patterns now use bound fragment values at their original CSS declaration positions;
+no cascade layers are changed and the inert aliases below stay removed. See [the contract](specs/tokens/recipes.md).
+
+**Earlier consistency pass.** Three changes, each verified to leave every rendered slide pixel-identical:
 
 - **Shared CSS de-duplicated.** Every `/* promoted from examples/… */` block had pasted its own copy
   of the common card rules — `.card` was defined nine times, `.foot` four, `.kicker` three, all
@@ -228,7 +236,8 @@ it does not exist. **Token** — a colour's name, resolved by the one active the
 - **The hypertoken layer shrank to what actually works.** Four of its five fragments restated rules
   `base.css` already had. They could never take effect: generated fragments are `:where(...)` inside
   `@layer hypertokens`, and unlayered `base.css` beats every layered rule regardless of specificity.
-  Only `image.floating` adds something real, so only it remains.
+  Only `image.floating` added something real, so only it remained after that pass.
+  The later recipe migration makes values active through CSS consumers, without restoring those aliases.
 - **Selection wording corrected.** Two specs still called intention the primary key while the router
   keys on shape.
 

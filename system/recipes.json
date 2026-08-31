@@ -1,18 +1,1402 @@
 {
   "$schema": "schema/recipes.schema.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "selectionPolicy": {
     "primaryKey": "shape",
     "migrationStatusAffectsSelection": false,
     "source": "specs/content-map.md"
   },
   "recipes": {
+    "as-is-to-be": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/as-is-to-be.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "column": [
+          "layout.column"
+        ],
+        "label": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ab-grid"
+        ],
+        "column": [
+          ".ab-col"
+        ],
+        "label": [
+          ".anno .t"
+        ],
+        "supporting": [
+          ".anno .d"
+        ]
+      }
+    },
+    "centered-question-evidence": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/centered-question-evidence.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "heading": [
+          "text.heading"
+        ],
+        "evidence": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "heading": [
+          ".headline"
+        ],
+        "evidence": [
+          ".evcard"
+        ],
+        "supporting": [
+          ".evcard .cap"
+        ]
+      }
+    },
+    "citation-card": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/citation-card.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "finding": [
+          "text.primary"
+        ],
+        "source": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".citecard"
+        ],
+        "finding": [
+          ".citecard .find"
+        ],
+        "source": [
+          ".citecard .src"
+        ]
+      }
+    },
+    "comparison-table": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/comparison-table.md",
+      "slots": {
+        "root": [
+          "table.collapse"
+        ],
+        "value": [
+          "text.secondary"
+        ],
+        "focus": [
+          "text.accent",
+          "text.bold"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ctable"
+        ],
+        "value": [
+          ".ctable td"
+        ],
+        "focus": [
+          ".ctable td.fcol.val"
+        ]
+      }
+    },
+    "cta-buttons": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/cta-buttons.md",
+      "slots": {
+        "root": [
+          "layout.row"
+        ],
+        "button": [
+          "text.bold"
+        ],
+        "secondary": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ctas"
+        ],
+        "button": [
+          ".btn"
+        ],
+        "secondary": [
+          ".btn.secondary"
+        ]
+      }
+    },
+    "delta-metric": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/delta-metric.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "heading": [
+          "layout.row"
+        ],
+        "value": [
+          "text.accent",
+          "type.numeric"
+        ],
+        "label": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".deltametric"
+        ],
+        "heading": [
+          ".deltametric .hd"
+        ],
+        "value": [
+          ".deltametric .pct"
+        ],
+        "label": [
+          ".deltametric .lab"
+        ]
+      }
+    },
+    "editorial-explainer-stage": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/editorial-explainer-stage.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "stage": [
+          "surface.neutral"
+        ],
+        "artwork": [
+          "image.cover"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".family"
+        ],
+        "stage": [
+          "article"
+        ],
+        "artwork": [
+          "img"
+        ],
+        "supporting": [
+          ".meta p"
+        ]
+      }
+    },
+    "evidence-card": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/evidence-card.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "value": [
+          "text.primary",
+          "type.numeric"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".evcard"
+        ],
+        "value": [
+          ".evcard .stat"
+        ],
+        "supporting": [
+          ".evcard .cap"
+        ]
+      }
+    },
+    "feature-card": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/feature-card.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.row"
+        ],
+        "icon": [
+          "surface.soft",
+          "layout.grid"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".fc"
+        ],
+        "icon": [
+          ".fc .illus"
+        ],
+        "heading": [
+          ".fc h4"
+        ],
+        "supporting": [
+          ".fc p"
+        ]
+      }
+    },
+    "feature-grid": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/feature-grid.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "item": [
+          "surface.panel",
+          "layout.row"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".fg"
+        ],
+        "item": [
+          ".fc"
+        ],
+        "heading": [
+          ".fc h4"
+        ],
+        "supporting": [
+          ".fc p"
+        ]
+      }
+    },
     "feature-showcase": {
-      "migrationStatus": "pilot",
+      "migrationStatus": "migrated",
       "componentSpec": "specs/layouts/feature-showcase.md",
       "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "heading": [
+          "text.heading"
+        ],
+        "area": [
+          "layout.column"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
         "mockup": [
-          "image.floating"
+          "image.card-elevation"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".fs"
+        ],
+        "heading": [
+          ".headline"
+        ],
+        "area": [
+          ".area"
+        ],
+        "supporting": [
+          ".fs-anno"
+        ],
+        "mockup": [
+          ".fs .phone"
+        ]
+      }
+    },
+    "geo-map": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/geo-map.md",
+      "slots": {
+        "root": [
+          "layout.row"
+        ],
+        "annotation": [
+          "layout.column"
+        ],
+        "value": [
+          "text.primary",
+          "type.numeric"
+        ],
+        "label": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".geo"
+        ],
+        "annotation": [
+          ".geo .anno"
+        ],
+        "value": [
+          ".geo .anno .v"
+        ],
+        "label": [
+          ".geo .anno .l"
+        ]
+      }
+    },
+    "hero-radial": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/hero-radial.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "side": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "stage": [
+          "layout.grid",
+          "geometry.relative"
+        ],
+        "core": [
+          "surface.accent",
+          "text.on-accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".hr"
+        ],
+        "side": [
+          ".sidecard"
+        ],
+        "stage": [
+          ".radial"
+        ],
+        "core": [
+          ".radial .core"
+        ]
+      }
+    },
+    "icon-label-row": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/icon-label-row.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "row": [
+          "layout.grid"
+        ],
+        "icon": [
+          "surface.soft",
+          "layout.grid"
+        ],
+        "label": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ranklist"
+        ],
+        "row": [
+          ".rankrow"
+        ],
+        "icon": [
+          ".rankrow .ic"
+        ],
+        "label": [
+          ".rankrow .rt"
+        ]
+      }
+    },
+    "idea-evidence": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/idea-evidence.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "panel": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "value": [
+          "text.accent",
+          "type.numeric"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ie"
+        ],
+        "panel": [
+          ".ie .panel"
+        ],
+        "value": [
+          ".ie .ev .big"
+        ],
+        "supporting": [
+          ".ie .note"
+        ]
+      }
+    },
+    "interview-affinity": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/interview-affinity.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "participant": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "insight": [
+          "surface.soft",
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ia"
+        ],
+        "participant": [
+          ".pcol"
+        ],
+        "heading": [
+          ".pcol h4"
+        ],
+        "insight": [
+          ".insight"
+        ]
+      }
+    },
+    "keyword-cards": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/keyword-cards.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "item": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".kw"
+        ],
+        "item": [
+          ".kw .c"
+        ],
+        "heading": [
+          ".kw h3"
+        ],
+        "supporting": [
+          ".kw p"
+        ]
+      }
+    },
+    "level-slider": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/level-slider.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "row": [
+          "layout.grid"
+        ],
+        "fill": [
+          "surface.accent"
+        ],
+        "label": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".hbars"
+        ],
+        "row": [
+          ".hbar"
+        ],
+        "fill": [
+          ".hbar.active .fill"
+        ],
+        "label": [
+          ".hbar .lab"
+        ]
+      }
+    },
+    "linked-circles": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/linked-circles.md",
+      "slots": {
+        "root": [
+          "layout.row",
+          "layout.center-items",
+          "layout.center-content"
+        ],
+        "circle": [
+          "layout.column",
+          "surface.soft"
+        ],
+        "label": [
+          "text.accent",
+          "type.numeric"
+        ],
+        "supporting": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".lc"
+        ],
+        "circle": [
+          ".circ"
+        ],
+        "label": [
+          ".circ .lab"
+        ],
+        "supporting": [
+          ".circ .d"
+        ]
+      }
+    },
+    "logo-row": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/logo-row.md",
+      "slots": {
+        "root": [
+          "layout.row",
+          "layout.center-items"
+        ],
+        "logo": [
+          "layout.grid",
+          "surface.neutral",
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".logorow"
+        ],
+        "logo": [
+          ".logo"
+        ]
+      }
+    },
+    "metric-card": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/metric-card.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "heading": [
+          "text.primary",
+          "text.bold"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "icon": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".mc"
+        ],
+        "heading": [
+          ".mc .t"
+        ],
+        "supporting": [
+          ".mc .d"
+        ],
+        "icon": [
+          ".mc .ic"
+        ]
+      }
+    },
+    "numbered-row": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/numbered-row.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "badge": [
+          "surface.accent",
+          "text.on-accent",
+          "layout.grid"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "chart": [
+          "surface.panel"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".numrow"
+        ],
+        "badge": [
+          ".numrow .nbadge"
+        ],
+        "heading": [
+          ".numrow .ntext h3"
+        ],
+        "chart": [
+          ".numrow .nchart"
+        ]
+      }
+    },
+    "numbered-rows": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/numbered-rows.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "badge": [
+          "surface.accent",
+          "text.on-accent",
+          "layout.grid"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "chart": [
+          "surface.panel"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".numrow"
+        ],
+        "badge": [
+          ".numrow .nbadge"
+        ],
+        "supporting": [
+          ".numrow .ntext .zh"
+        ],
+        "chart": [
+          ".numrow .nchart"
+        ]
+      }
+    },
+    "painpoint-evidence": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/painpoint-evidence.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "panel": [
+          "layout.column"
+        ],
+        "finding": [
+          "text.primary"
+        ],
+        "quote": [
+          "surface.panel",
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".pe"
+        ],
+        "panel": [
+          ".pe .panel"
+        ],
+        "finding": [
+          ".pe .finding"
+        ],
+        "quote": [
+          ".qb"
+        ]
+      }
+    },
+    "persona-cards": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/persona-cards.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "persona": [
+          "layout.column"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "persona": [
+          ".pcard"
+        ],
+        "heading": [
+          ".pcard .pid h3"
+        ],
+        "supporting": [
+          ".pcard .pid p"
+        ]
+      }
+    },
+    "pie-donut": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/pie-donut.md",
+      "slots": {
+        "root": [
+          "layout.grid",
+          "geometry.relative"
+        ],
+        "value": [
+          "text.primary",
+          "type.numeric"
+        ],
+        "legend": [
+          "layout.column"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".donut"
+        ],
+        "value": [
+          ".donut .center"
+        ],
+        "legend": [
+          ".legend"
+        ]
+      }
+    },
+    "positioning-matrix": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/positioning-matrix.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "map": [
+          "surface.panel",
+          "geometry.relative"
+        ],
+        "label": [
+          "text.secondary"
+        ],
+        "focus": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".pm"
+        ],
+        "map": [
+          ".map"
+        ],
+        "label": [
+          ".map .lbl"
+        ],
+        "focus": [
+          ".map .mk.me"
+        ]
+      }
+    },
+    "problem-solution": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/problem-solution.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "panel": [
+          "layout.column"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ps"
+        ],
+        "panel": [
+          ".ps .panel"
+        ],
+        "heading": [
+          ".ps h3"
+        ],
+        "supporting": [
+          ".ps li"
+        ]
+      }
+    },
+    "product-hero": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/product-hero.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "value": [
+          "text.primary",
+          "type.numeric"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".hero"
+        ],
+        "heading": [
+          ".hero h1"
+        ],
+        "supporting": [
+          ".hero .sub"
+        ],
+        "value": [
+          ".stats .s .v"
+        ]
+      }
+    },
+    "qual-quant-split": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/qual-quant-split.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "quotes": [
+          "layout.column"
+        ],
+        "stats": [
+          "layout.column"
+        ],
+        "quote": [
+          "surface.panel",
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".qq"
+        ],
+        "quotes": [
+          ".qcol"
+        ],
+        "stats": [
+          ".sbcol"
+        ],
+        "quote": [
+          ".qb"
+        ]
+      }
+    },
+    "quote-bubble": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/quote-bubble.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "text.primary"
+        ],
+        "source": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".qb"
+        ],
+        "source": [
+          ".qb .who"
+        ]
+      }
+    },
+    "ranked-list": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/ranked-list.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "row": [
+          "layout.grid",
+          "surface.panel"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ranks"
+        ],
+        "row": [
+          ".rank"
+        ],
+        "heading": [
+          ".rank h4"
+        ],
+        "supporting": [
+          ".rank p"
+        ]
+      }
+    },
+    "research-flow": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/research-flow.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "evidence": [
+          "surface.card",
+          "layout.stack.card"
+        ],
+        "finding": [
+          "text.primary"
+        ],
+        "source": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "evidence": [
+          ".card"
+        ],
+        "finding": [
+          ".citecard .find"
+        ],
+        "source": [
+          ".citecard .src"
+        ]
+      }
+    },
+    "results-grid": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/results-grid.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "hero": [
+          "text.accent",
+          "type.numeric"
+        ],
+        "supporting": [
+          "layout.column"
+        ],
+        "value": [
+          "text.primary",
+          "type.numeric"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".aw"
+        ],
+        "hero": [
+          ".hero-num"
+        ],
+        "supporting": [
+          ".supp"
+        ],
+        "value": [
+          ".supp .v"
+        ]
+      }
+    },
+    "service-flow": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/service-flow.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.row"
+        ],
+        "node": [
+          "layout.column"
+        ],
+        "label": [
+          "text.primary"
+        ],
+        "branch": [
+          "layout.column"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".sf"
+        ],
+        "node": [
+          ".node"
+        ],
+        "label": [
+          ".node .box"
+        ],
+        "branch": [
+          ".branch"
+        ]
+      }
+    },
+    "stat-bar": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/stat-bar.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "label": [
+          "text.primary"
+        ],
+        "track": [
+          "surface.muted"
+        ],
+        "fill": [
+          "surface.accent",
+          "text.on-accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".sb"
+        ],
+        "label": [
+          ".sb .lab"
+        ],
+        "track": [
+          ".sb .track"
+        ],
+        "fill": [
+          ".sb .fill"
+        ]
+      }
+    },
+    "survey-stack": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/survey-stack.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "card": [
+          "surface.card",
+          "layout.stack.card"
+        ],
+        "supporting": [
+          "text.supporting"
+        ],
+        "bars": [
+          "layout.column"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "card": [
+          ".card"
+        ],
+        "supporting": [
+          ".sub"
+        ],
+        "bars": [
+          ".hbars"
+        ]
+      }
+    },
+    "taglist": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/taglist.md",
+      "slots": {
+        "root": [
+          "layout.row"
+        ],
+        "chip": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".chipcloud"
+        ],
+        "chip": [
+          ".skill-chip"
+        ]
+      }
+    },
+    "terminology-card": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/terminology-card.md",
+      "slots": {
+        "root": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "artwork": [
+          "surface.soft",
+          "layout.grid"
+        ],
+        "term": [
+          "text.accent"
+        ],
+        "definition": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".termcard"
+        ],
+        "artwork": [
+          ".termcard .illus"
+        ],
+        "term": [
+          ".termcard .term"
+        ],
+        "definition": [
+          ".termcard .def"
+        ]
+      }
+    },
+    "terminology-cards": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/terminology-cards.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "card": [
+          "surface.panel",
+          "layout.column"
+        ],
+        "term": [
+          "text.accent"
+        ],
+        "definition": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "card": [
+          ".termcard"
+        ],
+        "term": [
+          ".termcard .term"
+        ],
+        "definition": [
+          ".termcard .def"
+        ]
+      }
+    },
+    "timeline": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/timeline.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "axis": [
+          "layout.grid",
+          "text.secondary"
+        ],
+        "phases": [
+          "layout.grid"
+        ],
+        "phase": [
+          "layout.column"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".tl"
+        ],
+        "axis": [
+          ".tl-axis"
+        ],
+        "phases": [
+          ".tl-bars"
+        ],
+        "phase": [
+          ".phase"
+        ]
+      }
+    },
+    "ui-mockup": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/components/ui-mockup.md",
+      "slots": {
+        "root": [
+          "surface.panel"
+        ],
+        "skeleton": [
+          "surface.muted"
+        ],
+        "highlight": [
+          "surface.soft"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".mock"
+        ],
+        "skeleton": [
+          ".mock .bar"
+        ],
+        "highlight": [
+          ".mock .big"
+        ]
+      }
+    },
+    "use-case-cards": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/use-case-cards.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "item": [
+          "layout.column"
+        ],
+        "card": [
+          "surface.panel",
+          "layout.grid"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".cards"
+        ],
+        "item": [
+          ".uc-item"
+        ],
+        "card": [
+          ".uc-card"
+        ],
+        "supporting": [
+          ".uc-cap"
+        ]
+      }
+    },
+    "value-points": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/value-points.md",
+      "slots": {
+        "root": [
+          "layout.grid"
+        ],
+        "point": [
+          "layout.column"
+        ],
+        "card": [
+          "surface.panel"
+        ],
+        "supporting": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".vp"
+        ],
+        "point": [
+          ".vp .pt"
+        ],
+        "card": [
+          ".vp .card"
+        ],
+        "supporting": [
+          ".vp .desc"
         ]
       }
     }

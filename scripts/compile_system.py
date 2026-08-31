@@ -15,6 +15,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from slide_html import Element, document
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SYSTEM = ROOT / "system"
@@ -164,7 +166,8 @@ def validate_hypertokens(
     return hypertokens
 
 
-def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[str, Any]:
+def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any],
+                     specs: dict[str, Any]) -> dict[str, Any]:
     require_keys(
         data,
         {"$schema", "version", "selectionPolicy", "recipes"},
@@ -187,7 +190,12 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[
     recipes = data["recipes"]
     if not isinstance(recipes, dict) or not recipes:
         raise BuildError("recipes.recipes: expected a non-empty object")
+    if set(recipes) != set(specs):
+        raise BuildError(f"recipe coverage: missing {sorted(set(specs)-set(recipes))}; "
+                         f"orphaned {sorted(set(recipes)-set(specs))}")
     statuses = {"pilot", "migrated", "legacy"}
+    examples = {}
+    managed = {}
     for name, recipe in recipes.items():
         if not TOKEN_NAME_RE.fullmatch(name):
             raise BuildError(f"invalid recipe name {name!r}")
@@ -195,8 +203,8 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[
             raise BuildError(f"recipes.{name}: expected an object")
         require_keys(
             recipe,
-            {"migrationStatus", "componentSpec", "slots"},
-            {"migrationStatus", "componentSpec", "slots"},
+            {"migrationStatus", "componentSpec", "slots", "bindings"},
+            {"migrationStatus", "componentSpec", "slots", "bindings"},
             f"recipes.{name}",
         )
         if recipe["migrationStatus"] not in statuses:
@@ -204,9 +212,19 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[
         spec_path = ROOT / recipe["componentSpec"]
         if not spec_path.is_file():
             raise BuildError(f"recipes.{name}: missing component spec {recipe['componentSpec']!r}")
+        if recipe['componentSpec'] != specs[name]['spec']:
+            raise BuildError(f"recipes.{name}: componentSpec must identify its own catalog spec")
+        if specs[name]['status'] == 'stable' and recipe['migrationStatus'] != 'migrated':
+            raise BuildError(f"recipes.{name}: stable patterns require migrated, connected recipes")
         slots = recipe["slots"]
         if not isinstance(slots, dict) or not slots:
             raise BuildError(f"recipes.{name}: slots must be a non-empty object")
+        bindings = recipe['bindings']
+        if not isinstance(bindings, dict) or set(bindings) != set(slots):
+            raise BuildError(f"recipes.{name}: bindings must match every slot exactly")
+        example = specs[name]['example']
+        if example not in examples:
+            examples[example] = document((ROOT / example).read_text(encoding='utf-8'))
         for slot, refs in slots.items():
             if not TOKEN_NAME_RE.fullmatch(slot):
                 raise BuildError(f"recipes.{name}: invalid slot {slot!r}")
@@ -215,7 +233,122 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[
             for ref in refs:
                 if ref not in hypertokens:
                     raise BuildError(f"recipes.{name}.{slot}: unknown hypertoken {ref!r}")
+            selectors = bindings[slot]
+            if (not isinstance(selectors, list) or not selectors
+                    or any(not isinstance(s, str) for s in selectors)
+                    or len(selectors) != len(set(selectors))):
+                raise BuildError(f"recipes.{name}.{slot}: expected unique non-empty selector bindings")
+            properties = recipe_properties(refs, hypertokens)
+            for selector in selectors:
+                if not recipe_selector_valid(selector):
+                    raise BuildError(f"recipes.{name}.{slot}: unsupported selector {selector!r}")
+                if not selector_matches(examples[example], selector):
+                    raise BuildError(f"recipes.{name}.{slot}: {selector!r} matches no element in {example}")
+                for prop, (ref, value) in properties.items():
+                    key = (selector, prop)
+                    claim = (recipe_variable(ref, prop), value)
+                    if key in managed and managed[key] != claim:
+                        raise BuildError(f"conflicting recipe owners for {selector} / {prop}")
+                    managed[key] = claim
+    # A 'migrated' flag alone proves nothing: the authored rule must consume the
+    # generated value at its original cascade position, without a copied fallback.
+    from sync_examples import split_rules
+    authored = {}
+    for selectors, body in split_rules((ROOT / 'assets/base.css').read_text(encoding='utf-8')):
+        if body is None or selectors.startswith('@'):
+            continue
+        for selector in selectors.split(','):
+            for declaration in body.split(';'):
+                if ':' in declaration:
+                    prop, value = declaration.split(':', 1)
+                    authored.setdefault((selector.strip(), prop.strip()), set()).add(value.strip())
+    for (selector, prop), (variable, _) in managed.items():
+        if f'var({variable})' not in authored.get((selector, prop), set()):
+            raise BuildError(f"recipe binding is disconnected: {selector} / {prop} must consume {variable}")
+    used_vars = set(re.findall(r'var\((--recipe-[a-z0-9-]+)\)',
+                               (ROOT / 'assets/base.css').read_text(encoding='utf-8')))
+    if used_vars - {value[0] for value in managed.values()}:
+        raise BuildError(f"unbound recipe variables: {sorted(used_vars - {v[0] for v in managed.values()})}")
     return recipes
+
+
+def recipe_variable(ref: str, prop: str) -> str:
+    return '--recipe-' + ref.replace('.', '-') + '-' + prop
+
+
+def recipe_properties(refs: list[str], hypertokens: dict[str, Any]) -> dict[str, tuple[str, str]]:
+    """Resolve composed fragments, rejecting accidental last-writer-wins styles."""
+    result = {}
+    for ref in refs:
+        for prop, value in hypertokens[ref]['properties'].items():
+            if prop in result and result[prop] != (ref, value):
+                raise BuildError(f"conflicting fragments for {prop}: {result[prop][0]} and {ref}")
+            result[prop] = (ref, value)
+    return result
+
+
+def recipe_selector_valid(selector: str) -> bool:
+    # Deliberately small grammar: tags/classes, compounds, descendant combinators.
+    # No pseudo selectors, selector lists or CSS that the evidence matcher cannot verify.
+    atom = r'(?:[a-z][a-z0-9-]*)?(?:\.[a-z][a-z0-9_-]*)*'
+    return bool(selector and selector == selector.strip()
+                and all(part and re.fullmatch(atom, part) for part in selector.split(' ')))
+
+
+def selector_matches(root: Element, selector: str) -> bool:
+    parts = selector.split()
+
+    def matches(node, part):
+        tag = part.split('.')[0]
+        return (not tag or node.tag == tag) and set(part.split('.')[1:]) <= node.classes
+
+    def visit(node, ancestors):
+        if node.tag in {'head', 'script', 'style', 'template', 'noscript'}:
+            return False
+        if matches(node, parts[-1]):
+            remaining = list(parts[:-1])
+            for ancestor in reversed(ancestors):
+                if remaining and matches(ancestor, remaining[-1]):
+                    remaining.pop()
+            if not remaining:
+                return True
+        return any(visit(child, [*ancestors, node]) for child in node.children if isinstance(child, Element))
+
+    return visit(root, [])
+
+
+def render_recipes_css(recipes: dict[str, Any], hypertokens: dict[str, Any]) -> str:
+    """Bindings set values; base.css retains declaration specificity and source order."""
+    bound = {}
+    for recipe in recipes.values():
+        for slot, refs in recipe['slots'].items():
+            for selector in recipe['bindings'][slot]:
+                values = bound.setdefault(selector, {})
+                for prop, (ref, value) in recipe_properties(refs, hypertokens).items():
+                    values[recipe_variable(ref, prop)] = css_value(value)
+    lines = ['/* AUTO-GENERATED by scripts/compile_system.py. DO NOT EDIT. */',
+             '/* Recipe values; consuming declarations stay in hand-written base.css. */',
+             '@layer hypertokens {']
+    for selector, values in sorted(bound.items()):
+        lines.append(f'  :where({selector}) {{')
+        lines.extend(f'    {name}: {value};' for name, value in sorted(values.items()))
+        lines.append('  }')
+    return '\n'.join([*lines, '}', ''])
+
+
+def render_resolved_recipes(recipes: dict[str, Any], hypertokens: dict[str, Any],
+                            specs: dict[str, Any]) -> str:
+    entries = {}
+    for name, recipe in recipes.items():
+        entries[name] = dict(kind=specs[name]['kind'], spec=recipe['componentSpec'],
+            example=specs[name]['example'], slots={slot:dict(selectors=recipe['bindings'][slot],
+                hypertokens=refs, properties={prop:css_value(value) for prop, (_, value)
+                    in recipe_properties(refs, hypertokens).items()}) for slot, refs in recipe['slots'].items()})
+    return json.dumps(dict(version='1.0.0', generatedBy='scripts/compile_system.py',
+        coverage=dict(patterns=len(entries), layouts=sum(e['kind']=='layout' for e in entries.values()),
+                      components=sum(e['kind']=='component' for e in entries.values()),
+                      slots=sum(len(e['slots']) for e in entries.values())), entries=entries),
+        indent=2, ensure_ascii=False) + '\n'
 
 
 def css_value(value: str) -> str:
@@ -262,7 +395,7 @@ def render_hypertokens_css(hypertokens: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def render_base_bundle(foundations_css: str, hypertokens_css: str) -> str:
+def render_base_bundle(foundations_css: str, hypertokens_css: str, recipes_css: str) -> str:
     """Create an import-free base stylesheet for self-contained HTML outputs."""
     base_source = (ROOT / "assets" / "base.css").read_text(encoding="utf-8").replace("\r\n", "\n")
     base_body = "\n".join(
@@ -274,6 +407,8 @@ def render_base_bundle(foundations_css: str, hypertokens_css: str) -> str:
             foundations_css.rstrip(),
             "",
             hypertokens_css.rstrip(),
+            "",
+            recipes_css.rstrip(),
             "",
             base_body.rstrip(),
             "",
@@ -298,7 +433,8 @@ def python_value(value: str) -> str:
 
 
 def render_pptx_tokens(
-    foundations: dict[str, Any], themes: dict[str, dict[str, Any]], hypertokens: dict[str, Any]
+    foundations: dict[str, Any], themes: dict[str, dict[str, Any]], hypertokens: dict[str, Any],
+    recipes: dict[str, Any]
 ) -> str:
     lines = [
         '"""AUTO-GENERATED by scripts/compile_system.py. DO NOT EDIT."""',
@@ -359,6 +495,14 @@ def render_pptx_tokens(
             "",
         ]
     )
+    lines.extend(['RECIPE_SLOTS = {'])
+    for name, recipe in recipes.items():
+        lines.append(f"    {name!r}: {recipe['slots']!r},")
+    lines.extend(['}', '', 'def recipe(name, slot, mode):',
+                  '    result = {}',
+                  '    for ref in RECIPE_SLOTS[name][slot]:',
+                  '        result.update(hypertoken(ref, mode))',
+                  '    return result', ''])
     return "\n".join(lines)
 
 
@@ -370,7 +514,13 @@ def render_reference(hypertokens: dict[str, Any], recipes: dict[str, Any]) -> st
         "Hypertokens are reusable implementation fragments. They do **not** select components or layouts.",
         "Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.",
         "",
-        "## Pilot hypertokens",
+        f"**{len(recipes)} catalog recipes** are connected to authored CSS through selector bindings.",
+        "`assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,",
+        "specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.",
+        "Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,",
+        "conflicting fragment, mismatched example, or disconnected CSS consumer fails compilation.",
+        "",
+        "## Hypertokens",
         "",
         "| id | status | selectors | properties |",
         "|---|---|---|---|",
@@ -384,7 +534,7 @@ def render_reference(hypertokens: dict[str, Any], recipes: dict[str, Any]) -> st
     lines.extend(
         [
             "",
-            "## Pilot recipes",
+            "## Catalog recipes",
             "",
             "| recipe | status | spec | slot mappings |",
             "|---|---|---|---|",
@@ -392,7 +542,7 @@ def render_reference(hypertokens: dict[str, Any], recipes: dict[str, Any]) -> st
     )
     for name, recipe in recipes.items():
         mappings = "<br>".join(
-            f"`{slot}` → " + ", ".join(f"`{ref}`" for ref in refs)
+            f"`{slot}` ({', '.join(recipe['bindings'][slot])}) → " + ", ".join(f"`{ref}`" for ref in refs)
             for slot, refs in recipe["slots"].items()
         )
         lines.append(
@@ -1007,16 +1157,18 @@ def outputs() -> dict[Path, str]:
     recipe_data = load_json(SYSTEM / "recipes.json")
     foundations, themes = validate_tokens(token_data)
     hypertokens = validate_hypertokens(hypertoken_data, foundations, themes)
-    recipes = validate_recipes(recipe_data, hypertokens)
     specs = load_specs()
+    recipes = validate_recipes(recipe_data, hypertokens, specs)
     annotate_assets_and_alternates(specs)
     validate_router(specs)
     class_manifest = build_class_manifest(specs)
     validate_class_manifest(class_manifest)
     foundations_css = render_foundations_css(foundations)
     hypertokens_css = render_hypertokens_css(hypertokens)
+    recipes_css = render_recipes_css(recipes, hypertokens)
     result = {
         SYSTEM / "router.json": render_router_json(specs),
+        SYSTEM / "resolved-recipes.json": render_resolved_recipes(recipes, hypertokens, specs),
         SYSTEM / "class-manifest.json": json.dumps(class_manifest, indent=2, ensure_ascii=False)
         + "\n",
         ROOT / "specs" / "generated-class-coverage.md": render_class_coverage(class_manifest),
@@ -1024,10 +1176,11 @@ def outputs() -> dict[Path, str]:
         ROOT / "specs" / "generated-preferences-digest.md": render_preferences_digest(),
         ROOT / "assets" / "generated" / "foundations.css": foundations_css,
         ROOT / "assets" / "generated" / "hypertokens.css": hypertokens_css,
+        ROOT / "assets" / "generated" / "recipes.css": recipes_css,
         ROOT / "assets" / "generated" / "base-bundle.css": render_base_bundle(
-            foundations_css, hypertokens_css
+            foundations_css, hypertokens_css, recipes_css
         ),
-        ROOT / "pptx" / "generated_tokens.py": render_pptx_tokens(foundations, themes, hypertokens),
+        ROOT / "pptx" / "generated_tokens.py": render_pptx_tokens(foundations, themes, hypertokens, recipes),
         ROOT / "specs" / "tokens" / "generated-hypertoken-reference.md": render_reference(
             hypertokens, recipes
         ),

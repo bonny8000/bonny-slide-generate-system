@@ -9,7 +9,7 @@ depends_on: [tokens]
 tokens_used: [ink, muted, accent, surface]
 icon_use: required
 learned_from: Img6
-example: examples/dark-02-target-group.html
+example: examples/light-09-comparison.html
 ---
 # icon-label-row
 
@@ -41,4 +41,7 @@ Plain list · carded list · two-column (audience vs benefits, as Img6).
 Do keep one icon style + size. Don't mix icon weights; don't add an icon that just restates the label.
 
 ## Example
+The side panel in `light-09-comparison.html` uses `.ranklist` / `.rankrow` with `.ic`
+instead of numbered badges. Its aligned icon + label rows implement this component.
+
 Two side cards (오디언스 / 기업 → 受眾 / 企業) each a 5–6 row icon-label list (Img6).

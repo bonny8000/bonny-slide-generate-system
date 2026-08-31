@@ -9,7 +9,7 @@ depends_on: [tokens]
 tokens_used: [muted, muted-soft, accent, ink]
 icon_use: none
 learned_from: Img2, Img3, Img10
-example: examples/light-02-chart-point.html
+example: examples/light-03-survey-stack.html
 ---
 # pie-donut
 ## Purpose
