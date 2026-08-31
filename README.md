@@ -2,7 +2,7 @@
 
 **A design system and agent skill for consistent UX and product presentations.**
 
-Turn research, product decisions, and outcomes into slides with **繁體中文 as the primary language
+Turn research, product decisions, and outcomes into slides with **Traditional Chinese as the primary language
 and English as supporting copy**. The agent plans the story, matches the content to a catalogued
 layout, builds with shared styles, and reviews the rendered result.
 
@@ -23,7 +23,7 @@ Example numbers are demonstration content, not claims about this project.*
 | Area | Current scope |
 |---|---|
 | Design library | **25 layouts + 19 components**, supported by 14 foundation specs |
-| Routing | **44 indexed patterns**, 327 triggers in 繁中, English, and Korean; shape matching with intent disambiguation |
+| Routing | **44 indexed patterns**, 327 triggers in Traditional Chinese, English, and Korean; shape matching with intent disambiguation |
 | Themes | Light and dark, shared token roles, one theme per deck |
 | Hypertokens & recipes | **25 hypertokens, 44 connected recipes, 165 slots** — the whole current pattern catalog |
 | Examples | **58 current HTML files**: 54 individual 16:9 slides, 2 posters, 1 reference gallery, 1 scroll viewer |
@@ -162,7 +162,7 @@ Asset policies are part of selection, including those on a shape variant:
 | `generate` | Generate fresh artwork for the selected route; do not silently discard the artwork to use a text layout. |
 
 Multilingual triggers help recognize requests; they do not determine the output language. Decks
-default to 繁中 + English, and can use another declared language when requested.
+default to Traditional Chinese + English, and can use another declared language when requested.
 
 ## Hypertokens and recipes
 
