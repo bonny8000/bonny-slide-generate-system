@@ -1,0 +1,31 @@
+{
+  "renderer": "scripts/validate_layout.py via scripts/render_readme.py",
+  "viewport": {
+    "width": 1920,
+    "height": 1080,
+    "scale": 1
+  },
+  "note": "Screenshots depend on the installed browser and fonts; inspect after refreshing.",
+  "figures": {
+    "metrics-light.png": {
+      "source": "examples/light-metric-cards.html",
+      "sourceSha256": "dc771488dfa8775d0f57c4b18ffcefa1f369d9151ad153682c16a6dbbac828d1",
+      "imageSha256": "93b1079e1ad768d5a13d0430e3d9b1211d6eec5932e0bcf1fc8bb90c9837881e"
+    },
+    "persona-light.png": {
+      "source": "examples/case-study/04.html",
+      "sourceSha256": "d51467d8e77bbaa2a5328102bce7d057860e03047cb5042d48c8f131bc1d5d2c",
+      "imageSha256": "da0a84e909f314cc442b001195e06d5dbba994b24e2b742f3f3e3667e1f126ae"
+    },
+    "kpi-dark.png": {
+      "source": "examples/dark-07-kpi-results.html",
+      "sourceSha256": "2c0a5333006a4fa72e886f2fd51fb9442e0df46f37d10e444b98cabf0699866b",
+      "imageSha256": "46f479945e487ad236e87002d0547b4470d097c0f75873a573fde255f1d5f471"
+    },
+    "screen-interiors-light.png": {
+      "source": "examples/light-screen-interiors.html",
+      "sourceSha256": "085b885d3c1cfd226fd75f6c04749b389ea5d192418a2083df5243c231466b73",
+      "imageSha256": "b1b67e69e9685763598a32f7f77e58fcbab5656b5ca258565e8ea4ab0e3386f5"
+    }
+  }
+}
