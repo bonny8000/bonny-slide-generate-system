@@ -43,6 +43,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from slide_html import document, slides as html_slides, has_visual
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -457,22 +459,6 @@ HEX_VALUE_RE = re.compile(r"[:,(]\s*(#[0-9a-fA-F]{3,8})\b")
 
 INLINE_STYLE_RE = re.compile(r"""style\s*=\s*["']([^"']*)["']""", re.I)
 
-# A "visual moment" per layout-balance.md: a real image, a logo row, a device mockup, or a
-# generated editorial explainer. Icons and chips are seasoning and deliberately do not count.
-VISUAL_MARKERS = (
-    "data-editorial-explainer",
-    "class=\"shot",
-    "class='shot",
-    " shot\"",
-    " shot'",
-    "logo-row",
-    "logorow",
-    "ui-mockup",
-    "appframe",
-    "phone",
-    "device-stack",
-    "<img",
-)
 # Output language is DECLARED, not hardcoded. The system's default is 繁中 primary + English
 # supporting, but a deck asked for in another language must be able to pass — so the check is
 # "does this slide contain a script its declared languages do not imply", not "is this Korean".
@@ -523,13 +509,11 @@ TAG_RE = re.compile(r"<(script|style)\b.*?</\1>|<[^>]+>", re.S | re.I)
 
 
 def visible_text(html: str) -> str:
-    body = html.split("<body", 1)[-1] if "<body" in html else html
-    return TAG_RE.sub(" ", body)
+    return document(html).text()
 
 
 def has_visual_moment(html: str) -> bool:
-    body = (html.split("<body", 1)[-1] if "<body" in html else html).lower()
-    return any(marker.lower() in body for marker in VISUAL_MARKERS)
+    return has_visual(html)
 
 
 def find_hardcoded_hex(html: str, strict: bool) -> list[str]:
@@ -596,11 +580,13 @@ def slide_kind(html: str) -> str:
     Only the rendered body is inspected — a <style> block naming `.slide.section-cover` says
     nothing about what this particular slide is.
     """
-    body = html.split("<body", 1)[-1] if "<body" in html else html
-    if "data-editorial-explainer" in body.lower():
+    nodes = html_slides(html)
+    if not nodes:
+        return "content"
+    slide = nodes[0]
+    if any("data-editorial-explainer" in node.attrs for node in slide.walk(visible=True)):
         return "editorial-explainer"
-    match = SLIDE_CLASS_RE.search(body)
-    if match and SPARSE_CLASSES & set(match.group(1).lower().split()):
+    if SPARSE_CLASSES & slide.classes:
         return "sparse-exception"
     return "content"
 
@@ -741,7 +727,7 @@ def evaluate(
 
 def is_deck_container(html: str) -> bool:
     """True when the page holds more than one slide, i.e. it is a viewer rather than a slide."""
-    return len(re.findall(r'class="(?:[^"]* )?slide[ "]', html)) > 1
+    return len(html_slides(html)) > 1
 
 
 def main() -> int:
@@ -800,11 +786,13 @@ def main() -> int:
         "deadQuadrantShare": DEAD_QUADRANT_SHARE,
     }}
     failed = 0
+    errors = 0
 
     for slide in targets:
         if not slide.is_file():
             print(f"FAIL {slide} — file not found", file=sys.stderr)
-            failed += 1
+            errors += 1
+            report["slides"].append({"slide": str(slide), "error": "file not found"})
             continue
         html = slide.read_text(encoding="utf-8", errors="replace")
         if is_deck_container(html):
@@ -821,7 +809,7 @@ def main() -> int:
             metrics = analyse(width, height, channels, pixels)
         except (LayoutError, subprocess.TimeoutExpired, zlib.error) as exc:
             print(f"FAIL {slide} — {exc}", file=sys.stderr)
-            failed += 1
+            errors += 1
             report["slides"].append({"slide": str(slide), "error": str(exc)})
             continue
 
@@ -871,6 +859,9 @@ def main() -> int:
     total = len(targets)
     if deck_note:
         print(deck_note)
+    if errors:
+        print(f"\nlayout gate could not run on {errors}/{total} slide(s)", file=sys.stderr)
+        return 2
     if failed:
         print(f"\nlayout gate FAILED: {failed}/{total} slide(s) need fixing", file=sys.stderr)
         return 1
