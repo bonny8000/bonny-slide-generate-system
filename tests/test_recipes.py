@@ -81,6 +81,23 @@ class RecipeTests(unittest.TestCase):
             with self.assertRaisesRegex(compiler.BuildError, 'disconnected'):
                 self.validate(self.data)
 
+    def test_variable_read_by_an_unbound_selector_fails(self):
+        """A known variable name on a selector no recipe binds is the dangerous case.
+
+        These references carry no fallback, so such a declaration is invalid at computed-value time
+        and silently falls back to the property's initial value — `display` drops from grid to
+        inline. Checking only that the name exists somewhere let that through with every gate green.
+        """
+        read_text = Path.read_text
+        def unbound(path, *args, **kwargs):
+            text = read_text(path, *args, **kwargs)
+            if path == ROOT / 'assets/base.css':
+                text += '\n.probe-unbound{display:var(--recipe-layout-grid-display)}\n'
+            return text
+        with patch.object(Path, 'read_text', unbound):
+            with self.assertRaisesRegex(compiler.BuildError, 'unbound'):
+                self.validate(self.data)
+
     def test_both_theme_values_reach_python_recipe_bridge(self):
         tokens = compiler.load_json(ROOT / 'system/tokens.json')
         foundations, themes = compiler.validate_tokens(tokens)
