@@ -8,6 +8,12 @@
 - `<style data-slide>` is the supported place for authored slide-specific overrides. Sync preserves it;
   reusable component styles belong in scoped shared selectors.
 - Explicit `data-theme="dark"` prevents a dark example from silently receiving the light theme.
+- When promoting styles out of an example, check whether the shared rule already exists before
+  pasting it. Each `/* ===== … promoted from examples/… ===== */` block re-pasted its own copy of the
+  common card rules, which left `.card` defined nine times, `.foot` four and `.kicker` three — all
+  byte-identical. Those 20 redundant lines were removed (keeping the last occurrence of each, so the
+  rule that already won the cascade stays in place); a promotion that re-pastes them puts the drift
+  risk straight back.
 - Default sync excludes any `_ab`/`_audit` example folder. Their 115 existing HTML files are frozen
   historical evidence, not stale files to bulk update. `--include-archives` is an explicit opt-in.
 
@@ -71,6 +77,16 @@ PowerPoint. Expanding native PPTX coverage is separate implementation work, not 
 - All 40 routing requests are regression fixtures now; there is no fresh independent accuracy score.
 - The three hypertoken recipes remain pilots. Other layouts use the shared CSS implementation and
   are still available; the recipes are not a whitelist or a claim of full migration.
+- **Full migration onto hypertokens is not reachable under the current schema, and this is
+  structural rather than unfinished work.** `SELECTOR_RE` in `scripts/compile_system.py` admits a
+  single bare class (`^\.[a-z][a-z0-9_-]*$`), so a hypertoken cannot express a compound
+  (`.card.flat`), a descendant (`.eyebrow-rule .ln`), a combinator or a pseudo-class. A census of
+  `assets/base.css` puts 439 of 699 rules (62%) outside that grammar, so `base.css` has to stay
+  authoritative. Migrating even the expressible 37% is not a free move either: `base.css` rules are
+  unlayered, and unlayered CSS beats every layered rule regardless of specificity, so relocating a
+  rule into `@layer hypertokens` drops it below all remaining unlayered rules instead of merely
+  changing where it is written. Widening the recipe layer therefore needs a schema change first,
+  not more entries.
 - The plan validator checks real slide coverage and local per-slide asset placement. Generator names
   and reference lists are declarations; fresh-call provenance still needs external tool-call evidence.
 - The structural reader handles ordinary omitted-head HTML and explicit hidden states. It is not a
