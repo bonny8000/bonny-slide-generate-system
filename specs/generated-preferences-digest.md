@@ -8,12 +8,13 @@ only when a specific component decision turns on a worked round.
 Fifty A/B rounds distilled to a dozen transferable principles. Reach for these first; the per-component
 sections below are the worked detail. When two principles tension, the slide's **intent** breaks the tie.
 
-1. **Fill the canvas top→bottom; distribute, don't center.** Empty top *and* bottom both read unfinished —
-   header up top, body grows (`.grow`/`.vspread`), footer pinned. *Exception:* a statement / hero-quote /
-   divider may breathe with **intentional, symmetric** whitespace (never lopsided). *(R1, R3, R7)*
-2. **Size the container to its content.** A box drawn bigger than its contents reads as a hollow void, not
-   breathing room. Shrink it, add real content to earn the height, or distribute with `.vspread`. *(R9, R14,
-   R24, R38, R40)*
+1. **Compose to the amount of meaningful content.** A substantial header/body page may fill vertically;
+   compact content keeps its header and body together as one centred group. Do not pin a tiny header
+   far from its cards merely to touch the canvas edges. This reconciles the later composition rule in
+   `layout-balance.md`; R51 B confirms this for the tested keyword-card page. *(R1, R3, R7)*
+2. **Size the container to its content.** Match peer-panel heights and alignment, but keep content grouped
+   with controlled gaps. Shrink a hollow container or add real evidence; do not spread a few labels
+   across an oversized box just to pass a density check. *(R9, R14, R24, R38, R40)*
 3. **Content-density gates the form.** Pick the form to match how much real content you have; never stretch
    thin content (a 2-pt "trend", a one-line persona, an empty mock) to fill a shape built for more. *(R8,
    R11, R14, R38)*

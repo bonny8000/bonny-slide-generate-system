@@ -4,27 +4,27 @@ The "mandated audit" step. A sub-agent checks the finished slide/deck against th
 issues with a severity. Fix **blocker** + **major** before delivery.
 
 ## Run the machine checks first
-Two gates are mechanical — run them before the human-judgement checks below, and fix what they
+Mechanical gates — run them before the human-judgement checks below, and fix what they
 report. They exist because these rules used to be prose only, and prose degrades first.
 
 ```bash
-python scripts/compile_system.py --check          # tokens + routing drift
-python scripts/validate_layout.py DECK.html       # rendered balance + density
+python scripts/check_system.py                    # compiler, current-example sync, regression tests
+python scripts/validate_layout.py slides/         # individual 16:9 slides, not a scroll viewer
 python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pacing
 ```
 
 - `compile_system.py --check` fails on routing drift: a stable layout with no `content-map.md` row,
-  an orphan component, an unresolvable `depends_on`, a duplicate trigger, or **any Korean in a
-  routing trigger**. — blocker
+  an orphan component, an unresolvable `depends_on`, or a duplicate trigger.
+  Triggers may be multilingual; output language is a separate rule. — blocker
 - `validate_layout.py` renders each slide and fails on a blank/unstyled render, a dead band inside
   the content, a band of surface carrying no text (relocated emptiness), an empty top or bottom band,
   a dead quadrant, extreme density, or **copy in a script the declared output language does not
   imply** (default 繁中 + English; pass `--lang ja,en` and a Japanese deck passes). Add `--strict-hex` to also scan
   `<style>` blocks for hardcoded colour. — blocker on a failure it reports
-- `sync_examples.py` is the tool that will make examples pure reference — implementation only in
-  `assets/base.css`. It is NOT yet part of the gate: applying it first needs the 17 bare generic
-  selectors in `base.css` (`.track`, `.card`, `.panel`, `.sub`, …) scoped to their owning pattern,
-  or they collide across patterns once examples share one stylesheet.
+- `sync_examples.py --check` is part of `check_system.py`: one theme plus one generated bundle,
+  with authored slide overrides preserved. Defaults to current examples; `_ab`/`_audit` snapshots
+  are frozen and excluded. `verify_rebuild.py` reports local reliance without treating every override
+  as a defect. Device and screen-gallery styles are scoped to their owning layout.
 - `--deck` additionally enforces the v12.7 anti-dryness rule across a deck of 8+ slides: at least one
   page must carry a genuine visual moment (real screenshot, logo-row, device mockup, or generated
   explainer). Icons and chips do not count. — major
@@ -85,7 +85,7 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] The result is not a reference image, crop/trace, CSS/SVG recreation, or hand-built diagram. — blocker
 - [ ] Generated dimensions match the target block ratio; image fills the block with no contain-fit gutters. — major
 - [ ] No grayscale/desaturation filter; colour is visibly preserved and supporting hues stay inside the bitmap. — major
-- [ ] Exact copy is native/editable, or every baked word was verified; no Korean, logo, watermark, or random text. — blocker
+- [ ] Exact copy is native/editable, or every baked word was verified; no undeclared language, unrequested logo/watermark, or random text. — blocker
 - [ ] `ui-qa` uses a real supplied screenshot; no generated/fabricated product UI. — blocker
 - [ ] Generated file is saved inside the deck and visibly placed. — blocker
 - [ ] A selected generated route was not silently downgraded because the generator was unavailable. — blocker
@@ -112,8 +112,8 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 ### Changing the gate itself
 - [ ] `python scripts/check_antipatterns.py` passes — every known-bad slide still FAILS. A change
       that lets one through has removed a defect the system already learned to see. — blocker
-- [ ] `python scripts/calibrate_gate.py` was run and the agreement number did not get worse. A gate
-      change that does not move it has not improved the gate. — major
+- [ ] `python scripts/calibrate_gate.py` was run and the agreement number did not get worse. Agreement is diagnostic only; fixing a correctness bug need not improve taste prediction.
+      Record the browser/environment, missing pairs and ties. Never adjust thresholds solely to fit votes. — major
 
 ### Hypertoken pipeline
 - [ ] `python scripts/compile_system.py --check` passes. — blocker
@@ -135,8 +135,8 @@ not a pass/fail. High reliance is worth investigating; any reliance is not.
 `assets/base.css`, which is clean. In examples it applies to *theme* colour. Three files still carry
 literals, and they are not all the same thing: `#fff` inside `color-mix()` (`r45A`) is a blend
 operand, not a colour choice, and `rgba()` in a shadow or a radial-gradient stop is opacity work.
-What **is** a real finding is `editorial-explainer-stage`'s `.tag{color:#16899b}` — a teal that is a
-second accent, which this document rates a blocker. It is open, not blessed.
+The former off-theme teal tag in `editorial-explainer-stage` was corrected to `var(--accent)`;
+reference artwork may keep its authored bitmap palette per the editorial reference policy.
 
 (A Claude-brand deck — `claude-code-ccv1`, `ccv2`, `how-to-use-claude-code` — used to sit here with a
 warm off-token palette. It was deleted rather than tokenised: off-system reference can only teach
@@ -147,9 +147,18 @@ off-system colour.)
 bulk-revert example values to base values; check what the slide actually needs.
 
 ## Severity
-- **blocker** — breaks the system identity (mixed theme, 2nd accent, Korean). Must fix.
+- **blocker** — breaks the system identity (mixed theme, 2nd accent, undeclared output language). Must fix.
 - **major** — visibly off-system (raw colors, tiny text, unbalanced, mixed icon styles). Fix.
 - **minor** — polish (a decorative icon, a stray dep). Fix if time.
 
 ## Output format
 `severity · slide · check · what's wrong · suggested fix`
+
+## Evidence boundaries
+- A successful plan check proves structural coverage and declared local asset placement, not that a
+  fresh generator call really occurred. Retain tool-call evidence in the delivery record.
+- `has_visual_moment` reads real authored elements and explicit hidden states; external computed CSS,
+  broken images and perceptual size still require rendered review.
+- Count 16:9 slides separately from posters, reference galleries and viewers. A first-screen screenshot
+  of a long poster is not a full-page review. The reference gallery deliberately displays canonical
+  artwork; it is not a delivered generated explainer.

@@ -1,82 +1,82 @@
-"""Score the layout gate against human taste, using the A/B rounds as labelled data.
+"""Measure agreement with human A/B judgements; never use this as a pass/fail taste gate.
 
-Every other check in this repo measures the gate against itself: it passes when its own thresholds are
-satisfied. That says nothing about whether a passing slide is any good, and three times now a change
-has passed every gate while looking visibly worse.
-
-`preferences.md` records the winner of each A/B round ("Round 5 - B > A") and both variants are on
-disk, which makes 37 pairs of **human-labelled** slides. So run the gate on A and on B, see which it
-prefers, and compare with the person who actually chose. This is the only number in the system that
-measures whether the gate has taste rather than whether it is internally consistent.
-
-First run, recorded so movement is visible:
-
-    37 pairs - the gate had NO OPINION on 20 of them (identical scores)
-    of the 17 it did rank, it agreed with the user on 7 and disagreed on 10 -> 41%
-
-Read the 20 ties as the headline. The gate is mostly *blind* to what separates a preferred slide from
-a rejected one, rather than wrong about it. 17 decided pairs is far too small a sample to claim 41% is
-meaningfully worse than a coin flip; what it does establish is that the gate carries no useful taste
-signal today. Raising this number is the goal, and any change to the gate should be scored here before
-it is believed.
-
-Usage:
-    python scripts/calibrate_gate.py
-
-Exit code is always 0: this reports a measurement, it does not gate a build.
+Historical pairs come from preferences.md + frozen _ab files. New labelled rounds come
+from ab-rounds.md + a SHA256-verified ab_round.py manifest. Pending rounds are excluded.
+Exit 0 = measurement completed (even low agreement); 2 = invalid data/render failure.
 """
-import pathlib
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+from pathlib import Path
 import re
 import sys
 
-sys.path.insert(0, "scripts")
-import validate_layout as V  # noqa: E402
-from visual_baseline import find_browsers, render_with_any  # noqa: E402
+import validate_layout as V
+from ab_round import parse_spec
 
-AB = pathlib.Path("examples/case-study/_ab")
-txt = pathlib.Path("specs/preferences.md").read_text(encoding="utf-8")
-rounds = {int(m.group(1)): m.group(2)
-          for m in re.finditer(r"Round\s+(\d+)\s*[—-]\s*([AB])\s*>\s*([AB])", txt)}
-
-browsers = find_browsers(None)
+ROOT=Path(__file__).resolve().parents[1]
+AB=ROOT/'examples/case-study/_ab'
 
 
-def score(path: pathlib.Path) -> int:
-    """Number of gate complaints; lower is 'better' in the gate's opinion."""
-    html = path.read_text(encoding="utf-8", errors="replace")
-    png = render_with_any(path, browsers, 1920, 1080, 0.25)
-    w, h, ch, px = V.decode_png(png)
-    metrics = V.analyse(w, h, ch, px)
-    problems = V.evaluate(
-        path, metrics, V.slide_kind(html),
-        V.find_hardcoded_hex(html, False), V.visible_text(html), V.declared_langs(html, None),
-    )
-    return len(problems)
+def load_pairs(manifest_path=None):
+    text=(ROOT/'specs/preferences.md').read_text(encoding='utf-8')
+    historical={int(m[1]):m[2] for m in re.finditer(r'Round\s+(\d+)\s*[—-]\s*([AB])\s*>\s*([AB])',text)}
+    pairs=[];missing=[]
+    for n,winner in sorted(historical.items()):
+        a,b=(AB/f'r{n}{letter}.html' for letter in 'AB')
+        if a.is_file() and b.is_file(): pairs.append((n,winner,a,b))
+        else: missing.append(n)
+    declared={n:r for n,r in parse_spec().items() if r['winner']}
+    if declared and manifest_path is None:
+        raise ValueError('judged new rounds require --manifest; do not silently omit their votes')
+    if manifest_path is not None:
+        manifest_path=Path(manifest_path).resolve()
+        manifest=json.loads(manifest_path.read_text())['rounds']
+        for n,r in declared.items():
+            if n in historical: raise ValueError(f'R{n}: duplicate historical/new round')
+            row=manifest.get(str(n))
+            if not row: raise ValueError(f'R{n}: judged but absent from manifest')
+            paths=[]
+            for side in 'AB':
+                entry=row['variants'][side];path=manifest_path.parent/entry['path']
+                if hashlib.sha256(path.read_bytes()).hexdigest()!=entry['sha256']:
+                    raise ValueError(f'R{n}{side}: judged variant changed after rendering')
+                paths.append(path)
+            pairs.append((n,r['winner'],*paths))
+    return pairs,missing
 
 
-agree = disagree = tie = 0
-rows = []
-for n, winner in sorted(rounds.items()):
-    a, b = AB / f"r{n}A.html", AB / f"r{n}B.html"
-    if not (a.is_file() and b.is_file()):
-        continue
-    sa, sb = score(a), score(b)
-    if sa == sb:
-        verdict, tie = "tie  ", tie + 1
-    else:
-        gate_pick = "A" if sa < sb else "B"
-        if gate_pick == winner:
-            verdict, agree = "agree", agree + 1
-        else:
-            verdict, disagree = "DISAGREE", disagree + 1
-    rows.append((n, winner, sa, sb, verdict))
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--manifest',type=Path,default=ROOT/'specs/ab-reviewed/2026-08-31/manifest.json')
+    parser.add_argument('--json',type=Path)
+    args=parser.parse_args()
+    try:
+        pairs,missing=load_pairs(args.manifest)
+        if not pairs: raise ValueError('no labelled pairs available')
+        browsers=V.find_browsers(None)
+        rows=[];counts=dict(agree=0,disagree=0,tie=0)
+        for n,winner,a,b in pairs:
+            scores=[]
+            for path in (a,b):
+                html=path.read_text(encoding='utf-8')
+                png=V.render_with_any(path,browsers,1920,1080,.25)
+                metrics=V.analyse(*V.decode_png(png))
+                scores.append(len(V.evaluate(path,metrics,V.slide_kind(html),V.find_hardcoded_hex(html,False),
+                                             V.visible_text(html),V.declared_langs(html,None))))
+            sa,sb=scores
+            verdict='tie' if sa==sb else ('agree' if ('A' if sa<sb else 'B')==winner else 'disagree')
+            counts[verdict]+=1;rows.append(dict(round=n,winner=winner,A=sa,B=sb,verdict=verdict))
+            print(f'R{n}: human={winner} gate A={sa} B={sb} {verdict}',flush=True)
+        report=dict(pairs=len(rows),**counts,missingHistoricalPairs=missing,rows=rows)
+        print(json.dumps({k:v for k,v in report.items() if k!='rows'}))
+        print('Diagnostic only: agreement is environment-dependent and does not certify design quality.')
+        if args.json:args.json.write_text(json.dumps(report,indent=2)+'\n')
+        return 0
+    except (OSError,ValueError,KeyError,V.LayoutError) as exc:
+        print(f'calibration could not run: {exc}',file=sys.stderr);return 2
 
-for n, winner, sa, sb, verdict in rows:
-    print(f"  R{n:<3} human={winner}  gate: A={sa} B={sb}   {verdict}")
 
-decided = agree + disagree
-print(f"\npairs scored: {len(rows)}")
-print(f"gate expressed a preference on {decided}; agreed with the user on {agree}, disagreed on {disagree}")
-if decided:
-    print(f"agreement where it had an opinion: {agree/decided:.0%}  (50% = no signal)")
-print(f"no opinion (equal score): {tie}")
+if __name__=='__main__':
+    raise SystemExit(main())

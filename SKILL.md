@@ -32,10 +32,10 @@ and images to learn from. Check which mode you are in before doing anything (nex
   `system/class-manifest.json`). A pattern with gaps has to be reinvented on every build, so treat its
   gaps as the implementation backlog. **`base.css` stays hand-written — this is a usage contract,
   never codegen.**
-- **`scripts/sync_examples.py`** — will make `examples/` pure REFERENCE, with implementation only in
-  `assets/base.css`. Built and verified, but not yet applied: `base.css` first needs its 17 bare
-  generic selectors scoped to their owning pattern (see CHANGELOG), or patterns collide once they
-  share one stylesheet.
+- **`scripts/sync_examples.py`** — keeps current examples on one theme plus the generated bundle,
+  preserving authored `<style data-slide>` overrides. `--check` is part of the central check command.
+  Reusable device/gallery styles are scoped to their layout; frozen `_ab`/`_audit` history is excluded
+  unless `--include-archives` is explicitly requested.
 - **`scripts/validate_layout.py`** — the layout gate. Renders a built slide and measures balance,
   distribution, and density against `foundations/layout-balance.md`, so those rules are enforced rather
   than merely described.
@@ -123,16 +123,17 @@ consistency drifts.
 
    > `意圖: <what this page must DO>  ·  形狀: <material> / <arrangement> / <count>`
 
-   Material is `chart · quote · stat · ui-screen · illustration · icon · text-only` (or a `+` pair);
+   Material is `chart · quote · stat · ui-screen · ui-mockup · illustration · icon · logo · text-only`
+   (or a `+` combination);
    arrangement and count come from the same controlled vocabulary as the router. Derive the shape
    from **the content you actually have**, never from the layout you are hoping to use.
 
-   Then look that line up in `specs/generated-router.md`. **Shape is the decisive axis, not
-   intention.** Measured on this library: intention alone identifies 13 of 25 layouts, because pairs
-   like `idea-evidence`/`painpoint-evidence` share a job and differ only in material — a chart versus
-   participant quotes. The shape triple alone identifies 24 of 25. Match the shape, then use
-   intention to break the one remaining tie. On held-out requests this took routing from 4/10 to
-   8/10; skipping the normalised line is the single biggest cause of picking the wrong layout.
+   Then look that line up in `specs/generated-router.md`. Match the default shape or an explicit
+   `shapeVariants` entry, then use intention to distinguish candidates. Apply the selected variant's
+   asset policy, not the default's: a supplied-screen variant requires a real screen; an explicitly
+   planned text-only audience variant does not require art. Do not drop artwork after selecting a
+   generated route. Unmatched shapes and tied lexical scores are unresolved; never silently free-pick.
+   The 40 existing routing requests are regression coverage, not an independent accuracy benchmark.
 
    Then read that row's `content-map.md` entry for the
    detection heuristic and component pairing.
@@ -166,16 +167,20 @@ consistency drifts.
 6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
 7. **Audit & self-critique:** run the three mechanical gates first — they fail loudly and name the fix:
    ```bash
-   python scripts/compile_system.py --check                                  # tokens + routing drift
+   python scripts/check_system.py                                          # compile + sync + regression tests
    python scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html
-   python scripts/validate_layout.py DECK.html                               # rendered balance
+   python scripts/validate_layout.py slides/                                 # individual slides; viewers are not validated as slides
    python scripts/validate_layout.py slides/ --deck                          # + deck pacing
    ```
    Then **render at deck size and look** — run `specs/audit.md`, then self-critique
    per `specs/foundations/self-critique.md`: score whole-page balance, density (不空不擠), proportional
    sizing, and (if a reference was given) whether the build is **≥ the reference**. Fix the worst, re-render,
    repeat until every dimension passes.
-8. **Output:** per-slide HTML, single-scroll HTML, PDF, or PPTX (`pptx/`). Deliver only after the build clears the gate.
+8. **Output:** HTML is the full layout implementation. For PDF, run
+   `python scripts/export_pdf.py slides/ --out deck.pdf` after visual validation (optional `pypdf` dependency).
+   `pptx/` supports only the native `title`, `hbars`, and `features` templates; it is not a general
+   HTML-to-PPTX converter. State that limit before promising an editable PowerPoint deck.
+   Deliver only after the applicable checks and visual review pass.
 
 ## Golden rules (never break)
 - **One theme per deck** — color is a separate layer; layouts/components stay theme-agnostic.

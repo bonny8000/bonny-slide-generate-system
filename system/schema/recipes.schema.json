@@ -12,7 +12,7 @@
       "additionalProperties": false,
       "required": ["primaryKey", "migrationStatusAffectsSelection", "source"],
       "properties": {
-        "primaryKey": { "const": "intent" },
+        "primaryKey": { "const": "shape" },
         "migrationStatusAffectsSelection": { "const": false },
         "source": { "const": "specs/content-map.md" }
       }

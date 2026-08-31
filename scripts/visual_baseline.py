@@ -23,11 +23,14 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import platform
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from validate_layout import decode_png, find_browsers, render_with_any  # noqa: E402
+from slide_html import slides as html_slides
+from example_files import collect
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / "system" / "visual-baseline.json"
@@ -66,18 +69,12 @@ def fingerprint(png: bytes) -> list[int]:
     return out
 
 
-def targets(paths: list[Path]) -> list[Path]:
-    """Resolve to absolute paths so a slide given relative to the cwd still keys off ROOT."""
-    found: list[Path] = []
-    for path in paths:
-        path = path if path.is_absolute() else (Path.cwd() / path)
-        path = path.resolve()
-        if path.is_dir():
-            # rglob, not glob: an earlier version defaulted to the top level only and silently
-            # ignored 115 of the 164 example files, which then drifted for several versions.
-            found.extend(sorted(path.rglob("*.html")))
-        elif path.is_file():
-            found.append(path)
+def targets(paths: list[Path], include_archives=False) -> list[Path]:
+    """Current 16:9 slides only. Frozen history and other page formats are separate evidence."""
+    found=[]
+    for path in collect(paths,include_archives):
+        nodes=html_slides(path.read_text(encoding='utf-8'))
+        if len(nodes)==1 and 'poster' not in nodes[0].classes:found.append(path)
     return found
 
 
@@ -100,6 +97,7 @@ def capture_all(slides: list[Path], browsers: list[str]) -> dict[str, Any]:
         ),
         "grid": [GRID_W, GRID_H],
         "renderScale": RENDER_SCALE,
+        "environment": {"platform":platform.system(),"note":"Requires comparable Chromium and installed fonts; not a cross-platform pixel guarantee."},
         "slides": prints,
     }
 
@@ -111,7 +109,7 @@ def compare(old: list[int], new: list[int]) -> tuple[float, float]:
     return sum(diffs) / len(diffs), float(max(diffs))
 
 
-def main() -> int:
+def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("action", choices=["capture", "diff"])
     parser.add_argument(
@@ -122,6 +120,8 @@ def main() -> int:
         help="files or directories (default: every .html under examples/, recursively)",
     )
     parser.add_argument("--browser", help="path to chrome.exe / msedge.exe")
+    parser.add_argument("--include-archives", action="store_true", help="explicitly include frozen historical slides")
+    parser.add_argument("--baseline", type=Path, default=BASELINE)
     parser.add_argument("--tolerance", type=float, default=DEFAULT_TOLERANCE,
                         help="max mean per-channel drift")
     parser.add_argument("--peak", type=float, default=DEFAULT_PEAK,
@@ -134,24 +134,27 @@ def main() -> int:
         print(f"visual baseline: {exc}", file=sys.stderr)
         return 2
 
-    slides = targets([Path(p) for p in args.slides])
+    slides = targets([Path(p) for p in args.slides],args.include_archives)
     if not slides:
         print("visual baseline: no slides found", file=sys.stderr)
         return 2
 
     if args.action == "capture":
         data = capture_all(slides, browsers)
+        if args.baseline.is_file():
+            stored=json.loads(args.baseline.read_text(encoding='utf-8'))
+            data['slides']={**stored['slides'],**data['slides']}
         # committed file: keep it compact rather than pretty
-        BASELINE.write_text(
+        args.baseline.write_text(
             json.dumps(data, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n"
         )
-        print(f"captured {len(data['slides'])} fingerprints -> {BASELINE.relative_to(ROOT).as_posix()}")
+        print(f"captured {len(slides)} current fingerprints -> {args.baseline} (other entries preserved)")
         return 0
 
-    if not BASELINE.is_file():
+    if not args.baseline.is_file():
         print("visual baseline: no baseline recorded yet — run `capture` first", file=sys.stderr)
         return 2
-    base = json.loads(BASELINE.read_text(encoding="utf-8"))
+    base = json.loads(args.baseline.read_text(encoding="utf-8"))
     stored = base["slides"]
 
     changed: list[tuple[str, float, float]] = []
@@ -171,15 +174,23 @@ def main() -> int:
     for key in missing:
         print(f"NEW      (no baseline entry)          {key}")
 
-    if changed:
+    if changed or missing:
         print(
-            f"\nvisual drift: {len(changed)}/{len(slides)} slides changed beyond tolerance "
+            f"\nvisual drift: {len(changed)} changed, {len(missing)} missing baseline, of {len(slides)} slides; tolerance "
             f"{args.tolerance}. If the change was intended, re-run `capture`.",
             file=sys.stderr,
         )
         return 1
     print(f"\nno visual drift: {len(slides)} slides match the baseline (tolerance {args.tolerance})")
     return 0
+
+
+def main() -> int:
+    try:
+        return _main()
+    except Exception as exc:
+        print(f"visual baseline could not run: {exc}",file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

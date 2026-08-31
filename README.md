@@ -15,8 +15,8 @@ a month apart, and you still get two slides. The layout gets chosen by whatever 
 so a deck drifts away from itself page by page.
 
 This system takes that decision away from the moment. Each page has to state **what it must do** before
-anything is drawn, and that statement is looked up in a compiled index. Same job, same layout — every
-time, in any deck.
+anything is drawn, and that statement is looked up in a compiled index. Content shape and intent narrow the candidate layouts; asset availability and the deck context resolve the choice.
+The planner still requires an agent, and ambiguous requests can remain unresolved.
 
 ---
 
@@ -115,7 +115,12 @@ looking at, and it re-skins with the deck theme because it is made of the same t
 
 ## What changed recently
 
-The latest work tightened the system in two places that are easy to miss in a static README:
+The reliability pass repairs structural coverage, implicit HTML head closing, visual detection,
+renderer error codes and footer false alarms. Current examples now embed one canonical bundle;
+dark examples explicitly declare their theme, while historical A/B snapshots stay frozen.
+See `specs/maintenance.md` for the check/export workflow and remaining limits.
+
+Earlier additions:
 
 - **Reference UI interiors.** A new self-contained example shows how the inside of a phone or app mockup
   is constructed, including device-relative type and spacing. It keeps the product surface legible while
@@ -145,8 +150,9 @@ passed every check and still looked worse.*
 | `validate_routing.py` · `verify_rebuild.py` · `visual_baseline.py` | a request that stopped reaching the right layout, a pattern that cannot be rebuilt, a visual change nobody intended |
 | `check_antipatterns.py` | a known-bad slide that started passing, or a gate that could not run |
 
-Routing scores **30/30** on the fixture it was tuned against and **8/10** on a held-out one written
-afterwards. The second is the real number.
+The **40 existing routing cases** are now regression tests and all resolve as expected. The former
+held-out set scored 8/10 before its failures were repaired; after that repair it is no longer
+independent. These results do not establish accuracy on unseen user requests.
 
 ---
 
@@ -174,8 +180,8 @@ bonnyt/
 |   `-- preferences.md   # 50 judged A/B rounds
 |-- system/       # THE MACHINE LAYER — tokens, hypertokens, recipes, compiled router
 |-- assets/       # THE BUILD LAYER — base.css + generated theme files
-|-- scripts/      # the compiler + 12 checks
-|-- examples/     # render-validated slides; reference only, never definitions
+|-- scripts/      # compiler, validation, A/B review, PDF export
+|-- examples/     # current examples + frozen _ab/_audit history
 `-- pptx/         # python-pptx bridge from the same tokens
 ```
 
@@ -192,8 +198,11 @@ The repository root *is* the skill; `SKILL.md` carries the frontmatter.
 git clone https://github.com/bonny8000/bonny-slide-generate-system.git ~/.claude/skills/bonny-slide-system
 ```
 
-Needs **Python 3.9+** (standard library only) and a **Chromium browser** for the render checks.
-`pptx/` also needs **python-pptx**; generated illustrations need an image-generation tool.
+Needs **Python 3.10+** (standard library only) and a **Chromium browser** for the render checks.
+PDF export additionally needs `python -m pip install -r requirements-export.txt`.
+`pptx/` needs **python-pptx** and currently implements only three native templates (`title`, `hbars`,
+`features`), not all 25 HTML layouts or an HTML-to-PPTX converter. Generated illustrations need an
+image-generation tool; their validator checks declared provenance, not proof of a tool invocation.
 
 Then just ask for a deck — it will come back for the audience, the theme and any real assets before it
 starts, because those decide which layouts are even eligible.
@@ -203,7 +212,9 @@ python scripts/validate_layout.py DECK.html
 ```
 
 ```bash
-python scripts/compile_system.py --check
+python scripts/check_system.py          # compiler, sync and regression suite
+python scripts/check_system.py --render # plus current 16:9 slides, pacing and antipatterns
+python scripts/export_pdf.py examples/case-study --out work/case-study.pdf
 ```
 
 For linked HTML use `assets/base.css`. For self-contained HTML inline
@@ -216,18 +227,18 @@ For linked HTML use `assets/base.css`. For self-contained HTML inline
 | | | | |
 |---|---:|---|---:|
 | Foundation rules | 14 | Routable patterns | 44 |
-| Components | 19 | Indexed triggers | 313 |
+| Components | 19 | Indexed triggers | 327 |
 | Layouts | 25 | Themes | 2 |
-| Example files | 173 | Judged A/B rounds | 50 |
+| Current examples · frozen history | 58 · 115 | Judged rounds · usable pairs | 55 · 42 |
 | Hypertokens · recipes | 5 · 3 | Illustration variants | 4 |
 
-**Intention** — what a page must DO; the only thing that selects a form. **Shape** — material,
+**Intention** — what a page must DO; distinguishes layouts after shape matching. **Shape** — material,
 arrangement and count; what the page actually holds. **Router** — the compiled index; a pattern not in
 it does not exist. **Token** — a colour's name, resolved by the one active theme.
 
 ---
 
-**v12.18 + unreleased gate portability fix · August 2026** — routing keys on intention *and* content shape; triggers are multilingual
+**v12.18 + unreleased reliability fixes · August 2026** — routing keys on intention *and* content shape; triggers are multilingual
 because intention is language-independent; layout choice, asset policy and illustration triggering are
 declared data rather than judgement. Screen interiors now have a token-scaled reference; antipattern
 checks distinguish rejected, leaked and unrunnable results.

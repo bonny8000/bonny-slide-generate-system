@@ -4,8 +4,9 @@ kind: layout
 tier: organism
 status: stable         # example built + validated: examples/light-use-case-cards.html
 intent: show who the product serves — audience segments / use cases
-triggers: ["use cases", audience segments, "serving every X", 3 customer types each with an illustration, 服務哪些客群, 應用情境, 目標客群分類, 使用情境]
+triggers: ["use cases", audience segments, "serving every X", 3 customer types each with an illustration, 服務哪些客群, 應用情境, 目標客群分類, 客戶分類, 使用情境]
 material: illustration
+shape_variants: ["text-only / grid / few"]
 arrangement: grid
 item_count: few
 alternates: [persona-cards]
@@ -53,3 +54,9 @@ Optional badge icon, one style; illustrations recolored to one accent + neutrals
 ## Example
 "Serving every player in the renovation industry" — Installers / Assessors / Energy providers cards, each a
 badge + a blue line-illustration + a caption (learned from Img26).
+
+## Explicit text-only variant
+When the supplied content is audience names and descriptions without an illustration brief,
+`text-only / grid / few` uses the same equal cards with segment title + caption, with no empty image
+placeholder. Declare this variant during planning; its asset policy is `none`. It does not permit
+dropping artwork after selecting the illustration variant, which retains `assetPolicy: generate`.

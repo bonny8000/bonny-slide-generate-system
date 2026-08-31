@@ -26,6 +26,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import html
+import json
 import re
 import sys
 from pathlib import Path
@@ -78,6 +81,7 @@ def parse_spec() -> dict[int, dict]:
             "axis": head.group(2).strip(),
             "base": base.group(1).strip(),
             "question": question.group(1).strip(),
+            "winner": (re.search(r"^winner:[ \t]*([AB])?[ \t]*$", block, re.M).group(1) or "") if re.search(r"^winner:[ \t]*([AB])?[ \t]*$", block, re.M) else "",
             "a": css[0].strip(),
             "b": css[1].strip(),
         }
@@ -102,33 +106,48 @@ def main() -> int:
     ap.add_argument("rounds", nargs="*", type=int)
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--list", action="store_true")
-    ap.add_argument("--out", type=Path, default=ROOT / "assets" / "ab-compare")
+    ap.add_argument("--out", type=Path, default=ROOT / "work" / "ab-review")
     args = ap.parse_args()
 
     spec = parse_spec()
     if args.list or not (args.rounds or args.all):
         for n, r in sorted(spec.items()):
-            built = "built" if (AB / f"r{n}A.html").is_file() else "     "
+            built = "judged " + r["winner"] if r["winner"] else "pending"
             print(f"  R{n}  {built}  {r['axis']}  (base: {r['base']})")
         return 0
 
     wanted = sorted(spec) if args.all else args.rounds
+    args.out = args.out.resolve()
     args.out.mkdir(parents=True, exist_ok=True)
+    variants = args.out / "variants"
+    variants.mkdir(exist_ok=True)
+    manifest_path = args.out / "manifest.json"
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"rounds":{}}
+    errors = 0
     browsers = find_browsers(None)
 
     for n in wanted:
         if n not in spec:
             print(f"R{n}: not declared in {SPEC.name}", file=sys.stderr)
+            errors += 1
             continue
         r = spec[n]
+        if r["winner"] or str(n) in manifest["rounds"]:
+            print(f"R{n}: already judged or rendered; preserve the pair and create a new round/output directory", file=sys.stderr)
+            errors += 1
+            continue
         base_path = ROOT / "examples" / f"{r['base']}.html"
         if not base_path.is_file():
             print(f"R{n}: base not found: {base_path}", file=sys.stderr)
+            errors += 1
             continue
         base_html = base_path.read_text(encoding="utf-8")
 
+        # Preserve relative assets when moving a slide into the review folder.
+        base_html = base_html.replace("<head>", '<head><base href="' + html.escape(base_path.parent.as_uri()+"/") + '">', 1)
+        pair = {}
         for letter in ("a", "b"):
-            out = AB / f"r{n}{letter.upper()}.html"
+            out = variants / f"r{n}{letter.upper()}.html"
             out.write_text(build_variant(base_html, r[letter]), encoding="utf-8", newline="\n")
             # Bring the fresh variant in line with the shipped stylesheet immediately. Building
             # a round writes a file derived from the base, which leaves it out of sync until
@@ -138,17 +157,19 @@ def main() -> int:
             if rebuilt is not None:
                 out.write_text(rebuilt[0], encoding="utf-8", newline="\n")
 
-        compare = AB / f"compare-r{n}.html"
+            pair[letter.upper()] = {"path":out.relative_to(args.out).as_posix(), "sha256":hashlib.sha256(out.read_bytes()).hexdigest()}
+        compare = variants / f"compare-r{n}.html"
         compare.write_text(
-            COMPARE.format(n=n, axis=r["axis"], question=r["question"]), encoding="utf-8", newline="\n"
+            COMPARE.format(n=n, axis=html.escape(r["axis"]), question=html.escape(r["question"])), encoding="utf-8", newline="\n"
         )
         png = args.out / f"round-{n}.png"
         png.write_bytes(render_with_any(compare, browsers, 1920, 660, 1.0))
-        compare.unlink()
-        print(f"R{n}  {r['axis']}  ->  {png.relative_to(ROOT)}")
+        manifest["rounds"][str(n)] = {"base":r["base"], "baseSha256":hashlib.sha256(base_path.read_bytes()).hexdigest(), "variants":pair}
+        manifest_path.write_text(json.dumps(manifest,indent=2)+"\n")
+        print(f"R{n}  {r['axis']}  ->  {png}", flush=True)
 
-    print("\nJudge each image and record the winner in specs/ab-rounds.md, then re-run calibrate_gate.py.")
-    return 0
+    print("\nJudge each image and record the winner in specs/ab-rounds.md, then re-run calibrate_gate.py --manifest <this output>/manifest.json.")
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

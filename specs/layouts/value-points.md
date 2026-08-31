@@ -6,6 +6,7 @@ status: stable        # example built + render-validated
 intent: justify "why us" with a few value points, each backed by a concrete supporting card
 triggers: ["why X?", 2–3 value points each with a paragraph + a backing visual/tag cluster, a sell slide, 為什麼選我們, 價值主張加佐證, 我們的優勢]
 material: illustration
+shape_variants: ["text-only / rows / few"]
 arrangement: rows
 item_count: few
 alternates: []
@@ -50,3 +51,11 @@ Optional; usually none beyond the accent point dot.
 ## Example
 "Why VDOT?" with Point 1 (Video Categories tag cluster) + Point 2 ("9,000+" Influencers tag cluster)
 (learned from Img25).
+
+## Text evidence variant
+`text-only / rows / few` uses native supporting text in each evidence card when the brief contains
+no illustration. Declare it before asset selection; policy `none`. The illustration variant keeps
+its `generate` policy and must not be silently downgraded.
+
+## Human preference refinement
+R55 A (2026-08-31): equal peer labels and supporting chips may all use the same accent hue; do not arbitrarily demote later peers.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Make every example carry the SHIPPED stylesheet, not a copy of it.
+"""Make every current example carry the SHIPPED stylesheet, not a copy of it.
 
 Examples are reference material: the agent learns layout by imitating them. For most of this
 system's life each example also carried its own hand-maintained snapshot of the stylesheet, and
@@ -10,7 +10,7 @@ specs had already superseded.
 
 So an example no longer owns CSS. Each is rewritten as:
 
-    <style data-shipped>   the theme tokens + generated bundle + base.css, regenerated from assets/
+    <style data-shipped>   one theme + generated bundle (base.css is already inside), regenerated from assets/
     <style data-slide>     only what is genuinely specific to this one slide
     markup                 untouched
 
@@ -18,7 +18,7 @@ So an example no longer owns CSS. Each is rewritten as:
 drift a build error rather than something to be discovered later by rendering everything.
 
 Usage:
-    python scripts/sync_examples.py            # rewrite every example's shipped block
+    python scripts/sync_examples.py            # rewrite current examples; keep _ab/_audit archives frozen
     python scripts/sync_examples.py --check    # fail if any example is stale
     python scripts/sync_examples.py --report   # show what each example keeps as slide-specific
 
@@ -32,6 +32,8 @@ import re
 import sys
 from pathlib import Path
 
+from example_files import collect
+
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples"
 SHIPPED_OPEN = '<style data-shipped>'
@@ -40,19 +42,17 @@ DARK_MARKERS = ("--canvas:#1B1B20", "--canvas: #1B1B20")
 
 
 def shipped_css(dark: bool) -> str:
-    """The stylesheet a fresh build would inline: one theme, the generated bundle, then base.css."""
+    """One theme plus the import-free bundle, which already contains base.css."""
     theme = "tokens-dark.css" if dark else "tokens-light.css"
-    bundle = (ROOT / "assets" / "generated" / "base-bundle.css").read_text(encoding="utf-8")
-    base = (ROOT / "assets" / "base.css").read_text(encoding="utf-8")
-    base = re.sub(r"@import[^;]+;", "", base)  # the bundle is inlined above
-    return (
-        (ROOT / "assets" / theme).read_text(encoding="utf-8").rstrip()
-        + "\n"
-        + bundle.rstrip()
-        + "\n"
-        + base.strip()
-        + "\n"
-    )
+    return ((ROOT / "assets" / theme).read_text(encoding="utf-8").rstrip() + "\n"
+            + (ROOT / "assets/generated/base-bundle.css").read_text(encoding="utf-8").rstrip() + "\n")
+
+
+def dark_theme(text: str) -> bool:
+    explicit = re.search(r"data-theme\s*=\s*['\"](light|dark)['\"]", text, re.I)
+    if explicit:
+        return explicit.group(1).lower() == "dark"
+    return bool(re.search(r"--canvas\s*:\s*#1b1b20\b", text, re.I))
 
 
 def split_rules(css: str) -> list[tuple[str, str]]:
@@ -274,41 +274,35 @@ def rebuild(path: Path) -> tuple[str, int] | None:
     middle = text[first : last + len("</style>")]
     tail = text[last + len("</style>") :]
 
-    # Only the slide's OWN css counts as existing. Including the previous <style data-shipped>
-    # block here was a silent staleness engine: on any base.css change, last build's shipped
-    # rules differ from this build's, so slide_specific() read them as deliberate differences
-    # and promoted them into the slide block - where, being second and unlayered, they overrode
-    # the very improvement just made. It resurrected the old .phone .notch over the new one, and
-    # would have quietly reverted every future base.css fix across all 162 examples.
     blocks = re.findall(r"<style([^>]*)>(.*?)</style>", middle, re.S)
-    existing = "\n".join(body for attrs, body in blocks if "data-shipped" not in attrs)
-    dark = any(m in existing for m in DARK_MARKERS)
+    dark = dark_theme(text)  # the theme usually lives in data-shipped, not data-slide
     ship = shipped_css(dark)
-    keep = slide_specific(existing, ship, used_classes(tail))
-
+    owned = [body for attrs, body in blocks if "data-slide" in attrs]
+    if any("data-shipped" in attrs for attrs, _ in blocks):
+        # Authored overrides are authoritative. Do not flatten @media, strip comments or revert
+        # unspecified shared properties on every sync. That used to change valid refinements.
+        local = "\n".join(owned).strip()
+        count = len(split_rules(local))
+    else:
+        existing = "\n".join(body for _, body in blocks)
+        keep = slide_specific(existing, ship, used_classes(tail))
+        local = render_block(keep)  # no heuristic resets of shared component properties
+        count = len(keep)
     block = SHIPPED_OPEN + "\n" + ship.strip() + "\n</style>"
-    if keep:
-        block += "\n" + SLIDE_OPEN + "\n" + render_block(keep, bare_index(ship)) + "\n</style>"
-    return head + block + tail, len(keep)
+    if local:
+        block += "\n" + SLIDE_OPEN + "\n" + local + "\n</style>"
+    return head + block + tail, count
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="fail if any example is stale")
+    parser.add_argument("--include-archives", action="store_true", help="explicitly include frozen _ab/_audit HTML; normally leave these untouched")
     parser.add_argument("--report", action="store_true", help="list each example's slide-specific rules")
     parser.add_argument("paths", nargs="*", type=Path, help="limit to these files (default: all examples)")
     args = parser.parse_args()
 
-    def resolve(a: Path) -> Path:
-        return a if a.is_absolute() else (Path.cwd() / a).resolve()
-
-    if args.paths:
-        targets = []
-        for a in (resolve(p) for p in args.paths):
-            targets.extend([a] if a.is_file() else sorted(a.rglob("*.html")))
-        targets = sorted(set(targets))
-    else:
-        targets = sorted(EXAMPLES.rglob("*.html"))
+    targets = collect(args.paths or [EXAMPLES], args.include_archives)
     if not targets:
         print("sync examples: no example files found", file=sys.stderr)
         return 2

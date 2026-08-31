@@ -8,6 +8,9 @@ import json
 import sys
 from pathlib import Path
 
+from slide_html import slides as html_slides, local_asset
+from example_files import collect
+
 
 VALID_VARIANTS = {"agenda-dialogue", "guided-dialogue", "workflow-transform", "ui-qa"}
 VALID_OVERRIDES = {"precise-table", "data", "code", "evidence", "real-ui-detail"}
@@ -21,20 +24,45 @@ def fail(message: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("plan", type=Path)
-    parser.add_argument("deck", type=Path)
+    parser.add_argument("deck", type=Path, nargs="+", help="HTML file(s) or a directory of individual slides")
     args = parser.parse_args()
 
     if not args.plan.is_file():
         fail(f"missing illustration plan: {args.plan}")
-    if not args.deck.is_file():
-        fail(f"missing deck: {args.deck}")
+    for path in args.deck:
+        if not path.exists(): fail(f"missing deck: {path}")
+    files = collect(args.deck)
+    if not files: fail("no deck HTML files found")
 
-    payload = json.loads(args.plan.read_text(encoding="utf-8"))
+    try:
+        payload = json.loads(args.plan.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        fail(f"cannot read illustration plan: {exc}")
+    if not isinstance(payload, dict):
+        fail("plan must be an object")
     slides = payload.get("slides")
     if not isinstance(slides, list) or not slides:
         fail("plan.slides must be a non-empty list")
 
-    html = args.deck.read_text(encoding="utf-8")
+    rendered = []
+    owners = {}
+    for path in files:
+        nodes = html_slides(path.read_text(encoding="utf-8"))
+        if not nodes: fail(f"{path}: no .slide elements")
+        rendered.extend(nodes)
+        owners.update({id(node):path for node in nodes})
+    if not rendered:
+        fail("deck has no .slide elements")
+    by_id = {}
+    for node in rendered:
+        slide_id = node.attrs.get("id", "").strip()
+        if not slide_id or any(c.isspace() for c in slide_id):
+            fail("every .slide element needs a non-empty, whitespace-free id")
+        if slide_id in by_id:
+            fail(f"duplicate HTML slide id: {slide_id}")
+        if any("slide" in child.classes for child in list(node.walk())[1:]):
+            fail(f"nested .slide element inside {slide_id}")
+        by_id[slide_id] = node
     seen: set[str] = set()
     required = 0
 
@@ -49,8 +77,9 @@ def main() -> None:
         if not slide_id or slide_id in seen:
             fail(f"slides[{index}] has a missing or duplicate id")
         seen.add(slide_id)
-        if f'id="{slide_id}"' not in html and f"id='{slide_id}'" not in html:
-            fail(f"{slide_id} is not present in the deck HTML")
+        if slide_id not in by_id:
+            fail(f"{slide_id} is not an actual .slide in the deck HTML")
+        elements = list(by_id[slide_id].walk(visible=True))
         if gate not in {"yes", "no"}:
             fail(f"{slide_id} gate must be yes or no")
         if not trigger:
@@ -83,14 +112,19 @@ def main() -> None:
         refs = slide.get("references")
         if not isinstance(refs, list) or not refs:
             fail(f"{slide_id} must record matching style references")
-        if asset_value.replace("\\", "/") not in html.replace("\\", "/"):
-            fail(f"{slide_id} asset is not placed in the deck HTML")
-        marker = f'data-editorial-explainer="{variant}"'
-        marker_single = f"data-editorial-explainer='{variant}'"
-        if marker not in html and marker_single not in html:
-            fail(f"{slide_id} lacks the matching HTML variant marker")
+        stages = [node for node in elements if node.attrs.get("data-editorial-explainer") == variant]
+        if not stages:
+            fail(f"{slide_id} lacks the matching visible HTML variant marker")
+        if not any(local_asset(url, owners[id(by_id[slide_id])]) == asset
+                   for stage in stages for node in stage.walk(visible=True)
+                   for url in node.asset_urls()):
+            fail(f"{slide_id} asset is not placed inside its matching variant stage")
 
-    print(f"PASS: {len(slides)} slide decisions; {required} generated editorial explainers verified")
+    missing = sorted(set(by_id) - seen)
+    if missing:
+        fail("slides missing illustration decisions: " + ", ".join(missing))
+
+    print(f"PASS: {len(slides)} slide decisions; {required} generated asset records checked (provenance is declared, not independently attested)")
 
 
 if __name__ == "__main__":

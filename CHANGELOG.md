@@ -1,3 +1,20 @@
+## Unreleased — reliability, synchronization and reviewed preferences (2026-08-31)
+
+- Check actual slide elements, including omitted-head HTML; require exhaustive illustration decisions
+  across a single file or individual-slide directory. Match generated assets only in the owning stage.
+- Count authored visuals, not CSS/script strings. Keep render failures separate from quality failures;
+  skip viewers/reference galleries and require full-height poster checks. Ignore footer gaps correctly.
+- Embed one shared CSS bundle, preserve local overrides, restore eight dark themes, scope device/gallery
+  styles and protect all 115 historical HTML snapshots. Repair card alignment and sparse compositions.
+- Support declared routing shape variants with their own asset policies, report ties/unmatched shapes,
+  and preserve all 40 request expectations as regression coverage (not a new blind benchmark).
+- Record human R51–R55 preferences B/A/A/B/A; align R52 numeric values independently of the fill.
+  Freeze portable reviewed pairs with hashes and include the new votes in calibration.
+- Add a centralized check command and core GitHub Actions workflow. Update current visual baselines
+  after review; missing baselines now fail rather than pass silently.
+- Add native-text Chromium PDF export with page-count verification. Document the existing three-template
+  PPTX limit, pilot recipe coverage, structural provenance limits and non-slide example inventory.
+
 # Changelog — Bonny Slide System
 
 Version history for the skill. The agent does **not** need this at build time; it lives here so

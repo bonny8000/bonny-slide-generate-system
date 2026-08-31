@@ -43,6 +43,9 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from slide_html import document, slides as html_slides, has_visual
+from example_files import collect
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -408,7 +411,9 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
     text_gap = 0.0
     if t_filled:
         longest_t = run = 0
-        for r in range(t_filled[0], t_filled[-1] + 1):
+        # Apply the same footer boundary as the occupancy grid. Otherwise a small page
+        # number makes the whitespace below a compact composition look like an empty card.
+        for r in range(t_filled[0], min(t_filled[-1], content_last) + 1):
             run = 0 if text_rows[r] else run + 1
             longest_t = max(longest_t, run)
         text_gap = longest_t / GRID_ROWS
@@ -457,22 +462,6 @@ HEX_VALUE_RE = re.compile(r"[:,(]\s*(#[0-9a-fA-F]{3,8})\b")
 
 INLINE_STYLE_RE = re.compile(r"""style\s*=\s*["']([^"']*)["']""", re.I)
 
-# A "visual moment" per layout-balance.md: a real image, a logo row, a device mockup, or a
-# generated editorial explainer. Icons and chips are seasoning and deliberately do not count.
-VISUAL_MARKERS = (
-    "data-editorial-explainer",
-    "class=\"shot",
-    "class='shot",
-    " shot\"",
-    " shot'",
-    "logo-row",
-    "logorow",
-    "ui-mockup",
-    "appframe",
-    "phone",
-    "device-stack",
-    "<img",
-)
 # Output language is DECLARED, not hardcoded. The system's default is 繁中 primary + English
 # supporting, but a deck asked for in another language must be able to pass — so the check is
 # "does this slide contain a script its declared languages do not imply", not "is this Korean".
@@ -523,13 +512,11 @@ TAG_RE = re.compile(r"<(script|style)\b.*?</\1>|<[^>]+>", re.S | re.I)
 
 
 def visible_text(html: str) -> str:
-    body = html.split("<body", 1)[-1] if "<body" in html else html
-    return TAG_RE.sub(" ", body)
+    return document(html).text()
 
 
 def has_visual_moment(html: str) -> bool:
-    body = (html.split("<body", 1)[-1] if "<body" in html else html).lower()
-    return any(marker.lower() in body for marker in VISUAL_MARKERS)
+    return has_visual(html)
 
 
 def find_hardcoded_hex(html: str, strict: bool) -> list[str]:
@@ -596,11 +583,15 @@ def slide_kind(html: str) -> str:
     Only the rendered body is inspected — a <style> block naming `.slide.section-cover` says
     nothing about what this particular slide is.
     """
-    body = html.split("<body", 1)[-1] if "<body" in html else html
-    if "data-editorial-explainer" in body.lower():
+    nodes = html_slides(html)
+    if not nodes:
+        return "content"
+    slide = nodes[0]
+    if "poster" in slide.classes:
+        return "poster"
+    if any("data-editorial-explainer" in node.attrs for node in slide.walk(visible=True)):
         return "editorial-explainer"
-    match = SLIDE_CLASS_RE.search(body)
-    if match and SPARSE_CLASSES & set(match.group(1).lower().split()):
+    if SPARSE_CLASSES & slide.classes:
         return "sparse-exception"
     return "content"
 
@@ -741,7 +732,7 @@ def evaluate(
 
 def is_deck_container(html: str) -> bool:
     """True when the page holds more than one slide, i.e. it is a viewer rather than a slide."""
-    return len(re.findall(r'class="(?:[^"]* )?slide[ "]', html)) > 1
+    return len(html_slides(html)) > 1
 
 
 def main() -> int:
@@ -773,6 +764,8 @@ def main() -> int:
         action="store_true",
         help="also scan <style> blocks for hardcoded colour, not just inline style attributes",
     )
+    parser.add_argument("--include-archives", action="store_true", help="also validate frozen _ab/_audit examples")
+    parser.add_argument("--poster-height", type=int, help="explicit full poster height measured in the browser; renders at 1080px wide, separate from deck geometry")
     args = parser.parse_args()
 
     try:
@@ -781,12 +774,7 @@ def main() -> int:
         print(f"layout validate: {exc}", file=sys.stderr)
         return 2
 
-    targets: list[Path] = []
-    for slide in args.slides:
-        if slide.is_dir():
-            targets.extend(sorted(slide.rglob("*.html")))
-        else:
-            targets.append(slide)
+    targets = collect(args.slides, args.include_archives)
     if not targets:
         print("layout validate: no slides given", file=sys.stderr)
         return 2
@@ -800,13 +788,20 @@ def main() -> int:
         "deadQuadrantShare": DEAD_QUADRANT_SHARE,
     }}
     failed = 0
+    errors = 0
+    measured = []
 
     for slide in targets:
         if not slide.is_file():
             print(f"FAIL {slide} — file not found", file=sys.stderr)
-            failed += 1
+            errors += 1
+            report["slides"].append({"slide": str(slide), "error": "file not found"})
             continue
         html = slide.read_text(encoding="utf-8", errors="replace")
+        if not html_slides(html):
+            print(f"skip {slide}  [reference/non-slide page; review separately]")
+            report["slides"].append({"slide":str(slide),"skipped":"non-slide"})
+            continue
         if is_deck_container(html):
             # A scroll-through viewer holding many slides is not a slide. Rendering it at 1920x1080
             # measures a wall of frames and reports 100% coverage - a real number about the wrong
@@ -815,13 +810,19 @@ def main() -> int:
             report["slides"].append({"slide": str(slide), "skipped": "deck-container"})
             continue
         kind = slide_kind(html)
+        if kind == "poster" and not args.poster_height:
+            print(f"skip {slide}  [poster; measure full height and use --poster-height, then visually review]")
+            report["slides"].append({"slide":str(slide),"skipped":"poster"})
+            continue
+        measured.append(slide)
         try:
-            png = render_with_any(slide, browsers, args.width, args.height, args.scale)
+            render_width,render_height = (1080,args.poster_height) if kind=="poster" else (args.width,args.height)
+            png = render_with_any(slide, browsers, render_width, render_height, args.scale)
             width, height, channels, pixels = decode_png(png)
             metrics = analyse(width, height, channels, pixels)
         except (LayoutError, subprocess.TimeoutExpired, zlib.error) as exc:
             print(f"FAIL {slide} — {exc}", file=sys.stderr)
-            failed += 1
+            errors += 1
             report["slides"].append({"slide": str(slide), "error": str(exc)})
             continue
 
@@ -843,38 +844,48 @@ def main() -> int:
                 print(f"       - {problem}")
         elif not args.quiet:
             ws = metrics["whitespace_ratio"]
-            note = "" if kind == "content" else f", {kind} exception applied"
+            note = "" if kind == "content" else (", full-poster render; deck geometry not applicable" if kind=="poster" else f", {kind} exception applied")
             print(f"pass {slide}  [{kind}]  whitespace {ws:.0%}{note}")
-
-    if args.json:
-        args.json.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     # Deck-level visual pacing (layout-balance.md v12.7): per-slide checks all pass and the deck
     # still reads like a document. Only meaningful once the deck is long enough to feel dry.
     deck_note = ""
-    if args.deck and len(targets) >= 8:
+    if args.deck and len(measured) >= 8:
         visual = [
             t
-            for t in targets
+            for t in measured
             if t.is_file() and has_visual_moment(t.read_text(encoding="utf-8", errors="replace"))
         ]
         if not visual:
             failed += 1
             print(
-                f"\nFAIL deck pacing — {len(targets)} slides carry no genuine visual moment "
+                f"\nFAIL deck pacing — {len(measured)} slides carry no genuine visual moment "
                 "(real screenshot, logo-row, device mockup, or generated explainer). Icons and chips "
                 "do not count. Elevate the best candidate page rather than shipping a dry deck."
             )
         else:
-            deck_note = f"deck pacing: {len(visual)}/{len(targets)} slides carry a visual moment"
+            deck_note = f"deck pacing: {len(visual)}/{len(measured)} slides carry a visual moment"
+        report["deckPacing"] = {"slides":len(measured), "visualSlides":[str(p) for p in visual],
+                                "passed":bool(visual)}
 
-    total = len(targets)
+    if not measured and not errors:
+        errors += 1
+        print("layout validate: no individual slides measured; supply the slide files, not only a viewer", file=sys.stderr)
+    report["summary"] = {"measured":len(measured), "skipped":sum("skipped" in s for s in report["slides"]),
+                         "failures":failed, "errors":errors}
+    if args.json:
+        args.json.write_text(json.dumps(report, indent=2), encoding="utf-8")
+
+    total = len(measured)
     if deck_note:
         print(deck_note)
+    if errors:
+        print(f"\nlayout gate could not run on {errors}/{total} slide(s)", file=sys.stderr)
+        return 2
     if failed:
         print(f"\nlayout gate FAILED: {failed}/{total} slide(s) need fixing", file=sys.stderr)
         return 1
-    print(f"\nlayout gate passed: {total}/{total} slide(s) balanced")
+    print(f"\nlayout gate passed: {total}/{total} item(s) passed applicable checks")
     return 0
 
 

@@ -179,11 +179,11 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any]) -> dict[
         "recipes.selectionPolicy",
     )
     if policy != {
-        "primaryKey": "intent",
+        "primaryKey": "shape",
         "migrationStatusAffectsSelection": False,
         "source": "specs/content-map.md",
     }:
-        raise BuildError("recipe selection policy must remain intention-first with zero migration weighting")
+        raise BuildError("recipe selection policy must remain shape-first with zero migration weighting")
     recipes = data["recipes"]
     if not isinstance(recipes, dict) or not recipes:
         raise BuildError("recipes.recipes: expected a non-empty object")
@@ -368,7 +368,7 @@ def render_reference(hypertokens: dict[str, Any], recipes: dict[str, Any]) -> st
         "# Hypertoken reference",
         "",
         "Hypertokens are reusable implementation fragments. They do **not** select components or layouts.",
-        "Selection remains intention-first in `specs/content-map.md`; migration status has zero selection weight.",
+        "Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.",
         "",
         "## Pilot hypertokens",
         "",
@@ -515,6 +515,7 @@ def load_specs() -> dict[str, dict[str, Any]]:
                 "material": str(data.get("material", "")).strip(),
                 "arrangement": str(data.get("arrangement", "")).strip(),
                 "itemCount": str(data.get("item_count", "")).strip(),
+                "shapeVariants": data.get("shape_variants", []) or [],
                 "alternates": data.get("alternates", []) or [],
                 "triggers": triggers,
                 "spec": where,
@@ -657,9 +658,9 @@ def render_router_json(specs: dict[str, dict[str, Any]]) -> str:
             "primaryKey": "shape",
             "note": (
                 "Two axes. `intent` is what the page must DO; `material`/`arrangement`/`itemCount` "
-                "is what the slide actually holds. Measured on this library, intent alone identifies "
-                "13 of 25 layouts and the shape triple alone identifies 24 of 25, so shape decides "
-                "and intent breaks the remaining tie. Triggers are multilingual surface forms for "
+                "is what the slide actually holds. Match the default shape or an explicitly declared "
+                "shapeVariants entry, applying that variant\'s asset policy; intent resolves remaining "
+                "candidates. An equal score is ambiguous, not an alphabetical winner. Triggers are multilingual surface forms for "
                 "recognising either axis. Layouts are the unit of selection; components resolve via "
                 "dependsOn."
             ),
@@ -701,6 +702,19 @@ def annotate_assets_and_alternates(specs: dict[str, dict[str, Any]]) -> None:
     for spec_id, spec in specs.items():
         if spec["kind"] != "layout":
             continue
+        variants = spec.get("shapeVariants", [])
+        if not isinstance(variants, list):
+            raise BuildError(f"{spec['spec']}: shape_variants must be a list")
+        parsed = []
+        for variant in variants:
+            parts = [part.strip() for part in variant.split("/")]
+            if len(parts) != 3 or not all(parts):
+                raise BuildError(f"{spec['spec']}: invalid shape variant {variant!r}")
+            material, arrangement, count = parts
+            need, policy = asset_need(material)
+            parsed.append(dict(material=material, arrangement=arrangement, itemCount=count,
+                               assetNeed=need, assetPolicy=policy))
+        spec["shapeVariants"] = parsed
         need, policy = asset_need(spec.get("material", ""))
         spec["assetNeed"] = need
         spec["assetPolicy"] = policy
@@ -753,8 +767,8 @@ def render_router_md(specs: dict[str, dict[str, Any]]) -> str:
         "`content-map.md` stays the hand-written narrative router (detection heuristics + component",
         "pairings); **this file is the complete index** — if a pattern is not here, it does not exist.",
         "",
-        "Read `intent` first (what the page must DO), then confirm with `triggers` (what the content looks",
-        "like). Machine-readable form: `system/router.json`.",
+        "Declare intent and available content first. Narrow by shape (including declared variants),",
+        "then resolve by intent/triggers; never silently discard an unmatched shape. Machine form: `system/router.json`.",
         "",
     ]
     sections = (
@@ -774,6 +788,10 @@ def render_router_md(specs: dict[str, dict[str, Any]]) -> str:
             shape = " / ".join(
                 part for part in (spec.get("material"), spec.get("arrangement"), spec.get("itemCount")) if part
             ) or "—"
+            variants = [" / ".join(v[key] for key in ("material", "arrangement", "itemCount"))
+                        + " (asset: " + v["assetPolicy"] + ")" for v in spec.get("shapeVariants", [])]
+            if variants:
+                shape += "<br>variants: " + "; ".join(variants)
             lines.append(
                 f"| `{spec_id}` | {spec['intent']} | {shape} | {triggers} | `{spec['spec']}` |"
             )

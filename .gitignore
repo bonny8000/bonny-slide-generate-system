@@ -11,3 +11,6 @@ examples/**/ShaderCache/
 # Python compiler caches
 __pycache__/
 *.pyc
+
+# Reproducible local reviews and exports
+work/

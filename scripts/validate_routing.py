@@ -1,43 +1,13 @@
 #!/usr/bin/env python3
-"""Measure whether the router actually resolves a real request to the right layout.
+"""Replay requests through the lexical shape/intent router.
 
-`compile_system.py --check` proves every layout is *reachable* — it has a `content-map.md` row, its
-triggers are unique, its `dependsOn` resolve. That is structure. It says nothing about whether a
-request phrased the way a person phrases it lands on the right entry, which is the failure the whole
-router exists to prevent: the agent finds nothing to match, free-picks from memory, and reaches for
-the same familiar layout every time.
+A diagnostic for the routing table, not a prediction or lower bound on AI performance.
+A declared shape must match a default or explicit variant; equal scores are AMBIG.
+The original held-out cases have now been inspected and repaired, so both fixtures are
+regression tests. Their pass rate is not independent evidence of generalization.
 
-So this replays `specs/routing-cases.md` through the router and reports one of three outcomes:
-
-    HIT    the expected layout scored top
-    WRONG  a different layout scored top — the table actively misroutes this request
-    MISS   nothing scored at all — the table gave the agent no signal, so it free-picks
-
-**Read MISS as the important number.** WRONG is a trigger that needs sharpening; MISS is a hole.
-
-This matcher is lexical: CJK bigrams plus latin word stems, scored against each entry's triggers and
-intent line. The agent reading `generated-router.md` matches *semantically* and will do better, so
-these results are a **lower bound**, not a prediction of agent behaviour. That is the point — a case
-that HITs here is one the agent cannot get wrong, because the table alone determines it. A MISS here
-is a case whose outcome rests entirely on the model's judgement that day, which is exactly the
-inconsistency this system was built to remove.
-
-**Two fixtures, and the gap between them is the real result.** `specs/routing-cases.md` is the
-working set; triggers were sharpened against it, so it scores 30/30 and that number means very
-little. `specs/routing-cases-heldout.md` was written afterwards without consulting any trigger list
-and scores **4/10**. Trust the held-out number. If you tune against it, it is spent — write a new one.
-
-Measured so far: adding 繁中 triggers to 17 layouts moved blind performance from 30% to ~40%. The
-first pass found the cause of the original failure — only 10 of 122 triggers contained any 繁中 while
-繁中 is the primary output language, so 17 of 25 layouts were invisible to Chinese input and the 8
-that were visible swallowed everything.
-
-Usage:
-    python scripts/validate_routing.py            # the working fixture
-    python scripts/validate_routing.py --cases specs/routing-cases-heldout.md   # the honest one
-    python scripts/validate_routing.py --verbose  # show the runner-up and score for each
-
-Exit codes: 0 = every case HITs · 1 = some WRONG or MISS · 2 = cannot run.
+Usage: python scripts/validate_routing.py [--cases specs/routing-cases-heldout.md] [--verbose]
+Exit: 0 all expected layouts; 1 wrong/unmatched/ambiguous; 2 cannot run.
 """
 
 from __future__ import annotations
@@ -48,6 +18,8 @@ import math
 import re
 import sys
 from pathlib import Path
+from example_files import collect
+from slide_html import document
 
 ROOT = Path(__file__).resolve().parent.parent
 ROUTER = ROOT / "system" / "router.json"
@@ -55,7 +27,7 @@ CASES = ROOT / "specs" / "routing-cases.md"
 
 CJK = r"㐀-䶿一-鿿"
 # Function words carry no routing signal and would otherwise let any two Chinese sentences overlap.
-STOP_BIGRAMS = {"我們", "這個", "怎麼", "可以", "他們", "還有", "一個", "幾個", "把它"}
+STOP_BIGRAMS = {"我們", "這個", "怎麼", "可以", "他們", "還有", "一個", "幾個", "把它", "們的", "我的", "你的", "他的", "它的", "什麼", "哪些"}
 STOP_WORDS = {"the", "and", "with", "for", "each", "that", "this", "into", "から", "their", "them"}
 
 
@@ -77,23 +49,11 @@ def tokens(text: str) -> set[str]:
 
 
 def corpus_idf() -> dict[str, float]:
-    """How common each token is in real deck copy — the weight a match on it deserves.
-
-    The first version of this scorer weighted every token equally, which is how `使用者輪廓` turned
-    the bigram 使用者 into an attractor that won unrelated requests outright. The obvious fix — IDF
-    over the router's own 25 entries — does not work: it scores 改版 (in one layout) as *more*
-    distinctive than 使用者 (in four), yet 改版 was an attractor too. Rarity among layouts is the
-    wrong question. What matters is rarity among the things people actually say, so the corpus is the
-    161 example slides' real copy. Measured against the two attractors found by hand, it ranks them
-    lowest (使用 1.20, 用者 1.37, 改版 2.00) and the distinctive replacements highest (人物誌 5.09,
-    親和 5.09, 象限 4.39).
-    """
+    """IDF from visible copy in current examples; frozen A/B duplicates do not bias weights."""
     docs: list[set[str]] = []
-    for path in (ROOT / "examples").rglob("*.html"):
+    for path in collect([ROOT / "examples"]):
         text = path.read_text(encoding="utf-8", errors="replace")
-        body = text.rsplit("</style>", 1)[-1]
-        body = re.sub(r"<[^>]+>", " ", body)
-        body = re.sub(r"&[a-z]+;", " ", body)
+        body = document(text).text()
         docs.append(tokens(body))
     n = len(docs) or 1
     df: dict[str, int] = {}
@@ -146,8 +106,28 @@ def by_shape(shape: str, entries: dict[str, dict]) -> list[str]:
     return [
         k
         for k, e in entries.items()
-        if (e.get("material"), e.get("arrangement"), e.get("itemCount")) == want
+        if any((v.get("material"), v.get("arrangement"), v.get("itemCount")) == want
+               for v in [e, *e.get("shapeVariants", [])])
     ]
+
+
+def resolve(request: str, shape: str, entries: dict[str, dict], idf: dict[str, float]) -> dict:
+    """A declared shape is a constraint. Never discard it or break a tie alphabetically."""
+    keys = by_shape(shape, entries) if shape else list(entries)
+    if not keys:
+        return dict(status="MISS", top=None, score=0, candidates=[], runner="-")
+    ranked = sorted(((score(request, entries[k], idf), k) for k in keys), reverse=True)
+    top_score, top = ranked[0]
+    if shape and len(keys) == 1:
+        top_score = max(top_score, 1.0)
+    tied = [k for value, k in ranked if math.isclose(value, top_score, abs_tol=1e-9)]
+    status = "resolved"
+    if top_score <= 0:
+        status = "AMBIG" if shape else "MISS"
+    elif len(tied) > 1:
+        status = "AMBIG"
+    return dict(status=status, top=top if status == "resolved" else None,
+                score=top_score, candidates=tied or keys, runner=ranked[1][1] if len(ranked)>1 else "-")
 
 
 def score(query: str, entry: dict, idf: dict[str, float]) -> float:
@@ -183,7 +163,7 @@ def score(query: str, entry: dict, idf: dict[str, float]) -> float:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--verbose", action="store_true", help="show runner-up and scores")
-    ap.add_argument("--cases", type=Path, default=CASES, help="alternate fixture (for held-out runs)")
+    ap.add_argument("--cases", type=Path, default=CASES, help="alternate regression fixture")
     args = ap.parse_args()
 
     if not ROUTER.exists() or not args.cases.exists():
@@ -200,23 +180,11 @@ def main() -> int:
     hits = wrong = miss = ambig = 0
     rows: list[tuple[str, str, str, str, float]] = []
     for request, shape, expected in cases:
-        pool = entries
-        if shape:
-            narrowed = by_shape(shape, entries)
-            if narrowed:
-                pool = {k: entries[k] for k in narrowed}
-        ranked = sorted(
-            ((score(request, e, idf), k) for k, e in pool.items()), reverse=True
-        )
-        top_score, top = ranked[0]
-        if shape and len(pool) == 1:
-            top_score = max(top_score, 1.0)  # shape alone settled it
-        runner = ranked[1][1] if len(ranked) > 1 else "-"
-        if top_score <= 0 and shape and len(pool) < len(entries):
-            # shape did narrow it; intent just failed to break the remaining tie. That is a much
-            # smaller failure than "nothing matched" and must not be reported as a free-pick.
+        result = resolve(request, shape, entries, idf)
+        top_score, top, runner = result["score"], result["top"], result["runner"]
+        if result["status"] == "AMBIG":
             verdict, ambig = "AMBIG", ambig + 1
-        elif top_score <= 0:
+        elif result["status"] == "MISS":
             verdict, miss = "MISS ", miss + 1
         elif top == expected:
             verdict, hits = "hit  ", hits + 1
@@ -224,7 +192,7 @@ def main() -> int:
             verdict, wrong = "WRONG", wrong + 1
         rows.append((verdict, request, expected, top, top_score))
         if verdict != "hit  " or args.verbose:
-            got = ("[" + " | ".join(sorted(pool)) + "]") if verdict == "AMBIG" else ("—" if top_score <= 0 else top)
+            got = ("[" + " | ".join(sorted(result["candidates"])) + "]") if verdict == "AMBIG" else (top or "—")
             print(f"{verdict}  {request[:44]:44s}  expect {expected:26s} got {got:26s} {top_score:4.1f}")
             if args.verbose:
                 print(f"{'':53s}runner-up {runner}")
@@ -232,7 +200,7 @@ def main() -> int:
     total = len(cases)
     print(
         f"\n{hits}/{total} resolve to the expected layout"
-        f"  ·  {wrong} misrouted  ·  {miss} unresolved (agent free-picks)"
+        f"  ·  {wrong} misrouted  ·  {miss} unmatched  ·  {ambig} ambiguous"
     )
     if miss:
         print(

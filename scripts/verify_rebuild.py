@@ -32,26 +32,18 @@ import argparse
 import re
 import sys
 import tempfile
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from validate_layout import find_browsers, render_with_any  # noqa: E402
-from visual_baseline import compare, fingerprint  # noqa: E402
+from visual_baseline import compare, fingerprint
+from sync_examples import shipped_css, dark_theme
+from example_files import collect  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 MEAN_MAX = 2.0
 PEAK_MAX = 12.0
-
-
-def shipped_css(dark: bool) -> str:
-    theme = "tokens-dark.css" if dark else "tokens-light.css"
-    parts = [
-        (ROOT / "assets" / theme).read_text(encoding="utf-8"),
-        (ROOT / "assets" / "generated" / "base-bundle.css").read_text(encoding="utf-8"),
-        # the bundle is already inlined above, so drop base.css's @import of it
-        re.sub(r"@import[^;]+;", "", (ROOT / "assets" / "base.css").read_text(encoding="utf-8")),
-    ]
-    return "".join(parts)
 
 
 def main() -> int:
@@ -68,7 +60,7 @@ def main() -> int:
         print(f"verify rebuild: {exc}", file=sys.stderr)
         return 2
 
-    examples = sorted((ROOT / "examples").rglob("*.html"))
+    examples = collect([ROOT / "examples"])
     if args.names:
         wanted = set(args.names)
         examples = [e for e in examples if e.stem in wanted]
@@ -80,16 +72,19 @@ def main() -> int:
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
         for example in examples:
             src = example.read_text(encoding="utf-8", errors="replace")
-            if "</style>" not in src:
-                continue
-            dark = "--canvas:#1B1B20" in src or "--canvas: #1B1B20" in src
-            markup = src.split("</style>")[-1]  # everything after the last style block
+            if '<style data-shipped>' not in src:
+                print(f'verify rebuild: {example} is not synced; run sync_examples.py',file=sys.stderr)
+                return 2
+            # Change only the sheet under test. Reconstructing a new document discarded
+            # metadata/head/body attributes and could report that loss as local CSS reliance.
+            content=re.sub(r'<style data-shipped>.*?</style>',
+                           lambda m:'<style data-shipped>'+shipped_css(dark_theme(src))+'</style>',src,count=1,flags=re.S)
+            content=re.sub(r'<style data-slide>.*?</style>','',content,flags=re.S)
+            if not re.search(r'<base\b',content,re.I):
+                content=re.sub(r'(<head\b[^>]*>)',lambda m:m[0]+'<base href="'+escape(example.parent.as_uri()+'/')+'">',content,count=1,flags=re.I)
             rebuilt = Path(tmp) / (example.stem + ".html")
             rebuilt.write_text(
-                "<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'><style>"
-                + shipped_css(dark)
-                + "</style></head>"
-                + markup,
+                content,
                 encoding="utf-8",
                 newline="\n",
             )

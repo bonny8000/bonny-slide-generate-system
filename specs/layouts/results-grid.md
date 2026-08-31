@@ -75,3 +75,6 @@ column cards "+34% retention" (people icon) and "revision requests → 4/mo" (pe
 
 > Note: Img13 is a Korean reference; this spec captures its **structure only**. The system reproduces in
 > 繁中 + English — never Korean.
+
+## Human preference refinement
+R52 A (2026-08-31): lead supporting metric uses an accent-soft surface; numeric values in all rows keep the same horizontal inset. The fill is not an alignment anchor.
