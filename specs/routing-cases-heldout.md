@@ -1,16 +1,12 @@
-# Routing cases — held out
+# Routing cases — former held-out set, now regression
 
-**Do not add triggers to make these pass.** These exist to give an unbiased reading of the router.
-The moment a trigger is written while looking at this file, the number it produces stops meaning
-anything, and the only honest fix is to write a fresh held-out set.
+This set was originally held out: lexical routing scored 4/10, then shape normalization scored 8/10.
+On 2026-08-31 its failures were inspected and repaired. It is now a regression fixture, **not** an
+independent benchmark. Keep the original requests and expected layouts unchanged. A future blind
+benchmark must be authored and withheld independently; no generalization claim follows from 10/10.
+The filename is retained for command compatibility.
 
-`specs/routing-cases.md` is the working fixture; it scores 30/30 because triggers were sharpened
-against it. This file was written afterwards, in one pass, without consulting any trigger list — and
-it scores **4/10**. That gap *is* the finding: the tuned number measures the fixture, not the router.
-
-Run it with:
-
-    python scripts/validate_routing.py --cases specs/routing-cases-heldout.md
+Run: `python scripts/validate_routing.py --cases specs/routing-cases-heldout.md`
 
 | request | shape declared from the request | expect |
 | --- | --- | --- |

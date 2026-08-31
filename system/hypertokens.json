@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "selectionPolicy": {
     "migrationStatusAffectsSelection": false,
-    "note": "Hypertokens are implementation fragments. Component and layout selection remains intention-first in specs/content-map.md."
+    "note": "Hypertokens are implementation fragments. Component and layout selection narrows by shape, then intention, in specs/content-map.md."
   },
   "hypertokens": {
     "surface.card": {

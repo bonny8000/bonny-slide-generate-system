@@ -6,6 +6,7 @@ status: stable        # example built + render-validated
 intent: show how specific UI features deliver value / resolve user anxieties
 triggers: [feature areas, app screens to show, "this screen does X", annotated UI, a detail page walkthrough, 功能畫面解說, 這個畫面能做什麼, 標註過的介面, 功能如何化解不安]
 material: ui-mockup
+shape_variants: ["ui-screen / split / pair"]
 arrangement: split
 item_count: pair
 alternates: [feature-grid]
@@ -54,3 +55,8 @@ not by a new hue.
 ## Example
 "聚會詳情頁" with a language-level area (phone + donut card) and a profile area (dark panel, profile
 screens + a "verified" badge callout) (learned from Img21, structure only).
+
+## Supplied-screen variant
+`ui-screen / split / pair` preserves the two-feature composition with actual supplied screenshots.
+Its asset policy is `must-supply`; the default `ui-mockup` variant remains schematic and buildable.
+Never present a built mockup as the supplied-screen variant.

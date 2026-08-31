@@ -2,7 +2,7 @@
   "$schema": "schema/recipes.schema.json",
   "version": "1.0.0",
   "selectionPolicy": {
-    "primaryKey": "intent",
+    "primaryKey": "shape",
     "migrationStatusAffectsSelection": false,
     "source": "specs/content-map.md"
   },

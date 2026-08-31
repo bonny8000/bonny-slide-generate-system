@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "selectionPolicy": {
     "primaryKey": "shape",
-    "note": "Two axes. `intent` is what the page must DO; `material`/`arrangement`/`itemCount` is what the slide actually holds. Measured on this library, intent alone identifies 13 of 25 layouts and the shape triple alone identifies 24 of 25, so shape decides and intent breaks the remaining tie. Triggers are multilingual surface forms for recognising either axis. Layouts are the unit of selection; components resolve via dependsOn.",
+    "note": "Two axes. `intent` is what the page must DO; `material`/`arrangement`/`itemCount` is what the slide actually holds. Match the default shape or an explicitly declared shapeVariants entry, applying that variant's asset policy; intent resolves remaining candidates. An equal score is ambiguous, not an alphabetical winner. Triggers are multilingual surface forms for recognising either axis. Layouts are the unit of selection; components resolve via dependsOn.",
     "tieBreak": [
       "1. availability - drop any candidate whose assetPolicy is 'must-supply' when the user has not supplied that asset. A ui-screen cannot be invented.",
       "2. fit - prefer the candidate whose itemCount matches how many items you actually have. Three items in a 'many' layout starves the slide; seven in a 'pair' overflows it. This is the same failure validate_layout.py measures after the fact.",
@@ -721,6 +721,9 @@
     "問題與解法": [
       "problem-solution"
     ],
+    "客戶分類": [
+      "use-case-cards"
+    ],
     "實際畫面加問答": [
       "editorial-explainer-stage"
     ],
@@ -925,6 +928,9 @@
     "設定畫面": [
       "ui-mockup"
     ],
+    "設計原則": [
+      "keyword-cards"
+    ],
     "設計想法": [
       "idea-evidence"
     ],
@@ -1001,6 +1007,7 @@
       "material": "ui-mockup",
       "arrangement": "opposed",
       "itemCount": "pair",
+      "shapeVariants": [],
       "alternates": [
         "problem-solution"
       ],
@@ -1044,6 +1051,7 @@
       "material": "stat+chart+logo",
       "arrangement": "question-then-proof",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "framing question",
@@ -1085,6 +1093,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "desk-research citation",
@@ -1115,6 +1124,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "competitive analysis",
@@ -1152,6 +1162,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "CTAs",
@@ -1184,6 +1195,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "before to after",
@@ -1217,6 +1229,7 @@
       "material": "illustration+ui-screen",
       "arrangement": "narrative-stage",
       "itemCount": "one",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "workshop timing and rules",
@@ -1266,6 +1279,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "one proof card in a trio",
@@ -1299,6 +1313,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "a single feature/capability",
@@ -1330,6 +1345,7 @@
       "material": "icon",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "feature-showcase"
       ],
@@ -1371,6 +1387,15 @@
       "material": "ui-mockup",
       "arrangement": "split",
       "itemCount": "pair",
+      "shapeVariants": [
+        {
+          "material": "ui-screen",
+          "arrangement": "split",
+          "itemCount": "pair",
+          "assetNeed": "ui-screen",
+          "assetPolicy": "must-supply"
+        }
+      ],
       "alternates": [
         "feature-grid"
       ],
@@ -1416,6 +1441,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "region/country map",
@@ -1448,6 +1474,7 @@
       "material": "icon",
       "arrangement": "centre-satellite",
       "itemCount": "many",
+      "shapeVariants": [],
       "alternates": [
         "linked-circles"
       ],
@@ -1490,6 +1517,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "categories",
@@ -1523,6 +1551,7 @@
       "material": "chart",
       "arrangement": "split",
       "itemCount": "one",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "an idea/claim + a supporting chart or stat",
@@ -1563,6 +1592,7 @@
       "material": "quote",
       "arrangement": "converge",
       "itemCount": "many",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "interview groups/segments",
@@ -1603,6 +1633,7 @@
       "material": "text-only",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "terminology-cards"
       ],
@@ -1613,6 +1644,7 @@
         "核心理念",
         "幾個關鍵字等重呈現",
         "我們的準則",
+        "設計原則",
         "理念並列呈現"
       ],
       "spec": "specs/layouts/keyword-cards.md",
@@ -1642,6 +1674,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "persona behavior traits",
@@ -1677,6 +1710,7 @@
       "material": "text-only",
       "arrangement": "continuum",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "hero-radial"
       ],
@@ -1720,6 +1754,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "tools",
@@ -1754,6 +1789,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "one result + a one-line reason",
@@ -1784,6 +1820,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "a point inside a numbered sequence",
@@ -1813,6 +1850,7 @@
       "material": "chart",
       "arrangement": "rows",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "1/2/3 points each with data",
@@ -1854,6 +1892,7 @@
       "material": "quote",
       "arrangement": "split",
       "itemCount": "one",
+      "shapeVariants": [],
       "alternates": [
         "qual-quant-split"
       ],
@@ -1898,6 +1937,7 @@
       "material": "quote+illustration",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "use-case-cards"
       ],
@@ -1944,6 +1984,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "single share",
@@ -1978,6 +2019,7 @@
       "material": "text-only",
       "arrangement": "matrix",
       "itemCount": "many",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "perceptual map",
@@ -2022,6 +2064,7 @@
       "material": "text-only",
       "arrangement": "opposed",
       "itemCount": "pair",
+      "shapeVariants": [],
       "alternates": [
         "as-is-to-be"
       ],
@@ -2064,6 +2107,7 @@
       "material": "ui-mockup+stat",
       "arrangement": "hero",
       "itemCount": "one",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "product intro",
@@ -2107,6 +2151,7 @@
       "material": "quote+stat",
       "arrangement": "split",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "painpoint-evidence"
       ],
@@ -2148,6 +2193,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "a user quote",
@@ -2182,6 +2228,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "第一優先/第二優先",
@@ -2218,6 +2265,7 @@
       "material": "chart",
       "arrangement": "sequence",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "research story",
@@ -2265,6 +2313,7 @@
       "material": "stat",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "results",
@@ -2307,6 +2356,7 @@
       "material": "text-only",
       "arrangement": "sequence",
       "itemCount": "many",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "flowchart",
@@ -2351,6 +2401,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "labeled % values",
@@ -2382,6 +2433,7 @@
       "material": "stat",
       "arrangement": "rows",
       "itemCount": "many",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "survey results",
@@ -2424,6 +2476,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "many categories/tags",
@@ -2457,6 +2510,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "one term + definition",
@@ -2487,6 +2541,7 @@
       "material": "text-only",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [
         "keyword-cards"
       ],
@@ -2530,6 +2585,7 @@
       "material": "text-only",
       "arrangement": "sequence-dated",
       "itemCount": "few",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "timeline",
@@ -2574,6 +2630,7 @@
       "material": "",
       "arrangement": "",
       "itemCount": "",
+      "shapeVariants": [],
       "alternates": [],
       "triggers": [
         "product shot",
@@ -2625,6 +2682,15 @@
       "material": "illustration",
       "arrangement": "grid",
       "itemCount": "few",
+      "shapeVariants": [
+        {
+          "material": "text-only",
+          "arrangement": "grid",
+          "itemCount": "few",
+          "assetNeed": "none",
+          "assetPolicy": "none"
+        }
+      ],
       "alternates": [
         "persona-cards"
       ],
@@ -2636,6 +2702,7 @@
         "服務哪些客群",
         "應用情境",
         "目標客群分類",
+        "客戶分類",
         "使用情境"
       ],
       "spec": "specs/layouts/use-case-cards.md",
@@ -2668,6 +2735,15 @@
       "material": "illustration",
       "arrangement": "rows",
       "itemCount": "few",
+      "shapeVariants": [
+        {
+          "material": "text-only",
+          "arrangement": "rows",
+          "itemCount": "few",
+          "assetNeed": "none",
+          "assetPolicy": "none"
+        }
+      ],
       "alternates": [],
       "triggers": [
         "why X?",

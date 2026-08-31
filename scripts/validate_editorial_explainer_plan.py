@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from slide_html import slides as html_slides, local_asset
+from example_files import collect
 
 
 VALID_VARIANTS = {"agenda-dialogue", "guided-dialogue", "workflow-transform", "ui-qa"}
@@ -23,13 +24,15 @@ def fail(message: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("plan", type=Path)
-    parser.add_argument("deck", type=Path)
+    parser.add_argument("deck", type=Path, nargs="+", help="HTML file(s) or a directory of individual slides")
     args = parser.parse_args()
 
     if not args.plan.is_file():
         fail(f"missing illustration plan: {args.plan}")
-    if not args.deck.is_file():
-        fail(f"missing deck: {args.deck}")
+    for path in args.deck:
+        if not path.exists(): fail(f"missing deck: {path}")
+    files = collect(args.deck)
+    if not files: fail("no deck HTML files found")
 
     try:
         payload = json.loads(args.plan.read_text(encoding="utf-8"))
@@ -41,8 +44,13 @@ def main() -> None:
     if not isinstance(slides, list) or not slides:
         fail("plan.slides must be a non-empty list")
 
-    html = args.deck.read_text(encoding="utf-8")
-    rendered = html_slides(html)
+    rendered = []
+    owners = {}
+    for path in files:
+        nodes = html_slides(path.read_text(encoding="utf-8"))
+        if not nodes: fail(f"{path}: no .slide elements")
+        rendered.extend(nodes)
+        owners.update({id(node):path for node in nodes})
     if not rendered:
         fail("deck has no .slide elements")
     by_id = {}
@@ -107,7 +115,7 @@ def main() -> None:
         stages = [node for node in elements if node.attrs.get("data-editorial-explainer") == variant]
         if not stages:
             fail(f"{slide_id} lacks the matching visible HTML variant marker")
-        if not any(local_asset(url, args.deck) == asset
+        if not any(local_asset(url, owners[id(by_id[slide_id])]) == asset
                    for stage in stages for node in stage.walk(visible=True)
                    for url in node.asset_urls()):
             fail(f"{slide_id} asset is not placed inside its matching variant stage")

@@ -5,8 +5,8 @@ Compiled from each spec's `intent` + `triggers` frontmatter, so it can never dri
 `content-map.md` stays the hand-written narrative router (detection heuristics + component
 pairings); **this file is the complete index** — if a pattern is not here, it does not exist.
 
-Read `intent` first (what the page must DO), then confirm with `triggers` (what the content looks
-like). Machine-readable form: `system/router.json`.
+Declare intent and available content first. Narrow by shape (including declared variants),
+then resolve by intent/triggers; never silently discard an unmatched shape. Machine form: `system/router.json`.
 
 ## Layouts — the unit of selection
 
@@ -16,11 +16,11 @@ like). Machine-readable form: `system/router.json`.
 | `centered-question-evidence` | open a section with a framing question, then back it with parallel proofs | stat+chart+logo / question-then-proof / few | framing question · is there a gap? · background thesis + proof · a question to anchor a section · stat + chart + logos together · evidence trio · 提問開場 · 用問題破題 · 一個提問配並列證據 · 章節開場的大哉問 | `specs/layouts/centered-question-evidence.md` |
 | `editorial-explainer-stage` | humanize workshop instructions, workflow transformation, or real-UI interpretation | illustration+ui-screen / narrative-stage / one | workshop timing and rules · facilitator dialogue · human-agent worked example · assistant-led workflow · scattered inputs to shared intent · real UI with Q&A · 工作坊怎麼進行 · 有人味的說明 · 引導流程說明 · 實際畫面加問答 | `specs/layouts/editorial-explainer-stage.md` |
 | `feature-grid` | present a small set of features as equal, scannable cards | icon / grid / few | 3–4 features · what's included · a 2×2 of capabilities each with an icon + blurb · 功能一覽 · 幾個功能平均排開 · 功能卡片並列 · 包含哪些功能 | `specs/layouts/feature-grid.md` |
-| `feature-showcase` | show how specific UI features deliver value / resolve user anxieties | ui-mockup / split / pair | feature areas · app screens to show · this screen does X · annotated UI · a detail page walkthrough · 功能畫面解說 · 這個畫面能做什麼 · 標註過的介面 · 功能如何化解不安 | `specs/layouts/feature-showcase.md` |
+| `feature-showcase` | show how specific UI features deliver value / resolve user anxieties | ui-mockup / split / pair<br>variants: ui-screen / split / pair (asset: must-supply) | feature areas · app screens to show · this screen does X · annotated UI · a detail page walkthrough · 功能畫面解說 · 這個畫面能做什麼 · 標註過的介面 · 功能如何化解不安 | `specs/layouts/feature-showcase.md` |
 | `hero-radial` | put one central concept at the middle with its facets radiating around it | icon / centre-satellite / many | a core concept + surrounding facets · a center-out model · X connects A/B/C/D · a framework hub · 核心概念放中間 · 中心加周邊面向 · 一個主軸展開幾個面向 · 放射狀架構 | `specs/layouts/hero-radial.md` |
 | `idea-evidence` | pair a design idea with the evidence that backs it | chart / split / one | an idea/claim + a supporting chart or stat · we think X — here's why · two-column idea vs proof · 想法配證據 · 一個主張加佐證 · 設計想法與支持數據 · 設計想法 · 想法與佐證 | `specs/layouts/idea-evidence.md` |
 | `interview-affinity` | converge several interview groups into one shared insight | quote / converge / many | interview groups/segments · affinity mapping · across N groups we heard… · persona columns + insight · 訪談收斂 · 幾組訪談的共同洞察 · 親和圖 · 分組訪談結果彙整 | `specs/layouts/interview-affinity.md` |
-| `keyword-cards` | present a few parallel values / keywords / principles as equal cards | text-only / grid / few | 3–4 values or principles · our keywords · parallel ideas each with a short explanation · 核心理念 · 幾個關鍵字等重呈現 · 我們的準則 · 理念並列呈現 | `specs/layouts/keyword-cards.md` |
+| `keyword-cards` | present a few parallel values / keywords / principles as equal cards | text-only / grid / few | 3–4 values or principles · our keywords · parallel ideas each with a short explanation · 核心理念 · 幾個關鍵字等重呈現 · 我們的準則 · 設計原則 · 理念並列呈現 | `specs/layouts/keyword-cards.md` |
 | `linked-circles` | show that several concepts connect into one continuous whole (a continuum / total experience) | text-only / continuum / few | overlapping circles · Venn · 環環相連 · connected · a continuum of 3–5 parts · TX/total-X framing · 環環相扣 · 連成一個整體 · 概念相連 · 連續體 · 연결 | `specs/layouts/linked-circles.md` |
 | `numbered-rows` | explain 2-4 sequenced points, each backed by its own chart | chart / rows / few | 1/2/3 points each with data · multi-point findings · numbered explainer rows · background points with charts · 依序的重點 · 編號重點配圖表 · 每個重點各一張圖表 | `specs/layouts/numbered-rows.md` |
 | `painpoint-evidence` | present a pain point backed by evidence — qualitative quotes and/or spatial/quant data | quote / split / one | painpoint N · a problem + participant quotes · geographic concentration · evidence for a problem · 痛點佐證 · 一個痛點加引述 · 問題的證據 · 使用者困擾與數據 | `specs/layouts/painpoint-evidence.md` |
@@ -35,8 +35,8 @@ like). Machine-readable form: `system/router.json`.
 | `survey-stack` | summarize what users said at scale, one row per question | stat / rows / many | survey results · Q&A results · 3-6 repeated questions · questionnaire · sample size + demographics · 問卷 · 問卷結果 · 每題一列 · 受訪者樣本 | `specs/layouts/survey-stack.md` |
 | `terminology-cards` | establish shared vocabulary so a mixed room means the same thing | text-only / grid / few | glossary · what we mean by X · X means... · key terms · definitions · 3 terms · 名詞解釋 · 統一名詞 · 術語定義 · 講的是同一件事 | `specs/layouts/terminology-cards.md` |
 | `timeline` | set expectations over time — show the project/roadmap phases and their deliverables | text-only / sequence-dated / few | timeline · roadmap · Gantt · phases over dates · journey · project plan · 時程 · 專案階段 · 各階段產出 · 時間軸 · 專案規劃 | `specs/layouts/timeline.md` |
-| `use-case-cards` | show who the product serves — audience segments / use cases | illustration / grid / few | use cases · audience segments · serving every X · 3 customer types each with an illustration · 服務哪些客群 · 應用情境 · 目標客群分類 · 使用情境 | `specs/layouts/use-case-cards.md` |
-| `value-points` | justify "why us" with a few value points, each backed by a concrete supporting card | illustration / rows / few | why X? · 2–3 value points each with a paragraph + a backing visual/tag cluster · a sell slide · 為什麼選我們 · 價值主張加佐證 · 我們的優勢 | `specs/layouts/value-points.md` |
+| `use-case-cards` | show who the product serves — audience segments / use cases | illustration / grid / few<br>variants: text-only / grid / few (asset: none) | use cases · audience segments · serving every X · 3 customer types each with an illustration · 服務哪些客群 · 應用情境 · 目標客群分類 · 客戶分類 · 使用情境 | `specs/layouts/use-case-cards.md` |
+| `value-points` | justify "why us" with a few value points, each backed by a concrete supporting card | illustration / rows / few<br>variants: text-only / rows / few (asset: none) | why X? · 2–3 value points each with a paragraph + a backing visual/tag cluster · a sell slide · 為什麼選我們 · 價值主張加佐證 · 我們的優勢 | `specs/layouts/value-points.md` |
 
 ## Components — resolved via a layout's `depends_on`
 

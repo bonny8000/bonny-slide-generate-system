@@ -13,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 
 VOID = set("area base br col embed hr img input link meta param source track wbr".split())
 INERT = {"head", "script", "style", "template", "noscript"}
+HEAD_CONTENT = {"base", "basefont", "bgsound", "link", "meta", "noframes", "script", "style", "template", "title", "noscript"}
 HIDDEN_STYLE = re.compile(r"(?:^|;)\s*(?:display\s*:\s*none|visibility\s*:\s*(?:hidden|collapse)|opacity\s*:\s*0(?:\.0*)?)(?:\s*!important)?\s*(?:;|$)", re.I)
 URL_RE = re.compile(r"url\(\s*['\"]?([^'\")]+)['\"]?\s*\)", re.I)
 
@@ -69,6 +70,11 @@ class SlideParser(HTMLParser):
         self.close()
 
     def handle_starttag(self, tag, attrs):
+        # HTML permits omitting </head>. Browsers close it when body content starts;
+        # HTMLParser does not. Without this, a real <main> becomes an inert head child
+        # and the coverage gate silently loses slides. A template remains inert.
+        if self.stack[-1].tag == "head" and tag not in HEAD_CONTENT:
+            self.handle_endtag("head")
         node = Element(tag, {k: v or "" for k, v in attrs})
         self.stack[-1].children.append(node)
         if tag not in VOID:
@@ -86,6 +92,8 @@ class SlideParser(HTMLParser):
                 break
 
     def handle_data(self, text):
+        if self.stack[-1].tag == "head" and text.strip():
+            self.handle_endtag("head")
         self.stack[-1].children.append(text)
 
 

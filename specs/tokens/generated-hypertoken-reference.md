@@ -2,7 +2,7 @@
 # Hypertoken reference
 
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
-Selection remains intention-first in `specs/content-map.md`; migration status has zero selection weight.
+Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
 ## Pilot hypertokens
 
