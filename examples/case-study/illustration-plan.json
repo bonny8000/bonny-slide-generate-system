@@ -1,0 +1,75 @@
+{
+  "note": "Reference-deck decisions reviewed for the 2026-08-31 reliability pass. Native data and a clearly labelled schematic UI; no generated editorial artwork claimed.",
+  "slides": [
+    {
+      "id": "case-01",
+      "gate": "no",
+      "trigger": "structural-page",
+      "hard_candidate": false,
+      "reason": "封面只需建立主題"
+    },
+    {
+      "id": "case-02",
+      "gate": "no",
+      "trigger": "structural-page",
+      "hard_candidate": false,
+      "reason": "議程用原生文字保持掃讀"
+    },
+    {
+      "id": "case-03",
+      "gate": "no",
+      "trigger": "native-data",
+      "hard_candidate": false,
+      "reason": "數據與圖表保留可核對的原生標籤"
+    },
+    {
+      "id": "case-04",
+      "gate": "no",
+      "trigger": "native-evidence",
+      "hard_candidate": false,
+      "reason": "人物資訊與痛點以原生文字及簡單人物圖示呈現"
+    },
+    {
+      "id": "case-05",
+      "gate": "no",
+      "trigger": "native-comparison",
+      "hard_candidate": false,
+      "reason": "問題與解法需要精確並列文字，非人／代理對话流程"
+    },
+    {
+      "id": "case-06",
+      "gate": "no",
+      "trigger": "precise-table",
+      "hard_candidate": false,
+      "reason": "競品比較保留原生表格"
+    },
+    {
+      "id": "case-07",
+      "gate": "no",
+      "trigger": "structural-page",
+      "hard_candidate": false,
+      "reason": "洞察引用作為章節橋接"
+    },
+    {
+      "id": "case-08",
+      "gate": "no",
+      "trigger": "ui-mockup",
+      "hard_candidate": false,
+      "reason": "介面功能以明確標示的原生 UI 示意承接說明，不是假截圖"
+    },
+    {
+      "id": "case-09",
+      "gate": "no",
+      "trigger": "native-data",
+      "hard_candidate": false,
+      "reason": "成效以原生指標與對照數字呈現"
+    },
+    {
+      "id": "case-10",
+      "gate": "no",
+      "trigger": "native-principles",
+      "hard_candidate": false,
+      "reason": "結論是平行設計觀點，保留原生文字"
+    }
+  ]
+}
