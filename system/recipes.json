@@ -7,29 +7,13 @@
     "source": "specs/content-map.md"
   },
   "recipes": {
-    "metric-card": {
-      "migrationStatus": "pilot",
-      "componentSpec": "specs/components/metric-card.md",
-      "slots": {
-        "root": ["surface.card", "layout.stack.card"],
-        "supporting": ["text.supporting"]
-      }
-    },
-    "evidence-card": {
-      "migrationStatus": "pilot",
-      "componentSpec": "specs/components/evidence-card.md",
-      "slots": {
-        "root": ["surface.card", "layout.stack.card"],
-        "supporting": ["text.supporting"]
-      }
-    },
     "feature-showcase": {
       "migrationStatus": "pilot",
       "componentSpec": "specs/layouts/feature-showcase.md",
       "slots": {
-        "heading": ["text.heading"],
-        "supporting": ["text.supporting"],
-        "mockup": ["image.floating"]
+        "mockup": [
+          "image.floating"
+        ]
       }
     }
   }

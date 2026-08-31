@@ -99,29 +99,6 @@ THEME_TOKENS = {
 }
 
 HYPERTOKEN_VALUES = {
-    'surface.card': {
-        'background': {'token': 'surface'},
-        'border-radius': {'token': 'r-card'},
-        'padding': {'token': 'pad-card'},
-    },
-    'text.heading': {
-        'font-size': {'token': 'fs-h1'},
-        'font-weight': {'value': '700'},
-        'color': {'token': 'ink'},
-        'margin': {'value': '0'},
-        'line-height': {'token': 'lh'},
-    },
-    'text.supporting': {
-        'font-size': {'token': 'fs-body'},
-        'color': {'token': 'muted'},
-        'margin': {'value': '0'},
-    },
-    'layout.stack.card': {
-        'position': {'value': 'relative'},
-        'display': {'value': 'flex'},
-        'flex-direction': {'value': 'column'},
-        'gap': {'token': 's4'},
-    },
     'image.floating': {
         'box-shadow': {'token': 'shadow-img'},
     },
