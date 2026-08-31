@@ -1,0 +1,95 @@
+{
+  "rounds": {
+    "51": {
+      "base": "light-keyword-cards",
+      "baseSha256": "1bd820ce3ba3a5d4b807866337a2efc04f566be47d486a3cd7bfdadf76eba30f",
+      "variants": {
+        "A": {
+          "path": "variants/r51A.html",
+          "sha256": "0500699bcb05ff9e209bc966c454f74a81515a05439e3c77cd4ed5cc80d83355",
+          "sourceSha256": "62b7732be24138299c65cd991939c6963b1e49921e8fe7f87c23d1a54cb9a8a7"
+        },
+        "B": {
+          "path": "variants/r51B.html",
+          "sha256": "a4a6e4b5a73a44ca6fd9fdab480becfb46221386269cc6bceb3e39ea27dbeb6d",
+          "sourceSha256": "14d218150d24cead233b7d8c872f0d38b287c2856e245ca01b55e6a29e6d893b"
+        }
+      },
+      "winner": "B",
+      "comparisonSha256": "93aa4bbf3006ec59894e0791d519922a10aa94b6e445fc2839e75f7a4b1b2c3a"
+    },
+    "52": {
+      "base": "light-results-grid",
+      "baseSha256": "4631f34a54e07742b0a8c9f41bd03d72be674969ee89bca47a8a6bb2a02962bc",
+      "variants": {
+        "A": {
+          "path": "variants/r52A.html",
+          "sha256": "f6b80196ef09c8de02160f15dd2de7e563ff4d16b063ef2ee0b13a2dc6781724",
+          "sourceSha256": "5e650f19a04c05bfaefcec5b0b9fcbadc40138ed109d577c0f35c5127483c232"
+        },
+        "B": {
+          "path": "variants/r52B.html",
+          "sha256": "8b5ce0f77ca269b912fb892c2022b4e337b965bd224cc75cb3eeaaee81da6d23",
+          "sourceSha256": "c9009160581278a4149fc38aef6859526078c27c42dafd73d9072444dac0752e"
+        }
+      },
+      "winner": "A",
+      "comparisonSha256": "8c4f56b8a59faeae554b422edbd81d1a6cab6a0443b887edbfc3c44663ee3cf3"
+    },
+    "53": {
+      "base": "light-metric-cards",
+      "baseSha256": "d6125910e1fee88a00492c6eb4786f80b0a5548766a7877e55b7bb0220c4d17b",
+      "variants": {
+        "A": {
+          "path": "variants/r53A.html",
+          "sha256": "ca9500815c348d4252d4ca3793d65d9946a1d5f16af34d612081ea2152afb628",
+          "sourceSha256": "307717519e26a4191847b8fdb4c21a40e8f16e930f60d229e1a9df3c49fdf622"
+        },
+        "B": {
+          "path": "variants/r53B.html",
+          "sha256": "e966437539487dc1b45245943d93d3b5a7fbaa3f6e370945c78b6d1151dd6026",
+          "sourceSha256": "8f4fa7417f8c8b160894acdcbb4cda48d00ceccb36ddd4204b8da24b34fbeea2"
+        }
+      },
+      "winner": "A",
+      "comparisonSha256": "c545526098ba95c69227f2135f536fdd4e688dc5d05a4ee29a71d9ff7b3973ce"
+    },
+    "54": {
+      "base": "light-09-comparison",
+      "baseSha256": "00b20884b40a5395f7f2ba6c3431a0884b02962040f19bc4b684b672bc88a39a",
+      "variants": {
+        "A": {
+          "path": "variants/r54A.html",
+          "sha256": "247d7f867831d28291595a2ab532813f181003c3ac69a72910d92bcd99ffc280",
+          "sourceSha256": "8490410517691884b7e90172da8b0898196dd3d64c92b0fbb50c015d2f8dbe92"
+        },
+        "B": {
+          "path": "variants/r54B.html",
+          "sha256": "9ae682a6ac9a216c9ce4935c5d5a028c8120be15a6aaebb903d7fcdf9eaed62d",
+          "sourceSha256": "9e7ac22c62ccac4327b14c872c57df0f9991f66369a08cb63bce4539c7249f61"
+        }
+      },
+      "winner": "B",
+      "comparisonSha256": "121bae7de441e46b830b817858cc88f1325959dfe8b9ecc6e49ca559d3bdfd36"
+    },
+    "55": {
+      "base": "light-value-points",
+      "baseSha256": "6c348d21df3bf90d1bb37749221adb449d439f8c49286af65b4cf6b6a0a72ad4",
+      "variants": {
+        "A": {
+          "path": "variants/r55A.html",
+          "sha256": "09a6c4c4a70f6dd76f6541fca97ba01e9f17f159d39699301eda1df50e2e0b1f",
+          "sourceSha256": "be81aa8fc54055c240a44f341216dbf81c4daed96d8b21b9c8e5ca5ae48d4eaa"
+        },
+        "B": {
+          "path": "variants/r55B.html",
+          "sha256": "2c23337d8641988d2ebb06469890bd85c0fbdd6201ec0c6ec95b162e0e7a666e",
+          "sourceSha256": "e35a74b02407807c5f392c5ecf029744973c11cb8295057db0d1171dea025a5e"
+        }
+      },
+      "winner": "A",
+      "comparisonSha256": "831afa8e63dc2798fc8d23596b50d023046e52265aedfdd94056c90a3f4070cc"
+    }
+  },
+  "provenance": "Human choices recorded 2026-08-31 in specs/ab-rounds.md; only base URL relocated for portability."
+}

@@ -53,28 +53,18 @@ the element, the larger its content — **content should fill its box, not float
 - **Fill the container:** if content looks tiny in its card, the card is too big or the content too small
   — grow the content or shrink the card; don't leave a halo of dead space around it.
 
-## Vertical placement — FILL the full canvas (top to bottom)
-**An empty top OR an empty bottom both read as unfinished.** Don't center thin content (empty top), and
-don't pin everything to the top either (empty bottom). On a 1920×1080 deck, content should reach the
-**full height**.
-- **Header + body (+ footer) slides:** header at the top, the **body grows to fill** (`.grow` →
-  `flex:1`), and any footer (quote band, source line) sits at the **bottom**. So content spans top→bottom
-  with no dead band at either end.
-- **Growing isn't enough — distribute the body's content too.** If the body holds a short block, *centering*
-  it inside `.grow` just re-creates an empty top + empty bottom *within* the body. Use **`.vspread`** (fill +
-  `space-between`) so sub-blocks reach the body's top and bottom, or grow the sub-blocks. *(Round 3 — both
-  A/B variants floated a short block in a grown body.)*
-- **Fill the body with *meaningful* content, not stretched empty boxes.** If a card stretches tall and
-  floats a tiny number inside, that's just relocated emptiness — instead add vertical mass that earns its
-  space: a before/after **chart**, more stat rows, a supporting visual (per the density rule).
-- **Centered (`.slide` default)** is only for genuinely single-element slides — cover, a statement, a
-  centered question. `.slide.top` alone is rarely enough; pair it with a growing body + bottom footer.
-- **The one exception (statement / hero-quote / section-divider):** these *may* breathe with generous
-  emptiness — but only if the whitespace is **intentional**: block optically centered, symmetric margins,
-  one strong axis. The moment content clusters to one side and leaves dead quadrants, the exception is
-  void and it reads unfinished. (A/B round 7 — see `preferences.md`.)
-*(Learned from A/B round 1: a header-heavy slide with an empty lower half was rejected — "nothing is at
-the bottom.")*
+## Vertical placement — choose between full-height content and a compact group
+A substantial header/body page can use a growing body to occupy the canvas. A compact page should
+keep its title and evidence together with balanced outer margins, as described under
+"When content does not fill the canvas" below. Neither centring nor top alignment is universal.
+- Use `.grow` when the actual body has enough material to occupy the region.
+- Use `.vspread` only when distributing meaningful blocks improves their relationships. Do not
+  fling a short group to opposite edges or turn small cards into hollow boxes.
+- Match peer panels' top/bottom edges; controlled internal gaps preserve grouping.
+- Covers, statements and section dividers may have generous intentional, symmetric whitespace.
+- A footer is page chrome, not evidence that the content fills the page.
+The historical R1/R3 failures concerned top-heavy or hollow layouts; they do not require every
+short composition to fill the full height. R51 B confirms the compact keyword-card composition; R53 A also permits purposeful breathing room around metric cards.
 
 ## Deck-level visual pacing (the anti-dryness rule)
 Per-slide intention mapping alone can produce a technically-correct deck that is **all text-and-boxes** —

@@ -54,3 +54,6 @@ in 繁中 (optional muted EN second line). Keep sibling cards equal height.
 
 ## Example
 "1 年以上契約維持率 **+34%**" + muted reason + a right-anchored people icon (learned from Img13, structure only).
+
+## Human preference refinement
+R53 A (2026-08-31): `.mcrow.roomy .mc` gives the tested three-card composition 430px minimum height and centred content. Do not impose it on dense/different layouts.

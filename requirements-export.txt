@@ -1,0 +1,2 @@
+# Optional HTML-to-PDF exporter only; core compiler/checks remain stdlib-only.
+pypdf>=5,<7

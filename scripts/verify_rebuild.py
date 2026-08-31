@@ -72,17 +72,19 @@ def main() -> int:
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
         for example in examples:
             src = example.read_text(encoding="utf-8", errors="replace")
-            if "</style>" not in src:
-                continue
-            dark = dark_theme(src)
-            markup = src.split("</style>")[-1]  # everything after the last style block
+            if '<style data-shipped>' not in src:
+                print(f'verify rebuild: {example} is not synced; run sync_examples.py',file=sys.stderr)
+                return 2
+            # Change only the sheet under test. Reconstructing a new document discarded
+            # metadata/head/body attributes and could report that loss as local CSS reliance.
+            content=re.sub(r'<style data-shipped>.*?</style>',
+                           lambda m:'<style data-shipped>'+shipped_css(dark_theme(src))+'</style>',src,count=1,flags=re.S)
+            content=re.sub(r'<style data-slide>.*?</style>','',content,flags=re.S)
+            if not re.search(r'<base\b',content,re.I):
+                content=re.sub(r'(<head\b[^>]*>)',lambda m:m[0]+'<base href="'+escape(example.parent.as_uri()+'/')+'">',content,count=1,flags=re.I)
             rebuilt = Path(tmp) / (example.stem + ".html")
             rebuilt.write_text(
-                "<!doctype html><html lang='zh-Hant'><head><meta charset='utf-8'>"
-                + '<base href="' + escape(example.parent.as_uri() + "/", quote=True) + '"><style>'
-                + shipped_css(dark)
-                + "</style></head>"
-                + markup,
+                content,
                 encoding="utf-8",
                 newline="\n",
             )
