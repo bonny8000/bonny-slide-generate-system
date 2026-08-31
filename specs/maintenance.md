@@ -99,6 +99,7 @@ evidence of visual correctness. The committed capture was refreshed after this r
   `image.floating`'s shadow; the other four were inert. `metric-card` and `evidence-card` went with
   them, since every slot referenced a removed fragment. Adding a fragment that restates a base.css
   rule re-creates the same dead duplication.
+
 **Making the hypertoken layer authoritative was attempted, measured and rejected. Do not retry it
   without reading this.** Generated fragments are `:where(...)` (zero specificity) inside
   `@layer hypertokens`; base.css is unlayered, and unlayered CSS beats every layered rule regardless

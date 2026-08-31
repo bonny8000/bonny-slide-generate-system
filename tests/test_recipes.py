@@ -103,3 +103,10 @@ class RecipeTests(unittest.TestCase):
         resolved = json.loads(compiler.render_resolved_recipes(recipes, fragments, self.specs))
         self.assertEqual(resolved['entries']['metric-card']['slots']['root']['properties']['background'],
                          'var(--accent-soft)')
+
+    def test_shared_fragment_values_are_emitted_once(self):
+        css = compiler.render_recipes_css(self.data['recipes'], self.fragments)
+        self.assertEqual(css.count('--recipe-surface-panel-background:'), 1)
+        for name in ('surface.card', 'text.heading', 'text.supporting', 'layout.stack.card'):
+            # The consistency pass removed inert base-class aliases; do not restore them.
+            self.assertEqual(self.fragments[name]['selectors'], ['.ht-' + name.replace('.', '-')])
