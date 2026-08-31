@@ -1,3 +1,14 @@
+## Unreleased — README and current example visuals (2026-08-31)
+
+- Reorganize the README around setup, current capabilities, examples, shape-first routing,
+  complete recipe coverage, illustration policies, validation limits, and maintenance.
+- Replace stale static explanation figures with editable Mermaid diagrams and four full browser
+  screenshots of current HTML examples. Remove the retired README-only assets.
+- Add a screenshot refresh helper and source/image hash manifest; the helper reuses the isolated
+  Chromium renderer and does not modify slides, shared CSS, or frozen A/B evidence.
+- Document the current 49 tests and 40 routing regression cases, the latest selector/property
+  binding guard, the missing independent routing evaluation, and the existing three-template PPTX limit.
+
 ## Unreleased — complete catalog recipe migration (2026-08-31)
 
 - Expand the original pilots (one remained after the consistency pass) to all 25 layouts and 19 components: 165 bound slots, 25 hypertokens.
