@@ -1,3 +1,25 @@
+## Unreleased — one definition per visual fact (2026-08-31)
+
+- Remove duplicated shared rules from `assets/base.css`. Each `promoted from examples/…` block had
+  pasted its own copy, leaving `.card` defined nine times, `.foot` four and `.kicker` three, all
+  byte-identical. Keeps the last occurrence of each, so the rule that already won the cascade holds
+  its position against equal-specificity rules declared between the copies; 1200 lines go once synced.
+- Drop `surface.card`, `text.heading`, `text.supporting` and `layout.stack.card`. They restated
+  `base.css` rules and could never take effect: generated fragments are `:where(...)` inside
+  `@layer hypertokens`, and unlayered CSS beats every layered rule regardless of specificity.
+  Deleting the whole layer moved only 2 of 54 slides, both from `image.floating`, which is kept.
+  `metric-card` and `evidence-card` go with them; `feature-showcase` keeps its `mockup` slot.
+- Record why the hypertoken layer is not made authoritative. Wrapping `base.css` in
+  `@layer components` moved 6 slides and let a plain `.mc` defeat `.mcrow.roomy .mc{min-height:430px}`
+  — reverting judged preference R53. Letting the fragments drive the shadowed rules moved 47 of 54,
+  because `.card` wins same-specificity contests by source order and loses them once demoted. The
+  blocker is implicit source-order dependency in `base.css`, not the selector grammar.
+- Align `content-map.md` and `slide-plan.md` with the router's shape-first `selectionPolicy.primaryKey`;
+  correct the README's hypertoken/recipe and judged-round counts and move its release notes out of the
+  conceptual walkthrough.
+- Every change above verified against a render fingerprint baseline at `--tolerance 0 --peak 0`:
+  54/54 slides identical.
+
 ## Unreleased — reliability, synchronization and reviewed preferences (2026-08-31)
 
 - Check actual slide elements, including omitted-head HTML; require exhaustive illustration decisions
