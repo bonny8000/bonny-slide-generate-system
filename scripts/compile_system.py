@@ -269,6 +269,21 @@ def validate_recipes(data: dict[str, Any], hypertokens: dict[str, Any],
                                (ROOT / 'assets/base.css').read_text(encoding='utf-8')))
     if used_vars - {value[0] for value in managed.values()}:
         raise BuildError(f"unbound recipe variables: {sorted(used_vars - {v[0] for v in managed.values()})}")
+    # ...and the consuming selector must be one the recipe actually binds. A known variable name is
+    # not enough: these references carry no fallback (deliberately, so a binding cannot go
+    # decorative), so a declaration that reads a variable never defined for its own selector is
+    # invalid at computed-value time and silently takes the property's initial value -- `display`
+    # collapses from grid to inline with every gate still green. Checking the name alone leaves that
+    # unguarded, so match the consumer against its binding too.
+    for (selector, prop), values in authored.items():
+        for value in values:
+            for variable in re.findall(r'var\((--recipe-[a-z0-9-]+)', value):
+                bound = managed.get((selector, prop))
+                if bound is None or bound[0] != variable:
+                    raise BuildError(
+                        f"recipe consumer is unbound: {selector} / {prop} reads {variable}, "
+                        f"which no recipe binds to that selector"
+                    )
     return recipes
 
 
