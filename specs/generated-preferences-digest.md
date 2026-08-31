@@ -5,7 +5,7 @@ The taste layer, reduced to what a build actually needs. Read this; open `prefer
 only when a specific component decision turns on a worked round.
 
 ## ⭐ Principles digest (read this first)
-Fifty A/B rounds distilled to a dozen transferable principles. Reach for these first; the per-component
+Fifty-five judged A/B rounds distilled to a dozen transferable principles. Reach for these first; the per-component
 sections below are the worked detail. When two principles tension, the slide's **intent** breaks the tie.
 
 1. **Compose to the amount of meaningful content.** A substantial header/body page may fill vertically;
