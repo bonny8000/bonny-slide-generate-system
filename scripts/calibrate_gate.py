@@ -32,7 +32,7 @@ def load_pairs(manifest_path=None):
         raise ValueError('judged new rounds require --manifest; do not silently omit their votes')
     if manifest_path is not None:
         manifest_path=Path(manifest_path).resolve()
-        manifest=json.loads(manifest_path.read_text())['rounds']
+        manifest=json.loads(manifest_path.read_text(encoding="utf-8"))['rounds']
         for n,r in declared.items():
             if n in historical: raise ValueError(f'R{n}: duplicate historical/new round')
             row=manifest.get(str(n))
@@ -72,7 +72,7 @@ def main():
         report=dict(pairs=len(rows),**counts,missingHistoricalPairs=missing,rows=rows)
         print(json.dumps({k:v for k,v in report.items() if k!='rows'}))
         print('Diagnostic only: agreement is environment-dependent and does not certify design quality.')
-        if args.json:args.json.write_text(json.dumps(report,indent=2)+'\n')
+        if args.json:args.json.write_text(json.dumps(report,indent=2)+'\n', encoding="utf-8", newline="\n")
         return 0
     except (OSError,ValueError,KeyError,V.LayoutError) as exc:
         print(f'calibration could not run: {exc}',file=sys.stderr);return 2

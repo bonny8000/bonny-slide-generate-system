@@ -1,0 +1,5 @@
+# A/B evidence integrity checks compare byte-exact sha256 of checked-in HTML,
+# so every text file must check out with LF on all platforms (autocrlf breaks it).
+* text=auto eol=lf
+*.png binary
+*.pptx binary

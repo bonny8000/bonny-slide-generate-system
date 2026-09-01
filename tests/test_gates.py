@@ -32,8 +32,8 @@ class PlanTests(unittest.TestCase):
         return row
 
     def run_plan(self, html, plan):
-        (self.root / 'deck.html').write_text(html)
-        (self.root / 'plan.json').write_text(json.dumps(plan))
+        (self.root / 'deck.html').write_text(html, encoding='utf-8')
+        (self.root / 'plan.json').write_text(json.dumps(plan), encoding='utf-8')
         return subprocess.run([sys.executable, str(ROOT / 'scripts/validate_editorial_explainer_plan.py'),
                                str(self.root/'plan.json'), str(self.root/'deck.html')],
                               capture_output=True, text=True)
@@ -87,15 +87,15 @@ class PlanTests(unittest.TestCase):
         self.assertNotIn('Traceback', r.stderr)
 
     def test_directory_input_requires_decisions_for_every_file(self):
-        (self.root/'one.html').write_text('<main class="slide" id="s1">One</main>')
-        (self.root/'two.html').write_text('<main class="slide" id="s2">Two</main>')
+        (self.root/'one.html').write_text('<main class="slide" id="s1">One</main>', encoding='utf-8')
+        (self.root/'two.html').write_text('<main class="slide" id="s2">Two</main>', encoding='utf-8')
         plan=self.root/'plan.json'
         command=[sys.executable,str(ROOT/'scripts/validate_editorial_explainer_plan.py'),str(plan),str(self.root)]
-        plan.write_text(json.dumps({'slides':[self.record()]}))
+        plan.write_text(json.dumps({'slides':[self.record()]}), encoding='utf-8')
         missing=subprocess.run(command,capture_output=True,text=True)
         self.assertEqual(missing.returncode,1)
         self.assertIn('s2',missing.stderr)
-        plan.write_text(json.dumps({'slides':[self.record(),self.record('s2')]}))
+        plan.write_text(json.dumps({'slides':[self.record(),self.record('s2')]}), encoding='utf-8')
         self.assertEqual(subprocess.run(command,capture_output=True).returncode,0)
 
 
@@ -137,7 +137,7 @@ class MarkupTests(unittest.TestCase):
     def test_renderer_failure_is_exit_two(self):
         with tempfile.TemporaryDirectory() as tmp:
             slide = Path(tmp)/'slide.html'
-            slide.write_text('<main class="slide">A</main>')
+            slide.write_text('<main class="slide">A</main>', encoding='utf-8')
             with patch.object(sys, 'argv', ['validate_layout.py',str(slide)]), \
                  patch.object(layout,'find_browsers',return_value=['fake']), \
                  patch.object(layout,'render_with_any',side_effect=layout.LayoutError('renderer failed')), \
@@ -147,7 +147,7 @@ class MarkupTests(unittest.TestCase):
     def test_viewer_alone_cannot_report_success(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp)/'viewer.html'
-            path.write_text('<main class="slide"></main>'*2)
+            path.write_text('<main class="slide"></main>'*2, encoding='utf-8')
             with patch.object(sys, 'argv', ['validate_layout.py',str(path)]), \
                  patch.object(layout,'find_browsers',return_value=['fake']), \
                  redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):

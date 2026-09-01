@@ -15,8 +15,8 @@ class SyncTests(unittest.TestCase):
         local='/* keep design rationale */\n@media print {.ctable {width:100%}}\n.ctable{font-size:17px}'
         html='<html><head><style data-shipped>:root{--canvas:#1B1B20}</style><style data-slide>'+local+'</style></head><main class="slide deck"><table class="ctable"></table></main></html>'
         with tempfile.TemporaryDirectory() as tmp:
-            p=Path(tmp)/'a.html';p.write_text(html)
-            new,_=rebuild(p);p.write_text(new)
+            p=Path(tmp)/'a.html';p.write_text(html, encoding='utf-8')
+            new,_=rebuild(p);p.write_text(new, encoding='utf-8')
             twice,_=rebuild(p)
         self.assertEqual(new,twice)
         self.assertTrue(dark_theme(new))
