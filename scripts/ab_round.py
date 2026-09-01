@@ -122,7 +122,7 @@ def main() -> int:
     variants = args.out / "variants"
     variants.mkdir(exist_ok=True)
     manifest_path = args.out / "manifest.json"
-    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {"rounds":{}}
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {"rounds":{}}
     errors = 0
     browsers = find_browsers(None)
 
@@ -165,7 +165,7 @@ def main() -> int:
         png = args.out / f"round-{n}.png"
         png.write_bytes(render_with_any(compare, browsers, 1920, 660, 1.0))
         manifest["rounds"][str(n)] = {"base":r["base"], "baseSha256":hashlib.sha256(base_path.read_bytes()).hexdigest(), "variants":pair}
-        manifest_path.write_text(json.dumps(manifest,indent=2)+"\n")
+        manifest_path.write_text(json.dumps(manifest,indent=2)+"\n", encoding="utf-8", newline="\n")
         print(f"R{n}  {r['axis']}  ->  {png}", flush=True)
 
     print("\nJudge each image and record the winner in specs/ab-rounds.md, then re-run calibrate_gate.py --manifest <this output>/manifest.json.")
