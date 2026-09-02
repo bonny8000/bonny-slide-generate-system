@@ -462,6 +462,57 @@
         ]
       }
     },
+    "hidden-majority": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/hidden-majority.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "above": [
+          "geometry.relative"
+        ],
+        "panel": [
+          "surface.soft"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "figure": [
+          "text.accent"
+        ],
+        "numeric": [
+          "type.numeric"
+        ],
+        "note": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".hm"
+        ],
+        "above": [
+          ".hm .above"
+        ],
+        "panel": [
+          ".hm .below"
+        ],
+        "supporting": [
+          ".hm .water .cap"
+        ],
+        "figure": [
+          ".hm .below .fig .n",
+          ".hm .below .fig .l"
+        ],
+        "numeric": [
+          ".hm .fig .n"
+        ],
+        "note": [
+          ".hm .below .note"
+        ]
+      }
+    },
     "icon-label-row": {
       "migrationStatus": "migrated",
       "componentSpec": "specs/components/icon-label-row.md",

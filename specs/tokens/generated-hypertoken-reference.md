@@ -4,7 +4,7 @@
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
 Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
-**45 catalog recipes** are connected to authored CSS through selector bindings.
+**46 catalog recipes** are connected to authored CSS through selector bindings.
 `assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,
 specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.
 Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,
@@ -58,6 +58,7 @@ conflicting fragment, mismatched example, or disconnected CSS consumer fails com
 | `feature-showcase` | migrated | `specs/layouts/feature-showcase.md` | `root` (.fs) → `layout.grid`<br>`heading` (.headline) → `text.heading`<br>`area` (.area) → `layout.column`<br>`supporting` (.fs-anno) → `text.secondary`<br>`mockup` (.fs .phone) → `image.card-elevation` |
 | `geo-map` | migrated | `specs/components/geo-map.md` | `root` (.geo) → `layout.row`<br>`annotation` (.geo .anno) → `layout.column`<br>`value` (.geo .anno .v) → `text.primary`, `type.numeric`<br>`label` (.geo .anno .l) → `text.secondary` |
 | `hero-radial` | migrated | `specs/layouts/hero-radial.md` | `root` (.hr) → `layout.grid`<br>`side` (.sidecard) → `surface.panel`, `layout.column`<br>`stage` (.radial) → `layout.grid`, `geometry.relative`<br>`core` (.radial .core) → `surface.accent`, `text.on-accent` |
+| `hidden-majority` | migrated | `specs/layouts/hidden-majority.md` | `root` (.hm) → `layout.column`<br>`above` (.hm .above) → `geometry.relative`<br>`panel` (.hm .below) → `surface.soft`<br>`supporting` (.hm .water .cap) → `text.secondary`<br>`figure` (.hm .below .fig .n, .hm .below .fig .l) → `text.accent`<br>`numeric` (.hm .fig .n) → `type.numeric`<br>`note` (.hm .below .note) → `text.primary` |
 | `icon-label-row` | migrated | `specs/components/icon-label-row.md` | `root` (.ranklist) → `layout.column`<br>`row` (.rankrow) → `layout.grid`<br>`icon` (.rankrow .ic) → `surface.soft`, `layout.grid`<br>`label` (.rankrow .rt) → `text.primary` |
 | `idea-evidence` | migrated | `specs/layouts/idea-evidence.md` | `root` (.ie) → `layout.grid`<br>`panel` (.ie .panel) → `surface.panel`, `layout.column`<br>`value` (.ie .ev .big) → `text.accent`, `type.numeric`<br>`supporting` (.ie .note) → `text.secondary` |
 | `interview-affinity` | migrated | `specs/layouts/interview-affinity.md` | `root` (.ia) → `layout.grid`<br>`participant` (.pcol) → `surface.panel`, `layout.column`<br>`heading` (.pcol h4) → `text.primary`<br>`insight` (.insight) → `surface.soft`, `text.primary` |

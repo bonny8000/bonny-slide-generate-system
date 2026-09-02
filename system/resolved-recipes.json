@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 45,
-    "layouts": 26,
+    "patterns": 46,
+    "layouts": 27,
     "components": 19,
-    "slots": 171
+    "slots": 178
   },
   "entries": {
     "annotated-screen": {
@@ -761,6 +761,92 @@
           "properties": {
             "background": "var(--accent)",
             "color": "var(--on-accent)"
+          }
+        }
+      }
+    },
+    "hidden-majority": {
+      "kind": "layout",
+      "spec": "specs/layouts/hidden-majority.md",
+      "example": "examples/light-hidden-majority.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".hm"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "above": {
+          "selectors": [
+            ".hm .above"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "panel": {
+          "selectors": [
+            ".hm .below"
+          ],
+          "hypertokens": [
+            "surface.soft"
+          ],
+          "properties": {
+            "background": "var(--accent-soft)"
+          }
+        },
+        "supporting": {
+          "selectors": [
+            ".hm .water .cap"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "figure": {
+          "selectors": [
+            ".hm .below .fig .n",
+            ".hm .below .fig .l"
+          ],
+          "hypertokens": [
+            "text.accent"
+          ],
+          "properties": {
+            "color": "var(--accent)"
+          }
+        },
+        "numeric": {
+          "selectors": [
+            ".hm .fig .n"
+          ],
+          "hypertokens": [
+            "type.numeric"
+          ],
+          "properties": {
+            "font-family": "var(--font-latin)"
+          }
+        },
+        "note": {
+          "selectors": [
+            ".hm .below .note"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
           }
         }
       }

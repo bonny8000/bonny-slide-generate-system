@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 26,
+    "layouts": 27,
     "components": 19
   },
   "triggerIndex": {
@@ -385,6 +385,9 @@
     "one term + definition": [
       "terminology-card"
     ],
+    "only a small percent so far": [
+      "hidden-majority"
+    ],
     "option/brand markers": [
       "positioning-matrix"
     ],
@@ -405,6 +408,9 @@
     ],
     "parallel ideas each with a short explanation": [
       "keyword-cards"
+    ],
+    "partial rollout risk": [
+      "hidden-majority"
     ],
     "participant voice": [
       "quote-bubble"
@@ -526,6 +532,9 @@
     "spatial concentration": [
       "geo-map"
     ],
+    "staged release exposure": [
+      "hidden-majority"
+    ],
     "start → ends": [
       "service-flow"
     ],
@@ -553,11 +562,20 @@
     "testimonial": [
       "quote-bubble"
     ],
+    "the rest have not got it yet": [
+      "hidden-majority"
+    ],
+    "the visible part is not the whole": [
+      "hidden-majority"
+    ],
     "this screen does x": [
       "feature-showcase"
     ],
     "timeline": [
       "timeline"
+    ],
+    "tip of the iceberg": [
+      "hidden-majority"
     ],
     "tools": [
       "logo-row"
@@ -606,6 +624,9 @@
     ],
     "what matters most panel": [
       "ranked-list"
+    ],
+    "what this number hides": [
+      "hidden-majority"
     ],
     "what users said + how many": [
       "qual-quant-split"
@@ -697,6 +718,12 @@
     "兩軸象限": [
       "positioning-matrix"
     ],
+    "其餘的還沒拿到": [
+      "hidden-majority"
+    ],
+    "分批推送的風險": [
+      "hidden-majority"
+    ],
     "分組訪談結果彙整": [
       "interview-affinity"
     ],
@@ -723,6 +750,9 @@
     ],
     "受訪者樣本": [
       "survey-stack"
+    ],
+    "只是冰山一角": [
+      "hidden-majority"
     ],
     "各階段產出": [
       "timeline"
@@ -910,11 +940,17 @@
     "痛點與對策": [
       "problem-solution"
     ],
+    "目前只有一小部分": [
+      "hidden-majority"
+    ],
     "目標定位": [
       "positioning-matrix"
     ],
     "目標客群分類": [
       "use-case-cards"
+    ],
+    "看不見的那一部分更大": [
+      "hidden-majority"
     ],
     "研究脈絡": [
       "research-flow"
@@ -1008,6 +1044,9 @@
     ],
     "민감도": [
       "level-slider"
+    ],
+    "아직 받지 못한 사용자": [
+      "hidden-majority"
     ],
     "연결": [
       "linked-circles"
@@ -1591,6 +1630,57 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img6"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
+    "hidden-majority": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "stop a small number being dismissed by showing the larger part it hides",
+      "material": "stat",
+      "arrangement": "opposed",
+      "itemCount": "pair",
+      "shapeVariants": [],
+      "alternates": [
+        "pie-donut",
+        "delta-metric"
+      ],
+      "triggers": [
+        "only a small percent so far",
+        "the rest have not got it yet",
+        "partial rollout risk",
+        "what this number hides",
+        "the visible part is not the whole",
+        "staged release exposure",
+        "tip of the iceberg",
+        "只是冰山一角",
+        "目前只有一小部分",
+        "其餘的還沒拿到",
+        "看不見的那一部分更大",
+        "分批推送的風險",
+        "아직 받지 못한 사용자"
+      ],
+      "spec": "specs/layouts/hidden-majority.md",
+      "example": "examples/light-hidden-majority.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "surface",
+        "muted",
+        "muted-soft",
+        "ink",
+        "accent",
+        "accent-soft",
+        "warn",
+        "warn-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-hidden-majority-2026-09-02"
       ],
       "assetNeed": "none",
       "assetPolicy": "none"

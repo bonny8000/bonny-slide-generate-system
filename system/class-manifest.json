@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 45,
-    "fullyImplemented": 45,
+    "specs": 46,
+    "fullyImplemented": 46,
     "withGaps": 0
   },
   "entries": {
@@ -404,6 +404,31 @@
         "core",
         "radial",
         "sidecard"
+      ],
+      "missingFromBaseCss": []
+    },
+    "hidden-majority": {
+      "kind": "layout",
+      "example": "examples/light-hidden-majority.html",
+      "classes": [
+        "above",
+        "below",
+        "cap",
+        "fig",
+        "mass",
+        "note",
+        "tip",
+        "water"
+      ],
+      "implementedInBaseCss": [
+        "above",
+        "below",
+        "cap",
+        "fig",
+        "mass",
+        "note",
+        "tip",
+        "water"
       ],
       "missingFromBaseCss": []
     },

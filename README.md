@@ -22,10 +22,10 @@ Example numbers are demonstration content, not claims about this project.*
 
 | Area | Current scope |
 |---|---|
-| Design library | **26 layouts + 19 components**, supported by 14 foundation specs |
-| Routing | **45 indexed patterns**, 339 triggers in Traditional Chinese, English, and Korean; shape matching with intent disambiguation |
+| Design library | **27 layouts + 19 components**, supported by 14 foundation specs |
+| Routing | **46 indexed patterns**, 352 triggers in Traditional Chinese, English, and Korean; shape matching with intent disambiguation |
 | Themes | Light and dark, shared token roles, one theme per deck |
-| Hypertokens & recipes | **25 hypertokens, 45 connected recipes, 171 slots** — the whole current pattern catalog |
+| Hypertokens & recipes | **25 hypertokens, 46 connected recipes, 178 slots** — the whole current pattern catalog |
 | Examples | **58 current HTML files**: 54 individual 16:9 slides, 2 posters, 1 reference gallery, 1 scroll viewer |
 | Output | Individual HTML slides, a scrolling HTML deck example, and a working PDF exporter |
 | Regression coverage | **49 unit tests + 40 routing cases**; browser checks run separately |
@@ -36,7 +36,7 @@ Snapshot: **2026-08-31**. Counts describe the checked-in catalog, not an accurac
 [verified boundaries](specs/maintenance.md).
 
 The existing PowerPoint bridge has only `title`, `hbars`, and `features` templates. It does **not**
-convert arbitrary HTML or cover all 26 layouts. HTML and PDF are the main delivery paths described here.
+convert arbitrary HTML or cover all 27 layouts. HTML and PDF are the main delivery paths described here.
 
 ## Quick start
 
@@ -166,7 +166,7 @@ default to Traditional Chinese + English, and can use another declared language 
 
 ## Hypertokens and recipes
 
-**The migration is complete for all 45 catalog patterns. It is no longer a three-recipe pilot.**
+**The migration is complete for all 46 catalog patterns. It is no longer a three-recipe pilot.**
 Coverage is at the level of reusable CSS fragments, not a JSON rewrite of every layout rule.
 
 | Layer | Responsibility | Source |
