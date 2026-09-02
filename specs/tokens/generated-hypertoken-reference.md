@@ -4,7 +4,7 @@
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
 Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
-**44 catalog recipes** are connected to authored CSS through selector bindings.
+**45 catalog recipes** are connected to authored CSS through selector bindings.
 `assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,
 specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.
 Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,
@@ -44,6 +44,7 @@ conflicting fragment, mismatched example, or disconnected CSS consumer fails com
 
 | recipe | status | spec | slot mappings |
 |---|---|---|---|
+| `annotated-screen` | migrated | `specs/layouts/annotated-screen.md` | `root` (.ascr) → `layout.row`<br>`stage` (.ascr .stage) → `geometry.relative`<br>`pin` (.ascr .pin) → `surface.panel`<br>`heading` (.ascr .pin .t) → `text.primary`<br>`supporting` (.ascr .pin .d) → `text.secondary`<br>`legend` (.ascr .legend) → `layout.column` |
 | `as-is-to-be` | migrated | `specs/layouts/as-is-to-be.md` | `root` (.ab-grid) → `layout.grid`<br>`column` (.ab-col) → `layout.column`<br>`label` (.anno .t) → `text.primary`<br>`supporting` (.anno .d) → `text.secondary` |
 | `centered-question-evidence` | migrated | `specs/layouts/centered-question-evidence.md` | `root` (.cards) → `layout.grid`<br>`heading` (.headline) → `text.heading`<br>`evidence` (.evcard) → `surface.panel`, `layout.column`<br>`supporting` (.evcard .cap) → `text.secondary` |
 | `citation-card` | migrated | `specs/components/citation-card.md` | `root` (.citecard) → `surface.panel`, `layout.column`<br>`finding` (.citecard .find) → `text.primary`<br>`source` (.citecard .src) → `text.secondary` |

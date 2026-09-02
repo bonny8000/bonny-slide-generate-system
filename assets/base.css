@@ -932,3 +932,33 @@ footer strong{color: var(--ink);}
 .vp .pt .lbl{color:var(--accent)}
 .vp .pt .dot{background:var(--accent)}
 .vp .skill-chip{border-color:var(--accent);color:var(--accent)}
+
+/* ===== C18 — annotated-screen: one built screen, its parts called out in place ===== */
+/* A list of rules beside a screenshot makes the audience map text to location themselves. Pinning
+   each note where it applies removes that work. .stage is the positioning context; pins take inline
+   offsets the way .anno-pin already does, and a leader is a dashed rule rotated toward its anchor.
+   Exactly one pin should carry .accent — the part the page is claiming something about.
+   Device internals are scoped here, as .si and .fs .phone scope theirs. */
+.ascr{display:var(--recipe-layout-row-display);align-items:stretch;justify-content:center;gap:var(--s8)}
+.ascr .stage{position:var(--recipe-geometry-relative-position);flex:0 0 auto;align-self:center}
+.ascr .phone{--pw:330px;box-shadow:var(--shadow-img)}
+.ascr .scr{position:absolute;inset:0;background:var(--canvas);display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5) var(--s4)}
+.ascr .scr .appbar{display:flex;align-items:center;gap:var(--s3);padding-bottom:var(--s3);border-bottom:1px solid var(--muted-soft)}
+.ascr .scr .appbar .back{width:10px;height:10px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);flex:0 0 auto}
+.ascr .scr .appbar .ttl{height:13px;border-radius:7px;background:var(--ink);opacity:.75;width:52%}
+.ascr .scr .hero{height:132px;border-radius:var(--r-sm);background:var(--muted-soft);opacity:.55}
+.ascr .scr .sk{height:11px;border-radius:6px;background:var(--muted-soft);display:block}
+.ascr .scr .cta{margin-top:auto;height:44px;border-radius:var(--r-sm);background:var(--accent)}
+.ascr .pin{position:absolute;z-index:3;width:212px;background:var(--recipe-surface-panel-background);border:1px solid var(--muted-soft);border-radius:var(--recipe-surface-panel-border-radius);padding:var(--s3) var(--s4);box-shadow:var(--shadow-card)}
+.ascr .pin .t{display:block;font-size:16px;font-weight:700;color:var(--recipe-text-primary-color);line-height:1.4}
+.ascr .pin .d{display:block;font-size:13px;color:var(--recipe-text-secondary-color);line-height:1.55;margin-top:4px}
+.ascr .pin.accent{border-color:var(--accent)}
+.ascr .pin.accent .t{color:var(--accent)}
+.ascr .leader{position:absolute;height:0;border-top:2px dashed var(--muted-soft);transform-origin:left center;z-index:2}
+.ascr .leader.accent{border-color:var(--accent)}
+.ascr .legend{display:var(--recipe-layout-column-display);flex-direction:var(--recipe-layout-column-flex-direction);gap:var(--s5);max-width:400px;justify-content:space-around}
+.ascr .legend .lrow{display:flex;gap:var(--s4);align-items:flex-start}
+.ascr .legend .lnum{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--muted-soft);color:var(--ink);font-family:var(--font-latin);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.ascr .legend .lnum.on{background:var(--accent);color:var(--on-accent)}
+.ascr .legend .ltext h4{margin:0;font-size:19px;color:var(--ink);line-height:1.4}
+.ascr .legend .ltext p{margin:6px 0 0;font-size:15px;color:var(--muted);line-height:1.75}

@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 25,
+    "layouts": 26,
     "components": 19
   },
   "triggerIndex": {
@@ -217,6 +217,9 @@
     "buttons": [
       "cta-buttons"
     ],
+    "callouts pinned to a screen": [
+      "annotated-screen"
+    ],
     "capabilities": [
       "icon-label-row"
     ],
@@ -273,6 +276,9 @@
     ],
     "evidence trio": [
       "centered-question-evidence"
+    ],
+    "explain each part of one screen": [
+      "annotated-screen"
     ],
     "facilitator dialogue": [
       "editorial-explainer-stage"
@@ -361,6 +367,9 @@
     "n% of users …": [
       "stat-bar"
     ],
+    "node-level annotation of a ui": [
+      "annotated-screen"
+    ],
     "numbered explainer rows": [
       "numbered-rows"
     ],
@@ -417,6 +426,9 @@
     ],
     "phone mockup": [
       "ui-mockup"
+    ],
+    "point at the parts of the interface": [
+      "annotated-screen"
     ],
     "positioning map": [
       "positioning-matrix"
@@ -580,11 +592,17 @@
     "vs alternatives": [
       "comparison-table"
     ],
+    "walk through one screen element by element": [
+      "annotated-screen"
+    ],
     "we cover all of these": [
       "taglist"
     ],
     "we think x — here's why": [
       "idea-evidence"
+    ],
+    "what every element on this screen does": [
+      "annotated-screen"
     ],
     "what matters most panel": [
       "ranked-list"
@@ -600,6 +618,9 @@
     ],
     "what's out there": [
       "logo-row"
+    ],
+    "which rule applies where": [
+      "annotated-screen"
     ],
     "why x?": [
       "value-points"
@@ -627,6 +648,9 @@
     ],
     "一個提問配並列證據": [
       "centered-question-evidence"
+    ],
+    "一個畫面拆開解說": [
+      "annotated-screen"
     ],
     "一個痛點加引述": [
       "painpoint-evidence"
@@ -787,6 +811,9 @@
     "我們的準則": [
       "keyword-cards"
     ],
+    "指出介面上的位置": [
+      "annotated-screen"
+    ],
     "提問開場": [
       "centered-question-evidence"
     ],
@@ -868,6 +895,9 @@
     "用問題破題": [
       "centered-question-evidence"
     ],
+    "畫面元件逐項標註": [
+      "annotated-screen"
+    ],
     "畫面內部": [
       "ui-mockup"
     ],
@@ -943,6 +973,9 @@
     "質化量化並排": [
       "qual-quant-split"
     ],
+    "逐一說明畫面各部位": [
+      "annotated-screen"
+    ],
     "這個畫面能做什麼": [
       "feature-showcase"
     ],
@@ -991,6 +1024,9 @@
     "플로우": [
       "service-flow"
     ],
+    "한 화면을 부분별로 설명": [
+      "annotated-screen"
+    ],
     "화면 내부": [
       "ui-mockup"
     ],
@@ -999,6 +1035,56 @@
     ]
   },
   "entries": {
+    "annotated-screen": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "explain one screen part by part, anchoring each note to the place it applies",
+      "material": "ui-mockup",
+      "arrangement": "centre-satellite",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "feature-showcase",
+        "ui-mockup"
+      ],
+      "triggers": [
+        "explain each part of one screen",
+        "what every element on this screen does",
+        "callouts pinned to a screen",
+        "point at the parts of the interface",
+        "which rule applies where",
+        "walk through one screen element by element",
+        "node-level annotation of a UI",
+        "逐一說明畫面各部位",
+        "畫面元件逐項標註",
+        "指出介面上的位置",
+        "一個畫面拆開解說",
+        "한 화면을 부분별로 설명"
+      ],
+      "spec": "specs/layouts/annotated-screen.md",
+      "example": "examples/light-annotated-screen.html",
+      "dependsOn": [
+        "ui-mockup",
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "surface",
+        "muted",
+        "muted-soft",
+        "ink",
+        "accent",
+        "on-accent",
+        "shadow-card"
+      ],
+      "iconUse": "optional",
+      "learnedFrom": [
+        "Ref-annotated-screen-2026-08-31"
+      ],
+      "assetNeed": "ui-mockup",
+      "assetPolicy": "build"
+    },
     "as-is-to-be": {
       "kind": "layout",
       "tier": "organism",

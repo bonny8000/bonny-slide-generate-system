@@ -226,6 +226,7 @@ def hypertoken(name, mode):
     return result
 
 RECIPE_SLOTS = {
+    'annotated-screen': {'root': ['layout.row'], 'stage': ['geometry.relative'], 'pin': ['surface.panel'], 'heading': ['text.primary'], 'supporting': ['text.secondary'], 'legend': ['layout.column']},
     'as-is-to-be': {'root': ['layout.grid'], 'column': ['layout.column'], 'label': ['text.primary'], 'supporting': ['text.secondary']},
     'centered-question-evidence': {'root': ['layout.grid'], 'heading': ['text.heading'], 'evidence': ['surface.panel', 'layout.column'], 'supporting': ['text.secondary']},
     'citation-card': {'root': ['surface.panel', 'layout.column'], 'finding': ['text.primary'], 'source': ['text.secondary']},

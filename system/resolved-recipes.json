@@ -2,12 +2,87 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 44,
-    "layouts": 25,
+    "patterns": 45,
+    "layouts": 26,
     "components": 19,
-    "slots": 165
+    "slots": 171
   },
   "entries": {
+    "annotated-screen": {
+      "kind": "layout",
+      "spec": "specs/layouts/annotated-screen.md",
+      "example": "examples/light-annotated-screen.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".ascr"
+          ],
+          "hypertokens": [
+            "layout.row"
+          ],
+          "properties": {
+            "display": "flex"
+          }
+        },
+        "stage": {
+          "selectors": [
+            ".ascr .stage"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "pin": {
+          "selectors": [
+            ".ascr .pin"
+          ],
+          "hypertokens": [
+            "surface.panel"
+          ],
+          "properties": {
+            "background": "var(--surface)",
+            "border-radius": "var(--r-card)"
+          }
+        },
+        "heading": {
+          "selectors": [
+            ".ascr .pin .t"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "supporting": {
+          "selectors": [
+            ".ascr .pin .d"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "legend": {
+          "selectors": [
+            ".ascr .legend"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        }
+      }
+    },
     "as-is-to-be": {
       "kind": "layout",
       "spec": "specs/layouts/as-is-to-be.md",

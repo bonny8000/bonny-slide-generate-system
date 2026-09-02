@@ -31,6 +31,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 | product-hero | landing hero: nav + headline + CTA pair + stat trio + product UI mockup + tab row | Img19 | stable |
 | keyword-cards | 3–4 numbered value cards (number·label + title + desc) | Img20 | stable |
 | feature-showcase | feature areas under header bands, shown with annotated device mockups | Img21 | stable |
+| annotated-screen | one built screen with notes pinned to the parts they describe + numbered legend | Ref-annotated-screen-2026-08-31 | stable |
 | persona-cards | 1–2 persona cards: avatar + quote + tags + story + behavior sliders + pain points | Img22 | stable |
 | painpoint-evidence | two problem panels: participant quote-avatar row + annotated geo map | Img23 | stable |
 | timeline | Gantt: staggered phase bars over a dated axis + deliverables | Img24 | stable |
