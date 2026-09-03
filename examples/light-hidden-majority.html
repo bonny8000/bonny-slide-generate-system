@@ -1385,6 +1385,13 @@ footer strong{color: var(--ink);}
 /* The path ends where the run ended. The terminal chip is the only neg on the slide, so the eye
    lands on the failure without the surrounding steps competing for it. */
 .thr .pstep.end{background:var(--neg-soft);color:var(--neg);font-weight:700}
+
+/* ===== C1 variant · delta pill — state the change AT the bar, not above the chart =====
+   A dashed line marks where the value used to be and the pill names the gap between the two, so the
+   drop is measured against a mark the eye can see rather than against the neighbouring bar's height.
+   --rise is how far above this bar's top the previous value sat. */
+.barcol.delta .was{position:absolute;left:calc(-1 * var(--lead,180%));right:-30%;top:calc(-1 * var(--rise));border-top:1.5px dashed var(--muted)}
+.barcol.delta .dpill{position:absolute;left:50%;top:calc(-1 * var(--rise) - 16px);transform:translateX(-50%);white-space:nowrap;border-radius:var(--r-pill);padding:5px 14px;font-size:14px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
 </style></head><body><main class="slide deck" style="gap:var(--s5)">
 <div class="head center"><p class="eyebrow latin">Hidden Majority</p>
 <h1 class="headline cjk" style="font-size:32px">同樣是 1%，<span class="accent">讀法完全相反</span></h1>

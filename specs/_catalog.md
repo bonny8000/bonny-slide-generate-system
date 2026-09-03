@@ -55,7 +55,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 |---|---|---|---|
 | metric | big number + unit + caption | many | stable |
 | metric-card | result card: title (accent metric phrase) + muted line + right-anchored topic icon | Img13 | stable |
-| delta-metric | ±% headline + before/after grouped bars + legend | Img1 | stable |
+| delta-metric | ±% headline + before/after grouped bars + legend; *delta pill* variant states the change at the bar on a dashed was-line | Img1, Ref-delta-pill-2026-09-03 | stable |
 | barchart / hbar | vertical / ranked horizontal bars (1 active accent) | Img1,2,5,8,10 | stable |
 | pie-donut | pie / donut with big % or center number | Img2,3,10 | stable |
 | bubble-cluster | circles sized by magnitude | Img3 | stable |
