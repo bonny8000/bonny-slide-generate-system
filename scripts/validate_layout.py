@@ -58,6 +58,7 @@ INTERIOR_GAP_MAX = 0.18     # longest dead band inside the content, as a share o
 MARGIN_RATIO_MAX = 2.5      # uniform safe-area; measured on the ink box, so allow glyph slack
 BAND_RATIO_MAX = 2.2        # empty top vs empty bottom band
 BAND_SHARE_MIN = 0.12       # ...and the larger gap must be this share of the canvas to count
+BAND_RATIO_UNBOUNDED = 999.0  # stand-in for "one side has no band"; keeps the metric JSON-valid
 DEAD_QUADRANT_SHARE = 0.06  # a quadrant holding <6% of the ink reads as a dead corner
 INK_ROW_FLOOR = 0.004       # a row/col needs this fraction of ink to count as content
 COLOR_DELTA = 5             # per-channel delta that counts as "not background"; theme
@@ -173,6 +174,53 @@ def decode_png(data: bytes) -> tuple[int, int, int, bytearray]:
     return width, height, channels, out
 
 
+def encode_png(width: int, height: int, channels: int, pixels: bytearray) -> bytes:
+    """Minimal stdlib PNG encoder (8-bit, non-interlaced), so a render can be cropped in place."""
+    color_type = {1: 0, 3: 2, 4: 6}.get(channels)
+    if color_type is None:
+        raise LayoutError(f"cannot encode {channels}-channel image")
+    stride = width * channels
+    raw = bytearray()
+    for y in range(height):
+        raw.append(0)                                   # filter 0: none
+        raw += pixels[y * stride : (y + 1) * stride]
+
+    def chunk(tag: bytes, body: bytes) -> bytes:
+        return (
+            struct.pack(">I", len(body)) + tag + body
+            + struct.pack(">I", zlib.crc32(tag + body) & 0xFFFFFFFF)
+        )
+
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, color_type, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(bytes(raw), 6))
+        + chunk(b"IEND", b"")
+    )
+
+
+def png_size(data: bytes) -> tuple[int, int]:
+    """Width and height straight from IHDR — decoding a whole render just to measure it is slow."""
+    if data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise LayoutError("not a PNG file")
+    return struct.unpack(">II", data[16:24])
+
+
+def crop_png(data: bytes, want_w: int, want_h: int) -> bytes:
+    """Trim a render to the top-left want_w x want_h. Returns the input unchanged if it fits."""
+    have_w, have_h = png_size(data)
+    if have_w <= want_w and have_h <= want_h:
+        return data                                      # already fits: no decode, no re-encode
+    width, height, channels, pixels = decode_png(data)
+    want_w, want_h = min(want_w, width), min(want_h, height)
+    stride = width * channels
+    keep = want_w * channels
+    out = bytearray(want_h * keep)
+    for y in range(want_h):
+        out[y * keep : (y + 1) * keep] = pixels[y * stride : y * stride + keep]
+    return encode_png(want_w, want_h, channels, out)
+
+
 # ---------------------------------------------------------------- rendering
 
 
@@ -229,7 +277,77 @@ def _complete_png(shot: Path) -> bytes | None:
     return data if data.endswith(PNG_EOF) else None
 
 
+# `--window-size` sizes the WINDOW, not the viewport. Under --headless=new some builds still
+# reserve space for browser UI that is never drawn, so the page gets a viewport shorter than asked
+# for: this container hands back 994px for a requested 1080. Nothing reports it. A .slide.deck is
+# `height` tall, so the screenshot silently becomes a CROP of its top — and every metric taken from
+# it is wrong in the same direction (no bottom margin, a lopsided top band, a dead lower half).
+# The gate read that as 26 of 38 examples failing, in a repo whose macOS renders were fine.
+# So: ask the browser what viewport it actually gave us, add the shortfall back, and crop the
+# oversized capture down. The deficit is a property of the binary, so probe once and reuse.
+_VIEWPORT_DEFICIT: dict[tuple[str, float], tuple[int, int]] = {}
+
+PROBE_HTML = (
+    "<!doctype html><title>?</title>"
+    "<script>document.title=innerWidth+','+innerHeight</script>"
+)
+PROBE_TITLE_RE = re.compile(r"<title>(\d+),(\d+)</title>")
+
+
+def viewport_deficit(browser: str, width: int, height: int, scale: float) -> tuple[int, int]:
+    """CSS pixels this browser withholds from the viewport at this window size and scale."""
+    cached = _VIEWPORT_DEFICIT.get((browser, scale))
+    if cached is not None:
+        return cached
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+        probe = Path(tmp) / "probe.html"
+        probe.write_text(PROBE_HTML, encoding="utf-8")
+        dump = Path(tmp) / "dom.html"
+        cmd = [
+            browser, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-first-run",
+            "--disable-extensions", "--disable-background-networking", "--disable-component-update",
+            "--disable-sync", "--no-default-browser-check", "--metrics-recording-only",
+            f"--user-data-dir={tmp}/profile",
+            f"--window-size={width},{height}",
+            f"--force-device-scale-factor={scale}",
+            "--virtual-time-budget=1000",
+            "--dump-dom", probe.resolve().as_uri(),
+        ]
+        # Poll the OUTPUT, not the process, for the same reason render() does: Chrome can produce
+        # a perfectly good answer and then hang on shutdown, and waiting for exit throws it away.
+        with dump.open("wb") as sink:
+            proc = subprocess.Popen(cmd, stdout=sink, stderr=subprocess.DEVNULL)
+            deadline = time.monotonic() + 60
+            found = None
+            try:
+                while time.monotonic() < deadline:
+                    found = PROBE_TITLE_RE.search(dump.read_text("utf-8", "replace"))
+                    if found or proc.poll() is not None:
+                        found = found or PROBE_TITLE_RE.search(dump.read_text("utf-8", "replace"))
+                        break
+                    time.sleep(0.05)
+            finally:
+                if proc.poll() is None:
+                    proc.terminate()
+                    try:
+                        proc.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        proc.kill()
+                        proc.wait(timeout=5)
+        if not found:
+            raise LayoutError(
+                f"could not measure the render viewport with {Path(browser).name}. Without it a "
+                f"short viewport crops the slide silently and every layout metric is then taken "
+                f"from the wrong image, so this refuses to guess."
+            )
+    got_w, got_h = int(found.group(1)), int(found.group(2))
+    deficit = (max(0, width - got_w), max(0, height - got_h))
+    _VIEWPORT_DEFICIT[(browser, scale)] = deficit
+    return deficit
+
+
 def render(html: Path, browser: str, width: int, height: int, scale: float) -> bytes:
+    pad_w, pad_h = viewport_deficit(browser, width, height, scale)
     # ignore_cleanup_errors: on Windows the browser still holds its profile lockfile at exit
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
         shot = Path(tmp) / "shot.png"
@@ -248,7 +366,7 @@ def render(html: Path, browser: str, width: int, height: int, scale: float) -> b
             "--no-default-browser-check",
             "--metrics-recording-only",
             f"--user-data-dir={tmp}/profile",
-            f"--window-size={width},{height}",
+            f"--window-size={width + pad_w},{height + pad_h}",
             f"--force-device-scale-factor={scale}",
             "--virtual-time-budget=3000",
             f"--screenshot={shot}",
@@ -286,6 +404,19 @@ def render(html: Path, browser: str, width: int, height: int, scale: float) -> b
         if data is None:
             detail = stderr.decode("utf-8", "replace").strip()[-500:]
             raise LayoutError(f"headless render produced no screenshot. {detail}")
+        # The padded window makes the capture taller than the slide; trim the dead strip so
+        # every caller measures exactly the requested canvas whatever the browser withheld.
+        want_w, want_h = round(width * scale), round(height * scale)
+        data = crop_png(data, want_w, want_h)
+        got_w, got_h = png_size(data)
+        # crop_png can only trim. A capture that is still SHORT means the browser cut the
+        # page some other way, and measuring it would silently repeat the bug this padding
+        # exists to fix — so say so instead. 1px of slack absorbs scale rounding.
+        if got_w < want_w - 1 or got_h < want_h - 1:
+            raise LayoutError(
+                f"render came back {got_w}x{got_h}, short of the {want_w}x{want_h} canvas. "
+                f"The slide is cropped, so no layout measurement from it would be valid."
+            )
         return data
 
 
@@ -435,8 +566,14 @@ def analyse(width: int, height: int, channels: int, pixels: bytearray) -> dict[s
         "whitespace_ratio": 1 - coverage,
         "content_ink": strong_ink / max(1, occupied_count * cell_area),
         "margins": margins,
-        "margin_ratio": max(margins.values()) / max(1, min(margins.values())),
-        "band_ratio": max(top, bottom) / max(1, min(top, bottom)),
+        "margin_ratio": (
+            max(margins.values()) / min(margins.values())
+            if min(margins.values()) else BAND_RATIO_UNBOUNDED
+        ),
+        # `max(1, min(...))` would divide by 1 when a band is absent, so the "ratio" came out
+        # as the other band's PIXEL COUNT and printed as e.g. "127.0x". Nothing is 127 times
+        # anything there: one side simply has no band. Say unbounded and mean it.
+        "band_ratio": (max(top, bottom) / min(top, bottom)) if min(top, bottom) else BAND_RATIO_UNBOUNDED,
         "band_share": max(top, bottom) / height,
         "interior_gap": interior_gap,
         "text_gap": text_gap,
@@ -685,9 +822,14 @@ def evaluate(
         if metrics["band_ratio"] > BAND_RATIO_MAX and metrics["band_share"] > BAND_SHARE_MIN:
             m = metrics["margins"]
             heavier = "top" if m["top"] > m["bottom"] else "bottom"
+            ratio = metrics["band_ratio"]
+            size = (
+                "the other side has none at all"
+                if ratio >= BAND_RATIO_UNBOUNDED
+                else f"{ratio:.1f}× > {BAND_RATIO_MAX}×"
+            )
             failures.append(
-                f"empty {heavier} band — T{m['top']}px vs B{m['bottom']}px "
-                f"({metrics['band_ratio']:.1f}× > {BAND_RATIO_MAX}×). "
+                f"empty {heavier} band — T{m['top']}px vs B{m['bottom']}px ({size}). "
                 "Fill the canvas top→bottom: use .grow on the body and .vspread to distribute it."
             )
 
