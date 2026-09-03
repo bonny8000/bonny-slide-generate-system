@@ -24,7 +24,7 @@ class RecipeTests(unittest.TestCase):
     def test_every_catalog_pattern_has_a_connected_recipe(self):
         recipes = self.validate(self.data)
         output = json.loads(compiler.render_resolved_recipes(recipes, self.fragments, self.specs))
-        self.assertEqual(output["coverage"]["layouts"], 29)
+        self.assertEqual(output["coverage"]["layouts"], 30)
         self.assertEqual(output['coverage']['components'], 19)
         self.assertEqual(set(output['entries']), set(self.specs))
 

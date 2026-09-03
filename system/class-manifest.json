@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 48,
-    "fullyImplemented": 48,
+    "specs": 49,
+    "fullyImplemented": 49,
     "withGaps": 0
   },
   "entries": {
@@ -1074,6 +1074,37 @@
         "qband",
         "row",
         "supp",
+        "who"
+      ],
+      "missingFromBaseCss": []
+    },
+    "role-thread": {
+      "kind": "layout",
+      "example": "examples/light-role-thread.html",
+      "classes": [
+        "bub",
+        "end",
+        "lbl",
+        "path",
+        "pstep",
+        "rcard",
+        "say",
+        "sep",
+        "thr",
+        "turn",
+        "who"
+      ],
+      "implementedInBaseCss": [
+        "bub",
+        "end",
+        "lbl",
+        "path",
+        "pstep",
+        "rcard",
+        "say",
+        "sep",
+        "thr",
+        "turn",
         "who"
       ],
       "missingFromBaseCss": []

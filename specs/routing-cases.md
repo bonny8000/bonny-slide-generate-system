@@ -48,3 +48,5 @@ English cases mixed in because the system must serve both.
 | 這個崩潰是哪幾個元件在什麼順序下互相影響造成的 | event-sequence |
 | 這個功能由哪些元件組成，哪一個是跑在 webview 裡面的 | system-anatomy |
 | show what the ad stack is built from and which piece is hosted inside the native app | system-anatomy |
+| 說明這個當機是怎麼從監控被發現、QA 重現、最後開發找到原因的 | role-thread |
+| retell the incident showing what each team saw before we landed on the cause | role-thread |

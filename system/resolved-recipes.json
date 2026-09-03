@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 48,
-    "layouts": 29,
+    "patterns": 49,
+    "layouts": 30,
     "components": 19,
-    "slots": 192
+    "slots": 197
   },
   "entries": {
     "annotated-screen": {
@@ -2652,6 +2652,75 @@
           ],
           "properties": {
             "color": "var(--accent)"
+          }
+        }
+      }
+    },
+    "role-thread": {
+      "kind": "layout",
+      "spec": "specs/layouts/role-thread.md",
+      "example": "examples/light-role-thread.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".thr"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "turn": {
+          "selectors": [
+            ".thr .turn"
+          ],
+          "hypertokens": [
+            "layout.row"
+          ],
+          "properties": {
+            "display": "flex"
+          }
+        },
+        "quiet": {
+          "selectors": [
+            ".thr .bub",
+            ".thr .pstep"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "body": {
+          "selectors": [
+            ".thr .who",
+            ".thr .bub",
+            ".thr .rcard .rh",
+            ".thr .pstep"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "meta": {
+          "selectors": [
+            ".thr .lbl",
+            ".thr .rcard .rd",
+            ".thr .rcard .rl"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
           }
         }
       }

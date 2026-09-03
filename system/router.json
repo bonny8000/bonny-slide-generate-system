@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 29,
+    "layouts": 30,
     "components": 19
   },
   "triggerIndex": {
@@ -60,6 +60,9 @@
     ],
     "a 2×2 of capabilities each with an icon + blurb": [
       "feature-grid"
+    ],
+    "a bug from detection to cause": [
+      "role-thread"
     ],
     "a capability/coverage list": [
       "taglist"
@@ -156,6 +159,9 @@
     ],
     "an idea/claim + a supporting chart or stat": [
       "idea-evidence"
+    ],
+    "an incident walked through end to end": [
+      "role-thread"
     ],
     "an outcome with a topic": [
       "metric-card"
@@ -327,6 +333,9 @@
     ],
     "how might we": [
       "research-flow"
+    ],
+    "how we found the cause": [
+      "role-thread"
     ],
     "human-agent worked example": [
       "editorial-explainer-stage"
@@ -583,6 +592,9 @@
     "the calls between services in the order they fire": [
       "event-sequence"
     ],
+    "the handoff from monitoring to qa to the fix": [
+      "role-thread"
+    ],
     "the order these components talk to each other": [
       "event-sequence"
     ],
@@ -649,6 +661,9 @@
     "what are the pieces of this system and how do they fit together": [
       "system-anatomy"
     ],
+    "what each team saw": [
+      "role-thread"
+    ],
     "what every element on this screen does": [
       "annotated-screen"
     ],
@@ -687,6 +702,9 @@
     ],
     "who calls whom and in what order": [
       "event-sequence"
+    ],
+    "who noticed it and who confirmed it": [
+      "role-thread"
     ],
     "why x?": [
       "value-points"
@@ -729,6 +747,9 @@
     ],
     "事件依序觸發": [
       "event-sequence"
+    ],
+    "事故回顧": [
+      "role-thread"
     ],
     "人物誌": [
       "persona-cards"
@@ -808,6 +829,9 @@
     "各元件之間傳遞什麼": [
       "system-anatomy"
     ],
+    "各角色分別看到什麼": [
+      "role-thread"
+    ],
     "各階段產出": [
       "timeline"
     ],
@@ -871,6 +895,9 @@
     "引導流程說明": [
       "editorial-explainer-stage"
     ],
+    "從偵測到修好的過程": [
+      "role-thread"
+    ],
     "從背景推導到問題": [
       "research-flow"
     ],
@@ -894,6 +921,9 @@
     ],
     "成果": [
       "results-grid"
+    ],
+    "我們是怎麼找到原因的": [
+      "role-thread"
     ],
     "我們的優勢": [
       "value-points"
@@ -1090,6 +1120,9 @@
     "逐一說明畫面各部位": [
       "annotated-screen"
     ],
+    "這個問題怎麼一路查下去": [
+      "role-thread"
+    ],
     "這個東西由哪些元件組成": [
       "system-anatomy"
     ],
@@ -1149,6 +1182,9 @@
     ],
     "주고받는 이벤트": [
       "event-sequence"
+    ],
+    "크래시 재현 경로": [
+      "role-thread"
     ],
     "포지셔닝": [
       "positioning-matrix"
@@ -2666,6 +2702,62 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img13"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
+    "role-thread": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show how one problem travelled across roles until it was understood, with each turn attributed to who said it",
+      "material": "text-only",
+      "arrangement": "rows",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "event-sequence",
+        "painpoint-evidence",
+        "idea-evidence"
+      ],
+      "triggers": [
+        "how we found the cause",
+        "an incident walked through end to end",
+        "what each team saw",
+        "the handoff from monitoring to QA to the fix",
+        "a bug from detection to cause",
+        "who noticed it and who confirmed it",
+        "我們是怎麼找到原因的",
+        "這個問題怎麼一路查下去",
+        "各角色分別看到什麼",
+        "從偵測到修好的過程",
+        "事故回顧",
+        "크래시 재현 경로"
+      ],
+      "spec": "specs/layouts/role-thread.md",
+      "example": "examples/light-role-thread.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft",
+        "warn",
+        "warn-soft",
+        "pos",
+        "pos-soft",
+        "neg",
+        "neg-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-role-thread-2026-09-03"
       ],
       "assetNeed": "none",
       "assetPolicy": "none"

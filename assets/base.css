@@ -1058,3 +1058,33 @@ footer strong{color: var(--ink);}
 .anat .step .num{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--muted-soft);font-size:11px;font-weight:700;color:var(--recipe-text-primary-color)}
 .anat .step .t{font-size:11px;line-height:1.4;color:var(--recipe-text-secondary-color)}
 .anat .step .dir{font-size:15px;line-height:1;color:var(--muted)}
+
+/* ===== C22 — role-thread: one problem travelling across roles until it is understood =====
+   Each turn is attributed by a chip in its role's token colour, so the reader sees the handoff
+   rather than a wall of quotes. One turn can expand into a structured card instead of a bubble:
+   the moment a thread produces evidence, the evidence is the turn. */
+.thr{display:var(--recipe-layout-column-display);flex-direction:var(--recipe-layout-column-flex-direction);gap:var(--s4)}
+.thr .turn{display:var(--recipe-layout-row-display);gap:var(--s4);align-items:flex-start}
+/* Four role tints, and no more. A fifth voice would have to reuse one, which is the signal that the
+   thread has more participants than a single slide can attribute legibly. */
+.thr .who{flex:0 0 66px;padding:6px 0;text-align:center;border-radius:var(--r-chip);font-size:13px;font-weight:700;background:var(--muted-soft);color:var(--recipe-text-primary-color)}
+.thr .who.a{background:var(--accent-soft);color:var(--accent)}
+.thr .who.w{background:var(--warn-soft);color:var(--warn)}
+.thr .who.p{background:var(--pos-soft);color:var(--pos)}
+.thr .who.n{background:var(--neg-soft);color:var(--neg)}
+.thr .say{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:5px}
+.thr .lbl{font-size:13px;font-weight:700;line-height:1.4;color:var(--recipe-text-secondary-color)}
+.thr .bub{background:var(--recipe-surface-neutral-background);border-radius:var(--r-card);padding:var(--s3) var(--s4);font-size:16px;line-height:1.7;color:var(--recipe-text-primary-color)}
+.thr .bub b{color:var(--accent)}
+/* The evidence card. It sits on .chip with a hairline so it reads as an artifact produced by the
+   thread, not as another thing someone said. */
+.thr .rcard{background:var(--chip);border:1px solid var(--muted-soft);border-radius:var(--r-card);padding:var(--s4)}
+.thr .rcard .rh{font-weight:700;font-size:16px;line-height:1.4;color:var(--recipe-text-primary-color)}
+.thr .rcard .rd{margin-top:4px;font-size:14px;line-height:1.6;color:var(--recipe-text-secondary-color)}
+.thr .rcard .rl{margin-top:var(--s3);font-size:12px;font-weight:700;color:var(--recipe-text-secondary-color)}
+.thr .path{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:6px}
+.thr .pstep{background:var(--recipe-surface-neutral-background);border-radius:var(--r-pill);padding:5px 12px;font-size:13px;line-height:1.4;color:var(--recipe-text-primary-color)}
+.thr .path .sep{font-size:12px;color:var(--muted)}
+/* The path ends where the run ended. The terminal chip is the only neg on the slide, so the eye
+   lands on the failure without the surrounding steps competing for it. */
+.thr .pstep.end{background:var(--neg-soft);color:var(--neg);font-weight:700}

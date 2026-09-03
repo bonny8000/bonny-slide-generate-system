@@ -274,6 +274,7 @@ RECIPE_SLOTS = {
     'value-points': {'root': ['layout.grid'], 'point': ['layout.column'], 'card': ['surface.panel'], 'supporting': ['text.secondary']},
     'event-sequence': {'root': ['layout.column'], 'track': ['geometry.relative'], 'chip': ['surface.neutral'], 'actor': ['text.primary'], 'role': ['text.secondary'], 'band': ['surface.soft'], 'tag': ['text.accent']},
     'system-anatomy': {'root': ['layout.column'], 'rail': ['layout.row'], 'panel': ['surface.neutral'], 'group': ['surface.soft'], 'title': ['text.primary'], 'note': ['text.secondary'], 'tag': ['text.accent']},
+    'role-thread': {'root': ['layout.column'], 'turn': ['layout.row'], 'quiet': ['surface.neutral'], 'body': ['text.primary'], 'meta': ['text.secondary']},
 }
 
 def recipe(name, slot, mode):

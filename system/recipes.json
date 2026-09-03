@@ -1606,6 +1606,50 @@
           ".anat .bidi"
         ]
       }
+    },
+    "role-thread": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/role-thread.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "turn": [
+          "layout.row"
+        ],
+        "quiet": [
+          "surface.neutral"
+        ],
+        "body": [
+          "text.primary"
+        ],
+        "meta": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".thr"
+        ],
+        "turn": [
+          ".thr .turn"
+        ],
+        "quiet": [
+          ".thr .bub",
+          ".thr .pstep"
+        ],
+        "body": [
+          ".thr .who",
+          ".thr .bub",
+          ".thr .rcard .rh",
+          ".thr .pstep"
+        ],
+        "meta": [
+          ".thr .lbl",
+          ".thr .rcard .rd",
+          ".thr .rcard .rl"
+        ]
+      }
     }
   }
 }
