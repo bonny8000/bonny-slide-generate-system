@@ -272,6 +272,7 @@ RECIPE_SLOTS = {
     'ui-mockup': {'root': ['surface.panel'], 'skeleton': ['surface.muted'], 'highlight': ['surface.soft']},
     'use-case-cards': {'root': ['layout.grid'], 'item': ['layout.column'], 'card': ['surface.panel', 'layout.grid'], 'supporting': ['text.secondary']},
     'value-points': {'root': ['layout.grid'], 'point': ['layout.column'], 'card': ['surface.panel'], 'supporting': ['text.secondary']},
+    'event-sequence': {'root': ['layout.column'], 'track': ['geometry.relative'], 'chip': ['surface.neutral'], 'actor': ['text.primary'], 'role': ['text.secondary'], 'band': ['surface.soft'], 'tag': ['text.accent']},
 }
 
 def recipe(name, slot, mode):

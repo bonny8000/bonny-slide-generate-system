@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 46,
-    "layouts": 27,
+    "patterns": 47,
+    "layouts": 28,
     "components": 19,
-    "slots": 178
+    "slots": 185
   },
   "entries": {
     "annotated-screen": {
@@ -2470,6 +2470,96 @@
           ],
           "properties": {
             "color": "var(--muted)"
+          }
+        }
+      }
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "spec": "specs/layouts/event-sequence.md",
+      "example": "examples/light-event-sequence.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".seq"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "track": {
+          "selectors": [
+            ".seq .track"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "chip": {
+          "selectors": [
+            ".seq .actor",
+            ".seq .self"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "actor": {
+          "selectors": [
+            ".seq .actor .n",
+            ".seq .msg .t"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "role": {
+          "selectors": [
+            ".seq .actor .r",
+            ".seq .self"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "band": {
+          "selectors": [
+            ".seq .pband"
+          ],
+          "hypertokens": [
+            "surface.soft"
+          ],
+          "properties": {
+            "background": "var(--accent-soft)"
+          }
+        },
+        "tag": {
+          "selectors": [
+            ".seq .pband .pl",
+            ".seq .pband .msg .t",
+            ".seq .pband .self"
+          ],
+          "hypertokens": [
+            "text.accent"
+          ],
+          "properties": {
+            "color": "var(--accent)"
           }
         }
       }

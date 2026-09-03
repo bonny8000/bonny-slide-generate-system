@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 46,
-    "fullyImplemented": 46,
+    "specs": 47,
+    "fullyImplemented": 47,
     "withGaps": 0
   },
   "entries": {
@@ -286,6 +286,35 @@
         "tag",
         "uiqa",
         "workflow"
+      ],
+      "missingFromBaseCss": []
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "example": "examples/light-event-sequence.html",
+      "classes": [
+        "actor",
+        "back",
+        "cast",
+        "lane",
+        "lanes",
+        "msg",
+        "pband",
+        "self",
+        "seq",
+        "track"
+      ],
+      "implementedInBaseCss": [
+        "actor",
+        "back",
+        "cast",
+        "lane",
+        "lanes",
+        "msg",
+        "pband",
+        "self",
+        "seq",
+        "track"
       ],
       "missingFromBaseCss": []
     },

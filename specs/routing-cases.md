@@ -43,3 +43,6 @@ English cases mixed in because the system must serve both.
 | 一個設計想法，搭配支持它的證據 | idea-evidence |
 | 用一個提問開場，再用並列的證據回答它 | centered-question-evidence |
 | 用比較有人味的方式說明這場工作坊怎麼進行 | editorial-explainer-stage |
+| 一次結帳從按下去到出帳，中間服務之間互相呼叫了什麼、順序是什麼 | event-sequence |
+| walk through the calls between the app, the bridge and the ad server in the order they fire | event-sequence |
+| 這個崩潰是哪幾個元件在什麼順序下互相影響造成的 | event-sequence |

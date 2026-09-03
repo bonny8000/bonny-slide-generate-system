@@ -1494,6 +1494,61 @@
           ".vp .desc"
         ]
       }
+    },
+    "event-sequence": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/event-sequence.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "track": [
+          "geometry.relative"
+        ],
+        "chip": [
+          "surface.neutral"
+        ],
+        "actor": [
+          "text.primary"
+        ],
+        "role": [
+          "text.secondary"
+        ],
+        "band": [
+          "surface.soft"
+        ],
+        "tag": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".seq"
+        ],
+        "track": [
+          ".seq .track"
+        ],
+        "chip": [
+          ".seq .actor",
+          ".seq .self"
+        ],
+        "actor": [
+          ".seq .actor .n",
+          ".seq .msg .t"
+        ],
+        "role": [
+          ".seq .actor .r",
+          ".seq .self"
+        ],
+        "band": [
+          ".seq .pband"
+        ],
+        "tag": [
+          ".seq .pband .pl",
+          ".seq .pband .msg .t",
+          ".seq .pband .self"
+        ]
+      }
     }
   }
 }

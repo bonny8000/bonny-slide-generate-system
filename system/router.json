@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 27,
+    "layouts": 28,
     "components": 19
   },
   "triggerIndex": {
@@ -88,6 +88,9 @@
     "a framework hub": [
       "hero-radial"
     ],
+    "a handshake": [
+      "event-sequence"
+    ],
     "a hypothesis backed by both": [
       "qual-quant-split"
     ],
@@ -102,6 +105,9 @@
     ],
     "a product ui to show off": [
       "product-hero"
+    ],
+    "a protocol exchange": [
+      "event-sequence"
     ],
     "a question to anchor a section": [
       "centered-question-evidence"
@@ -138,6 +144,9 @@
     ],
     "an end-to-end process shown whole": [
       "service-flow"
+    ],
+    "an event lifecycle": [
+      "event-sequence"
     ],
     "an icon + title + blurb card": [
       "feature-card"
@@ -358,6 +367,9 @@
     "many categories/tags": [
       "taglist"
     ],
+    "message passing between components": [
+      "event-sequence"
+    ],
     "multi-point findings": [
       "numbered-rows"
     ],
@@ -562,6 +574,12 @@
     "testimonial": [
       "quote-bubble"
     ],
+    "the calls between services in the order they fire": [
+      "event-sequence"
+    ],
+    "the order these components talk to each other": [
+      "event-sequence"
+    ],
     "the rest have not got it yet": [
       "hidden-majority"
     ],
@@ -643,6 +661,9 @@
     "which rule applies where": [
       "annotated-screen"
     ],
+    "who calls whom and in what order": [
+      "event-sequence"
+    ],
     "why x?": [
       "value-points"
     ],
@@ -682,6 +703,9 @@
     "主要使用者與他們的困擾": [
       "persona-cards"
     ],
+    "事件依序觸發": [
+      "event-sequence"
+    ],
     "人物誌": [
       "persona-cards"
     ],
@@ -714,6 +738,9 @@
     ],
     "儀表板畫面": [
       "ui-mockup"
+    ],
+    "元件之間互相影響的順序": [
+      "event-sequence"
     ],
     "兩軸象限": [
       "positioning-matrix"
@@ -759,6 +786,9 @@
     ],
     "名詞解釋": [
       "terminology-cards"
+    ],
+    "呼叫順序": [
+      "event-sequence"
     ],
     "問卷": [
       "survey-stack"
@@ -870,6 +900,9 @@
     ],
     "有人味的說明": [
       "editorial-explainer-stage"
+    ],
+    "服務之間互相呼叫": [
+      "event-sequence"
     ],
     "服務哪些客群": [
       "use-case-cards"
@@ -988,6 +1021,9 @@
     "親和圖": [
       "interview-affinity"
     ],
+    "訊息往返": [
+      "event-sequence"
+    ],
     "訪談收斂": [
       "interview-affinity"
     ],
@@ -1002,6 +1038,9 @@
     ],
     "設計想法與支持數據": [
       "idea-evidence"
+    ],
+    "誰先呼叫誰": [
+      "event-sequence"
     ],
     "講的是同一件事": [
       "terminology-cards"
@@ -1045,6 +1084,9 @@
     "민감도": [
       "level-slider"
     ],
+    "시퀀스": [
+      "event-sequence"
+    ],
     "아직 받지 못한 사용자": [
       "hidden-majority"
     ],
@@ -1056,6 +1098,9 @@
     ],
     "우선순위": [
       "ranked-list"
+    ],
+    "주고받는 이벤트": [
+      "event-sequence"
     ],
     "포지셔닝": [
       "positioning-matrix"
@@ -1395,6 +1440,59 @@
       ],
       "assetNeed": "illustration+ui-screen",
       "assetPolicy": "generate-art-supply-screen"
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show the ordered exchange between several components, and mark the stretch of it that carries the argument",
+      "material": "text-only",
+      "arrangement": "sequence-actors",
+      "itemCount": "many",
+      "shapeVariants": [],
+      "alternates": [
+        "service-flow",
+        "numbered-rows",
+        "timeline"
+      ],
+      "triggers": [
+        "who calls whom and in what order",
+        "the order these components talk to each other",
+        "the calls between services in the order they fire",
+        "a handshake",
+        "a protocol exchange",
+        "an event lifecycle",
+        "message passing between components",
+        "呼叫順序",
+        "服務之間互相呼叫",
+        "元件之間互相影響的順序",
+        "事件依序觸發",
+        "訊息往返",
+        "誰先呼叫誰",
+        "시퀀스",
+        "주고받는 이벤트"
+      ],
+      "spec": "specs/layouts/event-sequence.md",
+      "example": "examples/light-event-sequence.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-event-sequence-2026-09-03"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
     },
     "evidence-card": {
       "kind": "component",
