@@ -4,7 +4,7 @@
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
 Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
-**47 catalog recipes** are connected to authored CSS through selector bindings.
+**48 catalog recipes** are connected to authored CSS through selector bindings.
 `assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,
 specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.
 Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,
@@ -91,3 +91,4 @@ conflicting fragment, mismatched example, or disconnected CSS consumer fails com
 | `use-case-cards` | migrated | `specs/layouts/use-case-cards.md` | `root` (.cards) → `layout.grid`<br>`item` (.uc-item) → `layout.column`<br>`card` (.uc-card) → `surface.panel`, `layout.grid`<br>`supporting` (.uc-cap) → `text.secondary` |
 | `value-points` | migrated | `specs/layouts/value-points.md` | `root` (.vp) → `layout.grid`<br>`point` (.vp .pt) → `layout.column`<br>`card` (.vp .card) → `surface.panel`<br>`supporting` (.vp .desc) → `text.secondary` |
 | `event-sequence` | migrated | `specs/layouts/event-sequence.md` | `root` (.seq) → `layout.column`<br>`track` (.seq .track) → `geometry.relative`<br>`chip` (.seq .actor, .seq .self) → `surface.neutral`<br>`actor` (.seq .actor .n, .seq .msg .t) → `text.primary`<br>`role` (.seq .actor .r, .seq .self) → `text.secondary`<br>`band` (.seq .pband) → `surface.soft`<br>`tag` (.seq .pband .pl, .seq .pband .msg .t, .seq .pband .self) → `text.accent` |
+| `system-anatomy` | migrated | `specs/layouts/system-anatomy.md` | `root` (.anat) → `layout.column`<br>`rail` (.anat .rail) → `layout.row`<br>`panel` (.anat) → `surface.neutral`<br>`group` (.anat .grp) → `surface.soft`<br>`title` (.anat .cap .n, .anat .blk .n, .anat .mem .n, .anat .step .num) → `text.primary`<br>`note` (.anat .cap .d, .anat .blk .d, .anat .mem .d, .anat .step .t) → `text.secondary`<br>`tag` (.anat .grp .gn, .anat .bidi) → `text.accent` |

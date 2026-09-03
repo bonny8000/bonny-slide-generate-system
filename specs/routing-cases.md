@@ -46,3 +46,5 @@ English cases mixed in because the system must serve both.
 | 一次結帳從按下去到出帳，中間服務之間互相呼叫了什麼、順序是什麼 | event-sequence |
 | walk through the calls between the app, the bridge and the ad server in the order they fire | event-sequence |
 | 這個崩潰是哪幾個元件在什麼順序下互相影響造成的 | event-sequence |
+| 這個功能由哪些元件組成，哪一個是跑在 webview 裡面的 | system-anatomy |
+| show what the ad stack is built from and which piece is hosted inside the native app | system-anatomy |

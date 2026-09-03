@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 28,
+    "layouts": 29,
     "components": 19
   },
   "triggerIndex": {
@@ -141,6 +141,9 @@
     ],
     "an achievements recap": [
       "results-grid"
+    ],
+    "an architecture overview": [
+      "system-anatomy"
     ],
     "an end-to-end process shown whole": [
       "service-flow"
@@ -574,6 +577,9 @@
     "testimonial": [
       "quote-bubble"
     ],
+    "the anatomy of the thing we built": [
+      "system-anatomy"
+    ],
     "the calls between services in the order they fire": [
       "event-sequence"
     ],
@@ -582,6 +588,9 @@
     ],
     "the rest have not got it yet": [
       "hidden-majority"
+    ],
+    "the stack a feature runs on": [
+      "system-anatomy"
     ],
     "the visible part is not the whole": [
       "hidden-majority"
@@ -637,11 +646,20 @@
     "we think x — here's why": [
       "idea-evidence"
     ],
+    "what are the pieces of this system and how do they fit together": [
+      "system-anatomy"
+    ],
     "what every element on this screen does": [
       "annotated-screen"
     ],
     "what matters most panel": [
       "ranked-list"
+    ],
+    "what sits between the app and the server": [
+      "system-anatomy"
+    ],
+    "what this is built from": [
+      "system-anatomy"
     ],
     "what this number hides": [
       "hidden-majority"
@@ -657,6 +675,12 @@
     ],
     "what's out there": [
       "logo-row"
+    ],
+    "which component lives inside which": [
+      "system-anatomy"
+    ],
+    "which piece is hosted inside another": [
+      "system-anatomy"
     ],
     "which rule applies where": [
       "annotated-screen"
@@ -781,6 +805,9 @@
     "只是冰山一角": [
       "hidden-majority"
     ],
+    "各元件之間傳遞什麼": [
+      "system-anatomy"
+    ],
     "各階段產出": [
       "timeline"
     ],
@@ -789,6 +816,9 @@
     ],
     "呼叫順序": [
       "event-sequence"
+    ],
+    "哪一層包在哪一層裡面": [
+      "system-anatomy"
     ],
     "問卷": [
       "survey-stack"
@@ -910,6 +940,9 @@
     "服務流程": [
       "service-flow"
     ],
+    "架構圖": [
+      "system-anatomy"
+    ],
     "核心概念放中間": [
       "hero-radial"
     ],
@@ -1006,6 +1039,9 @@
     "第一優先/第二優先": [
       "ranked-list"
     ],
+    "系統結構": [
+      "system-anatomy"
+    ],
     "結帳畫面": [
       "ui-mockup"
     ],
@@ -1048,8 +1084,14 @@
     "質化量化並排": [
       "qual-quant-split"
     ],
+    "跑在哪一層裡面": [
+      "system-anatomy"
+    ],
     "逐一說明畫面各部位": [
       "annotated-screen"
+    ],
+    "這個東西由哪些元件組成": [
+      "system-anatomy"
     ],
     "這個畫面能做什麼": [
       "feature-showcase"
@@ -1068,6 +1110,9 @@
     ],
     "개선 전후": [
       "as-is-to-be"
+    ],
+    "구조": [
+      "system-anatomy"
     ],
     "기능 추가 후": [
       "as-is-to-be"
@@ -1089,6 +1134,9 @@
     ],
     "아직 받지 못한 사용자": [
       "hidden-majority"
+    ],
+    "아키텍처": [
+      "system-anatomy"
     ],
     "연결": [
       "linked-circles"
@@ -2738,6 +2786,60 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img2"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show what a system is made of — which parts are peers, which part lives inside another, and what passes between them",
+      "material": "text-only",
+      "arrangement": "nested-blocks",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "service-flow",
+        "event-sequence",
+        "linked-circles"
+      ],
+      "triggers": [
+        "what are the pieces of this system and how do they fit together",
+        "what this is built from",
+        "which piece is hosted inside another",
+        "which component lives inside which",
+        "the stack a feature runs on",
+        "an architecture overview",
+        "the anatomy of the thing we built",
+        "what sits between the app and the server",
+        "系統結構",
+        "架構圖",
+        "這個東西由哪些元件組成",
+        "哪一層包在哪一層裡面",
+        "跑在哪一層裡面",
+        "各元件之間傳遞什麼",
+        "구조",
+        "아키텍처"
+      ],
+      "spec": "specs/layouts/system-anatomy.md",
+      "example": "examples/light-system-anatomy.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-system-anatomy-2026-09-03"
       ],
       "assetNeed": "none",
       "assetPolicy": "none"

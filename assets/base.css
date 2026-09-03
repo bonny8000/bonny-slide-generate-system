@@ -1026,3 +1026,35 @@ footer strong{color: var(--ink);}
 /* muted-soft on accent-soft is invisible, and a band whose lifelines vanish reads as a gap in the
    sequence rather than an emphasised stretch of it. */
 .seq .pband .lane{border-left-color:var(--accent)}
+
+/* ===== C21 — system-anatomy: what the system is made of, what nests inside what, what passes between =====
+   Peer blocks share the rail; the one that HOSTS a subsystem is wider and carries a tinted .grp, so
+   containment is read from the nesting rather than from a label claiming it. Connectors are their own
+   rail cells, not block borders, because a connector can carry two numbered steps travelling opposite
+   ways between the same pair. */
+.anat{display:var(--recipe-layout-column-display);flex-direction:var(--recipe-layout-column-flex-direction);gap:var(--s4);min-height:0;background:var(--recipe-surface-neutral-background);border-radius:var(--r-card);padding:var(--s5)}
+.anat .cap .n{font-weight:700;font-size:18px;line-height:1.35;color:var(--recipe-text-primary-color)}
+.anat .cap .d{font-size:13px;line-height:1.5;margin-top:2px;color:var(--recipe-text-secondary-color)}
+/* Blocks are centred, not stretched. Stretching every peer to the host's height leaves four tall
+   white boxes holding two lines each — emptiness the layout did not ask for. The host is taller
+   because it contains more, and that difference is information. */
+.anat .rail{display:var(--recipe-layout-row-display);align-items:center;justify-content:center;flex:1;min-height:0}
+.anat .blk{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:var(--s2);background:var(--chip);border-radius:var(--r-card);padding:var(--s4) var(--s3);text-align:center}
+.anat .blk .n{font-weight:700;font-size:16px;line-height:1.35;color:var(--recipe-text-primary-color)}
+.anat .blk .d{font-size:12px;line-height:1.5;color:var(--recipe-text-secondary-color)}
+/* The host is wider only because it has to hold a whole subsystem legibly. It keeps the peers'
+   surface: tinting it would claim the containment a second time, and the nesting already says it. */
+.anat .blk.host{flex:1.7 1 0}
+.anat .grp{margin-top:auto;display:flex;flex-direction:column;gap:var(--s2);background:var(--recipe-surface-soft-background);border-radius:var(--r-card);padding:var(--s3);text-align:left}
+.anat .grp .gn{font-size:12px;font-weight:700;color:var(--recipe-text-accent-color)}
+.anat .mem{background:var(--chip);border-radius:var(--r-chip);padding:var(--s2) var(--s3);text-align:center}
+.anat .mem .n{font-weight:700;font-size:14px;line-height:1.35;color:var(--recipe-text-primary-color)}
+.anat .mem .d{font-size:11px;line-height:1.45;color:var(--recipe-text-secondary-color)}
+.anat .bidi{text-align:center;font-size:11px;line-height:1.4;color:var(--recipe-text-accent-color)}
+/* A connector column. It can stack several .step children — a request and its response are two
+   numbered steps between the same pair, and collapsing them into one arrow loses the round trip. */
+.anat .link{flex:0 0 var(--anat-link,132px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s3);padding:0 var(--s1)}
+.anat .step{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.anat .step .num{display:flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--muted-soft);font-size:11px;font-weight:700;color:var(--recipe-text-primary-color)}
+.anat .step .t{font-size:11px;line-height:1.4;color:var(--recipe-text-secondary-color)}
+.anat .step .dir{font-size:15px;line-height:1;color:var(--muted)}

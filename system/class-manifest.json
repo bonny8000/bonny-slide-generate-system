@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 47,
-    "fullyImplemented": 47,
+    "specs": 48,
+    "fullyImplemented": 48,
     "withGaps": 0
   },
   "entries": {
@@ -1178,6 +1178,39 @@
         "track",
         "two",
         "wordmark"
+      ],
+      "missingFromBaseCss": []
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "example": "examples/light-system-anatomy.html",
+      "classes": [
+        "anat",
+        "bidi",
+        "blk",
+        "cap",
+        "dir",
+        "grp",
+        "host",
+        "link",
+        "mem",
+        "num",
+        "rail",
+        "step"
+      ],
+      "implementedInBaseCss": [
+        "anat",
+        "bidi",
+        "blk",
+        "cap",
+        "dir",
+        "grp",
+        "host",
+        "link",
+        "mem",
+        "num",
+        "rail",
+        "step"
       ],
       "missingFromBaseCss": []
     },

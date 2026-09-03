@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 47,
-    "layouts": 28,
+    "patterns": 48,
+    "layouts": 29,
     "components": 19,
-    "slots": 185
+    "slots": 192
   },
   "entries": {
     "annotated-screen": {
@@ -2554,6 +2554,98 @@
             ".seq .pband .pl",
             ".seq .pband .msg .t",
             ".seq .pband .self"
+          ],
+          "hypertokens": [
+            "text.accent"
+          ],
+          "properties": {
+            "color": "var(--accent)"
+          }
+        }
+      }
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "spec": "specs/layouts/system-anatomy.md",
+      "example": "examples/light-system-anatomy.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".anat"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "rail": {
+          "selectors": [
+            ".anat .rail"
+          ],
+          "hypertokens": [
+            "layout.row"
+          ],
+          "properties": {
+            "display": "flex"
+          }
+        },
+        "panel": {
+          "selectors": [
+            ".anat"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "group": {
+          "selectors": [
+            ".anat .grp"
+          ],
+          "hypertokens": [
+            "surface.soft"
+          ],
+          "properties": {
+            "background": "var(--accent-soft)"
+          }
+        },
+        "title": {
+          "selectors": [
+            ".anat .cap .n",
+            ".anat .blk .n",
+            ".anat .mem .n",
+            ".anat .step .num"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "note": {
+          "selectors": [
+            ".anat .cap .d",
+            ".anat .blk .d",
+            ".anat .mem .d",
+            ".anat .step .t"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "tag": {
+          "selectors": [
+            ".anat .grp .gn",
+            ".anat .bidi"
           ],
           "hypertokens": [
             "text.accent"

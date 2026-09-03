@@ -1549,6 +1549,63 @@
           ".seq .pband .self"
         ]
       }
+    },
+    "system-anatomy": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/system-anatomy.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "rail": [
+          "layout.row"
+        ],
+        "panel": [
+          "surface.neutral"
+        ],
+        "group": [
+          "surface.soft"
+        ],
+        "title": [
+          "text.primary"
+        ],
+        "note": [
+          "text.secondary"
+        ],
+        "tag": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".anat"
+        ],
+        "rail": [
+          ".anat .rail"
+        ],
+        "panel": [
+          ".anat"
+        ],
+        "group": [
+          ".anat .grp"
+        ],
+        "title": [
+          ".anat .cap .n",
+          ".anat .blk .n",
+          ".anat .mem .n",
+          ".anat .step .num"
+        ],
+        "note": [
+          ".anat .cap .d",
+          ".anat .blk .d",
+          ".anat .mem .d",
+          ".anat .step .t"
+        ],
+        "tag": [
+          ".anat .grp .gn",
+          ".anat .bidi"
+        ]
+      }
     }
   }
 }
