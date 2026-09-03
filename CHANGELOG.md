@@ -1,3 +1,18 @@
+## Unreleased — scroll-viewer decks reach the PDF exporter (2026-09-03)
+
+- Add `scripts/split_deck.py`: rebuild each slide of an all-in-one scroll viewer as a standalone
+  single-slide document, so decks authored as one scrolling file can reach `export_pdf.py` and the
+  layout gate. Shared `<style>` blocks and webfont links are copied to every page and the slide
+  markup is carried over byte-for-byte; the source file is never modified.
+- Drop the trailing viewer-chrome CSS when splitting. Those rules restyle the page around the
+  slides (`body{display:block}`, a tinted `html` background, `.frame`/`.stage` scaling); carried
+  into a single-slide file they fight the deck's own page rules and the slide renders off-canvas.
+  The block is found by the `viewer chrome` comment marker, and a viewer without one is reported
+  rather than silently mis-split.
+- Cross-check the extraction against `slide_html.slides()` so a `.slide` the extractor cannot reach
+  fails the split instead of quietly dropping a page from the export.
+- Document the split-then-export path in the README, next to the existing individual-slides rule.
+
 ## Unreleased — README and current example visuals (2026-08-31)
 
 - Reorganize the README around setup, current capabilities, examples, shape-first routing,

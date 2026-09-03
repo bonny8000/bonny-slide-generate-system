@@ -101,6 +101,14 @@ PDF export keeps text as text where browser/font support allows, verifies one pa
 leaves the source HTML unchanged. Existing output files require `--force`. Export the **individual
 slide files**, not a scroll viewer, gallery, or poster. Review the PDF for font and layout changes.
 
+A deck authored as one scrolling HTML file is split into those individual files first. The splitter
+copies the shared styles onto every page, drops the viewer chrome, and leaves the source untouched:
+
+```bash
+python3 scripts/split_deck.py deck.html --out work/slides
+python3 scripts/export_pdf.py work/slides --out work/deck.pdf
+```
+
 ## Examples
 
 These are current HTML examples rendered in Chromium, not illustrations of a proposed feature.
