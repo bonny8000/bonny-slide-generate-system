@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 25,
+    "layouts": 27,
     "components": 19
   },
   "triggerIndex": {
@@ -217,6 +217,9 @@
     "buttons": [
       "cta-buttons"
     ],
+    "callouts pinned to a screen": [
+      "annotated-screen"
+    ],
     "capabilities": [
       "icon-label-row"
     ],
@@ -273,6 +276,9 @@
     ],
     "evidence trio": [
       "centered-question-evidence"
+    ],
+    "explain each part of one screen": [
+      "annotated-screen"
     ],
     "facilitator dialogue": [
       "editorial-explainer-stage"
@@ -361,6 +367,9 @@
     "n% of users …": [
       "stat-bar"
     ],
+    "node-level annotation of a ui": [
+      "annotated-screen"
+    ],
     "numbered explainer rows": [
       "numbered-rows"
     ],
@@ -375,6 +384,9 @@
     ],
     "one term + definition": [
       "terminology-card"
+    ],
+    "only a small percent so far": [
+      "hidden-majority"
     ],
     "option/brand markers": [
       "positioning-matrix"
@@ -397,6 +409,9 @@
     "parallel ideas each with a short explanation": [
       "keyword-cards"
     ],
+    "partial rollout risk": [
+      "hidden-majority"
+    ],
     "participant voice": [
       "quote-bubble"
     ],
@@ -417,6 +432,9 @@
     ],
     "phone mockup": [
       "ui-mockup"
+    ],
+    "point at the parts of the interface": [
+      "annotated-screen"
     ],
     "positioning map": [
       "positioning-matrix"
@@ -514,6 +532,9 @@
     "spatial concentration": [
       "geo-map"
     ],
+    "staged release exposure": [
+      "hidden-majority"
+    ],
     "start → ends": [
       "service-flow"
     ],
@@ -541,11 +562,20 @@
     "testimonial": [
       "quote-bubble"
     ],
+    "the rest have not got it yet": [
+      "hidden-majority"
+    ],
+    "the visible part is not the whole": [
+      "hidden-majority"
+    ],
     "this screen does x": [
       "feature-showcase"
     ],
     "timeline": [
       "timeline"
+    ],
+    "tip of the iceberg": [
+      "hidden-majority"
     ],
     "tools": [
       "logo-row"
@@ -580,14 +610,23 @@
     "vs alternatives": [
       "comparison-table"
     ],
+    "walk through one screen element by element": [
+      "annotated-screen"
+    ],
     "we cover all of these": [
       "taglist"
     ],
     "we think x — here's why": [
       "idea-evidence"
     ],
+    "what every element on this screen does": [
+      "annotated-screen"
+    ],
     "what matters most panel": [
       "ranked-list"
+    ],
+    "what this number hides": [
+      "hidden-majority"
     ],
     "what users said + how many": [
       "qual-quant-split"
@@ -600,6 +639,9 @@
     ],
     "what's out there": [
       "logo-row"
+    ],
+    "which rule applies where": [
+      "annotated-screen"
     ],
     "why x?": [
       "value-points"
@@ -627,6 +669,9 @@
     ],
     "一個提問配並列證據": [
       "centered-question-evidence"
+    ],
+    "一個畫面拆開解說": [
+      "annotated-screen"
     ],
     "一個痛點加引述": [
       "painpoint-evidence"
@@ -673,6 +718,12 @@
     "兩軸象限": [
       "positioning-matrix"
     ],
+    "其餘的還沒拿到": [
+      "hidden-majority"
+    ],
+    "分批推送的風險": [
+      "hidden-majority"
+    ],
     "分組訪談結果彙整": [
       "interview-affinity"
     ],
@@ -699,6 +750,9 @@
     ],
     "受訪者樣本": [
       "survey-stack"
+    ],
+    "只是冰山一角": [
+      "hidden-majority"
     ],
     "各階段產出": [
       "timeline"
@@ -787,6 +841,9 @@
     "我們的準則": [
       "keyword-cards"
     ],
+    "指出介面上的位置": [
+      "annotated-screen"
+    ],
     "提問開場": [
       "centered-question-evidence"
     ],
@@ -868,6 +925,9 @@
     "用問題破題": [
       "centered-question-evidence"
     ],
+    "畫面元件逐項標註": [
+      "annotated-screen"
+    ],
     "畫面內部": [
       "ui-mockup"
     ],
@@ -880,11 +940,17 @@
     "痛點與對策": [
       "problem-solution"
     ],
+    "目前只有一小部分": [
+      "hidden-majority"
+    ],
     "目標定位": [
       "positioning-matrix"
     ],
     "目標客群分類": [
       "use-case-cards"
+    ],
+    "看不見的那一部分更大": [
+      "hidden-majority"
     ],
     "研究脈絡": [
       "research-flow"
@@ -943,6 +1009,9 @@
     "質化量化並排": [
       "qual-quant-split"
     ],
+    "逐一說明畫面各部位": [
+      "annotated-screen"
+    ],
     "這個畫面能做什麼": [
       "feature-showcase"
     ],
@@ -976,6 +1045,9 @@
     "민감도": [
       "level-slider"
     ],
+    "아직 받지 못한 사용자": [
+      "hidden-majority"
+    ],
     "연결": [
       "linked-circles"
     ],
@@ -991,6 +1063,9 @@
     "플로우": [
       "service-flow"
     ],
+    "한 화면을 부분별로 설명": [
+      "annotated-screen"
+    ],
     "화면 내부": [
       "ui-mockup"
     ],
@@ -999,6 +1074,56 @@
     ]
   },
   "entries": {
+    "annotated-screen": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "explain one screen part by part, anchoring each note to the place it applies",
+      "material": "ui-mockup",
+      "arrangement": "centre-satellite",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "feature-showcase",
+        "ui-mockup"
+      ],
+      "triggers": [
+        "explain each part of one screen",
+        "what every element on this screen does",
+        "callouts pinned to a screen",
+        "point at the parts of the interface",
+        "which rule applies where",
+        "walk through one screen element by element",
+        "node-level annotation of a UI",
+        "逐一說明畫面各部位",
+        "畫面元件逐項標註",
+        "指出介面上的位置",
+        "一個畫面拆開解說",
+        "한 화면을 부분별로 설명"
+      ],
+      "spec": "specs/layouts/annotated-screen.md",
+      "example": "examples/light-annotated-screen.html",
+      "dependsOn": [
+        "ui-mockup",
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "surface",
+        "muted",
+        "muted-soft",
+        "ink",
+        "accent",
+        "on-accent",
+        "shadow-card"
+      ],
+      "iconUse": "optional",
+      "learnedFrom": [
+        "Ref-annotated-screen-2026-08-31"
+      ],
+      "assetNeed": "ui-mockup",
+      "assetPolicy": "build"
+    },
     "as-is-to-be": {
       "kind": "layout",
       "tier": "organism",
@@ -1505,6 +1630,57 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img6"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
+    "hidden-majority": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "stop a small number being dismissed by showing the larger part it hides",
+      "material": "stat",
+      "arrangement": "opposed",
+      "itemCount": "pair",
+      "shapeVariants": [],
+      "alternates": [
+        "pie-donut",
+        "delta-metric"
+      ],
+      "triggers": [
+        "only a small percent so far",
+        "the rest have not got it yet",
+        "partial rollout risk",
+        "what this number hides",
+        "the visible part is not the whole",
+        "staged release exposure",
+        "tip of the iceberg",
+        "只是冰山一角",
+        "目前只有一小部分",
+        "其餘的還沒拿到",
+        "看不見的那一部分更大",
+        "分批推送的風險",
+        "아직 받지 못한 사용자"
+      ],
+      "spec": "specs/layouts/hidden-majority.md",
+      "example": "examples/light-hidden-majority.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "surface",
+        "muted",
+        "muted-soft",
+        "ink",
+        "accent",
+        "accent-soft",
+        "warn",
+        "warn-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-hidden-majority-2026-09-02"
       ],
       "assetNeed": "none",
       "assetPolicy": "none"

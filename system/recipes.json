@@ -7,6 +7,50 @@
     "source": "specs/content-map.md"
   },
   "recipes": {
+    "annotated-screen": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/annotated-screen.md",
+      "slots": {
+        "root": [
+          "layout.row"
+        ],
+        "stage": [
+          "geometry.relative"
+        ],
+        "pin": [
+          "surface.panel"
+        ],
+        "heading": [
+          "text.primary"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "legend": [
+          "layout.column"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".ascr"
+        ],
+        "stage": [
+          ".ascr .stage"
+        ],
+        "pin": [
+          ".ascr .pin"
+        ],
+        "heading": [
+          ".ascr .pin .t"
+        ],
+        "supporting": [
+          ".ascr .pin .d"
+        ],
+        "legend": [
+          ".ascr .legend"
+        ]
+      }
+    },
     "as-is-to-be": {
       "migrationStatus": "migrated",
       "componentSpec": "specs/layouts/as-is-to-be.md",
@@ -415,6 +459,57 @@
         ],
         "core": [
           ".radial .core"
+        ]
+      }
+    },
+    "hidden-majority": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/hidden-majority.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "above": [
+          "geometry.relative"
+        ],
+        "panel": [
+          "surface.soft"
+        ],
+        "supporting": [
+          "text.secondary"
+        ],
+        "figure": [
+          "text.accent"
+        ],
+        "numeric": [
+          "type.numeric"
+        ],
+        "note": [
+          "text.primary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".hm"
+        ],
+        "above": [
+          ".hm .above"
+        ],
+        "panel": [
+          ".hm .below"
+        ],
+        "supporting": [
+          ".hm .water .cap"
+        ],
+        "figure": [
+          ".hm .below .fig .n",
+          ".hm .below .fig .l"
+        ],
+        "numeric": [
+          ".hm .fig .n"
+        ],
+        "note": [
+          ".hm .below .note"
         ]
       }
     },

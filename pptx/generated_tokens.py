@@ -226,6 +226,7 @@ def hypertoken(name, mode):
     return result
 
 RECIPE_SLOTS = {
+    'annotated-screen': {'root': ['layout.row'], 'stage': ['geometry.relative'], 'pin': ['surface.panel'], 'heading': ['text.primary'], 'supporting': ['text.secondary'], 'legend': ['layout.column']},
     'as-is-to-be': {'root': ['layout.grid'], 'column': ['layout.column'], 'label': ['text.primary'], 'supporting': ['text.secondary']},
     'centered-question-evidence': {'root': ['layout.grid'], 'heading': ['text.heading'], 'evidence': ['surface.panel', 'layout.column'], 'supporting': ['text.secondary']},
     'citation-card': {'root': ['surface.panel', 'layout.column'], 'finding': ['text.primary'], 'source': ['text.secondary']},
@@ -239,6 +240,7 @@ RECIPE_SLOTS = {
     'feature-showcase': {'root': ['layout.grid'], 'heading': ['text.heading'], 'area': ['layout.column'], 'supporting': ['text.secondary'], 'mockup': ['image.card-elevation']},
     'geo-map': {'root': ['layout.row'], 'annotation': ['layout.column'], 'value': ['text.primary', 'type.numeric'], 'label': ['text.secondary']},
     'hero-radial': {'root': ['layout.grid'], 'side': ['surface.panel', 'layout.column'], 'stage': ['layout.grid', 'geometry.relative'], 'core': ['surface.accent', 'text.on-accent']},
+    'hidden-majority': {'root': ['layout.column'], 'above': ['geometry.relative'], 'panel': ['surface.soft'], 'supporting': ['text.secondary'], 'figure': ['text.accent'], 'numeric': ['type.numeric'], 'note': ['text.primary']},
     'icon-label-row': {'root': ['layout.column'], 'row': ['layout.grid'], 'icon': ['surface.soft', 'layout.grid'], 'label': ['text.primary']},
     'idea-evidence': {'root': ['layout.grid'], 'panel': ['surface.panel', 'layout.column'], 'value': ['text.accent', 'type.numeric'], 'supporting': ['text.secondary']},
     'interview-affinity': {'root': ['layout.grid'], 'participant': ['surface.panel', 'layout.column'], 'heading': ['text.primary'], 'insight': ['surface.soft', 'text.primary']},

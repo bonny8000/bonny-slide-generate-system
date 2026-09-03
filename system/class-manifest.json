@@ -6,11 +6,50 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 44,
-    "fullyImplemented": 44,
+    "specs": 46,
+    "fullyImplemented": 46,
     "withGaps": 0
   },
   "entries": {
+    "annotated-screen": {
+      "kind": "layout",
+      "example": "examples/light-annotated-screen.html",
+      "classes": [
+        "appbar",
+        "ascr",
+        "back",
+        "cta",
+        "hero",
+        "leader",
+        "legend",
+        "lnum",
+        "lrow",
+        "ltext",
+        "phone",
+        "pin",
+        "scr",
+        "stage",
+        "ttl"
+      ],
+      "implementedInBaseCss": [
+        "appbar",
+        "ascr",
+        "back",
+        "cta",
+        "hero",
+        "leader",
+        "legend",
+        "lnum",
+        "lrow",
+        "ltext",
+        "phone",
+        "pin",
+        "scr",
+        "stage",
+        "ttl"
+      ],
+      "missingFromBaseCss": []
+    },
     "as-is-to-be": {
       "kind": "layout",
       "example": "examples/dark-as-is-to-be.html",
@@ -365,6 +404,31 @@
         "core",
         "radial",
         "sidecard"
+      ],
+      "missingFromBaseCss": []
+    },
+    "hidden-majority": {
+      "kind": "layout",
+      "example": "examples/light-hidden-majority.html",
+      "classes": [
+        "above",
+        "below",
+        "cap",
+        "fig",
+        "mass",
+        "note",
+        "tip",
+        "water"
+      ],
+      "implementedInBaseCss": [
+        "above",
+        "below",
+        "cap",
+        "fig",
+        "mass",
+        "note",
+        "tip",
+        "water"
       ],
       "missingFromBaseCss": []
     },
