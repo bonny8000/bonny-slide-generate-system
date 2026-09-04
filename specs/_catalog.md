@@ -33,6 +33,10 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 | feature-showcase | feature areas under header bands, shown with annotated device mockups | Img21 | stable |
 | annotated-screen | one built screen with notes pinned to the parts they describe + numbered legend | Ref-annotated-screen-2026-08-31 | stable |
 | hidden-majority | one whole split across a waterline: the visible sliver above, the mass it hides below | Ref-hidden-majority-2026-09-02 | stable |
+| event-sequence | actors as columns, time down, one row per message, with the decisive stretch banded | Ref-event-sequence-2026-09-03 | stable |
+| system-anatomy | peer blocks on a rail, one hosting a nested subsystem, with numbered connectors between | Ref-system-anatomy-2026-09-03 | stable |
+| role-thread | a thread whose turns are attributed to roles, with one turn expanded into evidence | Ref-role-thread-2026-09-03 | stable |
+| practice-hero | an illustration of the practice, captioned, over the numbered steps it runs | Ref-practice-hero-2026-09-03 | stable |
 | persona-cards | 1–2 persona cards: avatar + quote + tags + story + behavior sliders + pain points | Img22 | stable |
 | painpoint-evidence | two problem panels: participant quote-avatar row + annotated geo map | Img23 | stable |
 | timeline | Gantt: staggered phase bars over a dated axis + deliverables | Img24 | stable |
@@ -52,7 +56,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 |---|---|---|---|
 | metric | big number + unit + caption | many | stable |
 | metric-card | result card: title (accent metric phrase) + muted line + right-anchored topic icon | Img13 | stable |
-| delta-metric | ±% headline + before/after grouped bars + legend | Img1 | stable |
+| delta-metric | ±% headline + before/after grouped bars + legend; *delta pill* variant states the change at the bar on a dashed was-line | Img1, Ref-delta-pill-2026-09-03 | stable |
 | barchart / hbar | vertical / ranked horizontal bars (1 active accent) | Img1,2,5,8,10 | stable |
 | pie-donut | pie / donut with big % or center number | Img2,3,10 | stable |
 | bubble-cluster | circles sized by magnitude | Img3 | stable |

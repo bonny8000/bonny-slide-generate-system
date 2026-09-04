@@ -1494,6 +1494,210 @@
           ".vp .desc"
         ]
       }
+    },
+    "event-sequence": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/event-sequence.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "track": [
+          "geometry.relative"
+        ],
+        "chip": [
+          "surface.neutral"
+        ],
+        "actor": [
+          "text.primary"
+        ],
+        "role": [
+          "text.secondary"
+        ],
+        "band": [
+          "surface.soft"
+        ],
+        "tag": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".seq"
+        ],
+        "track": [
+          ".seq .track"
+        ],
+        "chip": [
+          ".seq .actor",
+          ".seq .self"
+        ],
+        "actor": [
+          ".seq .actor .n",
+          ".seq .msg .t"
+        ],
+        "role": [
+          ".seq .actor .r",
+          ".seq .self"
+        ],
+        "band": [
+          ".seq .pband"
+        ],
+        "tag": [
+          ".seq .pband .pl",
+          ".seq .pband .msg .t",
+          ".seq .pband .self"
+        ]
+      }
+    },
+    "system-anatomy": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/system-anatomy.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "rail": [
+          "layout.row"
+        ],
+        "panel": [
+          "surface.neutral"
+        ],
+        "group": [
+          "surface.soft"
+        ],
+        "title": [
+          "text.primary"
+        ],
+        "note": [
+          "text.secondary"
+        ],
+        "tag": [
+          "text.accent"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".anat"
+        ],
+        "rail": [
+          ".anat .rail"
+        ],
+        "panel": [
+          ".anat"
+        ],
+        "group": [
+          ".anat .grp"
+        ],
+        "title": [
+          ".anat .cap .n",
+          ".anat .blk .n",
+          ".anat .mem .n",
+          ".anat .step .num"
+        ],
+        "note": [
+          ".anat .cap .d",
+          ".anat .blk .d",
+          ".anat .mem .d",
+          ".anat .step .t"
+        ],
+        "tag": [
+          ".anat .grp .gn",
+          ".anat .bidi"
+        ]
+      }
+    },
+    "role-thread": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/role-thread.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "turn": [
+          "layout.row"
+        ],
+        "quiet": [
+          "surface.neutral"
+        ],
+        "body": [
+          "text.primary"
+        ],
+        "meta": [
+          "text.secondary"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".thr"
+        ],
+        "turn": [
+          ".thr .turn"
+        ],
+        "quiet": [
+          ".thr .bub",
+          ".thr .pstep"
+        ],
+        "body": [
+          ".thr .who",
+          ".thr .bub",
+          ".thr .rcard .rh",
+          ".thr .pstep"
+        ],
+        "meta": [
+          ".thr .lbl",
+          ".thr .rcard .rd",
+          ".thr .rcard .rl"
+        ]
+      }
+    },
+    "practice-hero": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/practice-hero.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "stage": [
+          "geometry.relative"
+        ],
+        "steps": [
+          "layout.grid"
+        ],
+        "title": [
+          "text.primary"
+        ],
+        "note": [
+          "text.secondary"
+        ],
+        "index": [
+          "text.accent",
+          "type.numeric"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".phero"
+        ],
+        "stage": [
+          ".phero .stage"
+        ],
+        "steps": [
+          ".phero .steps"
+        ],
+        "title": [
+          ".phero .tag",
+          ".phero .cap .n",
+          ".phero .stp .t"
+        ],
+        "note": [
+          ".phero .cap .d",
+          ".phero .stp .d"
+        ],
+        "index": [
+          ".phero .stp .k"
+        ]
+      }
     }
   }
 }

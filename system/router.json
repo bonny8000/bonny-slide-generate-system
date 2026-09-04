@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 27,
+    "layouts": 31,
     "components": 19
   },
   "triggerIndex": {
@@ -61,6 +61,9 @@
     "a 2×2 of capabilities each with an icon + blurb": [
       "feature-grid"
     ],
+    "a bug from detection to cause": [
+      "role-thread"
+    ],
     "a capability/coverage list": [
       "taglist"
     ],
@@ -88,6 +91,9 @@
     "a framework hub": [
       "hero-radial"
     ],
+    "a handshake": [
+      "event-sequence"
+    ],
     "a hypothesis backed by both": [
       "qual-quant-split"
     ],
@@ -103,11 +109,17 @@
     "a product ui to show off": [
       "product-hero"
     ],
+    "a protocol exchange": [
+      "event-sequence"
+    ],
     "a question to anchor a section": [
       "centered-question-evidence"
     ],
     "a quote + profile": [
       "persona-cards"
+    ],
+    "a recurring meeting and its agenda": [
+      "practice-hero"
     ],
     "a row of comparable proportions": [
       "stat-bar"
@@ -120,6 +132,9 @@
     ],
     "a single feature/capability": [
       "feature-card"
+    ],
+    "a standing review and what happens in each round": [
+      "practice-hero"
     ],
     "a target/goal point": [
       "positioning-matrix"
@@ -136,14 +151,23 @@
     "an achievements recap": [
       "results-grid"
     ],
+    "an architecture overview": [
+      "system-anatomy"
+    ],
     "an end-to-end process shown whole": [
       "service-flow"
+    ],
+    "an event lifecycle": [
+      "event-sequence"
     ],
     "an icon + title + blurb card": [
       "feature-card"
     ],
     "an idea/claim + a supporting chart or stat": [
       "idea-evidence"
+    ],
+    "an incident walked through end to end": [
+      "role-thread"
     ],
     "an outcome with a topic": [
       "metric-card"
@@ -316,6 +340,9 @@
     "how might we": [
       "research-flow"
     ],
+    "how we found the cause": [
+      "role-thread"
+    ],
     "human-agent worked example": [
       "editorial-explainer-stage"
     ],
@@ -358,6 +385,9 @@
     "many categories/tags": [
       "taglist"
     ],
+    "message passing between components": [
+      "event-sequence"
+    ],
     "multi-point findings": [
       "numbered-rows"
     ],
@@ -393,6 +423,9 @@
     ],
     "our keywords": [
       "keyword-cards"
+    ],
+    "our monthly cadence": [
+      "practice-hero"
     ],
     "overlapping circles": [
       "linked-circles"
@@ -562,11 +595,35 @@
     "testimonial": [
       "quote-bubble"
     ],
+    "the anatomy of the thing we built": [
+      "system-anatomy"
+    ],
+    "the calls between services in the order they fire": [
+      "event-sequence"
+    ],
+    "the handoff from monitoring to qa to the fix": [
+      "role-thread"
+    ],
+    "the order these components talk to each other": [
+      "event-sequence"
+    ],
     "the rest have not got it yet": [
       "hidden-majority"
     ],
+    "the ritual we put in place": [
+      "practice-hero"
+    ],
+    "the routine that stops it recurring": [
+      "practice-hero"
+    ],
+    "the stack a feature runs on": [
+      "system-anatomy"
+    ],
     "the visible part is not the whole": [
       "hidden-majority"
+    ],
+    "the working agreement we now run": [
+      "practice-hero"
     ],
     "this screen does x": [
       "feature-showcase"
@@ -619,11 +676,23 @@
     "we think x — here's why": [
       "idea-evidence"
     ],
+    "what are the pieces of this system and how do they fit together": [
+      "system-anatomy"
+    ],
+    "what each team saw": [
+      "role-thread"
+    ],
     "what every element on this screen does": [
       "annotated-screen"
     ],
     "what matters most panel": [
       "ranked-list"
+    ],
+    "what sits between the app and the server": [
+      "system-anatomy"
+    ],
+    "what this is built from": [
+      "system-anatomy"
     ],
     "what this number hides": [
       "hidden-majority"
@@ -640,8 +709,20 @@
     "what's out there": [
       "logo-row"
     ],
+    "which component lives inside which": [
+      "system-anatomy"
+    ],
+    "which piece is hosted inside another": [
+      "system-anatomy"
+    ],
     "which rule applies where": [
       "annotated-screen"
+    ],
+    "who calls whom and in what order": [
+      "event-sequence"
+    ],
+    "who noticed it and who confirmed it": [
+      "role-thread"
     ],
     "why x?": [
       "value-points"
@@ -682,6 +763,12 @@
     "主要使用者與他們的困擾": [
       "persona-cards"
     ],
+    "事件依序觸發": [
+      "event-sequence"
+    ],
+    "事故回顧": [
+      "role-thread"
+    ],
     "人物誌": [
       "persona-cards"
     ],
@@ -706,6 +793,9 @@
     "使用者輪廓": [
       "persona-cards"
     ],
+    "例行會議實際上在做什麼": [
+      "practice-hero"
+    ],
     "依序的重點": [
       "numbered-rows"
     ],
@@ -714,6 +804,9 @@
     ],
     "儀表板畫面": [
       "ui-mockup"
+    ],
+    "元件之間互相影響的順序": [
+      "event-sequence"
     ],
     "兩軸象限": [
       "positioning-matrix"
@@ -754,11 +847,23 @@
     "只是冰山一角": [
       "hidden-majority"
     ],
+    "各元件之間傳遞什麼": [
+      "system-anatomy"
+    ],
+    "各角色分別看到什麼": [
+      "role-thread"
+    ],
     "各階段產出": [
       "timeline"
     ],
     "名詞解釋": [
       "terminology-cards"
+    ],
+    "呼叫順序": [
+      "event-sequence"
+    ],
+    "哪一層包在哪一層裡面": [
+      "system-anatomy"
     ],
     "問卷": [
       "survey-stack"
@@ -774,6 +879,9 @@
     ],
     "問題與解法": [
       "problem-solution"
+    ],
+    "固定的檢視節奏": [
+      "practice-hero"
     ],
     "客戶分類": [
       "use-case-cards"
@@ -811,6 +919,9 @@
     "引導流程說明": [
       "editorial-explainer-stage"
     ],
+    "從偵測到修好的過程": [
+      "role-thread"
+    ],
     "從背景推導到問題": [
       "research-flow"
     ],
@@ -834,6 +945,12 @@
     ],
     "成果": [
       "results-grid"
+    ],
+    "我們建立了什麼樣的例行做法": [
+      "practice-hero"
+    ],
+    "我們是怎麼找到原因的": [
+      "role-thread"
     ],
     "我們的優勢": [
       "value-points"
@@ -871,11 +988,17 @@
     "有人味的說明": [
       "editorial-explainer-stage"
     ],
+    "服務之間互相呼叫": [
+      "event-sequence"
+    ],
     "服務哪些客群": [
       "use-case-cards"
     ],
     "服務流程": [
       "service-flow"
+    ],
+    "架構圖": [
+      "system-anatomy"
     ],
     "核心概念放中間": [
       "hero-radial"
@@ -891,6 +1014,9 @@
     ],
     "標註過的介面": [
       "feature-showcase"
+    ],
+    "每個月的協同機制": [
+      "practice-hero"
     ],
     "每個重點各一張圖表": [
       "numbered-rows"
@@ -973,6 +1099,9 @@
     "第一優先/第二優先": [
       "ranked-list"
     ],
+    "系統結構": [
+      "system-anatomy"
+    ],
     "結帳畫面": [
       "ui-mockup"
     ],
@@ -987,6 +1116,9 @@
     ],
     "親和圖": [
       "interview-affinity"
+    ],
+    "訊息往返": [
+      "event-sequence"
     ],
     "訪談收斂": [
       "interview-affinity"
@@ -1003,14 +1135,26 @@
     "設計想法與支持數據": [
       "idea-evidence"
     ],
+    "誰先呼叫誰": [
+      "event-sequence"
+    ],
     "講的是同一件事": [
       "terminology-cards"
     ],
     "質化量化並排": [
       "qual-quant-split"
     ],
+    "跑在哪一層裡面": [
+      "system-anatomy"
+    ],
     "逐一說明畫面各部位": [
       "annotated-screen"
+    ],
+    "這個問題怎麼一路查下去": [
+      "role-thread"
+    ],
+    "這個東西由哪些元件組成": [
+      "system-anatomy"
     ],
     "這個畫面能做什麼": [
       "feature-showcase"
@@ -1030,6 +1174,9 @@
     "개선 전후": [
       "as-is-to-be"
     ],
+    "구조": [
+      "system-anatomy"
+    ],
     "기능 추가 후": [
       "as-is-to-be"
     ],
@@ -1045,8 +1192,14 @@
     "민감도": [
       "level-slider"
     ],
+    "시퀀스": [
+      "event-sequence"
+    ],
     "아직 받지 못한 사용자": [
       "hidden-majority"
+    ],
+    "아키텍처": [
+      "system-anatomy"
     ],
     "연결": [
       "linked-circles"
@@ -1056,6 +1209,15 @@
     ],
     "우선순위": [
       "ranked-list"
+    ],
+    "정기 협의체": [
+      "practice-hero"
+    ],
+    "주고받는 이벤트": [
+      "event-sequence"
+    ],
+    "크래시 재현 경로": [
+      "role-thread"
     ],
     "포지셔닝": [
       "positioning-matrix"
@@ -1395,6 +1557,59 @@
       ],
       "assetNeed": "illustration+ui-screen",
       "assetPolicy": "generate-art-supply-screen"
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show the ordered exchange between several components, and mark the stretch of it that carries the argument",
+      "material": "text-only",
+      "arrangement": "sequence-actors",
+      "itemCount": "many",
+      "shapeVariants": [],
+      "alternates": [
+        "service-flow",
+        "numbered-rows",
+        "timeline"
+      ],
+      "triggers": [
+        "who calls whom and in what order",
+        "the order these components talk to each other",
+        "the calls between services in the order they fire",
+        "a handshake",
+        "a protocol exchange",
+        "an event lifecycle",
+        "message passing between components",
+        "呼叫順序",
+        "服務之間互相呼叫",
+        "元件之間互相影響的順序",
+        "事件依序觸發",
+        "訊息往返",
+        "誰先呼叫誰",
+        "시퀀스",
+        "주고받는 이벤트"
+      ],
+      "spec": "specs/layouts/event-sequence.md",
+      "example": "examples/light-event-sequence.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-event-sequence-2026-09-03"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
     },
     "evidence-card": {
       "kind": "component",
@@ -2232,6 +2447,54 @@
       "assetNeed": "none",
       "assetPolicy": "none"
     },
+    "practice-hero": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "make a recurring practice feel real — show the people doing it, then the steps it runs through",
+      "material": "illustration",
+      "arrangement": "hero",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "value-points",
+        "use-case-cards",
+        "service-flow"
+      ],
+      "triggers": [
+        "the ritual we put in place",
+        "a standing review and what happens in each round",
+        "our monthly cadence",
+        "the routine that stops it recurring",
+        "a recurring meeting and its agenda",
+        "the working agreement we now run",
+        "我們建立了什麼樣的例行做法",
+        "每個月的協同機制",
+        "例行會議實際上在做什麼",
+        "固定的檢視節奏",
+        "정기 협의체"
+      ],
+      "spec": "specs/layouts/practice-hero.md",
+      "example": "examples/light-practice-hero.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-practice-hero-2026-09-03"
+      ],
+      "assetNeed": "illustration",
+      "assetPolicy": "generate"
+    },
     "problem-solution": {
       "kind": "layout",
       "tier": "organism",
@@ -2524,6 +2787,62 @@
       "assetNeed": "none",
       "assetPolicy": "none"
     },
+    "role-thread": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show how one problem travelled across roles until it was understood, with each turn attributed to who said it",
+      "material": "text-only",
+      "arrangement": "rows",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "event-sequence",
+        "painpoint-evidence",
+        "idea-evidence"
+      ],
+      "triggers": [
+        "how we found the cause",
+        "an incident walked through end to end",
+        "what each team saw",
+        "the handoff from monitoring to QA to the fix",
+        "a bug from detection to cause",
+        "who noticed it and who confirmed it",
+        "我們是怎麼找到原因的",
+        "這個問題怎麼一路查下去",
+        "各角色分別看到什麼",
+        "從偵測到修好的過程",
+        "事故回顧",
+        "크래시 재현 경로"
+      ],
+      "spec": "specs/layouts/role-thread.md",
+      "example": "examples/light-role-thread.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft",
+        "warn",
+        "warn-soft",
+        "pos",
+        "pos-soft",
+        "neg",
+        "neg-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-role-thread-2026-09-03"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
     "service-flow": {
       "kind": "layout",
       "tier": "organism",
@@ -2640,6 +2959,60 @@
       "iconUse": "optional",
       "learnedFrom": [
         "Img2"
+      ],
+      "assetNeed": "none",
+      "assetPolicy": "none"
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "show what a system is made of — which parts are peers, which part lives inside another, and what passes between them",
+      "material": "text-only",
+      "arrangement": "nested-blocks",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "service-flow",
+        "event-sequence",
+        "linked-circles"
+      ],
+      "triggers": [
+        "what are the pieces of this system and how do they fit together",
+        "what this is built from",
+        "which piece is hosted inside another",
+        "which component lives inside which",
+        "the stack a feature runs on",
+        "an architecture overview",
+        "the anatomy of the thing we built",
+        "what sits between the app and the server",
+        "系統結構",
+        "架構圖",
+        "這個東西由哪些元件組成",
+        "哪一層包在哪一層裡面",
+        "跑在哪一層裡面",
+        "各元件之間傳遞什麼",
+        "구조",
+        "아키텍처"
+      ],
+      "spec": "specs/layouts/system-anatomy.md",
+      "example": "examples/light-system-anatomy.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "surface",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-system-anatomy-2026-09-03"
       ],
       "assetNeed": "none",
       "assetPolicy": "none"

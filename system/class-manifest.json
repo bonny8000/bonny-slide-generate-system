@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 46,
-    "fullyImplemented": 46,
+    "specs": 50,
+    "fullyImplemented": 50,
     "withGaps": 0
   },
   "entries": {
@@ -286,6 +286,35 @@
         "tag",
         "uiqa",
         "workflow"
+      ],
+      "missingFromBaseCss": []
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "example": "examples/light-event-sequence.html",
+      "classes": [
+        "actor",
+        "back",
+        "cast",
+        "lane",
+        "lanes",
+        "msg",
+        "pband",
+        "self",
+        "seq",
+        "track"
+      ],
+      "implementedInBaseCss": [
+        "actor",
+        "back",
+        "cast",
+        "lane",
+        "lanes",
+        "msg",
+        "pband",
+        "self",
+        "seq",
+        "track"
       ],
       "missingFromBaseCss": []
     },
@@ -848,6 +877,35 @@
       ],
       "missingFromBaseCss": []
     },
+    "practice-hero": {
+      "kind": "layout",
+      "example": "examples/light-practice-hero.html",
+      "classes": [
+        "anchor",
+        "art",
+        "cap",
+        "faint",
+        "phero",
+        "soft",
+        "stage",
+        "steps",
+        "stp",
+        "tag"
+      ],
+      "implementedInBaseCss": [
+        "anchor",
+        "art",
+        "cap",
+        "faint",
+        "phero",
+        "soft",
+        "stage",
+        "steps",
+        "stp",
+        "tag"
+      ],
+      "missingFromBaseCss": []
+    },
     "problem-solution": {
       "kind": "layout",
       "example": "examples/light-problem-solution.html",
@@ -1049,6 +1107,37 @@
       ],
       "missingFromBaseCss": []
     },
+    "role-thread": {
+      "kind": "layout",
+      "example": "examples/light-role-thread.html",
+      "classes": [
+        "bub",
+        "end",
+        "lbl",
+        "path",
+        "pstep",
+        "rcard",
+        "say",
+        "sep",
+        "thr",
+        "turn",
+        "who"
+      ],
+      "implementedInBaseCss": [
+        "bub",
+        "end",
+        "lbl",
+        "path",
+        "pstep",
+        "rcard",
+        "say",
+        "sep",
+        "thr",
+        "turn",
+        "who"
+      ],
+      "missingFromBaseCss": []
+    },
     "service-flow": {
       "kind": "layout",
       "example": "examples/light-service-flow.html",
@@ -1149,6 +1238,39 @@
         "track",
         "two",
         "wordmark"
+      ],
+      "missingFromBaseCss": []
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "example": "examples/light-system-anatomy.html",
+      "classes": [
+        "anat",
+        "bidi",
+        "blk",
+        "cap",
+        "dir",
+        "grp",
+        "host",
+        "link",
+        "mem",
+        "num",
+        "rail",
+        "step"
+      ],
+      "implementedInBaseCss": [
+        "anat",
+        "bidi",
+        "blk",
+        "cap",
+        "dir",
+        "grp",
+        "host",
+        "link",
+        "mem",
+        "num",
+        "rail",
+        "step"
       ],
       "missingFromBaseCss": []
     },

@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 46,
-    "layouts": 27,
+    "patterns": 50,
+    "layouts": 31,
     "components": 19,
-    "slots": 178
+    "slots": 203
   },
   "entries": {
     "annotated-screen": {
@@ -2470,6 +2470,336 @@
           ],
           "properties": {
             "color": "var(--muted)"
+          }
+        }
+      }
+    },
+    "event-sequence": {
+      "kind": "layout",
+      "spec": "specs/layouts/event-sequence.md",
+      "example": "examples/light-event-sequence.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".seq"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "track": {
+          "selectors": [
+            ".seq .track"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "chip": {
+          "selectors": [
+            ".seq .actor",
+            ".seq .self"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "actor": {
+          "selectors": [
+            ".seq .actor .n",
+            ".seq .msg .t"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "role": {
+          "selectors": [
+            ".seq .actor .r",
+            ".seq .self"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "band": {
+          "selectors": [
+            ".seq .pband"
+          ],
+          "hypertokens": [
+            "surface.soft"
+          ],
+          "properties": {
+            "background": "var(--accent-soft)"
+          }
+        },
+        "tag": {
+          "selectors": [
+            ".seq .pband .pl",
+            ".seq .pband .msg .t",
+            ".seq .pband .self"
+          ],
+          "hypertokens": [
+            "text.accent"
+          ],
+          "properties": {
+            "color": "var(--accent)"
+          }
+        }
+      }
+    },
+    "system-anatomy": {
+      "kind": "layout",
+      "spec": "specs/layouts/system-anatomy.md",
+      "example": "examples/light-system-anatomy.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".anat"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "rail": {
+          "selectors": [
+            ".anat .rail"
+          ],
+          "hypertokens": [
+            "layout.row"
+          ],
+          "properties": {
+            "display": "flex"
+          }
+        },
+        "panel": {
+          "selectors": [
+            ".anat"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "group": {
+          "selectors": [
+            ".anat .grp"
+          ],
+          "hypertokens": [
+            "surface.soft"
+          ],
+          "properties": {
+            "background": "var(--accent-soft)"
+          }
+        },
+        "title": {
+          "selectors": [
+            ".anat .cap .n",
+            ".anat .blk .n",
+            ".anat .mem .n",
+            ".anat .step .num"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "note": {
+          "selectors": [
+            ".anat .cap .d",
+            ".anat .blk .d",
+            ".anat .mem .d",
+            ".anat .step .t"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "tag": {
+          "selectors": [
+            ".anat .grp .gn",
+            ".anat .bidi"
+          ],
+          "hypertokens": [
+            "text.accent"
+          ],
+          "properties": {
+            "color": "var(--accent)"
+          }
+        }
+      }
+    },
+    "role-thread": {
+      "kind": "layout",
+      "spec": "specs/layouts/role-thread.md",
+      "example": "examples/light-role-thread.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".thr"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "turn": {
+          "selectors": [
+            ".thr .turn"
+          ],
+          "hypertokens": [
+            "layout.row"
+          ],
+          "properties": {
+            "display": "flex"
+          }
+        },
+        "quiet": {
+          "selectors": [
+            ".thr .bub",
+            ".thr .pstep"
+          ],
+          "hypertokens": [
+            "surface.neutral"
+          ],
+          "properties": {
+            "background": "var(--surface)"
+          }
+        },
+        "body": {
+          "selectors": [
+            ".thr .who",
+            ".thr .bub",
+            ".thr .rcard .rh",
+            ".thr .pstep"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "meta": {
+          "selectors": [
+            ".thr .lbl",
+            ".thr .rcard .rd",
+            ".thr .rcard .rl"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        }
+      }
+    },
+    "practice-hero": {
+      "kind": "layout",
+      "spec": "specs/layouts/practice-hero.md",
+      "example": "examples/light-practice-hero.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".phero"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "stage": {
+          "selectors": [
+            ".phero .stage"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "steps": {
+          "selectors": [
+            ".phero .steps"
+          ],
+          "hypertokens": [
+            "layout.grid"
+          ],
+          "properties": {
+            "display": "grid"
+          }
+        },
+        "title": {
+          "selectors": [
+            ".phero .tag",
+            ".phero .cap .n",
+            ".phero .stp .t"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "note": {
+          "selectors": [
+            ".phero .cap .d",
+            ".phero .stp .d"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "index": {
+          "selectors": [
+            ".phero .stp .k"
+          ],
+          "hypertokens": [
+            "text.accent",
+            "type.numeric"
+          ],
+          "properties": {
+            "color": "var(--accent)",
+            "font-family": "var(--font-latin)"
           }
         }
       }
