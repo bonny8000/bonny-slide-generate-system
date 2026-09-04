@@ -6,8 +6,8 @@
     "note": "Declared classes come from each spec's example markup, which is the only record of how the pattern is actually built."
   },
   "coverage": {
-    "specs": 49,
-    "fullyImplemented": 49,
+    "specs": 50,
+    "fullyImplemented": 50,
     "withGaps": 0
   },
   "entries": {
@@ -874,6 +874,35 @@
         "rank",
         "ranks",
         "target"
+      ],
+      "missingFromBaseCss": []
+    },
+    "practice-hero": {
+      "kind": "layout",
+      "example": "examples/light-practice-hero.html",
+      "classes": [
+        "anchor",
+        "art",
+        "cap",
+        "faint",
+        "phero",
+        "soft",
+        "stage",
+        "steps",
+        "stp",
+        "tag"
+      ],
+      "implementedInBaseCss": [
+        "anchor",
+        "art",
+        "cap",
+        "faint",
+        "phero",
+        "soft",
+        "stage",
+        "steps",
+        "stp",
+        "tag"
       ],
       "missingFromBaseCss": []
     },

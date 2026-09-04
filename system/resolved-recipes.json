@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "generatedBy": "scripts/compile_system.py",
   "coverage": {
-    "patterns": 49,
-    "layouts": 30,
+    "patterns": 50,
+    "layouts": 31,
     "components": 19,
-    "slots": 197
+    "slots": 203
   },
   "entries": {
     "annotated-screen": {
@@ -2721,6 +2721,85 @@
           ],
           "properties": {
             "color": "var(--muted)"
+          }
+        }
+      }
+    },
+    "practice-hero": {
+      "kind": "layout",
+      "spec": "specs/layouts/practice-hero.md",
+      "example": "examples/light-practice-hero.html",
+      "slots": {
+        "root": {
+          "selectors": [
+            ".phero"
+          ],
+          "hypertokens": [
+            "layout.column"
+          ],
+          "properties": {
+            "display": "flex",
+            "flex-direction": "column"
+          }
+        },
+        "stage": {
+          "selectors": [
+            ".phero .stage"
+          ],
+          "hypertokens": [
+            "geometry.relative"
+          ],
+          "properties": {
+            "position": "relative"
+          }
+        },
+        "steps": {
+          "selectors": [
+            ".phero .steps"
+          ],
+          "hypertokens": [
+            "layout.grid"
+          ],
+          "properties": {
+            "display": "grid"
+          }
+        },
+        "title": {
+          "selectors": [
+            ".phero .tag",
+            ".phero .cap .n",
+            ".phero .stp .t"
+          ],
+          "hypertokens": [
+            "text.primary"
+          ],
+          "properties": {
+            "color": "var(--ink)"
+          }
+        },
+        "note": {
+          "selectors": [
+            ".phero .cap .d",
+            ".phero .stp .d"
+          ],
+          "hypertokens": [
+            "text.secondary"
+          ],
+          "properties": {
+            "color": "var(--muted)"
+          }
+        },
+        "index": {
+          "selectors": [
+            ".phero .stp .k"
+          ],
+          "hypertokens": [
+            "text.accent",
+            "type.numeric"
+          ],
+          "properties": {
+            "color": "var(--accent)",
+            "font-family": "var(--font-latin)"
           }
         }
       }

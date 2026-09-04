@@ -1095,3 +1095,24 @@ footer strong{color: var(--ink);}
    --rise is how far above this bar's top the previous value sat. */
 .barcol.delta .was{position:absolute;left:calc(-1 * var(--lead,180%));right:-30%;top:calc(-1 * var(--rise));border-top:1.5px dashed var(--muted)}
 .barcol.delta .dpill{position:absolute;left:50%;top:calc(-1 * var(--rise) - 16px);transform:translateX(-50%);white-space:nowrap;border-radius:var(--r-pill);padding:5px 14px;font-size:14px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+
+/* ===== C23 — practice-hero: a picture of the practice, then the steps it runs =====
+   The illustration is the anchor and the steps are its mechanics, so the room believes the ritual
+   exists before being told how it works. Role tags are HTML chips over the drawing rather than SVG
+   text: they stay selectable, translatable, and on the type scale. */
+.phero{display:var(--recipe-layout-column-display);flex-direction:var(--recipe-layout-column-flex-direction);align-items:center;gap:var(--s4)}
+.phero .stage{position:var(--recipe-geometry-relative-position);display:grid;place-items:center;width:100%;max-width:var(--phero-art,420px)}
+.phero .art{width:100%;color:var(--accent)}
+.phero .art svg{width:100%;height:auto;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.phero .art .soft{fill:var(--accent-soft);stroke:none}
+.phero .art .faint{opacity:.38}
+.phero .tag{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);background:var(--chip);border:1px solid var(--muted-soft);border-radius:var(--r-pill);padding:4px 12px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--recipe-text-primary-color)}
+.phero .anchor{display:flex;flex-direction:column;align-items:center;gap:var(--s3);width:100%}
+.phero .cap{text-align:center}
+.phero .cap .n{font-weight:700;font-size:18px;line-height:1.35;color:var(--recipe-text-primary-color)}
+.phero .cap .d{margin-top:2px;font-size:14px;line-height:1.5;color:var(--recipe-text-secondary-color)}
+.phero .steps{display:var(--recipe-layout-grid-display);grid-template-columns:repeat(3,1fr);gap:var(--gutter);width:100%}
+.phero .stp{background:var(--chip);border:1px solid var(--muted-soft);border-radius:var(--r-card);padding:var(--s4)}
+.phero .stp .k{font-family:var(--recipe-type-numeric-font-family);font-size:13px;font-weight:700;color:var(--recipe-text-accent-color)}
+.phero .stp .t{margin-top:4px;font-weight:700;font-size:16px;line-height:1.4;color:var(--recipe-text-primary-color)}
+.phero .stp .d{margin-top:6px;font-size:13px;line-height:1.65;color:var(--recipe-text-secondary-color)}

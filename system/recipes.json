@@ -1650,6 +1650,54 @@
           ".thr .rcard .rl"
         ]
       }
+    },
+    "practice-hero": {
+      "migrationStatus": "migrated",
+      "componentSpec": "specs/layouts/practice-hero.md",
+      "slots": {
+        "root": [
+          "layout.column"
+        ],
+        "stage": [
+          "geometry.relative"
+        ],
+        "steps": [
+          "layout.grid"
+        ],
+        "title": [
+          "text.primary"
+        ],
+        "note": [
+          "text.secondary"
+        ],
+        "index": [
+          "text.accent",
+          "type.numeric"
+        ]
+      },
+      "bindings": {
+        "root": [
+          ".phero"
+        ],
+        "stage": [
+          ".phero .stage"
+        ],
+        "steps": [
+          ".phero .steps"
+        ],
+        "title": [
+          ".phero .tag",
+          ".phero .cap .n",
+          ".phero .stp .t"
+        ],
+        "note": [
+          ".phero .cap .d",
+          ".phero .stp .d"
+        ],
+        "index": [
+          ".phero .stp .k"
+        ]
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
 Hypertokens are reusable implementation fragments. They do **not** select components or layouts.
 Selection narrows by shape, then intent in `specs/content-map.md`; migration status has zero selection weight.
 
-**49 catalog recipes** are connected to authored CSS through selector bindings.
+**50 catalog recipes** are connected to authored CSS through selector bindings.
 `assets/generated/recipes.css` supplies canonical values; `base.css` retains structure,
 specificity, order, and contextual overrides. This does not move every CSS declaration into JSON.
 Resolved machine contract: `system/resolved-recipes.json`. A missing pattern, invalid selector,
@@ -93,3 +93,4 @@ conflicting fragment, mismatched example, or disconnected CSS consumer fails com
 | `event-sequence` | migrated | `specs/layouts/event-sequence.md` | `root` (.seq) → `layout.column`<br>`track` (.seq .track) → `geometry.relative`<br>`chip` (.seq .actor, .seq .self) → `surface.neutral`<br>`actor` (.seq .actor .n, .seq .msg .t) → `text.primary`<br>`role` (.seq .actor .r, .seq .self) → `text.secondary`<br>`band` (.seq .pband) → `surface.soft`<br>`tag` (.seq .pband .pl, .seq .pband .msg .t, .seq .pband .self) → `text.accent` |
 | `system-anatomy` | migrated | `specs/layouts/system-anatomy.md` | `root` (.anat) → `layout.column`<br>`rail` (.anat .rail) → `layout.row`<br>`panel` (.anat) → `surface.neutral`<br>`group` (.anat .grp) → `surface.soft`<br>`title` (.anat .cap .n, .anat .blk .n, .anat .mem .n, .anat .step .num) → `text.primary`<br>`note` (.anat .cap .d, .anat .blk .d, .anat .mem .d, .anat .step .t) → `text.secondary`<br>`tag` (.anat .grp .gn, .anat .bidi) → `text.accent` |
 | `role-thread` | migrated | `specs/layouts/role-thread.md` | `root` (.thr) → `layout.column`<br>`turn` (.thr .turn) → `layout.row`<br>`quiet` (.thr .bub, .thr .pstep) → `surface.neutral`<br>`body` (.thr .who, .thr .bub, .thr .rcard .rh, .thr .pstep) → `text.primary`<br>`meta` (.thr .lbl, .thr .rcard .rd, .thr .rcard .rl) → `text.secondary` |
+| `practice-hero` | migrated | `specs/layouts/practice-hero.md` | `root` (.phero) → `layout.column`<br>`stage` (.phero .stage) → `geometry.relative`<br>`steps` (.phero .steps) → `layout.grid`<br>`title` (.phero .tag, .phero .cap .n, .phero .stp .t) → `text.primary`<br>`note` (.phero .cap .d, .phero .stp .d) → `text.secondary`<br>`index` (.phero .stp .k) → `text.accent`, `type.numeric` |

@@ -50,3 +50,5 @@ English cases mixed in because the system must serve both.
 | show what the ad stack is built from and which piece is hosted inside the native app | system-anatomy |
 | 說明這個當機是怎麼從監控被發現、QA 重現、最後開發找到原因的 | role-thread |
 | retell the incident showing what each team saw before we landed on the cause | role-thread |
+| 介紹我們每個月的協同檢視是誰參加、實際上在做哪些事 | practice-hero |
+| introduce the standing review we set up and what the team does in each round | practice-hero |

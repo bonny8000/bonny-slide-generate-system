@@ -36,6 +36,7 @@ Mined from real reference decks (Img1–Img43). **Every entry is now `stable`** 
 | event-sequence | actors as columns, time down, one row per message, with the decisive stretch banded | Ref-event-sequence-2026-09-03 | stable |
 | system-anatomy | peer blocks on a rail, one hosting a nested subsystem, with numbered connectors between | Ref-system-anatomy-2026-09-03 | stable |
 | role-thread | a thread whose turns are attributed to roles, with one turn expanded into evidence | Ref-role-thread-2026-09-03 | stable |
+| practice-hero | an illustration of the practice, captioned, over the numbered steps it runs | Ref-practice-hero-2026-09-03 | stable |
 | persona-cards | 1–2 persona cards: avatar + quote + tags + story + behavior sliders + pain points | Img22 | stable |
 | painpoint-evidence | two problem panels: participant quote-avatar row + annotated geo map | Img23 | stable |
 | timeline | Gantt: staggered phase bars over a dated axis + deliverables | Img24 | stable |

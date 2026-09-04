@@ -12,7 +12,7 @@
     ]
   },
   "counts": {
-    "layouts": 30,
+    "layouts": 31,
     "components": 19
   },
   "triggerIndex": {
@@ -118,6 +118,9 @@
     "a quote + profile": [
       "persona-cards"
     ],
+    "a recurring meeting and its agenda": [
+      "practice-hero"
+    ],
     "a row of comparable proportions": [
       "stat-bar"
     ],
@@ -129,6 +132,9 @@
     ],
     "a single feature/capability": [
       "feature-card"
+    ],
+    "a standing review and what happens in each round": [
+      "practice-hero"
     ],
     "a target/goal point": [
       "positioning-matrix"
@@ -418,6 +424,9 @@
     "our keywords": [
       "keyword-cards"
     ],
+    "our monthly cadence": [
+      "practice-hero"
+    ],
     "overlapping circles": [
       "linked-circles"
     ],
@@ -601,11 +610,20 @@
     "the rest have not got it yet": [
       "hidden-majority"
     ],
+    "the ritual we put in place": [
+      "practice-hero"
+    ],
+    "the routine that stops it recurring": [
+      "practice-hero"
+    ],
     "the stack a feature runs on": [
       "system-anatomy"
     ],
     "the visible part is not the whole": [
       "hidden-majority"
+    ],
+    "the working agreement we now run": [
+      "practice-hero"
     ],
     "this screen does x": [
       "feature-showcase"
@@ -775,6 +793,9 @@
     "使用者輪廓": [
       "persona-cards"
     ],
+    "例行會議實際上在做什麼": [
+      "practice-hero"
+    ],
     "依序的重點": [
       "numbered-rows"
     ],
@@ -859,6 +880,9 @@
     "問題與解法": [
       "problem-solution"
     ],
+    "固定的檢視節奏": [
+      "practice-hero"
+    ],
     "客戶分類": [
       "use-case-cards"
     ],
@@ -921,6 +945,9 @@
     ],
     "成果": [
       "results-grid"
+    ],
+    "我們建立了什麼樣的例行做法": [
+      "practice-hero"
     ],
     "我們是怎麼找到原因的": [
       "role-thread"
@@ -987,6 +1014,9 @@
     ],
     "標註過的介面": [
       "feature-showcase"
+    ],
+    "每個月的協同機制": [
+      "practice-hero"
     ],
     "每個重點各一張圖表": [
       "numbered-rows"
@@ -1179,6 +1209,9 @@
     ],
     "우선순위": [
       "ranked-list"
+    ],
+    "정기 협의체": [
+      "practice-hero"
     ],
     "주고받는 이벤트": [
       "event-sequence"
@@ -2413,6 +2446,54 @@
       ],
       "assetNeed": "none",
       "assetPolicy": "none"
+    },
+    "practice-hero": {
+      "kind": "layout",
+      "tier": "organism",
+      "status": "stable",
+      "intent": "make a recurring practice feel real — show the people doing it, then the steps it runs through",
+      "material": "illustration",
+      "arrangement": "hero",
+      "itemCount": "few",
+      "shapeVariants": [],
+      "alternates": [
+        "value-points",
+        "use-case-cards",
+        "service-flow"
+      ],
+      "triggers": [
+        "the ritual we put in place",
+        "a standing review and what happens in each round",
+        "our monthly cadence",
+        "the routine that stops it recurring",
+        "a recurring meeting and its agenda",
+        "the working agreement we now run",
+        "我們建立了什麼樣的例行做法",
+        "每個月的協同機制",
+        "例行會議實際上在做什麼",
+        "固定的檢視節奏",
+        "정기 협의체"
+      ],
+      "spec": "specs/layouts/practice-hero.md",
+      "example": "examples/light-practice-hero.html",
+      "dependsOn": [
+        "tokens"
+      ],
+      "tokensUsed": [
+        "canvas",
+        "chip",
+        "ink",
+        "muted",
+        "muted-soft",
+        "accent",
+        "accent-soft"
+      ],
+      "iconUse": "none",
+      "learnedFrom": [
+        "Ref-practice-hero-2026-09-03"
+      ],
+      "assetNeed": "illustration",
+      "assetPolicy": "generate"
     },
     "problem-solution": {
       "kind": "layout",
