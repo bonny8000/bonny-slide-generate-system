@@ -21,3 +21,23 @@ someone else. Copy must land on first read.
 8. **Bilingual handles for skimmable lists:** `#English Handle (中文說明)` (English accent, Chinese muted).
 
 Wording stays the author's voice — the layer enforces plainness, it doesn't rename things.
+
+## Taiwanese Traditional Chinese
+
+When drafting or reviewing zh-TW slides, look for the installed skill named `zh-tw-writing`.
+Use its registered path, a path the user supplied, or the sibling `../zh-tw-writing/SKILL.md`
+relative to the slide system's root. Read its `SKILL.md` and the 簡報 section of its
+`references/formats.md` once per deck. Consult 介面文案 in that file when the slide proposes
+button labels, field hints or error messages. If the companion is unavailable, use the following
+checks and continue with the deck. Layout, theme and output language follow the slide brief.
+
+- **Research finding.** Name the observed action and the step where it happened. Draft a short
+  headline that reads aloud in one phrase. Move a second result into a caption. For example, given
+  eight test participants and three who needed a hint to find export, try「8 人中有 3 人需要提示才找到匯出功能」.
+  A shorter title can leave the sample size in a visible chart or caption on the same slide.
+  Keep units, conditions and uncertainty when shortening or adding English.
+- **Product change.** Lead with what someone can now do. If a screenshot helps them find a control,
+  start its caption with the location or the action that reveals it. Copy visible labels verbatim.
+- **Proposed UI.** Use the product's terms and pair each message with an action the product supports.
+  For a short title, button or one-line hint, try phrasing that needs no comma or final period.
+  Longer explanations can use punctuation where a pause helps.

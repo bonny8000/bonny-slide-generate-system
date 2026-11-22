@@ -97,6 +97,7 @@ consistency drifts.
 
    | read this | when |
    |---|---|
+   | Optional companion `zh-tw-writing` via [plain-language](specs/foundations/plain-language.md#taiwanese-traditional-chinese) | before outlining a deck or revising slides that contain Taiwanese Traditional Chinese |
    | `layout-choice.md` | the router leaves two or more candidates |
    | `imagery.md` | the user supplied real screenshots, photos or logos |
    | `iconography.md` | the slide uses icons |
@@ -166,7 +167,8 @@ consistency drifts.
    generation with a hand-built diagram. If the generator is unavailable, stop and report the blocker; never
    downgrade silently. Save the asset locally, record generator provenance in `illustration-plan.json`, validate,
    then place the generated image full-block with `data-editorial-explainer="<variant>"`.
-6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
+6. **Write plainly:** apply `specs/foundations/plain-language.md` to the titles and captions. On slides
+   that show a product, distinguish text quoted from the screen from proposed interface copy.
 7. **Audit & self-critique:** run the three mechanical gates first — they fail loudly and name the fix:
    ```bash
    python scripts/check_system.py                                          # compile + sync + regression tests

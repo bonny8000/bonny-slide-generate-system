@@ -58,6 +58,11 @@ For skill discovery, place the repository in your agent's skill directory. Commo
 If you already installed it under another name, such as `bonnyt`, update that checkout instead of
 creating a second copy. In other agents, explicitly ask the agent to read the root `SKILL.md`.
 
+For Taiwanese Traditional Chinese writing preferences, optionally install the complete
+`zh-tw-writing` skill next to the slide skill (for example, `~/.codex/skills/zh-tw-writing/SKILL.md`),
+or tell the agent where its `SKILL.md` lives. The agent reads the companion when planning and reviewing
+Chinese copy. A standalone installation uses the [built-in writing guidance](specs/foundations/plain-language.md#taiwanese-traditional-chinese).
+
 ### 2. Provide the brief
 
 Specify the audience, the source material, and one theme. Supply real screenshots, logos, photos,

@@ -65,6 +65,9 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 
 ### Plain language  (foundations/ + plain-language)
 - [ ] Title passes one-read test; no stacked modifiers; emphasis on ONE keyword. — major
+- [ ] On zh-TW slides, read the headline aloud and check it against the source. Can a reader find
+      the denominator or condition on the slide? Does the English stay within the same evidence?
+      For UI slides, verify quoted labels against the screen and proposed actions against the brief. — major
 
 ### Icons / illustration  (foundations/iconography.md)
 - [ ] One icon style across the deck (all line OR all filled). — major
