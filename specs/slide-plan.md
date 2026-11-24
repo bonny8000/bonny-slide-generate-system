@@ -24,7 +24,11 @@ text it hasn't understood.
 1. **Segment.** Split the file into slides. One slide = **one claim** (golden rule). If a chunk carries
    two claims, split it; if three chunks repeat one claim, merge them.
 2. **State each claim.** Write the single sentence each page must land, 繁中 primary + a short English
-   handle. This becomes the plain-language title later (`foundations/plain-language.md`).
+   handle. This becomes the plain-language title later, so write it now against the headline checks in
+   [plain-language → Writing the words](foundations/plain-language.md#writing-the-words-繁中): the verb
+   is what happened, qualifiers such as 平均 or 預計 stay, and there is no comma after the topic.
+   Keep the observation that supports the headline in the same row’s source reference so it can
+   appear beside the claim on the slide.
 3. **Name the intention.** For each page, say what it must *do* to the audience — persuade, teach,
    compare, prove, orient, provoke, re-orient. `content-map.md` matches on **shape** first, then uses
    intention to decide between the candidates that match, so naming it here is what lets stage 2 pick

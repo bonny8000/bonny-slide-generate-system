@@ -47,6 +47,23 @@ Gate exit codes: layout/check suite `0` passed applicable checks, `1` a quality/
 `2` could not run. A viewer/poster/reference-only invocation without an applicable render cannot
 claim success. Illustration-plan violations use `1`.
 
+## Writing rules
+
+- `specs/writing/` holds the 繁中 writing rules. The dimension files (`intent`, `wording`, `sentences`,
+  `titles-and-body`, `translation`, `taiwan-usage`, `ui-components`, `drafting-habits`, `revision-*`)
+  are refreshed from the standalone writing skill, where rules are trained and tested. Do not edit
+  them here; change the skill, then run
+  `python scripts/sync_writing.py --from <path to zh-tw-writing>` (add `--check` to see drift only).
+- `specs/writing/slide-copy.md`, `specs/writing/README.md` and the *Writing the words* section of
+  `foundations/plain-language.md` belong to this repository. The sync refreshes only the two marked
+  preference blocks inside `slide-copy.md`.
+- The sync is manual and is not part of `check_system.py`, because CI cannot read the writing skill.
+- `scripts/check_copy.py` advises on built slides and always exits 0. Treat it as a second opinion.
+- How the team itself speaks (English work terms, 「N 個人」, 「提高 6%」) is recorded in `slide-copy.md` →
+  團隊的說法. It overrides the general rules, so add new team terms there.
+- Words are decided in `specs/writing/`; layout taste stays in `preferences.md`. A selection round
+  about wording is recorded in the writing skill, not here.
+
 ## A/B evidence
 R1–R50 contain 37 available A/B file pairs. R51–R55 were judged by the user on 2026-08-31:
 **B, A (with numeric alignment correction), A, B, A**. Their portable frozen variants, shown PNGs,

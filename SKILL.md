@@ -18,6 +18,10 @@ and images to learn from. Check which mode you are in before doing anything (nex
   iconography, **imagery**, **generated-editorial-explainer**, plain-language, storytelling,
   **self-critique**, source-sync, **learn-from-image**) · `themes/` · `tokens/` ·
   `components/` · `layouts/` · **`slide-plan.md`** · `content-map.md` · `audit.md` · `spec-template.md` · `_catalog.md` · **`preferences.md`** (taste from A/B rounds).
+- **`specs/writing/`** — how the words are chosen, in 繁中, organised by what the writer is deciding:
+  intent, wording, sentences, titles, translation, Taiwan usage, interface copy, drafting habits, plus
+  `slide-copy.md`, which maps every kind of text on a slide to those rules. `plain-language.md` is the
+  always-read layer and says when to open each file.
 - **`specs/generated-router.md`** — the **complete intention→pattern index**, compiled from every spec's
   `intent` + `triggers` frontmatter (machine form: `system/router.json`). This is the authoritative list of
   what exists; `content-map.md` is the narrative layer that adds detection heuristics and component
@@ -97,6 +101,8 @@ consistency drifts.
 
    | read this | when |
    |---|---|
+   | `writing/slide-copy.md` | once per deck, before final copy is written |
+   | the other `writing/*.md` files | when the trigger in `plain-language.md` → *Open the dimension file when* fires |
    | `layout-choice.md` | the router leaves two or more candidates |
    | `imagery.md` | the user supplied real screenshots, photos or logos |
    | `iconography.md` | the slide uses icons |
@@ -166,13 +172,18 @@ consistency drifts.
    generation with a hand-built diagram. If the generator is unavailable, stop and report the blocker; never
    downgrade silently. Save the asset locally, record generator provenance in `illustration-plan.json`, validate,
    then place the generated image full-block with `data-editorial-explainer="<variant>"`.
-6. **Write plainly:** every title/caption passes `specs/foundations/plain-language.md`.
+6. **Write the words:** run the four passes in `specs/foundations/plain-language.md` → *Writing the
+   words* on every title, caption, label, quote and mock-screen string: read the page's job, draft
+   from the source, scan for drafting habits, check the meaning against the source. Read
+   `specs/writing/slide-copy.md` once per deck and open a dimension file when its trigger fires. On
+   slides that show a product, distinguish text quoted from the screen from proposed interface copy.
 7. **Audit & self-critique:** run the three mechanical gates first — they fail loudly and name the fix:
    ```bash
    python scripts/check_system.py                                          # compile + sync + regression tests
    python scripts/validate_editorial_explainer_plan.py illustration-plan.json DECK.html
    python scripts/validate_layout.py slides/                                 # individual slides; viewers are not validated as slides
    python scripts/validate_layout.py slides/ --deck                          # + deck pacing
+   python scripts/check_copy.py slides/                                      # advisory: wording second opinion, never blocks
    ```
    Then **render at deck size and look** — run `specs/audit.md`, then self-critique
    per `specs/foundations/self-critique.md`: score whole-page balance, density (不空不擠), proportional
@@ -193,6 +204,8 @@ consistency drifts.
   because intention does not change with the language it is written in, and much of this library was
   learned from Korean reference decks. Deleting that vocabulary deleted recognition, not risk.
 - **One claim per slide; plain-language titles; purposeful icons, one style.**
+- **Words follow `specs/writing/`.** Copy says only what the source supports; a short headline reads
+  to the end without a comma; the English line never says more than the Chinese.
 - **A generated editorial explainer must be genuinely generated.** Canonical images are style
   reference only; CSS/SVG recreation, reference reuse, grayscale filtering, and contain-fit gutters fail.
 - **No silent illustration bypass.** Every slide appears in `illustration-plan.json`; any `gate: yes` page

@@ -1,3 +1,23 @@
+## Unreleased — built-in 繁中 writing rules (2026-11-24)
+
+- Add `specs/writing/`: the Taiwan Traditional Chinese writing rules, organised by what the writer is
+  deciding (intent, wording, sentences, titles, translation, Taiwan usage, interface copy, drafting
+  habits) with worked revision examples. Rules are not filed by channel or source; each applies to
+  slide text wherever the same decision comes up.
+- Add `specs/writing/slide-copy.md`, which maps every kind of text on a slide (headline, subhead,
+  numbers, captions, cards and chips, flows, quotes, product claims, mock-screen copy, the English
+  line, speaker notes) to those rules and carries the recorded selection preferences.
+- Rewrite the second half of `foundations/plain-language.md` as the always-read writing layer: four
+  passes (read the job, draft from the source, scan habits, check meaning), the checks every slide must
+  pass, and a trigger table for the dimension files. Short headlines are phrased to read without a comma.
+- Replace the optional companion-skill lookup with the built-in rules in `SKILL.md`, `slide-plan.md`,
+  `audit.md` and the README. Chinese text takes full-width punctuation (`typography.md`).
+- Record the team's own way of speaking in `slide-copy.md` → 團隊的說法: English work terms stay in
+  English (Entry Point, RD 估計), people are counted as 「N 個人」, a gap is told with 「…，但只有…」, and a
+  percentage change is written 「提高 6%」 with both values on the slide. These override the general rules.
+- Add `scripts/sync_writing.py` (manual refresh from the writing skill, with `--check`) and
+  `scripts/check_copy.py` (advisory wording review of built slides; always exits 0).
+
 ## Unreleased — README and current example visuals (2026-08-31)
 
 - Reorganize the README around setup, current capabilities, examples, shape-first routing,

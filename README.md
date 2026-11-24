@@ -58,6 +58,11 @@ For skill discovery, place the repository in your agent's skill directory. Commo
 If you already installed it under another name, such as `bonnyt`, update that checkout instead of
 creating a second copy. In other agents, explicitly ask the agent to read the root `SKILL.md`.
 
+The rules for Taiwan Traditional Chinese copy are built in under [`specs/writing/`](specs/writing/README.md):
+intent, wording, sentences, titles, translation, Taiwan usage, interface copy and drafting habits, with
+[`slide-copy.md`](specs/writing/slide-copy.md) mapping each kind of slide text to them. The agent applies
+them while planning claims, writing copy and auditing; no second skill is needed.
+
 ### 2. Provide the brief
 
 Specify the audience, the source material, and one theme. Supply real screenshots, logos, photos,
