@@ -3,6 +3,18 @@
 Version history for the skill. The agent does **not** need this at build time; it lives here so
 `SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
 
+## v12.19.1 — copy rules from selected drafts (2026-11-24)
+
+The slide system now applies the wording preferences reviewed across 33 selection rounds to research slides, product updates and interface examples.
+
+- **Research headlines** can use 「4 成參與者」 or 「半數參與者」 when the share is exact. Keep precise figures such as 25% where needed. Performance headlines retain the team's % wording, including 「改版後結帳完成率提高 6%」
+- **Screenshot captions** lead with the location when pointing to a control. If an action reveals the control, either clause can come first as long as the trigger is clear. Research captions describe what participants did and attribute beliefs only when interviews support them
+- **Product updates** can lead with what someone can now do or with the name of a new feature when introducing it
+- **Confirmation dialogs** name the affected item and pair the question with the resulting action, as in 「要關閉這場會議的提醒嗎？」 and 「確定關閉」
+- **Field and upload hints** state the relevant limit or allowed format. When the remedy is to pick a different file, use 「選擇其他檔案」
+
+[Selected drafts and acceptance briefs](https://github.com/bonny8000/UX-Writing_Traditional-Chinese/blob/98a0329d12cf972b950c0c88057fb08ea69a2f77/training/test-briefs.md#選稿與驗收題對照) · [Changes since v12.19.0](https://github.com/bonny8000/bonny-slide-generate-system/compare/v12.19.0...v12.19.1)
+
 ## v12.19.0 — intent-first Traditional Chinese writing (2026-11-24)
 
 Chinese copy now omits full stops throughout. The README walks through the writing workflow and illustrates it with one project update written three ways.
