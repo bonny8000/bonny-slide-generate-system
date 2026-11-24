@@ -138,6 +138,8 @@ def review(path: Path) -> list[str]:
                 notes.append(f"comma after the headline's topic: 「{short}」 — can it read straight through?")
             if FINAL_STOP.search(text):
                 notes.append(f"headline ends in a full stop: 「{short}」")
+        if "。" in text and not (headline and text.endswith("。") and text.count("。") == 1):
+            notes.append(f"Chinese copy contains a full stop: 「{short}」 — join related clauses or use a line break")
         if HALF_WIDTH.search(text):
             notes.append(f"half-width punctuation in Chinese text: 「{short}」 — use ，：？！")
         if ASCII_ELLIPSIS.search(text):

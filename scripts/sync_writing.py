@@ -56,7 +56,7 @@ LINKS = (
 )
 
 # heading in the skill's formats.md -> marker name in slide-copy.md
-BLOCKS = (("簡報", "slide-preferences"), ("介面文案", "interface-preferences"))
+BLOCKS = (("讓讀者一眼掌握重點", "slide-preferences"), ("指引下一步", "interface-preferences"))
 
 
 def read(path: Path) -> str:
@@ -85,7 +85,10 @@ def section_bullets(formats: str, heading: str) -> str:
 
 
 def fill_blocks(slide_copy: str, formats: str) -> str:
+    legacy_headings = {"slide-preferences": "簡報", "interface-preferences": "介面文案"}
     for heading, marker in BLOCKS:
+        if f"## {heading}\n" not in formats:
+            heading = legacy_headings[marker]
         pattern = re.compile(
             rf"(<!-- sync:{marker} start -->\n)(.*?)(<!-- sync:{marker} end -->)", re.S
         )

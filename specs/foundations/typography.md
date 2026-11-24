@@ -50,7 +50,7 @@ you wrote three steps earlier.
 - **No terminal 句號 / full stop** on titles, headlines, statements, captions, or short labels. Mid-line
   marks (、 ， ： ——) are fine in body text and captions; just don't end with 。 or `.`. Chinese text
   takes full-width marks. A short headline is phrased so it needs no comma at all
-  (`plain-language.md` → *Writing the words*). (Long body paragraphs may keep periods.)
+  (`plain-language.md` → *Writing the words*). Chinese body paragraphs also omit full stops. Use line or paragraph breaks between independent thoughts. Preserve punctuation in verbatim sources.
 - **Keep a complete clause on one line.** Never let a sentence wrap so a fragment orphans (e.g. 「去。」
   alone on line 2). Break only at a natural separator (—— , :) and wrap each clause so it can't split
   mid-phrase: `white-space:nowrap` per clause, or `text-wrap:balance` on the line. Widen `max-width` or

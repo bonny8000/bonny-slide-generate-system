@@ -29,6 +29,8 @@ sentence, title, translation, usage — and not by where a rule was first observ
 condition sits in a sentence governs a caption exactly as it governs any other text. This section is
 the always-read layer: four passes, the checks every slide must pass, and when to open a file.
 
+Generated Chinese copy omits full stops throughout, including body paragraphs. Start with the intent of each passage, join related clauses with commas, and use a line or paragraph break when the intent changes. Keep punctuation in an English source intact.
+
 ### Four passes, every deck
 
 1. **Read the page's job.** Who reads it, where the text sits (headline, caption, label, quote,
