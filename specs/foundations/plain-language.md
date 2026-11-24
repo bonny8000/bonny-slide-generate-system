@@ -76,15 +76,16 @@ the always-read layer: four passes, the checks every slide must pass, and when t
 - **One sentence form per group.** Cards, bullets and labels in a set are all nouns or all
   verb-first phrases.
 - **Each step says who acts.** Start steps with the verb; name the actor again when it changes.
-- **Taiwan usage and full-width punctuation.** 影片、設定、登入、資料、螢幕, not 視頻、設置、登錄、數據、屏幕.
+- **Taiwan usage and full-width punctuation.** 影片、設定、登入、螢幕, not 視頻、設置、登錄、屏幕.
   Chinese text uses ，、：？「」; half-width `,` `:` `?` belong to English and numbers.
 - **The English line says no more than the Chinese.** Same numbers, same conditions, same certainty;
   shorten the phrase rather than shrink the type.
 
 ### Open the dimension file when
 
-`writing/slide-copy.md` settles most decks on its own. Open a dimension file only when the matching
-section there leaves the question open.
+`writing/slide-copy.md` settles most decks on its own. Open a dimension file when its row applies
+and the matching section of `slide-copy.md` leaves the question open. `drafting-habits.md` is the
+exception: pass 3 always reads it.
 
 | read this | when |
 |---|---|
