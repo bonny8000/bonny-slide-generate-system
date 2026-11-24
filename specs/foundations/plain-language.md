@@ -45,24 +45,30 @@ the always-read layer: four passes, the checks every slide must pass, and when t
 
 ### Checks every slide must pass
 
-- **Headline reads to the end without a comma.** A Chinese topic sentence does not need a comma after
-  its topic: 「改版後結帳完成率提高 6 個百分點」, not 「改版後，結帳完成率提高 6 個百分點」. If it needs a
-  pause, break the line or move the second half to the subhead. No final 。; a question keeps its ？.
+- **No comma after the topic; a short headline reads to the end.** A Chinese topic sentence does not
+  need a comma after its topic: 「改版後結帳完成率提高 6%」, not 「改版後，結帳完成率提高 6%」. A contrast of
+  two clauses keeps its comma (「8 個人找到 Entry Point，但只有 7 個人走完整段流程」). For any other pause,
+  break the line or move the second half to the subhead. No final 。; a question keeps its ？.
+- **Say it the way the team says it.** Work terms the team says in English stay in English (Entry
+  Point, RD 估計, IT team 估計); people are counted as 「8 個人」; a gap is told with 「…，但只有…」; a
+  percentage change is 「提高 6%」. The list is in `writing/slide-copy.md` → 團隊的說法, and it wins over
+  the general rules in the dimension files.
 - **The verb is what happened.** 「回收率分析」 states nothing; write the finding, the change or the
   decision to make.
 - **Shortening never widens the claim.** 平均、部分、預計、首次…以來 stay with the number or event they
   qualify. If two findings bear on the decision, the headline does not report only the good one.
 - **Research finding.** Name the observed action and the step where it happened. Draft a short
   headline that reads aloud in one phrase and move a second result into a caption. Given eight
-  participants and three who needed a hint to find export, try 「8 人中有 3 人需要提示才找到匯出功能」. A
+  participants and three who needed a hint to find export, try 「8 個人裡有 3 個人需要提示才找到匯出功能」. A
   shorter title can leave the sample size in a visible chart or caption on the same slide.
 - **Product change.** Lead with what someone can now do. If a screenshot helps them find a control,
   start its caption with the location or the action that reveals it. Copy visible labels verbatim.
 - **Proposed UI.** Use the product's terms and pair each message with an action the product
   supports. Say which text is quoted from the screen and which is proposed. A short title, button or
   one-line hint needs no comma or final period; longer explanations use punctuation where a pause helps.
-- **Numbers carry their name, unit and base.** 提高 6 個百分點 is not 提高 6%; 增加 is not 增至; 人 is not
-  人次. The denominator and the period are findable on the same slide.
+- **Numbers carry their name, unit and base.** 增加 is not 增至; 人 is not 人次. When a headline says
+  「提高 6%」, the start and end values (62% → 68%) are on the same slide, along with the denominator
+  and the period.
 - **Certainty matches the evidence.** 預計、可望、將、已 are four different claims. Say who judged
   「最難」「最好」. Write 「改版後」 unless the data supports 「因為改版」.
 - **One name per thing, deck-wide.** A 「方案」 on slide 3 is not a 「計畫」 on slide 9. When the state

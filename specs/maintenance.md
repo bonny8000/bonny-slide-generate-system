@@ -59,6 +59,8 @@ claim success. Illustration-plan violations use `1`.
   preference blocks inside `slide-copy.md`.
 - The sync is manual and is not part of `check_system.py`, because CI cannot read the writing skill.
 - `scripts/check_copy.py` advises on built slides and always exits 0. Treat it as a second opinion.
+- How the team itself speaks (English work terms, 「N 個人」, 「提高 6%」) is recorded in `slide-copy.md` →
+  團隊的說法. It overrides the general rules, so add new team terms there.
 - Words are decided in `specs/writing/`; layout taste stays in `preferences.md`. A selection round
   about wording is recorded in the writing skill, not here.
 

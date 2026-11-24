@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Read the words on built slides and point at wording worth a second look.
 
-A companion to the rules in ``specs/writing/``. It finds things a stylesheet check cannot: a short
-headline that pauses on a comma, half-width punctuation inside Chinese text, a mainland term, a
+A companion to the rules in ``specs/writing/``. It finds things a stylesheet check cannot: a
+headline with a comma after its topic, half-width punctuation inside Chinese text, a mainland term, a
 stock phrase that says nothing, a title that ends in a full stop.
 
 **This advises, it does not gate.** Every pattern here has legitimate uses — 「透過視訊參加」 is
@@ -131,8 +131,11 @@ def review(path: Path) -> list[str]:
         short = text if len(text) <= 36 else text[:34] + "…"
         cjk_len = len(re.findall(rf"[{CJK}]", text))
         if headline:
-            if cjk_len <= 24 and HEADLINE_COMMA.search(text):
-                notes.append(f"headline pauses on a comma: 「{short}」 — can it read straight through, or move the second half to the subhead?")
+            parts = HEADLINE_COMMA.split(text, maxsplit=1)
+            topic = len(re.findall(rf"[{CJK}]", parts[0])) if len(parts) == 2 else 0
+            contrast = len(parts) == 2 and re.match(r"\s*(但|卻|而|可是|不過)", parts[1])
+            if 0 < topic <= 7 and not contrast:
+                notes.append(f"comma after the headline's topic: 「{short}」 — can it read straight through?")
             if FINAL_STOP.search(text):
                 notes.append(f"headline ends in a full stop: 「{short}」")
         if HALF_WIDTH.search(text):

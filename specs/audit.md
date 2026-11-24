@@ -68,9 +68,10 @@ python scripts/validate_layout.py slides/ --deck  # ...plus deck-level visual pa
 - [ ] On zh-TW slides, read the headline aloud and check it against the source. Can a reader find
       the denominator or condition on the slide? Does the English stay within the same evidence?
       For UI slides, verify quoted labels against the screen and proposed actions against the brief. — major
-- [ ] Every number keeps its name, unit and base; 百分點 for a difference of percentages; 平均／預計／部分
+- [ ] Every number keeps its name, unit and base; a 「提高 N%」 claim shows its start and end values; 平均／預計／部分
       not dropped in shortening; no cause claimed that the data does not show. — major
 - [ ] One name per thing across the deck; cards and bullets in a set share one sentence form. — minor
+- [ ] Team terms follow `writing/slide-copy.md` → 團隊的說法 (Entry Point, RD 估計, 「N 個人」, 「…，但只有…」). — minor
 - [ ] Short headlines read without a comma; Chinese text uses full-width punctuation and Taiwan terms. — minor
 - [ ] Drafting-habit scan done (`writing/drafting-habits.md`); `python scripts/check_copy.py` read as a second opinion. — minor
 
