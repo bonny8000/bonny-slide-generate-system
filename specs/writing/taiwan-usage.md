@@ -99,7 +99,7 @@ status: stable
 | Pin / Unpin | 釘選／取消釘選 | |
 | Archive | 封存 | |
 | Reset / Restore / Clear | 重設／還原／清除 | |
-| Rename / Discard | 重新命名／捨棄 | |
+| Rename / Discard | 重新命名／捨棄草稿、放棄這次修改 | 離開編輯頁要確認是否保留修改時，可問「要放棄這次修改嗎？」 |
 | Connect / Disconnect | 連線／中斷連線 | 狀態寫「已連線」「未連線」 |
 | Install / Uninstall | 安裝／解除安裝 | |
 | On / Off（狀態） | 已開啟／已關閉 | 當動作時寫「開啟／關閉」 |

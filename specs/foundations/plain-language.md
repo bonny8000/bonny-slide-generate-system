@@ -64,7 +64,8 @@ Generated Chinese copy omits full stops throughout, including body paragraphs. S
   participants and three who needed a hint to find export, try 「8 個人裡有 3 個人需要提示才找到匯出功能」. A
   shorter title can leave the sample size in a visible chart or caption on the same slide.
 - **Product change.** Lead with what someone can now do. If a screenshot helps them find a control,
-  start its caption with the location or the action that reveals it. Copy visible labels verbatim.
+  start its caption with the location. For a control that appears after a selection, give the trigger
+  in whichever clause reads naturally. A named new feature can lead its own announcement. Copy visible labels verbatim.
 - **Proposed UI.** Use the product's terms and pair each message with an action the product
   supports. Say which text is quoted from the screen and which is proposed. A short title, button or
   one-line hint needs no comma or final period; longer explanations use punctuation where a pause helps.
