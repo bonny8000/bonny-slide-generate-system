@@ -1,4 +1,13 @@
-## Unreleased — built-in 繁中 writing rules (2026-11-24)
+# Changelog — Bonny Slide System
+
+Version history for the skill. The agent does **not** need this at build time; it lives here so
+`SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
+
+## v12.19.0 — intent-first Traditional Chinese writing (2026-11-24)
+
+Chinese copy now omits full stops throughout. The README walks through the writing workflow and illustrates it with one project update written three ways.
+
+### built-in 繁中 writing rules (2026-11-24)
 
 - Add `specs/writing/`: the Taiwan Traditional Chinese writing rules, organised by what the writer is
   deciding (intent, wording, sentences, titles, translation, Taiwan usage, interface copy, drafting
@@ -18,7 +27,7 @@
 - Add `scripts/sync_writing.py` (manual refresh from the writing skill, with `--check`) and
   `scripts/check_copy.py` (advisory wording review of built slides; always exits 0).
 
-## Unreleased — README and current example visuals (2026-08-31)
+### README and current example visuals (2026-08-31)
 
 - Reorganize the README around setup, current capabilities, examples, shape-first routing,
   complete recipe coverage, illustration policies, validation limits, and maintenance.
@@ -29,7 +38,7 @@
 - Document the current 49 tests and 40 routing regression cases, the latest selector/property
   binding guard, the missing independent routing evaluation, and the existing three-template PPTX limit.
 
-## Unreleased — complete catalog recipe migration (2026-08-31)
+### complete catalog recipe migration (2026-08-31)
 
 - Expand the original pilots (one remained after the consistency pass) to all 25 layouts and 19 components: 165 bound slots, 25 hypertokens.
 - Compile selector-scoped recipe values and a resolved manifest; consume those values at the original
@@ -40,7 +49,7 @@
 - Correct the icon-label-row and pie-donut example pointers to markup that actually demonstrates them.
 - Synchronize current examples; retain all frozen A/B evidence and the existing visual baseline.
 
-## Unreleased — one definition per visual fact (2026-08-31)
+### one definition per visual fact (2026-08-31)
 
 - Remove duplicated shared rules from `assets/base.css`. Each `promoted from examples/…` block had
   pasted its own copy, leaving `.card` defined nine times, `.foot` four and `.kicker` three, all
@@ -62,7 +71,7 @@
 - Every change above verified against a render fingerprint baseline at `--tolerance 0 --peak 0`:
   54/54 slides identical.
 
-## Unreleased — reliability, synchronization and reviewed preferences (2026-08-31)
+### reliability, synchronization and reviewed preferences (2026-08-31)
 
 - Check actual slide elements, including omitted-head HTML; require exhaustive illustration decisions
   across a single file or individual-slide directory. Match generated assets only in the owning stage.
@@ -79,12 +88,7 @@
 - Add native-text Chromium PDF export with page-count verification. Document the existing three-template
   PPTX limit, pilot recipe coverage, structural provenance limits and non-slide example inventory.
 
-# Changelog — Bonny Slide System
-
-Version history for the skill. The agent does **not** need this at build time; it lives here so
-`SKILL.md` stays a working operating manual. Current version is in `SKILL.md` frontmatter.
-
-## Unreleased — the antipattern gate could never run on a Mac, and said so as "LEAKED"
+### the antipattern gate could never run on a Mac, and said so as "LEAKED"
 
 `check_antipatterns.py` decided whether a fixture still failed by searching the checker's output for
 the string `FAIL`. That collapsed three different outcomes into two:

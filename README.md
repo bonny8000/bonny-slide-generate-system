@@ -182,7 +182,7 @@ check and still mislead: a headline that drops 「預計」, a number with no ba
 
 | A first draft tends to write | The rules lead to | Why |
 |---|---|---|
-| 改版後，結帳完成率大幅提升 | 改版後結帳完成率提高 6%, with 62% → 68% on the slide | no comma after the topic; a change shows both values |
+| 改版後，結帳完成率大幅提升 | 改版後結帳完成率提高 6% | the headline names the metric and gives the size of the change |
 | 11 月底完成入口調整 | RD 估計 11 月底可以改好 Entry Point | an estimate stays an estimate; the team's own terms |
 | 8 人找到入口，其中 7 人完成 | 8 個人找到 Entry Point，但只有 7 個人走完整段流程 | written the way the team says it, with the gap in the second half |
 | 操作成功！ | 已儲存 | on-screen copy says what was done |
