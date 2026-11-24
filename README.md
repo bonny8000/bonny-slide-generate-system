@@ -25,6 +25,7 @@ Example numbers are demonstration content, not claims about this project.*
 | Design library | **27 layouts + 19 components**, supported by 14 foundation specs |
 | Routing | **46 indexed patterns**, 352 triggers in Traditional Chinese, English, and Korean; shape matching with intent disambiguation |
 | Themes | Light and dark, shared token roles, one theme per deck |
+| Writing | Built-in Taiwan Traditional Chinese rules by writing decision, a guide for each kind of slide text, and the team's own wording; see [How the writing rules help](#how-the-writing-rules-help) |
 | Hypertokens & recipes | **25 hypertokens, 46 connected recipes, 178 slots** — the whole current pattern catalog |
 | Examples | **58 current HTML files**: 54 individual 16:9 slides, 2 posters, 1 reference gallery, 1 scroll viewer |
 | Output | Individual HTML slides, a scrolling HTML deck example, and a working PDF exporter |
@@ -58,10 +59,8 @@ For skill discovery, place the repository in your agent's skill directory. Commo
 If you already installed it under another name, such as `bonnyt`, update that checkout instead of
 creating a second copy. In other agents, explicitly ask the agent to read the root `SKILL.md`.
 
-The rules for Taiwan Traditional Chinese copy are built in under [`specs/writing/`](specs/writing/README.md):
-intent, wording, sentences, titles, translation, Taiwan usage, interface copy and drafting habits, with
-[`slide-copy.md`](specs/writing/slide-copy.md) mapping each kind of slide text to them. The agent applies
-them while planning claims, writing copy and auditing; no second skill is needed.
+The rules for Taiwan Traditional Chinese copy are built in; no second skill is needed. See
+[How the writing rules help](#how-the-writing-rules-help).
 
 ### 2. Provide the brief
 
@@ -169,6 +168,31 @@ Asset policies are part of selection, including those on a shape variant:
 Multilingual triggers help recognize requests; they do not determine the output language. Decks
 default to Traditional Chinese + English, and can use another declared language when requested.
 
+## How the writing rules help
+
+Layout decides where text sits; the writing rules decide what it says. A slide can pass every layout
+check and still mislead: a headline that drops 「預計」, a number with no base, a mock screen that says
+「操作成功！」. The rules in [`specs/writing/`](specs/writing/README.md) are built in and apply at three points:
+
+- **Planning** — each slide's claim is written against the headline checks, so the plan already says
+  what happened and keeps its conditions.
+- **Writing** — four passes on every title, caption, label, quote and mock-screen string: read the
+  page's job, draft from the source, scan for drafting habits, check the meaning against the source.
+- **Review** — `scripts/check_copy.py` lists wording worth a second look. It advises and never blocks.
+
+| A first draft tends to write | The rules lead to | Why |
+|---|---|---|
+| 改版後，結帳完成率大幅提升 | 改版後結帳完成率提高 6%, with 62% → 68% on the slide | no comma after the topic; a change shows both values |
+| 11 月底完成入口調整 | RD 估計 11 月底可以改好 Entry Point | an estimate stays an estimate; the team's own terms |
+| 8 人找到入口，其中 7 人完成 | 8 個人找到 Entry Point，但只有 7 個人走完整段流程 | written the way the team says it, with the gap in the second half |
+| 操作成功！ | 已儲存 | on-screen copy says what was done |
+
+The rules are organised by what the writer is deciding (intent, wording, sentences, titles,
+translation, Taiwan usage, interface copy), not by where a rule was first seen.
+[`slide-copy.md`](specs/writing/slide-copy.md) maps them onto each kind of slide text and records how the
+team itself speaks. They cannot check facts: whether a number matches the source is still the meaning
+check in [`plain-language.md`](specs/foundations/plain-language.md).
+
 ## Hypertokens and recipes
 
 **The migration is complete for all 46 catalog patterns. It is no longer a three-recipe pilot.**
@@ -259,6 +283,7 @@ render at full size, inspect the pages, and fix the weakest results before deliv
 | `check_system.py` | Generated-file freshness, current-example sync, the case-study illustration plan, unit tests, and both routing fixtures |
 | `check_system.py --render` | Adds current individual-slide rendering, the two example decks' pacing checks, and known antipattern cases |
 | `validate_layout.py` | Measured layout, density, language, and visual-moment heuristics; not comprehensive overflow or aesthetic detection |
+| `check_copy.py` | Advisory wording review of built slides (comma after a headline's topic, half-width punctuation in Chinese, mainland terms, stock phrases); always exits 0 and cannot check facts |
 | `validate_editorial_explainer_plan.py` | Per-slide decision coverage, required assets/provenance fields, and corresponding HTML placement |
 | `validate_generated_illustration.py` | Image decoding, aspect ratio, and a chromatic-pixel threshold for generated artwork |
 | `visual_baseline.py diff` | Compares coarse rendered fingerprints; not a guarantee of pixel equality |
