@@ -187,11 +187,19 @@ check and still mislead: a headline that drops 「預計」, a number with no ba
 | 8 人找到入口，其中 7 人完成 | 8 個人找到 Entry Point，但只有 7 個人走完整段流程 | written the way the team says it, with the gap in the second half |
 | 操作成功！ | 已儲存 | on-screen copy says what was done |
 
-The rules are organised by what the writer is deciding (intent, wording, sentences, titles,
-translation, Taiwan usage, interface copy), not by where a rule was first seen.
-[`slide-copy.md`](specs/writing/slide-copy.md) maps them onto each kind of slide text and records how the
-team itself speaks. They cannot check facts: whether a number matches the source is still the meaning
-check in [`plain-language.md`](specs/foundations/plain-language.md).
+Start with what the reader needs to understand or do. Use that intent to choose words, arrange clauses,
+set sentence length, and decide what belongs in the headline, subhead and body. When translating,
+rebuild the sentence in Chinese and check it against the original. The [slide copy guide](specs/writing/slide-copy.md)
+applies these decisions to individual slide elements and records the team's terminology. Use the
+[meaning check](specs/foundations/plain-language.md#four-passes-every-deck) to verify dates, figures and commitments.
+
+To use the workflow, give the agent the source facts, who will read the slide, and what they need
+to take away. For the example below, the team will send the first draft on Monday and the
+final date is still open. Read across the three columns to see how the same facts become a progress
+headline, a translation with its English source alongside, and a reply to the person waiting for the draft.
+In all three, Monday belongs only to the first draft.
+
+![One project update written three ways in Traditional Chinese, with six writing decisions annotated beneath the examples](assets/readme/writing-by-intent.jpg)
 
 ## Hypertokens and recipes
 
